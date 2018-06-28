@@ -26,7 +26,7 @@ body {
 #status {
     width:200px;
     height:200px;
-    posgitition:absolute;
+    position:absolute;
     left:50%; /* centers the loading animation horizontally one the screen */
     top:50%; /* centers the loading animation vertically one the screen */
     background-image:url("../img/loader.svg"); /* path to your loading animation */
