@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head th:replace="partials/layout :: header">
+    <meta charset="UTF-8" />
+    <title>Title</title>
+</head>
+<body>
+
+<div th:replace="partials/layout :: navbar" />
+<div class="container mx-auto">
+
+    <div class="statemap">
+
+        <img src="../../static/img/states/TX.png" height="500" width="500" alt="img 1" />
+        <img src="../../static/img/test/spiderchart.png" height="300" width="300"/>
+        <img src="../../static/img/test/spiderchart.png" height="300" width="300"/>
+
+    </div>
+
+    <div class="stategraph">
+
+
+    </div>
+    <div class="personalgraph">
+
+    </div>
+
+</br>
+    <div>
+        <ul>
+            <li> Safety   </li>
+            <li>  Healthcare  </li>
+            <li>  Education  </li>
+            <li>  Employment  </li>
+            <li>  Growth  </li>
+        </ul>
+    </div>
+    <div></div>
+
+
+</div>
+    <div th:replace="partials/layout :: footer" />
+</body>
+</html>
