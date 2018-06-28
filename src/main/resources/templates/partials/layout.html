@@ -18,21 +18,21 @@
 
 </head>
 <body>
-<nav th:fragment="navbar" class="navbar navbar-dark bg-red-gradient navbar-header">
+<nav th:fragment="navbar" class="navbar navbar-dark navbar-expand-lg navbar-dark bg-primary">
     <div id="preloader">
         <div id="status">&nbsp;</div>
     </div>
     <a class="navbar-brand" href="/">
         <!--<i class="fas fa-crown"></i>-->
-        <img th:src="@{~/img/balloons.png}" width="30" height="30" class="d-inline-block align-top" alt="">
-        QSHE
+        <img th:src="@{~/img/logo.png}" width="120" class="d-inline-block align-top" alt="QSHE">
+
     </a>
 
 
     <div class="d-flex flex-row">
 
         <div class="btn-group header-button text-right">
-            <button class="btn btn-primary btn-sm header-button" type="button">
+            <button class="btn btn-secondary" type="button">
                 <div sec:authorize="isAuthenticated()">
                     <a th:href="@{~/dashboard}" th:text="${#authentication?.principal?.profile?.firstName}">
                    </a>
@@ -62,7 +62,7 @@
                 </div>
 
             </button>
-            <button type="button" class="btn btn-sm btn-primary header-button dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <button type="button" class="btn btn-sm btn-secondary header-button dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <span class="sr-only">Toggle Dropdown</span>
             </button>
             <div class="dropdown-menu dropdown-menu-right">
@@ -85,7 +85,7 @@
     <div class="footer-spacer"></div>
 
     <nav class="navbar navbar-dark bg-dark navbar-footer">
-        <a class="navbar-brand" href="#">Layout</a>
+        <a class="navbar-brand" href="#">Footer</a>
     </nav>
 
     <!--JS Files -->
