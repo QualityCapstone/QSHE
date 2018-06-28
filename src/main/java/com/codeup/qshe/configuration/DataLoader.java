@@ -36,9 +36,7 @@ public class DataLoader implements ApplicationRunner {
     @Autowired
     public DataLoader() {
 
-
     }
-
 
     public void run(ApplicationArguments args) {
         if (FRESHSTART) {
@@ -46,6 +44,5 @@ public class DataLoader implements ApplicationRunner {
 
         } //END FRESH START
     }
-
 
 }
