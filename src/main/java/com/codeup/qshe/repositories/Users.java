@@ -45,9 +45,9 @@ public interface Users extends CrudRepository<User, Long> {
 
     @Modifying
     @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
-    @Query(value = "INSERT into user_profile(user_id, email, first_name, last_name, name, username)" +
-            "VALUES(?1,?2,?3,?4,?5,?6)", nativeQuery = true)
-    void addProfile(Long id, String email, String firstName, String lastName, String name, String username);
+    @Query(value = "INSERT into user_profile(email, first_name, last_name, name, username)" +
+            "VALUES(?1,?2,?3,?4,?5)", nativeQuery = true)
+    void addProfile(String email, String firstName, String lastName, String name, String username);
 
 
 

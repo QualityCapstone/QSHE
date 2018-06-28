@@ -27,8 +27,7 @@ public class UserService {
         // get user ID
         User user = users.findByUsername(username);
         users.addDefaultRole(user.getId());
-        users.addProfile(user.getId(),
-                profile.getEmail(),
+        users.addProfile(profile.getEmail(),
                 profile.getFirstName(),
                 profile.getLastName(),
                 profile.getName(),
