@@ -3,7 +3,7 @@
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head th:replace="partials/layout :: header">
     <meta charset="UTF-8" />
-    <title>Home</title>
+    <title>Home</title>x`
 </head>
 <body>
 
@@ -12,13 +12,13 @@
     <span class="overlay"></span>
     <div class="container mx-auto">
         <div class="text-left col-12">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a th:href="@{~/profile}">Home</a></li>
-                <li class="breadcrumb-item"><a  th:href="@{~/dashboard}">
-                    <span th:text="${#authentication?.principal?.profile?.name}"></span>
-                </a></li>
-                <li class="breadcrumb-item active">Profile</li>
-            </ol>
+            <!--<ol class="breadcrumb">-->
+                <!--<li class="breadcrumb-item"><a th:href="@{~/profile}">Home</a></li>-->
+                <!--<li class="breadcrumb-item"><a  th:href="@{~/dashboard}">-->
+                    <!--<span th:text="${#authentication?.principal?.profile?.name}"></span>-->
+                <!--</a></li>-->
+                <!--<li class="breadcrumb-item active">Profile</li>-->
+            <!--</ol>-->
         </div>
 
         <div class="row">
