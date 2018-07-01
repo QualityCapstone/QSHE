@@ -7,13 +7,14 @@ html {
     height: 100%;
     /*Image only BG fallback*/
 
-    /*background = gradient + image pattern combo*/
-    background:
-            linear-gradient(rgba(196, 102, 0, 0.6), rgba(155, 89, 182, 0.6));
 }
 
 body {
     font-family: montserrat, arial, verdana;
+}
+
+#passwordHelpBlock {
+    font-size: xx-small;
 }
 
 .nav-profile, .notification-profile {
@@ -29,21 +30,21 @@ body {
     background-color: #DC6F68;
 }
 
-.testing {
 
-    background-color: red;
-}
+/*---- THIS IS THE STYLE TO SLIDE THE SIGN UP FORMS ----*/
+
 /*form styles*/
-#msform {
+#signupUser {
     width: 400px;
+    height: auto;
     margin: 50px auto;
     text-align: center;
     position: relative;
 }
-#msform fieldset {
-    background: white;
-    border: 0 none;
-    border-radius: 3px;
+#signupUser form {
+    /*background: white;*/
+    /*border: 0 none;*/
+    /*border-radius: 3px;*/
     box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.4);
     padding: 20px 30px;
     box-sizing: border-box;
@@ -54,35 +55,30 @@ body {
     position: relative;
 }
 /*Hide all except first fieldset*/
-#msform fieldset:not(:first-of-type) {
+#signupUser form:not(:first-of-type) {
     display: none;
 }
-/*inputs*/
-#msform input, #msform textarea {
-    padding: 15px;
-    border: 1px solid #ccc;
-    border-radius: 3px;
-    margin-bottom: 10px;
-    width: 100%;
-    box-sizing: border-box;
-    font-family: montserrat;
-    color: #2C3E50;
-    font-size: 13px;
-}
+/*!*inputs*!*/
+/*#msform input, #msform textarea {*/
+    /*padding: 15px;*/
+    /*border: 1px solid #ccc;*/
+    /*border-radius: 3px;*/
+    /*margin-bottom: 10px;*/
+    /*width: 100%;*/
+    /*box-sizing: border-box;*/
+    /*font-family: montserrat;*/
+    /*color: #2C3E50;*/
+    /*font-size: 13px;*/
+/*}*/
 /*buttons*/
-#msform .action-button {
+#signupUser .action-button {
     width: 100px;
-    background: #27AE60;
-    font-weight: bold;
-    color: white;
-    border: 0 none;
-    border-radius: 1px;
     cursor: pointer;
     padding: 10px 5px;
     margin: 10px 5px;
 }
-#msform .action-button:hover, #msform .action-button:focus {
-    box-shadow: 0 0 0 2px white, 0 0 0 3px #27AE60;
+#signupUser .action-button:hover, #signupUser .action-button:focus {
+    box-shadow: 0 0 0 2px black, 0 0 0 3px #DC6F68;
 }
 /*headings*/
 .fs-title {
@@ -140,10 +136,10 @@ body {
     /*connector not needed before the first step*/
     content: none;
 }
-/*marking active/completed steps green*/
-/*The number of the step and the connector before it = green*/
+/*marking active/completed steps orange*/
+/*The number of the step and the connector before it = orange*/
 #progressbar li.active:before,  #progressbar li.active:after{
-    background: #27AE60;
+    background: #DC6F68;
     color: white;
 }
 
