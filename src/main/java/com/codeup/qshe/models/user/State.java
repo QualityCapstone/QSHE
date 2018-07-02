@@ -1,21 +1,17 @@
-//package com.codeup.qshe.models.user;
-//
-//
-//public class State {
-//    private String name;
-//
-//    public State(String name) {
-//        this.name = name;
-//    }
-//
-//    private long SGrade;
-//    private long PSGrade;
-//    private long HGrade;
-//    private long PubHGrade;
-//    private long EdGrade;
-//    private long PubEdGrade;
-//    private long EmpGrade;
-//    private long PubEmpGrade;
-//    private long GGrade;
-//    private long PubGGrade;
-//}
+package com.codeup.qshe.models.user;
+
+
+public class State {
+
+    private long id;
+    private String name;
+    private Object StateData;
+
+    public State(String name) {
+        this.id = id;
+        this.name = name;
+        this.StateData = StateData;
+    }
+
+
+}
