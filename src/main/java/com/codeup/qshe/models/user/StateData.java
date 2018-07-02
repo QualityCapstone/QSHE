@@ -8,7 +8,7 @@ public class StateData {
     private long Emp;
     private long Growth;
 
-    public StateData(long id, long safetyRank, long HCareRank, long edRank, long empRank, long GRank) {
+    public StateData(long id, long Safety, long HCare, long Edu, long Emp, long Growth) {
         this.id = id;
         this.Safety = Safety;
         this.HCare = HCare;
