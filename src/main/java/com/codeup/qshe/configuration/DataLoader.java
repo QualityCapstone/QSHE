@@ -1,7 +1,10 @@
 package com.codeup.qshe.configuration;
 
 
+import com.codeup.qshe.models.SiteSetting;
 import com.codeup.qshe.models.State;
+import com.codeup.qshe.models.StatePopulation;
+import com.codeup.qshe.repositories.SiteSettings;
 import com.codeup.qshe.services.StateService;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -16,6 +19,8 @@ import org.springframework.stereotype.Component;
 import java.io.IOException;
 import java.net.URL;
 import java.net.URISyntaxException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -23,16 +28,15 @@ import java.util.Random;
 @Component
 public class DataLoader implements ApplicationRunner {
 
-
+    private SiteSettings site;
     private StateService stateDao;
-
 
     // will delete data and refresh test data
     // probably can move to app props or something...
 
     // SET TRUE: Resets the user data tables and create false data
     // THIS DOES NOT CHANGE THE BASE TABLES
-    private static final boolean FRESHSTART = true;
+    private static final boolean FRESHSTART = false;
 
     // THIS CLEARS STUFF! EVERYTHING REFRESH!
     private static final boolean REFRESHBASE = false;
@@ -43,29 +47,49 @@ public class DataLoader implements ApplicationRunner {
 
 
     @Autowired
-    public DataLoader(StateService stateDao) {
+    public DataLoader(SiteSettings site , StateService stateDao) {
         this.stateDao = stateDao;
+        this.site = site;
 
     }
 
     public void run(ApplicationArguments args) throws IOException, URISyntaxException {
-        if (FRESHSTART) {
+
+
+    try {
+        if (!site.isPopulated()) {
+            System.out.println("Populated Returned FALSE");
+            SiteSetting setting = site.getFirst();
+        }
+    } catch(NullPointerException e) {
+        SiteSetting setting = new SiteSetting(false);
+        site.save(setting);
+    }
+
+        if (!site.getFirst().getPopulated()) {
             Random r = new Random();
 
             generateStaticData();
 
             // Get Population Data by State
-            String popURL = "https://api.census.gov/data/2016/pep/population?get=POP,GEONAME,DATE_DESC&for=state:*&DATE=9";
-
-            populationsByDate(popURL);
+            for(int i = 1; i <= 9; i++) {
+                String popURL = "https://api.census.gov/data/2016/pep/population?get=POP,GEONAME,DATE_DESC&for=state:*&DATE=" + i;
+                populationsByDate(popURL);
+            }
 
         } //END FRESH START
+
+        site.save(new SiteSetting(true));
     }
 
 
     // Function to kick off all static data generated as part of the application
     private void generateStaticData() {
+        //Clean data
+        stateDao.getPopulations().deleteAll();
+
         stateGenerator();
+
     }
 
     private void stateGenerator() {
@@ -133,50 +157,59 @@ public class DataLoader implements ApplicationRunner {
     }
 
 
-
     private void populationsByDate(String URL) throws URISyntaxException, IOException {
 
         URL jsonURL = new URL(URL);
-
         ObjectMapper mapper = new ObjectMapper();
-
         JsonNode node = mapper.readTree(jsonURL);
 
 
+        List<StatePopulation> populationList = new ArrayList<>();
+
+        //ignore first node
+        int j = 0;
         for(JsonNode n : node) {
+
+            if (j == 0) {
+                j++;
+                continue;
+            }
+
             List<String> list = mapper.readValue(n.toString(), TypeFactory.defaultInstance().constructCollectionType(List.class, String.class));
 
             int i = 0;
+            Long population = 0L;
+            State state = new State();
+            String dateCreated = "";
 
             for (String l : list) {
 
-
                 if(i == 0) {
-                    System.out.print("pop");
+                    population = Long.parseLong(l);
                 }
 
                 if(i == 1) {
-                    System.out.print("state");
+                    state = stateDao.getStates().findByName(l);
                 }
-
                 if(i == 2) {
-                    System.out.print("date_desc");
+                    String[] split = l.split("\\s+");
+                    dateCreated = split[0];
                 }
-
-                    System.out.println(": " + l);
                 i++;
-
-
             }
 
+            // Convert date from String to localdate
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("M/d/yyyy");
+            LocalDate dateFormatted = LocalDate.parse(dateCreated, formatter);
 
+                StatePopulation data = new StatePopulation(state, population, dateFormatted );
 
+            populationList.add(data);
 
         }
 
-
-
-
+        // Save all populations
+        stateDao.getPopulations().saveAll(populationList);
     }
 
 

@@ -17,12 +17,11 @@ public class State {
     @Column
     private String abbr;
 
-
     public State() {
 
     }
 
-    public State(String name, String abbr) {
+    public State(String abbr, String name) {
         this.name = name;
         this.abbr = abbr;
     }
