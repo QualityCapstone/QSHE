@@ -2,18 +2,18 @@ package com.codeup.qshe.models.user;
 
 public class StateData {
     private long id;
-    private String Safety;
-    private String HCare;
-    private String Edu;
-    private String Emp;
-    private String Growth;
+    private long Safety;
+    private long HCare;
+    private long Edu;
+    private long Emp;
+    private long Growth;
 
-    public StateData(long id, String safetyRank, String HCareRank, String edRank, String empRank, String GRank) {
+    public StateData(long id, long Safety, long HCare, long Edu, long Emp, long Growth) {
         this.id = id;
-        Safety = Safety;
+        this.Safety = Safety;
         this.HCare = HCare;
-        Edu = Edu;
-        Emp = Emp;
+        this.Edu = Edu;
+        this.Emp = Emp;
         this.Growth= Growth;
     }
 }
