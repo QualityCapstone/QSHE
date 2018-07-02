@@ -3,6 +3,7 @@ package com.codeup.qshe.configuration;
 
 import com.codeup.qshe.models.SiteSetting;
 import com.codeup.qshe.models.State;
+import com.codeup.qshe.models.StateEducation;
 import com.codeup.qshe.models.StatePopulation;
 import com.codeup.qshe.repositories.SiteSettings;
 import com.codeup.qshe.services.StateService;
@@ -22,6 +23,7 @@ import java.net.URISyntaxException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
@@ -56,6 +58,8 @@ public class DataLoader implements ApplicationRunner {
     public void run(ApplicationArguments args) throws IOException, URISyntaxException {
 
 
+
+
     try {
         if (!site.isPopulated()) {
             System.out.println("Populated Returned FALSE");
@@ -75,7 +79,10 @@ public class DataLoader implements ApplicationRunner {
             for(int i = 1; i <= 9; i++) {
                 String popURL = "https://api.census.gov/data/2016/pep/population?get=POP,GEONAME,DATE_DESC&for=state:*&DATE=" + i;
                 populationsByDate(popURL);
+
             }
+
+            womenGradsByYear();
 
         } //END FRESH START
 
@@ -87,6 +94,7 @@ public class DataLoader implements ApplicationRunner {
     private void generateStaticData() {
         //Clean data
         stateDao.getPopulations().deleteAll();
+        stateDao.getEducations().deleteAll();
 
         stateGenerator();
 
@@ -210,6 +218,106 @@ public class DataLoader implements ApplicationRunner {
 
         // Save all populations
         stateDao.getPopulations().saveAll(populationList);
+    }
+
+
+    private HashMap<String, String> getStateData() throws IOException {
+
+        HashMap<String, String> data = new HashMap<>();
+
+        String stateDataURL = "https://api.datausa.io/attrs/geo/?sumlevel=040";
+
+        // ALL STATE Data
+        // "headers": [
+        //    "url_name",
+        //    "display_name",
+        //    "name",
+        //    "image_link",
+        //    "sumlevel",
+        //    "image_meta",
+        //    "image_author",
+        //    "keywords",
+        //    "id",
+        //    "name_long"
+        //  ]
+
+
+        URL jsonURL = new URL(stateDataURL);
+        ObjectMapper mapper = new ObjectMapper();
+        JsonNode node = mapper.readTree(jsonURL);
+
+
+        //ignore first node
+        int i = 0;
+        for(JsonNode node1 :  node.findValues("data")) {
+            for(JsonNode n : node1) {
+
+                List<String> list = mapper.readValue(n.toString(), TypeFactory.defaultInstance().constructCollectionType(List.class, String.class));
+
+                int j = 0;
+                String stateName = "";
+                String stateId = "";
+                for (String l : list) {
+
+                    if(j==1) { stateName = l;}
+                    if(j==8) { stateId = l; }
+                    j++;
+                }
+
+                data.put(stateId, stateName);
+            }
+        }
+
+        return data;
+
+    }
+
+    // Saves women grads by state.
+    private void womenGradsByYear() throws IOException {
+
+        HashMap<String, String> state = getStateData();
+
+        List<StateEducation> education = new ArrayList<>();
+
+        String dataURL = "https://api.datausa.io/api/?show=geo&sumlevel=state&required=grads_women,year";
+
+        URL jsonURL = new URL(dataURL);
+        ObjectMapper mapper = new ObjectMapper();
+        JsonNode node = mapper.readTree(jsonURL);
+
+        //ignore first node
+        int i = 0;
+        for(JsonNode node1 :  node.findValues("data")) {
+            for (JsonNode n : node1) {
+                System.out.println(n.toString());
+
+
+                List<String> list = mapper.readValue(n.toString(), TypeFactory.defaultInstance().constructCollectionType(List.class, String.class));
+
+                int j = 0;
+                String stateId = "";
+                String count = "";
+                String year = "";
+                for (String l : list) {
+
+                    if(j==0) { stateId = l; }
+                    if(j==1) { count = l;   }
+                    if(j==2) { year = l;    }
+
+                    j++;
+
+                }
+
+
+               String stateName = state.get(stateId);
+                State dbState = stateDao.getStates().findByName(stateName);
+                education.add(new StateEducation(dbState,Long.parseLong(count),Integer.parseInt(year),stateId));
+
+            }
+        }
+
+
+        stateDao.getEducations().saveAll(education);
     }
 
 
