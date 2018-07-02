@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.w3.org/1999/xhtml" >
+
+<head th:replace="partials/layout :: header" >
+    <meta charset="UTF-8" />
+    <title>State</title>
+</head>
+<body>
+<div th:replace="partials/layout :: navbar" >
+</div>
+    <div>
+    <h1>State Page</h1>
+        
+        <div>
+             <!--<img th:attr="src="-->
+            <img id="#stateMap" name="stateMap" src="img/stateMaps/TX.png" height="500" width="500" alt="">
+            <!--<img src="img/test/spiderchart.png" height="400" width="400" alt="">-->
+        </div>
+
+        <div>
+
+            <div class="col-md-8">
+                <form>
+
+
+                    <div class="form-row">
+
+                        <div class="form-group col-md-4">
+                            <label for="inputState">State</label>
+                            <select id="inputState" class="form-control">
+                                <option selected>Choose...</option>
+                                <option value="stateMap"><a href="img/stateMaps/AL.png">Alabama</a></option>
+                                <option value="stateMap"><a href="img/stateMaps/AK.png"> Alaska</a></option>
+                                <option value="stateMap"><a href="img/stateMaps/AZ.png">Arizona</a></option>
+                                <option>Arkansas</option>
+                                <option>California</option>
+                                <option>Colorado</option>
+                                <option>Connecticut</option>
+                                <option>Delaware</option>
+                                <option>Florida</option>
+                                <option>Georgia</option>
+                                <option>Hawaii</option>
+                                <option>Idaho</option>
+                                <option>Illinois</option>
+                                <option>Indiana</option>
+                                <option>Iowa</option>
+                                <option>Kansas</option>
+                                <option>Kentucky</option>
+                                <option>Louisiana</option>
+                                <option>Maine</option>
+                                <option>Maryland</option>
+                                <option>Massachusetts</option>
+                                <option>Michigan</option>
+                                <option>Minnesota</option>
+                                <option>Mississippi</option>
+                                <option>Missouri</option>
+                                <option>Montana</option>
+                                <option>Nebraska</option>
+                                <option>Nevada</option>
+                                <option>New Hampshire</option>
+                                <option>New Jersey</option>
+                                <option>New Mexico</option>
+                                <option>New York</option>
+                                <option>North Carolina</option>
+                                <option>North Dakota</option>
+                                <option>Ohio</option>
+                                <option>Oklahoma</option>
+                                <option>Oregon</option>
+                                <option>Pennsylvania</option>
+                                <option>Rhode Island</option>
+                                <option>South Carolina</option>
+                                <option>South Dakota</option>
+                                <option>Tennessee</option>
+                                <option>Texas</option>
+                                <option>Utah</option>
+                                <option>Vermont</option>
+                                <option>Virginia</option>
+                                <option>Washington</option>
+                                <option>West Virginia</option>
+                                <option>Wisconsin</option>
+                                <option>Wyoming</option>
+                            </select>
+                            <button ></button>
+                        </div>
+
+                    </div>
+                    <div class="form-group">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="gridCheck">
+                            <label class="form-check-label" for="gridCheck">
+                                Check me out
+                            </label>
+                        </div>
+                    </div>
+                    <!--<button type="submit" class="btn btn-primary">Sign in</button>-->
+                </form>
+            </div>
+
+
+        </div>
+
+    </div>
+</div>
+
+    <div th:replace="partials/layout :: footer" >
+</div>
+<script type="text/javascript">
+    var baseURL_of_stateMaps = "../img/stateMaps";
+    var displayMap = document.getElementById("stateMap");
+    var value =displayMap.options[displayMap.selectedIndex].value;
+
+    var stateMaps = ["AK.png","AL.png","AR.png","CA.png","CO.png," +
+    "CT.png","DE.png"];
+
+    function switchMap(mapNum){
+        var x = parseInt(mapNum);
+        var src = baseURL_of_stateMaps + ((x < 0) ? "DefaultMap.png:": stateMaps[x] );
+        document.getElementById("")
+    }
+
+</script>
+</body>
+</html>

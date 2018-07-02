@@ -12,29 +12,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" th:href="@{~/css/resources/bootstrap.min.css}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.0-beta/css/bootstrap-select.min.css">
+
+   
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous" />
-    <!--<link rel="stylesheet" th:href="@{~/css/global.css}">-->
+    <link rel="stylesheet" th:href="@{~/css/global.css}">
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="/css/signup.css">
 
 </head>
 <body>
-<nav th:fragment="navbar" class="navbar navbar-dark bg-red-gradient navbar-header">
+<nav th:fragment="navbar" class="navbar navbar-dark navbar-expand-lg navbar-dark bg-primary">
     <div id="preloader">
         <div id="status">&nbsp;</div>
     </div>
     <a class="navbar-brand" href="/">
         <!--<i class="fas fa-crown"></i>-->
-        <img th:src="@{~/img/balloons.png}" width="30" height="30" class="d-inline-block align-top" alt="">
-        QSHE
+        <img th:src="@{~/img/logo.png}" width="120" class="d-inline-block align-top" alt="QSHE">
+
     </a>
 
 
     <div class="d-flex flex-row">
 
         <div class="btn-group header-button text-right">
-            <button class="btn btn-primary btn-sm header-button" type="button">
+            <button class="btn btn-secondary" type="button">
                 <div sec:authorize="isAuthenticated()">
                     <a th:href="@{~/dashboard}" th:text="${#authentication?.principal?.profile?.firstName}">
                    </a>
@@ -64,12 +66,12 @@
                 </div>
 
             </button>
-            <button type="button" class="btn btn-sm btn-primary header-button dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <button type="button" class="btn btn-sm btn-secondary header-button dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <span class="sr-only">Toggle Dropdown</span>
             </button>
             <div class="dropdown-menu dropdown-menu-right">
                 <a class="dropdown-item" th:href="@{~/profile}">Profile</a>
-                <a class="dropdown-item" th:href="@{~/bill/add}">Add bill</a>
+                <a class="dropdown-item" th:href="@{~/viewstate}">State</a>
                 <a class="dropdown-item" th:href="@{~/about/}">About</a>
                 <a class="dropdown-item" th:href="@{~/help}">Help</a>
                 <div class="dropdown-divider"></div>
@@ -87,7 +89,7 @@
     <div class="footer-spacer"></div>
 
     <nav class="navbar navbar-dark bg-dark navbar-footer">
-        <a class="navbar-brand" href="#">Layout</a>
+        <a class="navbar-brand" href="#">Footer</a>
     </nav>
 
     <!--JS Files -->
