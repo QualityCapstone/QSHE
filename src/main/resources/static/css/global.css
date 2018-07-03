@@ -1,3 +1,4 @@
+@import url(https://fonts.googleapis.com/css?family=Droid+Serif:400,700);
 
 /* PRELOADER START */
 body {
@@ -45,3 +46,66 @@ body {
 
 }
 
+
+nav a {
+    text-decoration: none;
+    color: #fff;
+}
+
+blockquote {
+    width: 100%;
+     font-family: 'Droid Serif', serif;
+
+    padding: 36px 50px;
+    position: relative;
+    background: #dfc6cf;
+    margin-bottom: 28px;
+    margin-top:20px;
+}
+
+blockquote::before,  blockquote::after {
+    top: 0;
+    bottom: 0;
+    width: 25px;
+    content: '';
+    position: absolute;
+    background: #c64860;
+    box-shadow: 0 2px rgba(0, 0, 0, 0.25);
+}
+
+blockquote::before {
+    right: 100%;
+}
+
+blockquote::after {
+    left: 100%;
+}
+ blockquote p {
+    margin: 0;
+    font-size: 2.5em;
+}
+ blockquote p::before {
+     top: -58px;
+     left: 3px;
+     color: #fff;
+     content: '“';
+     font-size: 3em;
+     position: absolute;
+     text-shadow: 3px 0 #c64860;
+}
+ blockquote p::after {
+     right: 3px;
+     color: #fff;
+     content: '”';
+     bottom: -123px;
+     font-size: 3em;
+     position: absolute;
+     text-shadow: 3px 0 #c64860;
+}
+
+
+
+.logo-big {
+    width:50vw;
+
+}

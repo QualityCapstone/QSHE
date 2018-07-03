@@ -4,7 +4,11 @@ import com.codeup.qshe.models.user.User;
 import com.codeup.qshe.models.user.UserProfile;
 import com.codeup.qshe.models.user.UserWithRoles;
 import com.codeup.qshe.repositories.Roles;
+import com.codeup.qshe.repositories.UserProfilesRepository;
 import com.codeup.qshe.repositories.Users;
+import com.codeup.qshe.services.user.SimpleSocialUsersDetailService;
+import com.codeup.qshe.services.user.UserDetailsLoader;
+import com.codeup.qshe.services.user.UserService;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
@@ -13,20 +17,22 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.time.LocalDateTime;
 
 @Controller
 public class UserController {
-    private Users users;
+    private UserDetailsLoader userDetailsLoader;
+    private UserService userDao;
     private PasswordEncoder passwordEncoder;
     private Roles roles;
+    private UserProfilesRepository userProfilesRepository;
 
-    public UserController(Users users, PasswordEncoder passwordEncoder, Roles roles) {
-        this.users = users;
+
+    public UserController(UserService userDao, PasswordEncoder passwordEncoder, Roles roles) {
+        this.userDao = userDao;
         this.passwordEncoder = passwordEncoder;
         this.roles = roles;
 
@@ -46,8 +52,8 @@ public class UserController {
         user.setPassword(hash);
         user.setCreatedAt(LocalDateTime.now());
 
-        users.save(user);
-        users.addDefaultRole(user.getId());
+        userDao.getUsers().save(user);
+        userDao.getUsers().addDefaultRole(user.getId());
 
         authenticate(user);
         return "redirect:/dashboard";
@@ -57,6 +63,8 @@ public class UserController {
 
     @GetMapping("/profile")
     public String loadProfile(Model model) {
+        User user = userDao.getLoggedInUser();
+        model.addAttribute("user", user);
         return "users/profile";
     }
 
@@ -74,5 +82,20 @@ public class UserController {
         SecurityContext context = SecurityContextHolder.getContext();
         context.setAuthentication(auth);
     }
+
+//    @PostMapping("/user/{id}/edit")
+//    public String updateUser(@PathVariable Long id, User user) {
+//
+//        User currentUser = users.getOne(id);
+//
+////        existingProfile.setEmail(userProfile.getEmail());
+//
+//        currentUser.setUsername(user.getUsername());
+//
+//        users.save(currentUser);
+//        return "redirect:/profile";
+//    }
+
+
 
 }

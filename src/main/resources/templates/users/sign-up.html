@@ -19,7 +19,7 @@
             <li>State You live</li>
             <li>Rating</li>
         </ul>
-        <form class="card card-block bg-faded m-3 p-3 login-card" th:action="@{/sign-up}" method="POST" th:object="${user}">
+        <form class="card card-block bg-faded m-3 p-3 login-card" th:action="@{/sign-up}" method="post" th:object="${user}">
             <h2 class="fs-title">Create your account</h2>
             <h3 class="fs-subtitle">This is step 1</h3>
             <!--<h2 class="m-b-1 text-xs-center">Step one</h2>-->
@@ -60,6 +60,7 @@
             <!--<input type="button" name="next" class="next action-button" value="Next" />-->
             <input value="Next" name="next" type="button" class="next action-button btn btn-secondary" />
             <input type="submit" name="submit" class="submit action-button bt btn-secondary" value="Submit" />
+
         </form>
             <!-- STATE WHERE YOU LIVE -->
 
