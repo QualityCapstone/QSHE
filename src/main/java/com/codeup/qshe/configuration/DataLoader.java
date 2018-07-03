@@ -3,8 +3,10 @@ package com.codeup.qshe.configuration;
 
 import com.codeup.qshe.models.SiteSetting;
 import com.codeup.qshe.models.State;
+import com.codeup.qshe.models.StateCrime;
 import com.codeup.qshe.models.StatePopulation;
 import com.codeup.qshe.repositories.SiteSettings;
+import com.codeup.qshe.services.CrimeService;
 import com.codeup.qshe.services.StateService;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -36,7 +38,7 @@ public class DataLoader implements ApplicationRunner {
 
     // SET TRUE: Resets the user data tables and create false data
     // THIS DOES NOT CHANGE THE BASE TABLES
-    private static final boolean FRESHSTART = false;
+    private static final boolean FRESHSTART = true;
 
     // THIS CLEARS STUFF! EVERYTHING REFRESH!
     private static final boolean REFRESHBASE = false;
@@ -47,24 +49,23 @@ public class DataLoader implements ApplicationRunner {
 
 
     @Autowired
-    public DataLoader(SiteSettings site , StateService stateDao) {
+    public DataLoader(SiteSettings site, StateService stateDao, CrimeService crimeDao) {
         this.stateDao = stateDao;
         this.site = site;
-
     }
 
     public void run(ApplicationArguments args) throws IOException, URISyntaxException {
 
 
-    try {
-        if (!site.isPopulated()) {
-            System.out.println("Populated Returned FALSE");
-            SiteSetting setting = site.getFirst();
+        try {
+            if (!site.isPopulated()) {
+                System.out.println("Populated Returned FALSE");
+                SiteSetting setting = site.getFirst();
+            }
+        } catch (NullPointerException e) {
+            SiteSetting setting = new SiteSetting(false);
+            site.save(setting);
         }
-    } catch(NullPointerException e) {
-        SiteSetting setting = new SiteSetting(false);
-        site.save(setting);
-    }
 
         if (!site.getFirst().getPopulated()) {
             Random r = new Random();
@@ -72,10 +73,14 @@ public class DataLoader implements ApplicationRunner {
             generateStaticData();
 
             // Get Population Data by State
-            for(int i = 1; i <= 9; i++) {
+            for (int i = 1; i <= 9; i++) {
                 String popURL = "https://api.census.gov/data/2016/pep/population?get=POP,GEONAME,DATE_DESC&for=state:*&DATE=" + i;
                 populationsByDate(popURL);
             }
+
+            // Get State Crimes by Year
+            String crimeURL = "https://api.usa.gov/crime/fbi/sapi/api/estimates/states/TX?api_key=iiHnOKfno2Mgkt5AynpvPpUQTEyxE77jo1RU8PIv";
+            stateCrimesByYear(crimeURL);
 
         } //END FRESH START
 
@@ -153,7 +158,6 @@ public class DataLoader implements ApplicationRunner {
         this.stateDao.getStates().saveAll(states);
 
 
-
     }
 
 
@@ -168,7 +172,7 @@ public class DataLoader implements ApplicationRunner {
 
         //ignore first node
         int j = 0;
-        for(JsonNode n : node) {
+        for (JsonNode n : node) {
 
             if (j == 0) {
                 j++;
@@ -184,14 +188,14 @@ public class DataLoader implements ApplicationRunner {
 
             for (String l : list) {
 
-                if(i == 0) {
+                if (i == 0) {
                     population = Long.parseLong(l);
                 }
 
-                if(i == 1) {
+                if (i == 1) {
                     state = stateDao.getStates().findByName(l);
                 }
-                if(i == 2) {
+                if (i == 2) {
                     String[] split = l.split("\\s+");
                     dateCreated = split[0];
                 }
@@ -202,7 +206,7 @@ public class DataLoader implements ApplicationRunner {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("M/d/yyyy");
             LocalDate dateFormatted = LocalDate.parse(dateCreated, formatter);
 
-                StatePopulation data = new StatePopulation(state, population, dateFormatted );
+            StatePopulation data = new StatePopulation(state, population, dateFormatted);
 
             populationList.add(data);
 
@@ -212,5 +216,32 @@ public class DataLoader implements ApplicationRunner {
         stateDao.getPopulations().saveAll(populationList);
     }
 
+    private void stateCrimesByYear(String url) throws IOException {
+        URL json = new URL(url);
+        ObjectMapper mapper = new ObjectMapper();
+        JsonNode node = mapper.readTree(json);
 
+        List<StateCrime> crimeList = new ArrayList<>();
+
+        for (int i = 0; i < 22; i++) {
+            JsonNode inner = node.get("results").get(i);
+            StateCrime data = new StateCrime(
+                    inner.get("state_abbr").toString(),
+                    inner.get("population").asLong(),
+                    inner.get("year").asLong(),
+                    inner.get("violent_crime").asLong(),
+                    inner.get("homicide").asLong(),
+                    inner.get("rape_legacy").asLong(),
+                    inner.get("robbery").asLong(),
+                    inner.get("aggravated_assault").asLong(),
+                    inner.get("property_crime").asLong(),
+                    inner.get("burglary").asLong(),
+                    inner.get("larceny").asLong(),
+                    inner.get("motor_vehicle_theft").asLong(),
+                    inner.get("arson").asLong()
+            );
+            crimeList.add(data);
+        }
+        stateDao.getCrimes().saveAll(crimeList);
+    }
 }
