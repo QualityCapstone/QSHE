@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
 public class UserService {
     private Users users;
@@ -33,6 +35,11 @@ public class UserService {
                 profile.getName(),
                 profile.getUsername());
 
+    }
+
+    public User findOne(long id){
+        User user = users.findById(id).get();
+        return user;
     }
 
 

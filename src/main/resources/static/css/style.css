@@ -1,0 +1,16 @@
+body {
+}
+
+.wrapper {
+    width: 90%;
+    height: auto;
+    text-align: center;
+    margin: 20px;
+    padding: 10px;
+}
+
+.create-form {
+    background-color: #DC6F68;
+}
+
+

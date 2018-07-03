@@ -90,11 +90,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                     /* Pages that can be viewed without having to log in */
                 .and()
                     .authorizeRequests()
-                        .antMatchers("/sign-up","/css/**", "js/**","/img/**","/error**") // anyone can see the home and the posts pages
+                        .antMatchers("/sign-up","/viewstate","/css/**", "js/**","/img/**","/error**") // anyone can see the home and the posts pages
                         .permitAll()
                     .and()
                      .authorizeRequests()
-                     .antMatchers("/bill/**","/dashboard","/plaid/**")
+                     .antMatchers("/bill/**","/dashboard","/plaid/**","/viewstate")
                      .hasAuthority("USER")
                     /* Pages that require authentication */
                 .and()
@@ -103,7 +103,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                             "/bill/**", // only authenticated users can create posts
                             "/posts/**/edit",
                             "/static/**",
-                            "/plaid/**"// only authenticated users can edit posts
+                            "/viewstate",
+                            "/plaid/**",// only authenticated users can edit posts
+                            "/messages/create"
                     )
                 .authenticated()
                 .and()
@@ -112,6 +114,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .apply(new SpringSocialConfigurer()
                         .postLoginUrl("/dashboard")
                         .alwaysUsePostLoginUrl(true));
+
     }
 
     @Bean

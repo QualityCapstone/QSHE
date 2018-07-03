@@ -5,30 +5,21 @@
     <title>Home</title>
 </head>
 <body>
-
 <div th:replace="partials/layout :: navbar" />
 <div class="container mx-auto">
-
     <div sec:authorize="isAuthenticated()">
         You are already logged in. <a th:href="@{/logout}">Logout?</a>
     </div>
-
     <div  th:if="${param.logout}" class="p-2 m-2 alert alert-warning" role="alert">
         You have been logged out.
     </div>
-
     <div th:if="${param.error}" class="p-2 m-2 alert alert-danger" role="alert">
         <span th:title="${session.SPRING_SECURITY_LAST_EXCEPTION.message}">Invalid username or password.</span>
     </div>
-
-
     <div class="row">
-
     <div class="col-12 col-md-6 col-lg-5">
-
         <form class="card card-block bg-faded m-3 mr-1 p-3" th:action="@{/login}" method="post" name="f" th:object="${user}">
         <h5 class="card-title">Please login</h5>
-
         <div class="form-group">
             <label th:for="*{username}">Username</label>
             <input type="text" class="form-control" th:field="*{username}" aria-describedby="userHelp" placeholder="Enter username">
@@ -70,3 +61,4 @@
 <div th:replace="partials/layout :: footer" />
 </body>
 </html>
+x`
