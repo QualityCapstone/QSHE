@@ -21,6 +21,7 @@ import org.springframework.stereotype.Component;
 import java.io.IOException;
 import java.net.URL;
 import java.net.URISyntaxException;
+import java.sql.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -54,7 +55,7 @@ public class DataLoader implements ApplicationRunner {
         this.site = site;
     }
 
-    public void run(ApplicationArguments args) throws IOException, URISyntaxException {
+    public void run(ApplicationArguments args) throws IOException, URISyntaxException, SQLException {
 
 
         try {
@@ -79,9 +80,21 @@ public class DataLoader implements ApplicationRunner {
             }
             System.out.println(stateDao.getStates().findAll().toString());
 
-            // Get State Crimes by Year
-            String crimeURL = "https://api.usa.gov/crime/fbi/sapi/api/estimates/states/TX?api_key=iiHnOKfno2Mgkt5AynpvPpUQTEyxE77jo1RU8PIv";
-            stateCrimesByYear(crimeURL);
+            Connection connection = DriverManager.getConnection(
+                    "jdbc:mysql://localhost/QSHE_db?serverTimezone=UTC&useSSL=false",
+                    "root",
+                    "codeup"
+            );
+            // Get State Crimes by Year, need to make loop for iterating through all states
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT * FROM state");
+            String state;
+            String crimeURL;
+            while (rs.next()){
+                state = rs.getString("abbr");
+                crimeURL = "https://api.usa.gov/crime/fbi/sapi/api/estimates/states/"+state+"?api_key=iiHnOKfno2Mgkt5AynpvPpUQTEyxE77jo1RU8PIv";
+                stateCrimesByYear(crimeURL);
+            }
 
         } //END FRESH START
 
@@ -225,8 +238,7 @@ public class DataLoader implements ApplicationRunner {
 
         List<StateCrime> crimeList = new ArrayList<>();
 
-        for (int i = 0; i < 22; i++) {
-//            reach inside of JSON and ignore first node
+        for (int i = 17; i < 22; i++) {
             JsonNode inner = node.get("results").get(i);
             StateCrime data = new StateCrime(
                     stateDao.getStates().findByName("state_abbr"),
