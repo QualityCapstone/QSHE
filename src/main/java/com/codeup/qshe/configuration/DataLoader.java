@@ -1,10 +1,7 @@
 package com.codeup.qshe.configuration;
 
 
-import com.codeup.qshe.models.SiteSetting;
-import com.codeup.qshe.models.State;
-import com.codeup.qshe.models.StateEducation;
-import com.codeup.qshe.models.StatePopulation;
+import com.codeup.qshe.models.*;
 import com.codeup.qshe.repositories.SiteSettings;
 import com.codeup.qshe.services.StateService;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -58,8 +55,6 @@ public class DataLoader implements ApplicationRunner {
     public void run(ApplicationArguments args) throws IOException, URISyntaxException {
 
 
-
-
     try {
         if (!site.isPopulated()) {
             System.out.println("Populated Returned FALSE");
@@ -83,6 +78,7 @@ public class DataLoader implements ApplicationRunner {
             }
 
             womenGradsByYear();
+            getPovertyData();
 
         } //END FRESH START
 
@@ -95,6 +91,7 @@ public class DataLoader implements ApplicationRunner {
         //Clean data
         stateDao.getPopulations().deleteAll();
         stateDao.getEducations().deleteAll();
+        stateDao.getPoverties().deleteAll();
 
         stateGenerator();
 
@@ -272,12 +269,17 @@ public class DataLoader implements ApplicationRunner {
 
     }
 
+
+
+
     // Saves women grads by state.
     private void womenGradsByYear() throws IOException {
 
         HashMap<String, String> state = getStateData();
 
         List<StateEducation> education = new ArrayList<>();
+
+       // https://api.datausa.io/api/?show=geo&sumlevel=state&required=year,poverty_female,poverty_male,num_emp_male,num_emp_female,teen_births,mammography_screening,mean_commute_minutes
 
         String dataURL = "https://api.datausa.io/api/?show=geo&sumlevel=state&required=grads_women,year";
 
@@ -316,9 +318,60 @@ public class DataLoader implements ApplicationRunner {
             }
         }
 
-
         stateDao.getEducations().saveAll(education);
     }
+
+
+    // Saves women grads by state.
+    private void getPovertyData() throws IOException {
+
+        HashMap<String, String> state = getStateData();
+
+        List<StatePoverty> poverty = new ArrayList<>();
+
+        String dataURL = "https://api.datausa.io/api/?show=geo&sumlevel=state&required=year,poverty_female,poverty_male";
+
+        URL jsonURL = new URL(dataURL);
+        ObjectMapper mapper = new ObjectMapper();
+        JsonNode node = mapper.readTree(jsonURL);
+
+        //ignore first node
+        int i = 0;
+        for(JsonNode node1 :  node.findValues("data")) {
+            for (JsonNode n : node1) {
+                System.out.println(n.toString());
+
+                List<String> list = mapper.readValue(n.toString(), TypeFactory.defaultInstance().constructCollectionType(List.class, String.class));
+
+                int j = 0;
+                String stateId = "";
+                String year = "";
+                String femalePoverty = "";
+                String malePoverty = "";
+
+                for (String l : list) {
+
+                    if(j==0) { stateId = l; }
+                    if(j==1) { year = l;   }
+                    if(j==2) { femalePoverty = l;    }
+                    if(j==3) { malePoverty = l;    }
+
+                    j++;
+
+                }
+
+                String stateName = state.get(stateId);
+                State dbState = stateDao.getStates().findByName(stateName);
+
+                poverty.add(new StatePoverty(Integer.parseInt(year),dbState,
+                        stateId, Double.parseDouble(femalePoverty), Double.parseDouble(malePoverty)));
+
+            }
+        }
+
+        stateDao.getPoverties().saveAll(poverty);
+    }
+
 
 
 }
