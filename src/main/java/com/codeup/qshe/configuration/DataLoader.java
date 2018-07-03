@@ -38,7 +38,7 @@ public class DataLoader implements ApplicationRunner {
 
     // SET TRUE: Resets the user data tables and create false data
     // THIS DOES NOT CHANGE THE BASE TABLES
-    private static final boolean FRESHSTART = true;
+    private static final boolean FRESHSTART = false;
 
     // THIS CLEARS STUFF! EVERYTHING REFRESH!
     private static final boolean REFRESHBASE = false;
