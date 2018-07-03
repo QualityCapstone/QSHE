@@ -1,6 +1,6 @@
 package com.codeup.qshe.configuration;
 
-
+import com.codeup.qshe.models.*;
 import com.codeup.qshe.models.SiteSetting;
 import com.codeup.qshe.models.State;
 import com.codeup.qshe.models.StateCrime;
@@ -24,6 +24,7 @@ import java.net.URISyntaxException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
@@ -76,12 +77,16 @@ public class DataLoader implements ApplicationRunner {
             for (int i = 1; i <= 9; i++) {
                 String popURL = "https://api.census.gov/data/2016/pep/population?get=POP,GEONAME,DATE_DESC&for=state:*&DATE=" + i;
                 populationsByDate(popURL);
+
             }
             System.out.println(stateDao.getStates().findAll().toString());
 
             // Get State Crimes by Year
             String crimeURL = "https://api.usa.gov/crime/fbi/sapi/api/estimates/states/TX?api_key=iiHnOKfno2Mgkt5AynpvPpUQTEyxE77jo1RU8PIv";
             stateCrimesByYear(crimeURL);
+
+            womenGradsByYear();
+            getPovertyData();
 
         } //END FRESH START
 
@@ -93,6 +98,8 @@ public class DataLoader implements ApplicationRunner {
     private void generateStaticData() {
         //Clean data
         stateDao.getPopulations().deleteAll();
+        stateDao.getEducations().deleteAll();
+        stateDao.getPoverties().deleteAll();
 
         stateGenerator();
 
@@ -218,6 +225,165 @@ public class DataLoader implements ApplicationRunner {
         stateDao.getPopulations().saveAll(populationList);
     }
 
+    private HashMap<String, String> getStateData() throws IOException {
+
+        HashMap<String, String> data = new HashMap<>();
+
+        String stateDataURL = "https://api.datausa.io/attrs/geo/?sumlevel=040";
+
+        // ALL STATE Data
+        // "headers": [
+        //    "url_name",
+        //    "display_name",
+        //    "name",
+        //    "image_link",
+        //    "sumlevel",
+        //    "image_meta",
+        //    "image_author",
+        //    "keywords",
+        //    "id",
+        //    "name_long"
+        //  ]
+
+
+        URL jsonURL = new URL(stateDataURL);
+        ObjectMapper mapper = new ObjectMapper();
+        JsonNode node = mapper.readTree(jsonURL);
+
+
+        //ignore first node
+        int i = 0;
+        for(JsonNode node1 :  node.findValues("data")) {
+            for(JsonNode n : node1) {
+
+                List<String> list = mapper.readValue(n.toString(), TypeFactory.defaultInstance().constructCollectionType(List.class, String.class));
+
+                int j = 0;
+                String stateName = "";
+                String stateId = "";
+                for (String l : list) {
+
+                    if(j==1) { stateName = l;}
+                    if(j==8) { stateId = l; }
+                    j++;
+                }
+
+                data.put(stateId, stateName);
+            }
+        }
+
+        return data;
+
+    }
+
+
+
+
+    // Saves women grads by state.
+    private void womenGradsByYear() throws IOException {
+
+        HashMap<String, String> state = getStateData();
+
+        List<StateEducation> education = new ArrayList<>();
+
+       // https://api.datausa.io/api/?show=geo&sumlevel=state&required=year,poverty_female,poverty_male,num_emp_male,num_emp_female,teen_births,mammography_screening,mean_commute_minutes
+
+        String dataURL = "https://api.datausa.io/api/?show=geo&sumlevel=state&required=grads_women,year";
+
+        URL jsonURL = new URL(dataURL);
+        ObjectMapper mapper = new ObjectMapper();
+        JsonNode node = mapper.readTree(jsonURL);
+
+        //ignore first node
+        int i = 0;
+        for(JsonNode node1 :  node.findValues("data")) {
+            for (JsonNode n : node1) {
+                System.out.println(n.toString());
+
+
+                List<String> list = mapper.readValue(n.toString(), TypeFactory.defaultInstance().constructCollectionType(List.class, String.class));
+
+                int j = 0;
+                String stateId = "";
+                String count = "";
+                String year = "";
+                for (String l : list) {
+
+                    if(j==0) { stateId = l; }
+                    if(j==1) { count = l;   }
+                    if(j==2) { year = l;    }
+
+                    j++;
+
+                }
+
+
+               String stateName = state.get(stateId);
+                State dbState = stateDao.getStates().findByName(stateName);
+                education.add(new StateEducation(dbState,Long.parseLong(count),Integer.parseInt(year),stateId));
+
+            }
+        }
+
+        stateDao.getEducations().saveAll(education);
+    }
+
+
+    // Saves women grads by state.
+    private void getPovertyData() throws IOException {
+
+        HashMap<String, String> state = getStateData();
+
+        List<StatePoverty> poverty = new ArrayList<>();
+
+        String dataURL = "https://api.datausa.io/api/?show=geo&sumlevel=state&required=year,poverty_female,poverty_male";
+
+        URL jsonURL = new URL(dataURL);
+        ObjectMapper mapper = new ObjectMapper();
+        JsonNode node = mapper.readTree(jsonURL);
+
+        //ignore first node
+        int i = 0;
+        for(JsonNode node1 :  node.findValues("data")) {
+            for (JsonNode n : node1) {
+                System.out.println(n.toString());
+
+                List<String> list = mapper.readValue(n.toString(), TypeFactory.defaultInstance().constructCollectionType(List.class, String.class));
+
+                int j = 0;
+                String stateId = "";
+                String year = "";
+                String femalePoverty = "";
+                String malePoverty = "";
+
+                for (String l : list) {
+
+                    if(j==0) { stateId = l; }
+                    if(j==1) { year = l;   }
+                    if(j==2) { femalePoverty = l;    }
+                    if(j==3) { malePoverty = l;    }
+
+                    j++;
+
+                }
+
+                String stateName = state.get(stateId);
+                State dbState = stateDao.getStates().findByName(stateName);
+
+                poverty.add(new StatePoverty(Integer.parseInt(year),dbState,
+                        stateId, Double.parseDouble(femalePoverty), Double.parseDouble(malePoverty)));
+
+            }
+        }
+
+        stateDao.getPoverties().saveAll(poverty);
+    }
+
+
+
+}
+
+
     private void stateCrimesByYear(String url) throws IOException {
         URL json = new URL(url);
         ObjectMapper mapper = new ObjectMapper();
@@ -225,7 +391,7 @@ public class DataLoader implements ApplicationRunner {
 
         List<StateCrime> crimeList = new ArrayList<>();
 
-        for (int i = 0; i < 22; i++) {
+        for (int i = 17; i < 22; i++) {
 //            reach inside of JSON and ignore first node
             JsonNode inner = node.get("results").get(i);
             StateCrime data = new StateCrime(
@@ -250,3 +416,4 @@ public class DataLoader implements ApplicationRunner {
         stateDao.getCrimes().saveAll(crimeList);
     }
 }
+

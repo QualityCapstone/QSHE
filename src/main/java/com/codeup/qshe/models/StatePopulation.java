@@ -17,8 +17,6 @@ public class StatePopulation {
     @Column
     private Long population;
 
-
-
     @Column
     private LocalDate dateDataCreated;
 
