@@ -65,6 +65,7 @@ public class StateCrime {
     }
 
     public StateCrime(
+            State state,
             String stateAbbr,
             Long population,
             Long year,
@@ -78,6 +79,7 @@ public class StateCrime {
             Long larcenyCount,
             Long motorTheftCount,
             Long arsonCount) {
+        this.state = state;
         this.stateAbbr = stateAbbr;
         this.population = population;
         this.year = year;

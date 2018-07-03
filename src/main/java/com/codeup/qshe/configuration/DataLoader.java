@@ -77,6 +77,7 @@ public class DataLoader implements ApplicationRunner {
                 String popURL = "https://api.census.gov/data/2016/pep/population?get=POP,GEONAME,DATE_DESC&for=state:*&DATE=" + i;
                 populationsByDate(popURL);
             }
+            System.out.println(stateDao.getStates().findAll().toString());
 
             // Get State Crimes by Year
             String crimeURL = "https://api.usa.gov/crime/fbi/sapi/api/estimates/states/TX?api_key=iiHnOKfno2Mgkt5AynpvPpUQTEyxE77jo1RU8PIv";
@@ -156,6 +157,7 @@ public class DataLoader implements ApplicationRunner {
         // Add State to DB
         this.stateDao.getStates().deleteAll();
         this.stateDao.getStates().saveAll(states);
+        System.out.println(stateDao.getStates().findAll());
 
 
     }
@@ -224,8 +226,10 @@ public class DataLoader implements ApplicationRunner {
         List<StateCrime> crimeList = new ArrayList<>();
 
         for (int i = 0; i < 22; i++) {
+//            reach inside of JSON and ignore first node
             JsonNode inner = node.get("results").get(i);
             StateCrime data = new StateCrime(
+                    stateDao.getStates().findByName("state_abbr"),
                     inner.get("state_abbr").toString(),
                     inner.get("population").asLong(),
                     inner.get("year").asLong(),
@@ -242,6 +246,7 @@ public class DataLoader implements ApplicationRunner {
             );
             crimeList.add(data);
         }
+//        save all crimes
         stateDao.getCrimes().saveAll(crimeList);
     }
 }
