@@ -57,7 +57,7 @@ public class UserController {
         userDao.getUsers().addDefaultRole(user.getId());
 
         authenticate(user);
-        return "redirect:/dashboard";
+        return "redirect:/profile";
     }
 
 
