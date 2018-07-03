@@ -54,10 +54,10 @@ body {
     /*stacking fieldsets above each other*/
     position: relative;
 }
-/*Hide all except first fieldset*/
-#signupUser form:not(:first-of-type) {
-    display: none;
-}
+/*!*Hide all except first fieldset*!*/
+/*#signupUser form:not(:first-of-type) {*/
+    /*display: none;*/
+/*}*/
 /*!*inputs*!*/
 /*#msform input, #msform textarea {*/
     /*padding: 15px;*/

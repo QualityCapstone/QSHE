@@ -2,7 +2,7 @@ var current_fs, next_fs, previous_fs; //forms
 var left, opacity, scale; //form properties which we will animate
 var animating; //flag to prevent quick multi-click glitches
 
-$(".next").click(function(){
+jQuery(".next").click(function(){
     if(animating) return false;
     animating = true;
 
@@ -10,11 +10,11 @@ $(".next").click(function(){
     next_fs = $(this).parent().next();
 
     //activate next step on progressbar using the index of next_fs
-    $("#progressbar li").eq($("form").index(next_fs)).addClass("active");
+    jQuery("#progressbar li").eq($("form").index(next_fs)).addClass("active");
 
-    //show the next fieldset
+    //show the next form
     next_fs.show();
-    //hide the current fieldset with style
+    //hide the current form with style
     current_fs.animate({opacity: 0}, {
         step: function(now, mx) {
             //as the opacity of current_fs reduces to 0 - stored in "now"
@@ -50,9 +50,9 @@ $(".previous").click(function(){
     //de-activate current step on progressbar
     $("#progressbar li").eq($("form").index(current_fs)).removeClass("active");
 
-    //show the previous fieldset
+    //show the previous form
     previous_fs.show();
-    //hide the current fieldset with style
+    //hide the current form with style
     current_fs.animate({opacity: 0}, {
         step: function(now, mx) {
             //as the opacity of current_fs reduces to 0 - stored in "now"

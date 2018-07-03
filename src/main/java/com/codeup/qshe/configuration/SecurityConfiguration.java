@@ -104,7 +104,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                             "/posts/**/edit",
                             "/static/**",
                             "/viewstate",
-                            "/plaid/**"// only authenticated users can edit posts
+                            "/plaid/**",// only authenticated users can edit posts
+                            "/messages/create"
                     )
                 .authenticated()
                 .and()
@@ -113,6 +114,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .apply(new SpringSocialConfigurer()
                         .postLoginUrl("/dashboard")
                         .alwaysUsePostLoginUrl(true));
+
     }
 
     @Bean
