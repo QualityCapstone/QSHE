@@ -5,6 +5,7 @@ package com.codeup.qshe.repositories;
 import com.codeup.qshe.models.user.User;
 import com.codeup.qshe.models.user.UserConnection;
 import com.codeup.qshe.models.user.UserProfile;
+import com.codeup.qshe.models.user.UserWithRoles;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -20,7 +21,6 @@ public interface Users extends JpaRepository<User, Long> {
 
 
     void deleteByUsername(String username);
-
 
 
     @Query("select u.profile from User u where u.id = ?1")
@@ -51,8 +51,11 @@ public interface Users extends JpaRepository<User, Long> {
     @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
     @Query(value = "INSERT into user_profile(email, first_name, last_name, name, username)" +
             "VALUES(?1,?2,?3,?4,?5)", nativeQuery = true)
-    void addProfile(String email, String firstName, String lastName, String name, String username);
+    void addProfile(String email, String firstName, String lastName, String name, String username );
 
 
-
+    @Modifying
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
+    @Query(value = "UPDATE user_profile SET email =?, username = ? WHERE ID = ?", nativeQuery = true)
+    void updateProfile(String email, String username, Long id);
 }
