@@ -41,37 +41,13 @@ public class MessageController {
         return "messages/show";
     }
 
-
-//     @PostMapping("/send/message")
-//        public String postMessage(Model model, @Valid Message message, @RequestParam List<User> messageFrom){
-//         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//         message.setFrom(1L);
-//         message.setMessage("message");
-//
-//         return "redirect:/profile";
-//     }
-
-
-//    @GetMapping("/messages/{id}/edit")
-//    public String edit (@PathVariable long id, Model view){
-//         User sessionUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//         User user = users.findById(sessionUser.getId());
-//         Message message = messagesService.findOne(id);
-//         if(message.getSender().getId() == user.getId()){
-//             view.addAttribute("message", messagesService.findOne(id));
-//             return "/messages/edit";
-//         } else
-//             return "redirect:/login";
-//    }
-
-
    @PostMapping("/messages/{id}/edit")
     public String updateMessage(@PathVariable long id, @Valid Message messageDetails){
          Message message = messagesService.findOne(id);
          message.setMessage(messageDetails.getMessage());
          messagesService.save(message);
 
-         return "redirect:/posts";
+         return "redirect:/messages";
    }
 
 
@@ -80,33 +56,26 @@ public class MessageController {
          messagesService.findOne(id);
          messagesService.deleteMessage(id);
 
-         return "redirect: /posts";
+         return "redirect: /messages";
    }
 
-//   @PostMapping("/messages/{id}/delete")
-//    public String delete(@PathVariable long id){
-//         User sessionUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//         User user = users.findById(sessionUser.getId());
-//         Message message = messagesService.findOne(id);
-//         if(message.getSender().getId() != user.getId()){
-//             return "redirect:/login";
-//         } else
-//             messagesService.delete(id);
-//                return "redirect:/messages";
-//   }
 
    @GetMapping("/messages/create")
     public String showMessageForm(Model model){
-         model.addAttribute(" message", new Message());
+         model.addAttribute("message", new Message());
          return "messages/create";
    }
 
    @PostMapping("/messages/create")
-    public String create(@ModelAttribute Message message){
-         message.setSender(users.findByUsername("username"));
+    public String create(@RequestParam(name = "message") String userInput){
+         Message message = new Message();
+         message.setMessage(userInput);
+         User sessionUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+         User user = users.findById(sessionUser.getId()).get();
+         message.setSender(user);
          messagesService.save(message);
 
-         return "redirect:/messages";
+         return "redirect:/messages/create";
    }
 
 

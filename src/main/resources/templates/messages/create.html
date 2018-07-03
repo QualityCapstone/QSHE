@@ -1,22 +1,37 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
-<!--<head th:include="partials/head :: head">-->
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4" lang="en">
+<head th:replace="partials/layout :: header">
     <meta charset="UTF-8" />
     <title>Messages form</title>
 </head>
-<body class="bg-dark">
-
-<div class="container bg-secondary text-center border border-dark rounded mt-5">
-
-    <h1>Hello Nestor!</h1>
-    <!--<form class="form-group" th:action="@{/messages/create}" method="post" th:object="${messages}">-->
-        <!--<h2>Message:</h2>-->
-        <!--<input class="form-control" th:field="*{message}" />-->
+<body>
+<div class="container bg-white text-center border border-dark rounded mt-5">
+    <h1>Create a message!</h1>
+    <form class="form-group" th:action="@{/messages/create}" method="post" th:object="${message}">
+        <h2>Message:</h2>
+        <input type="text" id="user-message" class="form-control mb-5" th:field="*{message}"  />
         <!--<br />-->
-        <!--<input type="submit" class="btn btn-dark text-light" />-->
-    <!--</form>-->
+        <input type="submit" class="btn btn-dark text-light" />
+    </form>
+    <h1 class="mb-2" th:height="200"> These are all your messages</h1>
+    <div sec:authorize="isAuthenticated()">
+        <!--<h2 class="user-name">Hi, <span th:text="${#authentication.principal.sender}"/></h2>-->
+        <!--User ID: <span th:text="${#authentication.principal.id}"/>-->
+        <!--Username: <span th:text="${#authentication.principal.username}"/>-->
+        <!--Email: <span th:text="${#authentication.principal.email}"/>-->
+    </div>
+<!------------------------- TO DISPLAY THE MESSAGES ------------------------------------------>
+    <div class="p-5 m-2 create-form text-dark border border-dark rounded" th:each="message: ${#messages}" th:height="auto">
+        <ul class="list-unstyled">
+            <li class="media">
+                <img class="mr-3" src="http://via.placeholder.com/150x150" alt="Generic placeholder image" />
+                <div class="media-body p-2">
+                    <p class="text-justify" th:text="${message}"></p>
 
+                </div>
+            </li>
+        </ul>
+    </div>
 </div>
-
 </body>
 </html>
