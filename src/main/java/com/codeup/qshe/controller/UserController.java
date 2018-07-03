@@ -51,6 +51,7 @@ public class UserController {
         String hash = passwordEncoder.encode(user.getPassword());
         user.setPassword(hash);
         user.setCreatedAt(LocalDateTime.now());
+        user.getProfile().setUsername(user.getUsername());
 
         userDao.getUsers().save(user);
         userDao.getUsers().addDefaultRole(user.getId());
