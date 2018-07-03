@@ -5,6 +5,8 @@ import com.codeup.qshe.models.user.UserProfile;
 import com.codeup.qshe.models.user.UserWithRoles;
 import com.codeup.qshe.repositories.Roles;
 import com.codeup.qshe.repositories.Users;
+import com.codeup.qshe.services.user.SimpleSocialUsersDetailService;
+import com.codeup.qshe.services.user.UserService;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
@@ -13,10 +15,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.time.LocalDateTime;
 
 @Controller
@@ -24,6 +25,7 @@ public class UserController {
     private Users users;
     private PasswordEncoder passwordEncoder;
     private Roles roles;
+
 
     public UserController(Users users, PasswordEncoder passwordEncoder, Roles roles) {
         this.users = users;
@@ -57,6 +59,7 @@ public class UserController {
 
     @GetMapping("/profile")
     public String loadProfile(Model model) {
+
         return "users/profile";
     }
 
@@ -74,5 +77,7 @@ public class UserController {
         SecurityContext context = SecurityContextHolder.getContext();
         context.setAuthentication(auth);
     }
+
+
 
 }

@@ -5,6 +5,7 @@ package com.codeup.qshe.repositories;
 import com.codeup.qshe.models.user.User;
 import com.codeup.qshe.models.user.UserConnection;
 import com.codeup.qshe.models.user.UserProfile;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -13,11 +14,15 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 @Repository
-public interface Users extends CrudRepository<User, Long> {
+public interface Users extends JpaRepository<User, Long> {
 
     User findByUsername(String username);
 
+
+
     void deleteByUsername(String username);
+
+
 
     @Query("select u.profile from User u where u.id = ?1")
     UserProfile getUserProfile(Long userId);

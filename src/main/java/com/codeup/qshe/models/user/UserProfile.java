@@ -21,6 +21,9 @@ public class UserProfile {
     @Column
     private  String username;
 
+    @OneToOne
+    private User user;
+
 
     public UserProfile() {}
 
