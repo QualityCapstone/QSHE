@@ -62,7 +62,9 @@ public class MessageController {
 
    @GetMapping("/messages/create")
     public String showMessageForm(Model model){
-         model.addAttribute("message", new Message());
+         model.addAttribute("newMessage", new Message());
+       List<Message> messages = messagesService.findAll();
+       model.addAttribute("messages", messages);
          return "messages/create";
    }
 
