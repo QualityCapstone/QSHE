@@ -100,6 +100,7 @@ public class DataLoader implements ApplicationRunner {
         stateDao.getPopulations().deleteAll();
         stateDao.getEducations().deleteAll();
         stateDao.getPoverties().deleteAll();
+        stateDao.getCrimes().deleteAll();
 
         stateGenerator();
 
@@ -378,10 +379,6 @@ public class DataLoader implements ApplicationRunner {
 
         stateDao.getPoverties().saveAll(poverty);
     }
-
-
-
-}
 
 
     private void stateCrimesByYear(String url) throws IOException {

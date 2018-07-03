@@ -1,8 +1,7 @@
 package com.codeup.qshe.services;
 
-import com.codeup.qshe.models.StateEducation;
+
 import com.codeup.qshe.repositories.StateEducations;
-import com.codeup.qshe.models.StateCrime;
 import com.codeup.qshe.repositories.CrimeRepository;
 import com.codeup.qshe.repositories.StatePopulations;
 import com.codeup.qshe.repositories.StatePoverties;
@@ -16,21 +15,16 @@ public class StateService {
     private StatePopulations populations;
     private StateEducations educations;
     private StatePoverties poverties;
-
-    @Autowired
-    public StateService(States states, StatePopulations populations,
-                        StateEducations educations, StatePoverties poverties) {
-        this.states = states;
-        this.populations = populations;
-        this.educations = educations;
-        this.poverties = poverties;
     private CrimeRepository crimes;
 
     @Autowired
-    public StateService(States states, StatePopulations populations, CrimeRepository crimes) {
-        this.states = states;
-        this.populations = populations;
-        this.crimes = crimes;
+    public StateService(States states, StatePopulations populations,
+                StateEducations educations, StatePoverties poverties, CrimeRepository crimes) {
+            this.states = states;
+            this.populations = populations;
+            this.educations = educations;
+            this.poverties = poverties;
+            this.crimes = crimes;
     }
 
     public States getStates() {
