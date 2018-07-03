@@ -14,9 +14,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" th:href="@{~/css/resources/bootstrap.min.css}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.0-beta/css/bootstrap-select.min.css">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
 
+   
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous" />
     <link rel="stylesheet" th:href="@{~/css/global.css}">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/signup.css">
 
 </head>
 
@@ -71,8 +75,9 @@
             </button>
             <div class="dropdown-menu dropdown-menu-right">
                 <a class="dropdown-item" th:href="@{~/profile}">Profile</a>
-                <a class="dropdown-item" th:href="@{~/states}">States</a>
-                <a class="dropdown-item" th:href="@{~/about/}">About Us</a>
+                <a class="dropdown-item" th:href="@{~/viewstate}">State</a>
+                <a class="dropdown-item" th:href="@{~/about/}">About</a>
+                <a class="dropdown-item" th:href="@{~/help}">Help</a>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" th:href="@{~/logout}">Logout</a>
             </div>
@@ -93,6 +98,10 @@
 
     <!--JS Files -->
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <!--<script src="/js/signup.js"></script>-->
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.0-beta/js/bootstrap-select.min.js"></script>
 
     <!-- Preloader -->
     <script type="text/javascript">
@@ -105,9 +114,6 @@
         //]]>
     </script>
 
-
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.0-beta/js/bootstrap-select.min.js"></script>
 </footer>
 
 </body>

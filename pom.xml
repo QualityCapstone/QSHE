@@ -150,11 +150,6 @@
 			<version>3.0.4.M2</version>
 		</dependency>
 
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-devtools</artifactId>
-			<scope>runtime</scope>
-		</dependency>
 
 		<!--Allows to FAKE Data for testing -->
 		<dependency>
