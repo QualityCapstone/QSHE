@@ -52,7 +52,7 @@ public class UserProfileController {
 
 
         userDao.getUsers().updateProfile(existingUser.getProfile().getEmail(),existingUser.getUsername(),existingUser.getId());
-
+        userDao.getUsers().updateUser(existingUser.getUsername(),existingUser.getId());
         return "redirect:/profile";
     }
 }

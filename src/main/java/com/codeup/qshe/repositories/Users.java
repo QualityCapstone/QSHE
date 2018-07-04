@@ -56,6 +56,7 @@ public interface Users extends JpaRepository<User, Long> {
     @Modifying
     @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
     @Query(value = "UPDATE user_profile SET email =?, username = ? WHERE ID = ?", nativeQuery = true)
+
     void updateProfile(String email, String username, Long id);
 
     @Modifying
