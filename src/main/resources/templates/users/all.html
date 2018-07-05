@@ -5,28 +5,23 @@
     <meta charset="UTF-8" />
     <title>Home</title>
 </head>
-<body>
 <div th:replace="partials/layout :: navbar" />
 <span class="overlay"></span>
 
-<h1>Connect with other users!</h1>
+<h1 class="text-center">Connect with other users!</h1>
 
-<div>
-    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequuntur delectus esse excepturi fugiat illum inventore ipsa iste laudantium molestiae natus odit optio praesentium quas, qui ut voluptas voluptatem. Nesciunt, quaerat!</p>
-</div>
-<div class="p-5 m-2 create-form text-dark border border-dark rounded" th:each="user: ${users}" th:height="auto">
-    <ul class="list-unstyled">
-        <li class="media">
-            <img class="mr-3" src="http://via.placeholder.com/150x150" alt="Generic placeholder image" />
-            <div class="media-body p-2">
-                <p class="text-justify" th:text="${user.username}"></p>
-                <!--<p class="text-justify" th:text="${userProfile.firstName}"></p>-->
+<div class="row d-flex flex-wrap">
+    <div class="col-sm-4 col-lg-8 d-flex flex-wrap m-auto">
+        <div class="card create-form" id="signupUser" style="width: 18rem;" th:each="user: ${users}">
+            <img class="card-img-top mt-3 img-fluid mr-3 mx-auto" src="img/face_icons-circle-63.png" style="width: 100px" alt="Card image cap" />
+            <div class="card-body">
+                <h5 class="text-center card-title" th:text="${user.username}"></h5>
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                <a href="/messages/create" class="btn btn-primary">Send a message</a>
             </div>
-        </li>
-    </ul>
+        </div>
+    </div>
 </div>
-
-
 <div th:replace="partials/layout :: footer" />
 </body>
 </html>
