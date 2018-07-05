@@ -55,9 +55,10 @@ public class UserProfileController {
         existingUser.getProfile().setEmail(user.getProfile().getEmail());
         existingUser.getProfile().setFirstName(user.getProfile().getFirstName());
         existingUser.getProfile().setLastName(user.getProfile().getLastName());
+        existingUser.getProfile().setName(user.getProfile().getName());
 
 
-        userDao.getUsers().updateProfile(existingUser.getProfile().getEmail(),existingUser.getUsername(),existingUser.getProfile().getFirstName(),existingUser.getProfile().getLastName(),existingUser.getId());
+        userDao.getUsers().updateProfile(existingUser.getProfile().getEmail(),existingUser.getUsername(),existingUser.getProfile().getFirstName(),existingUser.getProfile().getLastName(),existingUser.getProfile().getName(),existingUser.getId());
         userDao.getUsers().updateUser(existingUser.getUsername(),existingUser.getId());
         return "redirect:/users/displayprofile";
     }
