@@ -69,6 +69,13 @@ public class UserController {
         return "users/profile";
     }
 
+    @GetMapping("/test")
+    public String test(Model model){
+        User user = (User) userDao.getUsers();
+        model.addAttribute("user", user);
+        return "users/test";
+    }
+
 
 
 

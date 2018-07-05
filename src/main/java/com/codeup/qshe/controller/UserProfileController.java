@@ -13,10 +13,7 @@ import com.codeup.qshe.services.user.UserDetailsLoader;
 import com.codeup.qshe.services.user.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -33,6 +30,8 @@ public class UserProfileController {
         this.userDao =userDao;
     }
 
+
+
     @PostMapping("/user/{id}/edit")
     public String update(Long id, @ModelAttribute User user){
 
@@ -44,6 +43,8 @@ public class UserProfileController {
 
         existingUser.setUsername(user.getUsername());
         existingUser.getProfile().setEmail(user.getProfile().getEmail());
+        existingUser.getProfile().setFirstName(user.getProfile().getFirstName());
+        existingUser.getProfile().setLastName(user.getProfile().getLastName());
 
 
 //        user.setUsername(user.getUsername());
@@ -51,7 +52,7 @@ public class UserProfileController {
 //        user.getProfile().setEmail(user.getProfile().getEmail());
 
 
-        userDao.getUsers().updateProfile(existingUser.getProfile().getEmail(),existingUser.getUsername(),existingUser.getId());
+        userDao.getUsers().updateProfile(existingUser.getProfile().getEmail(),existingUser.getUsername(),existingUser.getProfile().getFirstName(),existingUser.getProfile().getLastName(),existingUser.getId());
         userDao.getUsers().updateUser(existingUser.getUsername(),existingUser.getId());
         return "redirect:/profile";
     }

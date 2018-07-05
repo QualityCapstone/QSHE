@@ -47,98 +47,31 @@
                     </div>
                 </div>
                 <div class="col-md-8">
-                    <h2>User ID <span th:text="${#authentication.principal.id}" /></h2>
+                    <h2>User ID <span th:text="${#authentication.principal.username}" /></h2>
                     <form th:action="@{/user/} + ${#authentication.principal.id} + @{/edit}" th:method="post" th:object="${user}" >
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label for="username">Username</label>
-                                <input type="text" class="form-control" id="username" th:placeholder="${#authentication.principal.username}" th:field="*{username}"/>
-                            </div>
 
-                            <div class="form-group col-md-6">
-                                <label for="email">Email</label>
-                                <input type="email" class="form-control"  id="email" th:attr="placeholder=${#authentication.principal.profile.email}"  th:field="*{profile.email}"/>
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label for="inputPassword4">Password</label>
-                                <input type="password" class="form-control" id="inputPassword4" placeholder="Password">
-                            </div>
 
-                        </div>
-                        <!--<div class="form-group">-->
-                            <!--<label for="inputAddress">Address</label>-->
-                            <!--<input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">-->
-                        <!--</div>-->
-                        <!--<div class="form-group">-->
-                            <!--<label for="inputAddress2">Address 2</label>-->
-                            <!--<input type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor">-->
-                        <!--</div>-->
-                        <div class="form-row">
-                            <!--<div class="form-group col-md-6">-->
-                                <!--<label for="inputCity">City</label>-->
-                                <!--<input type="text" class="form-control" id="inputCity">-->
-                            <!--</div>-->
-                            <div class="form-group col-md-4">
-                                <label for="inputState">State</label>
-                                <select id="inputState" class="form-control">
-                                    <option selected>Choose...</option>
-                                    <option>Alabama</option>
-                                    <option>Alaska</option>
-                                    <option>Arizona</option>
-                                    <option>Arkansas</option>
-                                    <option>California</option>
-                                    <option>Colorado</option>
-                                    <option>Connecticut</option>
-                                    <option>Delaware</option>
-                                    <option>Florida</option>
-                                    <option>Georgia</option>
-                                    <option>Hawaii</option>
-                                    <option>Idaho</option>
-                                    <option>Illinois</option>
-                                    <option>Indiana</option>
-                                    <option>Iowa</option>
-                                    <option>Kansas</option>
-                                    <option>Kentucky</option>
-                                    <option>Louisiana</option>
-                                    <option>Maine</option>
-                                    <option>Maryland</option>
-                                    <option>Massachusetts</option>
-                                    <option>Michigan</option>
-                                    <option>Minnesota</option>
-                                    <option>Mississippi</option>
-                                    <option>Missouri</option>
-                                    <option>Montana</option>
-                                    <option>Nebraska</option>
-                                    <option>Nevada</option>
-                                    <option>New Hampshire</option>
-                                    <option>New Jersey</option>
-                                    <option>New Mexico</option>
-                                    <option>New York</option>
-                                    <option>North Carolina</option>
-                                    <option>North Dakota</option>
-                                    <option>Ohio</option>
-                                    <option>Oklahoma</option>
-                                    <option>Oregon</option>
-                                    <option>Pennsylvania</option>
-                                    <option>Rhode Island</option>
-                                    <option>South Carolina</option>
-                                    <option>South Dakota</option>
-                                    <option>Tennessee</option>
-                                    <option>Texas</option>
-                                    <option>Utah</option>
-                                    <option>Vermont</option>
-                                    <option>Virginia</option>
-                                    <option>Washington</option>
-                                    <option>West Virginia</option>
-                                    <option>Wisconsin</option>
-                                    <option>Wyoming</option>
-                                </select>
-                            </div>
-                            <div class="form-group col-md-2">
-                                <label for="inputZip">Zip</label>
-                                <input type="text" class="form-control" id="inputZip">
-                            </div>
-                        </div>
+
+                        <label for="firstName">First Name</label>
+                        <input id="firstName" class="form-control"  type="text" th:placeholder="${#authentication.principal.profile.firstName}" th:field="*{profile.firstName}">
+
+                        <br />
+
+                        <label for="lastName">Last Name</label>
+                        <input id="lastName" class="form-control" placeholder="Last Name" type="text" th:field="*{profile.lastName}">
+
+                        <br />
+
+                         <label for="username">Username</label>
+                         <input type="text" class="form-control" id="username" th:placeholder="${#authentication.principal.username}" th:field="*{username}"/>
+
+                        <br />
+
+                        <label for="email">Email</label>
+                        <input type="email" class="form-control"  id="email" th:attr="placeholder=${#authentication.principal.profile.email}"  th:field="*{profile.email}"/>
+
+                        <br />
+
                         <button type="submit" class="btn btn-primary">Save</button>
 
                     </form>
@@ -162,63 +95,9 @@
                     </div>
                 </div>
             </div>
-            <!-- THIS IS THE ABOUT ME AREA -->
-            <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-                <h2>ABOUT ME</h2>
-                <div class="col-md-8">
-                    <form>
-                        <div class="form-group">
-                            <label for="aboutme">About me</label>
-                            <textarea class="form-control" id="aboutme" rows="3"></textarea>
-                        </div>
-                    </form>
-                </div>
-            </div>
-            <!-- HERE ARE THE MESSAGES -->
-            <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
-                <h3 class="mb-3">Messages</h3>
 
-                <div class="p-5 m-2 create-form text-dark border border-dark rounded" th:each="message: ${messages}" th:height="auto">
-                    <ul class="list-unstyled">
-                        <li class="media">
-                            <img class="mr-3" src="http://via.placeholder.com/150x150" alt="Generic placeholder image" />
-                            <div class="media-body p-2">
-                                <p class="text-justify" th:text="${message.message}"></p>
 
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-                <div class="row mb-5">
-                    <div class="col-lg-6 col-sm-10 float-left">
-                        <img class="float-left" src="http://via.placeholder.com/50x50">
-                        <form>
-                            <div class="form-group">
-                                <label for="exampleFormControlTextarea1">This user</label>
-                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-6 col-sm-10 float-right">
-                        <img class="float-right" src="http://via.placeholder.com/50x50">
-                        <form>
-                            <div class="form-group">
-                                <label for="thistextarea">This user</label>
-                                <textarea class="form-control" id="thistextarea" rows="3"></textarea>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-                <div>
-                    <form class="form-group" th:action="@{/messages/create}" method="get" >
-                        <h2>New Message:</h2>
 
-                        <!--<br />-->
-                        <input type="submit" value="Write" class="btn btn-dark text-light" />
-                    </form>
-                </div>
             </div>
         </div>
     </div>
