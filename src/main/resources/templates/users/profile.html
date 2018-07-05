@@ -15,6 +15,7 @@
 <div th:replace="partials/layout :: navbar" />
     <span class="overlay"></span>
 
+
     <div class="container wrapper mx-auto text-center">
 
 
@@ -30,6 +31,7 @@
 
                     <br />
                     <!--<h2>User ID <span th:text="${#authentication.principal.username}" /></h2>-->
+
                     <form th:action="@{/user/} + ${#authentication.principal.id} + @{/edit}" th:method="post" th:object="${user}" >
 
 
@@ -58,6 +60,7 @@
 
                     </form>
                 </div>
+
                 <!--<div class="row mt-5 mb-5">-->
                     <!--<h3>Your notifications</h3>-->
                     <!--<div class="col-12 text-left">-->
@@ -79,11 +82,58 @@
             </div>
 
 
-
             </div>
         </div>
     </div>
+    </div>
 <div th:replace="partials/layout :: footer" />
+        <script type="text/javascript">
+            // USER RATE VALUE FOR VIOLENCE
+            var sliderOne = document.getElementById("violenceRate");
+            var outputOne = document.getElementById("demoViolence");
+            outputOne.innerHTML =sliderOne.value;
+
+            sliderOne.oninput = function(){
+                outputOne.innerHTML = this.value;
+            };
+            //
+            // // USER RATE VALUE FOR EMPLOYMENT
+            var sliderTwo = document.getElementById("employmentRate");
+            var outputTwo = document.getElementById("demoEmployment");
+            outputTwo.innerHTML = sliderTwo.value;
+
+            sliderTwo.oninput = function (){
+                outputTwo.innerHTML = this.value;
+            };
+            //
+            // //USER RATE VALUE FOR EDUCATION
+            var sliderThree = document.getElementById("educationRate");
+            var outputThree = document.getElementById("demoEducation");
+            outputThree.innerHTML = sliderThree.value;
+
+            sliderThree.oninput = function (){
+                outputThree.innerHTML = this.value;
+            };
+
+            // // USER RATE VALUE FOR HEALTH
+            var sliderFour = document.getElementById("healthRate");
+            var outputFour = document.getElementById("demoHealth");
+            outputFour.innerHTML = sliderFour.value;
+
+            sliderFour.oninput = function () {
+                outputFour.innerHTML = sliderFour.value;
+            };
+
+            // USER RATE VALUE FOR GROWTH
+            var slider = document.getElementById("growthRate");
+            var output = document.getElementById("demoGrowth");
+            output.innerHTML = slider.value; // Display the default slider value
+
+            // Update the current slider value (each time you drag the slider handle)
+            slider.oninput = function() {
+                output.innerHTML = this.value;
+            }
+        </script>
 
 </body>
 </html>

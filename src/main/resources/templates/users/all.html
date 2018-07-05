@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head th:replace="partials/layout :: header">
+    <meta charset="UTF-8" />
+    <title>Home</title>
+</head>
+<div th:replace="partials/layout :: navbar" />
+<span class="overlay"></span>
+
+<h1 class="text-center">Connect with other users!</h1>
+
+<div class="row d-flex flex-wrap">
+    <div class="col-sm-4 col-lg-8 d-flex flex-wrap m-auto">
+        <div class="card create-form" id="signupUser" style="width: 18rem;" th:each="user: ${users}">
+            <img class="card-img-top mt-3 img-fluid mr-3 mx-auto" src="img/face_icons-circle-63.png" style="width: 100px" alt="Card image cap" />
+            <div class="card-body">
+                <h5 class="text-center card-title" th:text="${user.username}"></h5>
+                <h5 class="text-center card-title" th:text="${user.profile.firstName}"></h5>
+                <h5 class="text-center card-title" th:text="${user.profile.email}"></h5>
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                <a href="/messages/create" class="btn btn-primary">Send a message</a>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:replace="partials/layout :: footer" />
+</body>
+</html>

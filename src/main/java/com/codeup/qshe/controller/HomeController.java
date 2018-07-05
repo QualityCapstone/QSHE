@@ -12,7 +12,6 @@ public class HomeController {
     @Autowired
     public HomeController() {
 
-
     }
 
     @GetMapping("/")
@@ -26,5 +25,8 @@ public class HomeController {
         return "user";
     }
 
-
+    @GetMapping("/map")
+    public String displayMap(){
+        return "/Map/map";
+    }
 }
