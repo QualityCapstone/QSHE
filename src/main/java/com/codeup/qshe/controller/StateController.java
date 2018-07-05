@@ -18,12 +18,15 @@ import org.springframework.web.bind.annotation.PathVariable;
 
   @GetMapping("/us")
   public String viewAll(Model model) {
+
+      model.addAttribute("states", stateDao.getStates().findAll());
       return "states/map";
   }
 
     @GetMapping("/state/{abbr}")
     public String viewState(@PathVariable String abbr, Model model) {
       State state = stateDao.getStates().findByAbbr(abbr);
+        model.addAttribute("states", stateDao.getStates().findAll());
         model.addAttribute("state", state);
         return "states/viewstate"; }
 }
