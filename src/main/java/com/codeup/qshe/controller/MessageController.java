@@ -75,6 +75,7 @@ public class MessageController {
          User sessionUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
          User user = users.findById(sessionUser.getId()).get();
          message.setSender(user);
+//         message.setRecipient(user.getId());
          messagesService.save(message);
 
          return "redirect:/messages/create";

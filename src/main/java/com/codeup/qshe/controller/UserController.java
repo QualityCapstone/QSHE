@@ -56,12 +56,13 @@ public class UserController {
         String hash = passwordEncoder.encode(user.getPassword());
         user.setPassword(hash);
         user.setCreatedAt(LocalDateTime.now());
+        user.getProfile().setUsername(user.getUsername());
 
         userDao.getUsers().save(user);
         userDao.getUsers().addDefaultRole(user.getId());
 
         authenticate(user);
-        return "redirect:/dashboard";
+        return "redirect:/profile";
     }
 
 
@@ -79,7 +80,6 @@ public class UserController {
         view.addAttribute("users", users);
         return "users/all";
     }
-
 
     private void authenticate(User user) {
         UserDetails userDetails = new UserWithRoles(user, roles.ofUserWith(user.getUsername()));

@@ -38,6 +38,10 @@ public class MessagesService {
         return message;
     }
 
+//    public Message findBySender(Long id) {
+//        Message message = messageRepository.findById(message.getSender())
+//    }
+
     public Message deleteMessage (long id){
         Message message = messageRepository.findById(id).get();
         messageRepository.delete(message);

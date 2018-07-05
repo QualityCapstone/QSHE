@@ -15,220 +15,73 @@
 <div th:replace="partials/layout :: navbar" />
     <span class="overlay"></span>
 
-    <div class="container wrapper mx-auto">
-        <!--<div class="text-left col-12">-->
-            <!--<ol class="breadcrumb">-->
-                <!--<li class="breadcrumb-item"><a th:href="@{~/profile}">Home</a></li>-->
-                <!--<li class="breadcrumb-item"><a  th:href="@{~/dashboard}">-->
-                    <!--<span th:text="${#authentication?.principal?.profile?.name}"></span>-->
-                <!--</a></li>-->
-                <!--<li class="breadcrumb-item active">Profile</li>-->
-            <!--</ol>-->
 
-        <!--</div>-->
-        <!-- THIS ARE THE TABS FOR THE PROFILE PAGE -->
-        <nav>
-            <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                <a class="nav-item nav-profile nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Profile</a>
-                <a class="nav-item nav-profile nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">My rating</a>
-                <a class="nav-item nav-profile nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">Messages</a>
-            </div>
-        </nav>
-        <!-- ThIS IS THE PROFILE TAB -->
-        <div class="tab-content" id="nav-tabContent">
-            <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-                PROFILE
-                <div class="row">
-                    <div class="col-md-4">
-                        <img src="http://via.placeholder.com/150x150">
-                        <div>
-                            Profile Picture
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-8">
-                    <h2>User ID <span th:text="${#authentication.principal.id}" /></h2>
+    <div class="container wrapper mx-auto text-center">
+
+
+        <div class="container text-center">
+            <div class="text-center" >
+
+
+                <div class=" text-center">
+
+                    <h4><strong>Edit Profile</strong></h4>
+
+                    <br />
+
+                    <br />
+                    <!--<h2>User ID <span th:text="${#authentication.principal.username}" /></h2>-->
+
                     <form th:action="@{/user/} + ${#authentication.principal.id} + @{/edit}" th:method="post" th:object="${user}" >
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label for="username">Username</label>
-                                <input type="text" class="form-control" id="username" th:placeholder="${#authentication.principal.username}" th:field="*{username}"/>
-                            </div>
 
-                            <div class="form-group col-md-6">
-                                <label for="email">Email</label>
-                                <input type="email" class="form-control"  id="email" th:attr="placeholder=${#authentication.principal.profile.email}"  th:field="*{profile.email}"/>
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label for="inputPassword4">Password</label>
-                                <input type="password" class="form-control" id="inputPassword4" placeholder="Password">
-                            </div>
 
-                        </div>
-                        <!--<div class="form-group">-->
-                            <!--<label for="inputAddress">Address</label>-->
-                            <!--<input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">-->
-                        <!--</div>-->
-                        <!--<div class="form-group">-->
-                            <!--<label for="inputAddress2">Address 2</label>-->
-                            <!--<input type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor">-->
-                        <!--</div>-->
-                        <div class="form-row">
-                            <!--<div class="form-group col-md-6">-->
-                                <!--<label for="inputCity">City</label>-->
-                                <!--<input type="text" class="form-control" id="inputCity">-->
-                            <!--</div>-->
-                            <div class="form-group col-md-4">
-                                <label for="inputState">State</label>
-                                <select id="inputState" class="form-control">
-                                    <option selected>Choose...</option>
-                                    <option>Alabama</option>
-                                    <option>Alaska</option>
-                                    <option>Arizona</option>
-                                    <option>Arkansas</option>
-                                    <option>California</option>
-                                    <option>Colorado</option>
-                                    <option>Connecticut</option>
-                                    <option>Delaware</option>
-                                    <option>Florida</option>
-                                    <option>Georgia</option>
-                                    <option>Hawaii</option>
-                                    <option>Idaho</option>
-                                    <option>Illinois</option>
-                                    <option>Indiana</option>
-                                    <option>Iowa</option>
-                                    <option>Kansas</option>
-                                    <option>Kentucky</option>
-                                    <option>Louisiana</option>
-                                    <option>Maine</option>
-                                    <option>Maryland</option>
-                                    <option>Massachusetts</option>
-                                    <option>Michigan</option>
-                                    <option>Minnesota</option>
-                                    <option>Mississippi</option>
-                                    <option>Missouri</option>
-                                    <option>Montana</option>
-                                    <option>Nebraska</option>
-                                    <option>Nevada</option>
-                                    <option>New Hampshire</option>
-                                    <option>New Jersey</option>
-                                    <option>New Mexico</option>
-                                    <option>New York</option>
-                                    <option>North Carolina</option>
-                                    <option>North Dakota</option>
-                                    <option>Ohio</option>
-                                    <option>Oklahoma</option>
-                                    <option>Oregon</option>
-                                    <option>Pennsylvania</option>
-                                    <option>Rhode Island</option>
-                                    <option>South Carolina</option>
-                                    <option>South Dakota</option>
-                                    <option>Tennessee</option>
-                                    <option>Texas</option>
-                                    <option>Utah</option>
-                                    <option>Vermont</option>
-                                    <option>Virginia</option>
-                                    <option>Washington</option>
-                                    <option>West Virginia</option>
-                                    <option>Wisconsin</option>
-                                    <option>Wyoming</option>
-                                </select>
-                            </div>
-                            <div class="form-group col-md-2">
-                                <label for="inputZip">Zip</label>
-                                <input type="text" class="form-control" id="inputZip">
-                            </div>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Save</button>
+                         <label for="username">Username</label>
+                         <input type="text" class="form-control" id="username" th:placeholder="${#authentication.principal.username}" th:field="*{username}"/>
+
+                        <br />
+
+                        <label for="firstName">First Name</label>
+                        <input id="firstName" class="form-control"  type="text" th:placeholder="${#authentication.principal.profile.firstName}" th:field="*{profile.firstName}">
+
+                        <br />
+
+                        <label for="lastName">Last Name</label>
+                        <input id="lastName" class="form-control" placeholder="Last Name" type="text" th:field="*{profile.lastName}">
+
+                        <br />
+
+
+                        <label for="email">Email</label>
+                        <input type="email" class="form-control"  id="email" th:attr="placeholder=${#authentication.principal.profile.email}"  th:field="*{profile.email}"/>
+
+                        <br />
+
+                        <button type="submit" class="btn btn-primary">save changes</button>
 
                     </form>
                 </div>
-                <div class="row mt-5 mb-5">
-                    <h3>Your notifications</h3>
-                    <div class="col-12 text-left">
-                        <button type="button" class="btn btn-primary notification-profile">
-                            Email <span class="badge badge-light">4</span>
-                        </button>
-                        <button type="button" class="btn btn-primary notification-profile">
-                            Text Message <span class="badge badge-light">4</span>
-                        </button>
-                    </div>
-                </div>
-                <div class="row mb-5">
-                    <h3>Social media</h3>
-                    <div class="col-12">
-                    <img class="fluid-img m-2" th:height="50" src="/img/Facebook.png">
-                    <img class="fluid-img m-2" th:height="50" src="/img/Google%20Plus.png">
-                    </div>
-                </div>
-            </div>
-            <!-- THIS IS THE ABOUT ME AREA -->
-            <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-                <!-- TO RATE -->
-                <h2>My Rating</h2>
-                <form class="card card-block bg-faded m-3 p-3 login-card" th:action="@{/sign-up}" method="POST">
-                <h2 class="m-b-1 text-xs-center">Step 3</h2>
-                <small class="form-text">You can rate your state now or later:</small>
-                <div class="form-group">
-                <h5 class="m-b-1 text-center">1 = Good  10 = Bad</h5>
-                </div>
-                <div class="form-group m-0">
-                <label class="text-left" for="violenceRate">How safe do you feel where you live?</label>
-                <input type="range" min="1" max="10" value="1" class="slider float-left" id="violenceRate" />
-                <p class="text-center float-right"><span id="demoViolence"></span></p>
-                </div>
-                <div class="form-group m-0">
-                <label class="text-left" for="employmentRate">How would you rank the employment rate in your state?</label>
-                <input type="range" min="1" max="10" value="1" class="slider float-left" id="employmentRate" />
-                <p class="text-center float-right"><span id="demoEmployment"></span></p>
-                </div>
-                <div class="form-group m-0">
-                <label class="text-left" for="educationRate">How would you rank the education system in your state?</label>
-                <input type="range" min="1" max="10" value="1" class="slider float-left" id="educationRate" />
-                <p class="text-center float-right"><span id="demoEducation"></span></p>
-                </div>
-                <div class="form-group m-0">
-                <label class="left-text" for="healthRate">How would you rank the health care system in your state?</label>
-                <input type="range" min="1" max="10" value="1" class="slider float-left" id="healthRate"/>
-                <p class="text-center float-right"><span id="demoHealth"></span></p>
-                </div>
-                <div class="form-group m-0">
-                <label class="text-left" for="growthRate">How would you rate the general growth in your state?</label>
-                <input type="range" min="1" max="10"value="1" class="slider float-left" id="growthRate" />
-                <p class="text-center float-right"><span id="demoGrowth"></span></p>
-                </div>
-                <input type="submit" name="submit" class="submit action-button bt btn-secondary" value="Submit" />
-                </form>
-            </div>
-            <!-- HERE ARE THE MESSAGES -->
-            <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
-                <h3 class="mb-3">Messages</h3>
-                <div class="row mb-5">
 
-                    <div class="col-lg-6 col-sm-10 float-left">
-                        <img class="float-left" src="http://via.placeholder.com/50x50">
-                        <form>
-                            <div class="form-group">
-                                <label for="exampleFormControlTextarea1">This user</label>
-                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-                                <div class="p-5 m-2 create-form text-dark border border-dark rounded" th:each="user: ${users}" th:height="auto">
-                                    <p class="text-justify text-dark" th:text="${user.username}"></p>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-6 col-sm-10 float-right">
-                        <img class="float-right" src="http://via.placeholder.com/50x50">
-                        <form>
-                            <div class="form-group">
-                                <label for="thistextarea">This user</label>
-                                <textarea class="form-control" id="thistextarea" rows="3"></textarea>
-                            </div>
-                        </form>
-                    </div>
-                </div>
+                <!--<div class="row mt-5 mb-5">-->
+                    <!--<h3>Your notifications</h3>-->
+                    <!--<div class="col-12 text-left">-->
+                        <!--<button type="button" class="btn btn-primary notification-profile">-->
+                            <!--Email <span class="badge badge-light">4</span>-->
+                        <!--</button>-->
+                        <!--<button type="button" class="btn btn-primary notification-profile">-->
+                            <!--Text Message <span class="badge badge-light">4</span>-->
+                        <!--</button>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!--<div class="row mb-5">-->
+                    <!--<h3>Social media</h3>-->
+                    <!--<div class="col-12">-->
+                    <!--<img class="fluid-img m-2" th:height="50" src="/img/Facebook.png">-->
+                    <!--<img class="fluid-img m-2" th:height="50" src="/img/Google%20Plus.png">-->
+                    <!--</div>-->
+                <!--</div>-->
+            </div>
+
+
             </div>
         </div>
     </div>

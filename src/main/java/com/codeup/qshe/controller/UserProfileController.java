@@ -2,6 +2,7 @@ package com.codeup.qshe.controller;
 
 import com.codeup.qshe.models.user.User;
 import com.codeup.qshe.repositories.UserProfilesRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import com.codeup.qshe.repositories.Users;
 
@@ -12,41 +13,52 @@ import com.codeup.qshe.services.user.UserDetailsLoader;
 import com.codeup.qshe.services.user.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
 @Controller
 public class UserProfileController {
-    private Users users;
+    private UserService userDao;
     private UserDetailsLoader userDetailsLoader;
     private UserProfilesRepository userProfilesRepository;
 
-
-    public UserProfileController(UserDetailsLoader userDetailsLoader, UserProfilesRepository userProfilesRepository, Users users) {
+@Autowired
+    public UserProfileController(UserDetailsLoader userDetailsLoader, UserService userDao, UserProfilesRepository userProfilesRepository) {
         this.userDetailsLoader = userDetailsLoader;
         this.userProfilesRepository = userProfilesRepository;
-        this.users =users;
+        this.userDao =userDao;
     }
 
-    @RequestMapping("/user/{id}/edit")
-    public String update(@PathVariable Long id, @ModelAttribute User user){
+    @GetMapping("/users/displayprofile")
+    public String displayProfile(Long id, Model view){
 
-//        User existingUser = userDetailsLoader.getProfile(id);
-////        User currentUser = users.getOne(id);
-//
-
+    User current = userDao.getLoggedInUser();
+    view.addAttribute(current);
 
 
-//        user.setUsername(user.getUsername());
-//        System.out.println(userProfile.getUsername());
-//        user.getProfile().setEmail(user.getProfile().getEmail());
+    return "users/displayprofile";
+    }
 
 
-//        users.save(currentUser);
-        users.save(user);
-        return "redirect:/profile";
+
+    @PostMapping("/user/{id}/edit")
+    public String update(Long id, @ModelAttribute User user){
+
+        User existingUser = userDao.getLoggedInUser();
+//        User currentUser = users.getOne(id);
+
+
+        System.out.println(existingUser.toString());
+
+        existingUser.setUsername(user.getUsername());
+        existingUser.getProfile().setEmail(user.getProfile().getEmail());
+        existingUser.getProfile().setFirstName(user.getProfile().getFirstName());
+        existingUser.getProfile().setLastName(user.getProfile().getLastName());
+
+
+        userDao.getUsers().updateProfile(existingUser.getProfile().getEmail(),existingUser.getUsername(),existingUser.getProfile().getFirstName(),existingUser.getProfile().getLastName(),existingUser.getId());
+        userDao.getUsers().updateUser(existingUser.getUsername(),existingUser.getId());
+        return "redirect:/users/displayprofile";
     }
 }
