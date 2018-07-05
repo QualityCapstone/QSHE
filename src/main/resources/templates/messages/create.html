@@ -5,14 +5,36 @@
     <title>Messages form</title>
 </head>
 <body>
+<div th:replace="partials/layout :: navbar" />
 <div class="container bg-white text-center border border-dark rounded mt-5">
-    <h1>Create a message!</h1>
-    <form class="form-group" th:action="@{/messages/create}" method="post" th:object="${newMessage}">
-        <h2>Message:</h2>
+    <h1>New Message <i class="fas fa-comment" data-toggle="modal"></i></h1>
+    <div class="modal fade messageModal" aria-labelledby="exampleModal" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Post <span></span> New Message </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+    <form th:action="@{/messages/create}" method="post" th:object="${newMessage}">
+        <div class="modal-body">
         <input type="text" id="user-message" class="form-control mb-5" th:field="*{message}"  />
+
+        </div>
+        <div class="modal-footer">
+            <input type="hidden" name="recipents"/>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-outline-primary">Send</button>
+        </div>
+
+    </form>
+            </div>
+        </div>
+    </div>
+
         <!--<br />-->
         <input type="submit" class="btn btn-dark text-light" />
-    </form>
     <h1 class="mb-2" th:height="200"> These are all your messages</h1>
     <div sec:authorize="isAuthenticated()">
         <!--<h2 class="user-name">Hi, <span th:text="${#authentication.principal.sender}"/></h2>-->
@@ -33,5 +55,7 @@
         </ul>
     </div>
 </div>
+
+<div th:replace="partials/layout :: footer" />
 </body>
 </html>

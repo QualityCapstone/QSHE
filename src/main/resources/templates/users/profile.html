@@ -177,6 +177,18 @@
             <!-- HERE ARE THE MESSAGES -->
             <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
                 <h3 class="mb-3">Messages</h3>
+
+                <div class="p-5 m-2 create-form text-dark border border-dark rounded" th:each="message: ${messages}" th:height="auto">
+                    <ul class="list-unstyled">
+                        <li class="media">
+                            <img class="mr-3" src="http://via.placeholder.com/150x150" alt="Generic placeholder image" />
+                            <div class="media-body p-2">
+                                <p class="text-justify" th:text="${message.message}"></p>
+
+                            </div>
+                        </li>
+                    </ul>
+                </div>
                 <div class="row mb-5">
                     <div class="col-lg-6 col-sm-10 float-left">
                         <img class="float-left" src="http://via.placeholder.com/50x50">
@@ -198,6 +210,14 @@
                             </div>
                         </form>
                     </div>
+                </div>
+                <div>
+                    <form class="form-group" th:action="@{/messages/create}" method="get" >
+                        <h2>New Message:</h2>
+
+                        <!--<br />-->
+                        <input type="submit" value="Write" class="btn btn-dark text-light" />
+                    </form>
                 </div>
             </div>
         </div>
