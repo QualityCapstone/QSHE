@@ -47,11 +47,6 @@ public class UserProfileController {
         existingUser.getProfile().setLastName(user.getProfile().getLastName());
 
 
-//        user.setUsername(user.getUsername());
-//        System.out.println(userProfile.getUsername());
-//        user.getProfile().setEmail(user.getProfile().getEmail());
-
-
         userDao.getUsers().updateProfile(existingUser.getProfile().getEmail(),existingUser.getUsername(),existingUser.getProfile().getFirstName(),existingUser.getProfile().getLastName(),existingUser.getId());
         userDao.getUsers().updateUser(existingUser.getUsername(),existingUser.getId());
         return "redirect:/profile";
