@@ -1,6 +1,7 @@
 package com.codeup.qshe.services.user;
 
 import com.codeup.qshe.models.user.ExtendedSocialUser;
+import com.codeup.qshe.models.user.Message;
 import com.codeup.qshe.models.user.User;
 import com.codeup.qshe.models.user.UserProfile;
 import com.codeup.qshe.repositories.Users;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -35,6 +37,11 @@ public class UserService {
                 profile.getName(),
                 profile.getUsername());
 
+    }
+
+    public List<User> findAll() {
+        Iterable<User> users = getUsers().findAll();
+        return (List<User>) users;
     }
 
     public User findOne(long id){

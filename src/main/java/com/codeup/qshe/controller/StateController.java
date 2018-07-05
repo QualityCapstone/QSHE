@@ -29,7 +29,6 @@ import java.util.List;
         public String viewState(Model view) {
             System.out.println("hello");
           List<State> states = stateService.findAll();
-
             view.addAttribute("state", states);
 
             return "/users/viewstate"; }
