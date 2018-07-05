@@ -22,8 +22,8 @@ public interface Users extends JpaRepository<User, Long> {
     void deleteByUsername(String username);
 
 
-    @Query(nativeQuery = true, value="SELECT * FROM users LIMIT 1") // To insert any user without taking care of the id
-    User first();
+//    @Query(nativeQuery = true, value="SELECT * FROM users LIMIT 1") // To insert any user without taking care of the id
+//    User first();
 
     @Query("select u.profile from User u where u.id = ?1")
     UserProfile getUserProfile(Long userId);
