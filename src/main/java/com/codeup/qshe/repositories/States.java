@@ -15,6 +15,8 @@ public interface States extends CrudRepository <State, Long> {
 
    State findByName(String name);
 
+   State findByAbbr(String abbr);
+
 
 
 }

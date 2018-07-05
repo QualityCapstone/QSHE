@@ -103,9 +103,29 @@ blockquote::after {
      text-shadow: 3px 0 #c64860;
 }
 
-
-
 .logo-big {
     width:50vw;
 
+}
+
+
+#map {
+    padding-top: 50px;
+}
+
+.state .icon {
+    stroke-width: 1;
+    stroke: #fff;
+    fill: currentColor;
+    height: 100%;
+    width: 100%;
+}
+
+.state {
+    color: #ff9890;
+    transition: 500ms color;
+    height: 500px;
+}
+.state:hover {
+    color: pink;
 }
