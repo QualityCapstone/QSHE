@@ -15,42 +15,28 @@
 <div th:replace="partials/layout :: navbar" />
     <span class="overlay"></span>
 
-    <div class="container wrapper mx-auto">
-        <!--<div class="text-left col-12">-->
-            <!--<ol class="breadcrumb">-->
-                <!--<li class="breadcrumb-item"><a th:href="@{~/profile}">Home</a></li>-->
-                <!--<li class="breadcrumb-item"><a  th:href="@{~/dashboard}">-->
-                    <!--<span th:text="${#authentication?.principal?.profile?.name}"></span>-->
-                <!--</a></li>-->
-                <!--<li class="breadcrumb-item active">Profile</li>-->
-            <!--</ol>-->
+    <div class="container wrapper mx-auto text-center">
 
-        <!--</div>-->
-        <!-- THIS ARE THE TABS FOR THE PROFILE PAGE -->
-        <nav>
-            <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                <a class="nav-item nav-profile nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Profile</a>
-                <a class="nav-item nav-profile nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">About me</a>
-                <a class="nav-item nav-profile nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">Messages</a>
-            </div>
-        </nav>
-        <!-- ThIS IS THE PROFILE TAB -->
-        <div class="tab-content" id="nav-tabContent">
-            <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-                PROFILE
-                <div class="row">
-                    <div class="col-md-4">
-                        <img src="http://via.placeholder.com/150x150">
-                        <div>
-                            Profile Picture
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-8">
-                    <h2>User ID <span th:text="${#authentication.principal.username}" /></h2>
+
+        <div class="container text-center">
+            <div class="text-center" >
+
+
+                <div class=" text-center">
+
+                    <h4><strong>Edit Profile</strong></h4>
+
+                    <br />
+
+                    <br />
+                    <!--<h2>User ID <span th:text="${#authentication.principal.username}" /></h2>-->
                     <form th:action="@{/user/} + ${#authentication.principal.id} + @{/edit}" th:method="post" th:object="${user}" >
 
 
+                         <label for="username">Username</label>
+                         <input type="text" class="form-control" id="username" th:placeholder="${#authentication.principal.username}" th:field="*{username}"/>
+
+                        <br />
 
                         <label for="firstName">First Name</label>
                         <input id="firstName" class="form-control"  type="text" th:placeholder="${#authentication.principal.profile.firstName}" th:field="*{profile.firstName}">
@@ -62,38 +48,34 @@
 
                         <br />
 
-                         <label for="username">Username</label>
-                         <input type="text" class="form-control" id="username" th:placeholder="${#authentication.principal.username}" th:field="*{username}"/>
-
-                        <br />
 
                         <label for="email">Email</label>
                         <input type="email" class="form-control"  id="email" th:attr="placeholder=${#authentication.principal.profile.email}"  th:field="*{profile.email}"/>
 
                         <br />
 
-                        <button type="submit" class="btn btn-primary">Save</button>
+                        <button type="submit" class="btn btn-primary">save changes</button>
 
                     </form>
                 </div>
-                <div class="row mt-5 mb-5">
-                    <h3>Your notifications</h3>
-                    <div class="col-12 text-left">
-                        <button type="button" class="btn btn-primary notification-profile">
-                            Email <span class="badge badge-light">4</span>
-                        </button>
-                        <button type="button" class="btn btn-primary notification-profile">
-                            Text Message <span class="badge badge-light">4</span>
-                        </button>
-                    </div>
-                </div>
-                <div class="row mb-5">
-                    <h3>Social media</h3>
-                    <div class="col-12">
-                    <img class="fluid-img m-2" th:height="50" src="/img/Facebook.png">
-                    <img class="fluid-img m-2" th:height="50" src="/img/Google%20Plus.png">
-                    </div>
-                </div>
+                <!--<div class="row mt-5 mb-5">-->
+                    <!--<h3>Your notifications</h3>-->
+                    <!--<div class="col-12 text-left">-->
+                        <!--<button type="button" class="btn btn-primary notification-profile">-->
+                            <!--Email <span class="badge badge-light">4</span>-->
+                        <!--</button>-->
+                        <!--<button type="button" class="btn btn-primary notification-profile">-->
+                            <!--Text Message <span class="badge badge-light">4</span>-->
+                        <!--</button>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!--<div class="row mb-5">-->
+                    <!--<h3>Social media</h3>-->
+                    <!--<div class="col-12">-->
+                    <!--<img class="fluid-img m-2" th:height="50" src="/img/Facebook.png">-->
+                    <!--<img class="fluid-img m-2" th:height="50" src="/img/Google%20Plus.png">-->
+                    <!--</div>-->
+                <!--</div>-->
             </div>
 
 

@@ -30,6 +30,16 @@ public class UserProfileController {
         this.userDao =userDao;
     }
 
+    @GetMapping("/users/displayprofile")
+    public String displayProfile(Long id, Model view){
+
+    User current = userDao.getLoggedInUser();
+    view.addAttribute(current);
+
+
+    return "users/displayprofile";
+    }
+
 
 
     @PostMapping("/user/{id}/edit")
@@ -49,6 +59,6 @@ public class UserProfileController {
 
         userDao.getUsers().updateProfile(existingUser.getProfile().getEmail(),existingUser.getUsername(),existingUser.getProfile().getFirstName(),existingUser.getProfile().getLastName(),existingUser.getId());
         userDao.getUsers().updateUser(existingUser.getUsername(),existingUser.getId());
-        return "redirect:/profile";
+        return "redirect:/users/displayprofile";
     }
 }
