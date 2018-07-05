@@ -109,6 +109,8 @@ blockquote::after {
 }
 
 
+/*MAP CSS Save seperately later*/
+
 #map {
     padding-top: 50px;
 }
@@ -128,4 +130,16 @@ blockquote::after {
 }
 .state:hover {
     color: pink;
+}
+
+.tooltip {
+    z-index: 9999999;
+}
+
+#popperElement {
+    background: white;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    border: 1px solid #ff9890;
 }

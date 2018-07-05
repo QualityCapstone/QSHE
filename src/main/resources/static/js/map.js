@@ -1,6 +1,7 @@
 const data = require('./module/map/us-map-svg');
 const Raphael = require('raphael');
-
+const Popper = require('popper.js').default;
+const Tooltip = require('tooltip.js').default;
 
 console.log(data);
 
@@ -34,15 +35,33 @@ window.onload = function () {
             usRaphael[state].attr({"fill": usRaphael[state].color});
 
             (function (st, state) {
+
+
                 st[0].style.cursor = "pointer";
                 st[0].onmouseover = function () {
                     st.animate({fill: "#ff9890"}, 500);
                     st.toFront();
-                    console.log(state);
+
+                   let popEle = $('#popperElement');
+
+                    const instance = new Popper(st[0], popEle, {
+                        placement: 'right',
+                        title: state,
+                        trigger: 'hover focus',
+                        delay: {
+                            show: 250, hide: 500
+                        },
+                        boundariesElement: '#map',
+                        html: true,
+                    });
+
+                    instance.show();
+
                 };
                 st[0].onmouseout = function () {
                     st.animate({fill: st.color}, 500);
                     st.toFront();
+
 
                 };
                 st[0].onclick = function () {
