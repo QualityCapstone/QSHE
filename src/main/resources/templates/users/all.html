@@ -16,6 +16,8 @@
             <img class="card-img-top mt-3 img-fluid mr-3 mx-auto" src="img/face_icons-circle-63.png" style="width: 100px" alt="Card image cap" />
             <div class="card-body">
                 <h5 class="text-center card-title" th:text="${user.username}"></h5>
+                <h5 class="text-center card-title" th:text="${user.profile.firstName}"></h5>
+                <h5 class="text-center card-title" th:text="${user.profile.email}"></h5>
                 <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
                 <a href="/messages/create" class="btn btn-primary">Send a message</a>
             </div>
