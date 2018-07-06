@@ -30,8 +30,7 @@
 
 
 <div id="popperElement">
-    Texas Overall Rating: 4.4 <i class="fas fa-star"></i>
-
+    <span id="state-name">Texas</span> Overall Rating: 4.4 <i class="fas fa-star"></i>
 
     <hr>
     Education
@@ -54,6 +53,22 @@
 </div>
 
 <div th:replace="partials/layout :: footer" />
+
+<script th:inline="javascript">
+
+    let stateData = [];
+
+    /*<![CDATA[*/
+
+        /*[# th:each="state : ${states}"]*/
+            stateData.push({name: /*[[${state.name}]]*/, abbr: /*[[${state.abbr}]]*/ });
+        /*[/]*/
+
+
+    /*]]>*/
+</script>
+
+
 <script  th:src="@{~/built/map.js}"></script>
 </body>
 </html>

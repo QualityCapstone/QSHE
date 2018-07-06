@@ -41,11 +41,14 @@ window.onload = function () {
 
                 let popEle = $('#popperElement');
 
+
+
                 popEle.hide();
 
                 st[0].onmouseover = function () {
                     st.animate({fill: "#ff9890"}, 500);
                     st.toFront();
+                    popperUpdate(state);
                     popEle.show();
 
                     const instance = new Popper(st[0], popEle, {
@@ -76,7 +79,28 @@ window.onload = function () {
             })(usRaphael[state], state);
         }
 
-    }
+        function popperUpdate(inputState) {
+            let popEle = $('#popperElement');
+
+           let selectedState = [];
+
+            for(state in stateData) {
+
+               let currState = stateData[state].abbr;
+
+                if  (currState === inputState.toUpperCase()) {
+                    selectedState =  stateData[state];
+                }
+            }
+
+            $('#state-name').text(selectedState.name);
+            $('#state-abbr').text(selectedState.abbr);
+
+
+        }
+
+
+    } // end of full map
 
 
     if ($('#state').length > 0) {
