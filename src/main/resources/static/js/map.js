@@ -5,6 +5,8 @@ const Raphael = require('raphael');
 const Popper = require('popper.js').default;
 const Tooltip = require('tooltip.js').default;
 
+const radarChart = require('./module/charts/radar');
+
 console.log(data);
 
 

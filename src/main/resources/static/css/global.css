@@ -108,3 +108,11 @@ blockquote::after {
 
 }
 
+
+/*CHART CSS*/
+
+
+#radar-chart {
+    width: 100%;
+    height:100%;
+}

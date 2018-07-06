@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.PathVariable;
       this.stateDao = stateDao;
   }
 
-
   @GetMapping("/us")
   public String viewAll(Model model) {
 
