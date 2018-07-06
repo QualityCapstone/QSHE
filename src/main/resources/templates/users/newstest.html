@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.springframework.org/schema/jdbc">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -7,5 +7,5 @@
 <body>
 <p>test page, will update once I have the API showing up, and then integrate this into the States views.</p>
 </body>
-<script src="/js/newsapi.js"></script>
+<script th:src="@{~/built/news.js}"></script>
 </html>
