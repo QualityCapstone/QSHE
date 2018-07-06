@@ -172,7 +172,7 @@
                         <div class="card">
                             <div class="card-body">
                                 <h3 class="mb-3">Rate each element of your State</h3>
-                        <form class="card card-block bg-faded m-3 p-3 login-card" th:action="@{/sign-up}" method="POST">
+                        <form class="card card-block bg-faded m-3 p-3 login-card" th:action="@{/profile/rating}" method="POST" th:object="${userRating}">
                         <h2 class="m-b-1 text-xs-center">Step 3</h2>
                         <small class="form-text">You can rate your state now or later:</small>
                         <div class="form-group">
@@ -219,7 +219,11 @@
                                 <h3 class="mb-3">This is the overall rating you're giving to the State you live in</h3>
                                 <h1 class="text-center m-5" id="totalMarks"></h1>
                                 <form class="form-controll">
-                                    <input type="submit" id="overallRating" name="submit" class="submit action-button btn btn-secondary" value="Save" />
+                                    <!--<input type="hidden" name="userId" th:value="${user.id}">-->
+                                    <!--<input type="hidden" name="userRate" th:value="${userRating.id}">-->
+                                    <!--<input type="hidden" name="stateId" th:value="${userRating.stateId}"-->
+                                    <!--<input type="submit" id="overallRating" name="submit" class="submit form-control btn btn-secondary" th:field="*{userRating.id}"  value="Save" />-->
+                                    <input type="submit" id="overallRating" name="submit" class="submit form-control btn btn-secondary" value="Save" />
                                 </form>
                             </div>
                         </div>
