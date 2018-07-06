@@ -1,3 +1,5 @@
+import css from '../css/map.css';
+
 const data = require('./module/map/us-map-svg');
 const Raphael = require('raphael');
 const Popper = require('popper.js').default;
@@ -40,9 +42,6 @@ window.onload = function () {
                 st[0].style.cursor = "pointer";
 
                 let popEle = $('#popperElement');
-
-
-
                 popEle.hide();
 
                 st[0].onmouseover = function () {
