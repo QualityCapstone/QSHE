@@ -167,50 +167,73 @@
             <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
                 <!-- TO RATE -->
                 <h2>My Rating</h2>
-                <div class="row d-flex">
-                <form class="card card-block bg-faded m-3 p-3 login-card" th:action="@{/sign-up}" method="POST">
-                <h2 class="m-b-1 text-xs-center">Step 3</h2>
-                <small class="form-text">You can rate your state now or later:</small>
-                <div class="form-group">
-                <h5 class="m-b-1 text-center">1 = Good  10 = Bad</h5>
-                </div>
-                <div class="form-group m-0">
-                <label class="text-left" for="violenceRate">How safe do you feel where you live?</label>
-                <input type="range" min="1" max="10" value="1" class="slider float-left" id="violenceRate" />
-                <p class="text-center float-right"><span id="demoViolence"></span></p>
-                </div>
-                <div class="form-group m-0">
-                <label class="text-left" for="employmentRate">How would you rank the employment rate in your state?</label>
-                <input type="range" min="1" max="10" value="1" class="slider float-left" id="employmentRate" />
-                <p class="text-center float-right"><span id="demoEmployment"></span></p>
-                </div>
-                <div class="form-group m-0">
-                <label class="text-left" for="educationRate">How would you rank the education system in your state?</label>
-                <input type="range" min="1" max="10" value="1" class="slider float-left" id="educationRate" />
-                <p class="text-center float-right"><span id="demoEducation"></span></p>
-                </div>
-                <div class="form-group m-0">
-                <label class="left-text" for="healthRate">How would you rank the health care system in your state?</label>
-                <input type="range" min="1" max="10" value="1" class="slider float-left" id="healthRate"/>
-                <p class="text-center float-right"><span id="demoHealth"></span></p>
-                </div>
-                <div class="form-group m-0">
-                <label class="text-left" for="growthRate">How would you rate the general growth in your state?</label>
-                <input type="range" min="1" max="10"value="1" class="slider float-left" id="growthRate" />
-                <p class="text-center float-right"><span id="demoGrowth"></span></p>
-                </div>
-                <input type="submit" id="overallRating" name="submit" class="submit action-button bt btn-secondary" value="Submit" />
-                </form>
-                </div>
-                <div class="col-lg-3 col-sm-6">
-                    <h2 id="totalMarks"></h2>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <h3 class="mb-3">Rate each element of your State</h3>
+                        <form class="card card-block bg-faded m-3 p-3 login-card" th:action="@{/sign-up}" method="POST">
+                        <h2 class="m-b-1 text-xs-center">Step 3</h2>
+                        <small class="form-text">You can rate your state now or later:</small>
+                        <div class="form-group">
+                        <h5 class="m-b-1 text-center">1 = Good  10 = Bad</h5>
+                        </div>
+                        <div class="form-group m-0">
+                        <label class="text-left" for="violenceRate">How safe do you feel where you live?</label>
+                        <input type="range" min="1" max="10" value="1" class="slider float-left" id="violenceRate" />
+                        <p class="text-center float-right"><span id="demoViolence"></span></p>
+                        </div>
+                        <div class="form-group m-0">
+                        <label class="text-left" for="employmentRate">How would you rank the employment rate in your state?</label>
+                        <input type="range" min="1" max="10" value="1" class="slider float-left" id="employmentRate" />
+                        <p class="text-center float-right"><span id="demoEmployment"></span></p>
+                        </div>
+                        <div class="form-group m-0">
+                        <label class="text-left" for="educationRate">How would you rank the education system in your state?</label>
+                        <input type="range" min="1" max="10" value="1" class="slider float-left" id="educationRate" />
+                        <p class="text-center float-right"><span id="demoEducation"></span></p>
+                        </div>
+                        <div class="form-group m-0">
+                        <label class="left-text" for="healthRate">How would you rank the health care system in your state?</label>
+                        <input type="range" min="1" max="10" value="1" class="slider float-left" id="healthRate"/>
+                        <p class="text-center float-right"><span id="demoHealth"></span></p>
+                        </div>
+                        <div class="form-group m-0">
+                        <label class="text-left" for="growthRate">How would you rate the general growth in your state?</label>
+                        <input type="range" min="1" max="10"value="1" class="slider float-left" id="growthRate" />
+                        <p class="text-center float-right"><span id="demoGrowth"></span></p>
+                        </div>
+                        </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 float-right">
+                        <div class="card m-3">
+                            <div class="card-body">
+                                <h3 class="m-3">The state where you are living</h3>
+                                <img class="img-fluid m-5" src="/img/stateMaps/TX.png" style="width: 100px">
+                            </div>
+                        </div>
+                        <div class="card m-3">
+                            <div class="card-body">
+                                <h3 class="mb-3">This is the overall rating you're giving to the State you live in</h3>
+                                <h1 class="text-center m-5" id="totalMarks"></h1>
+                                <form class="form-controll">
+                                    <input type="submit" id="overallRating" name="submit" class="submit action-button btn btn-secondary" value="Save" />
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 float-right">
+
+                    </div>
                 </div>
             </div>
-            <!-- HERE ARE THE MESSAGES -->
+                <!--</div>-->
+                <!-- HERE ARE THE MESSAGES -->
             <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
-                <h3 class="mb-3">Messages</h3>
+            <h3 class="mb-3">Messages</h3>
                 <div class="row mb-5">
-
                     <div class="col-lg-6 col-sm-10 float-left">
                         <img class="float-left" src="http://via.placeholder.com/50x50">
                         <form>
@@ -237,7 +260,6 @@
                 </div>
             </div>
         </div>
-    </div>
     </div>
 <div th:replace="partials/layout :: footer" />
         <script type="text/javascript">
@@ -288,21 +310,7 @@
             };
 
 
-
-
-            // function average(){
-            // var ratingAverage = [ slider.value, sliderOne.value, sliderTwo.value, sliderThree.value, sliderFour.value]
-            //     for( var i = 0; i >= ratingAverage.length; i++){
-            //         var sum = 0;
-            //         var average;
-            //         sum += ratingAverage[i];
-            //         average = sum / 5;
-            //         console.log(total);
-            //     }return average;
-            // }
-            //
-            // $("#overallRating").click()
-
+// ---------------- OVERALL RATING FROM THE SLIDERS -------------------------------
 
             $('.slider').each(function() {
 
