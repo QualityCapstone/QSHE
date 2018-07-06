@@ -70,6 +70,10 @@ public class UserController {
 
 
 
+    @GetMapping("/news")
+    public String newsApi() {
+        return "users/newstest";
+    }
 
 
     private void authenticate(User user) {
