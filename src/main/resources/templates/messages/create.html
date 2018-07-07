@@ -31,6 +31,7 @@
             <li class="media">
                 <img class="mr-3" src="http://via.placeholder.com/150x150" alt="Generic placeholder image" />
                 <div class="media-body p-2">
+                    <p class="text-center" th:text="${message.sender.username}"></p>
                     <p class="text-justify" th:text="${message.message}"></p>
                     <!--<p th:text="${message.sender_id}"></p>-->
                 </div>

@@ -1,6 +1,9 @@
 package com.codeup.qshe.models;
 
+import com.codeup.qshe.models.user.Message;
+
 import javax.persistence.*;
+import java.util.List;
 
 
 @Entity
@@ -12,13 +15,18 @@ public class Widget {
     private Long id;
 
     @Column
-    private Long StateId;
+    private Long stateId;
+
+    @OneToMany (cascade = CascadeType.ALL)
+    private List<Message> posts;
 
 
     public Widget(){}
 
-    public Widget(Long id, Long StateId){
-
+    public Widget(Long id, Long stateId, List<Message> posts){
+    this.id = id;
+    this.stateId = stateId;
+    this.posts = posts;
     }
 
     public Long getId() {
@@ -30,14 +38,18 @@ public class Widget {
     }
 
     public Long getStateId() {
-        return StateId;
+        return stateId;
     }
 
     public void setStateId(Long stateId) {
-        StateId = stateId;
+        this.stateId = stateId;
     }
 
-    public Widget(Long stateId) {
-        StateId = stateId;
+    public List <Message> getPosts() {
+        return posts;
+    }
+
+    public void setPosts(List <Message> posts) {
+        this.posts = posts;
     }
 }
