@@ -2,10 +2,11 @@ import * as am4core from "@amcharts/amcharts4/core";
 import * as am4charts from "@amcharts/amcharts4/charts";
 import am4themes_animated from "@amcharts/amcharts4/themes/animated";
 
+am4core.useTheme(am4themes_animated);
 
 if ($('#radar-chart').length > 0) {
 
-    am4core.useTheme(am4themes_animated);
+
     let chart = am4core.create("radar-chart", am4charts.RadarChart);
 
     let categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
@@ -79,6 +80,95 @@ if ($('#radar-chart').length > 0) {
 
 }
 
+
+if ($('#crime-chart').length > 0) {
+
+
+    // Create chart instance
+    var chart = am4core.create("crime-chart", am4charts.XYChart);
+
+// Add data
+    chart.data = [{
+        "year": "2010",
+        "population": 501.9,
+        "assault": 250,
+        "rape": 199
+    }, {
+        "year": "2011",
+        "population": 301.9,
+        "assault": 222,
+        "rape": 251
+    }, {
+        "year": "2012",
+        "population": 201.1,
+        "assault": 170,
+        "rape": 199
+    }, {
+        "year": "2013",
+        "population": 165.8,
+        "assault": 122,
+        "rape": 90
+    }, {
+        "year": "2014",
+        "population": 139.9,
+        "assault": 99,
+        "rape": 252
+    }, {
+        "year": "2015",
+        "population": 128.3,
+        "assault": 85,
+        "rape": 84
+    }, {
+        "year": "2016",
+        "population": 99,
+        "assault": 93,
+        "rape": 142
+    }];
+
+// Create axes
+    var categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
+    categoryAxis.dataFields.category = "year";
+    categoryAxis.title.text = "Crime Data";
+    categoryAxis.renderer.grid.template.location = 0;
+    categoryAxis.renderer.minGridDistance = 20;
+
+    var  valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
+    valueAxis.title.text = "Value ";
+
+// Create series
+    var series = chart.series.push(new am4charts.ColumnSeries());
+    series.dataFields.valueY = "population";
+    series.dataFields.categoryX = "year";
+    series.name = "Populations";
+    series.tooltipText = "{name}: [bold]{valueY}[/]";
+// This has no effect
+// series.stacked = true;
+
+    var series2 = chart.series.push(new am4charts.ColumnSeries());
+    series2.dataFields.valueY = "assault";
+    series2.dataFields.categoryX = "year";
+    series2.name = "Assaults";
+    series2.tooltipText = "{name}: [bold]{valueY}[/]";
+// Do not try to stack on top of previous series
+// series2.stacked = true;
+
+    var series3 = chart.series.push(new am4charts.ColumnSeries());
+    series3.dataFields.valueY = "rape";
+    series3.dataFields.categoryX = "year";
+    series3.name = "Rapes";
+    series3.tooltipText = "{name}: [bold]{valueY}[/]";
+    series3.stacked = true;
+
+// Add cursor
+    chart.cursor = new am4charts.XYCursor();
+
+// Add legend
+    chart.legend = new am4charts.Legend();
+
+
+
+
+}
 
 
 
