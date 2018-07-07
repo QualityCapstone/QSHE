@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head th:replace="partials/layout :: header">
+    <meta charset="UTF-8" />
+    <title>Home</title>
+</head>
+<div th:replace="partials/layout :: navbar" />
+<span class="overlay"></span>
+
+<h1 class="text-center">Share your comments with other users about your state!</h1>
+
+<!--<div class="row d-flex flex-wrap">-->
+    <!--<div class="col-sm-4 col-lg-8 d-flex flex-wrap m-auto">-->
+        <!--<div class="card create-form" id="signupUser" style="width: 18rem;" th:each="forum: ${widget}">-->
+            <!--<div class="card-body">-->
+                <!--<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>-->
+                <!--<a href="/messages/create" class="btn btn-primary">Sumbit a post</a>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+<!--</div>-->
+<div th:replace="partials/layout :: footer" />
+</body>
+</html>
