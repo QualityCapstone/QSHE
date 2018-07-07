@@ -25,6 +25,7 @@ if ($('#radar-chart').length > 0) {
     series.sequencedInterpolation = true;
     series.sequencedInterpolationDelay = 100;
     series.stacked = true;
+    series.fill = '#ff9890';
 
     let series2 = chart.series.push(new am4charts.RadarColumnSeries());
     series2.dataFields.valueY = "userValue";
@@ -35,7 +36,7 @@ if ($('#radar-chart').length > 0) {
     series2.columns.template.tooltipText = "Series: {name}\nCategory: {categoryX}\nValue: {valueY}";
     series2.sequencedInterpolationDelay = 100;
     series2.stacked = true;
-
+    series2.fill = '#ffcbb5';
 
 
 
@@ -60,8 +61,8 @@ if ($('#radar-chart').length > 0) {
         },
         {
             "metric": "Growth",
-            "value": 2.5,
-            "userValue": 4.0
+            "value": 3.5,
+            "userValue": 2.7
         },
         {
             "metric": "Employment",
