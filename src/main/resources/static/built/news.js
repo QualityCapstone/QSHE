@@ -560,9 +560,9 @@ var newsapi = new NewsAPI('b8cc911c5a604eadac02a424f0945ae8');
 // To query /v2/top-headlines
 // All options passed to topHeadlines are optional, but you need to include at least one of them
 newsapi.v2.topHeadlines({
-    sources: 'bbc-news,the-verge',
-    q: 'bitcoin',
-    category: 'business',
+    // sources: 'bbc-news,the-verge',
+    // q: 'Texas',
+    // category: 'business',
     language: 'en',
     country: 'us'
 }).then(function (response) {
@@ -580,8 +580,8 @@ newsapi.v2.everything({
     q: 'texas',
     // sources: 'bbc-news,the-verge',
     // domains: 'bbc.co.uk, techcrunch.com',
-    from: '2017-12-01',
-    to: '2017-12-12',
+    from: '2018-07-01',
+    to: '2018-07-17',
     language: 'en',
     sortBy: 'relevancy',
     page: 2
