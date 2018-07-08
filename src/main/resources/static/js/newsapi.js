@@ -24,13 +24,13 @@
         q: 'texas',
         // sources: 'bbc-news,the-verge',
         // domains: 'bbc.co.uk, techcrunch.com',
-        from: '2018-07-01',
+        from: '2018-06-18',
         to: '2018-07-17',
         language: 'en',
         sortBy: 'relevancy',
         page: 2
     }).then(response => {
-        console.log(response);
+        console.log(response.articles[0]);
         /*
           {
             status: "ok",
