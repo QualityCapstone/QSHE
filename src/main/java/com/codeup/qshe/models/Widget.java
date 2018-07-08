@@ -12,10 +12,10 @@ public class Widget {
 
     @Id
     @GeneratedValue
-    private Long id;
+    private long id;
 
     @Column
-    private Long stateId;
+    private long stateId;
 
     @OneToMany (cascade = CascadeType.ALL)
     private List<Message> posts;
@@ -23,25 +23,25 @@ public class Widget {
 
     public Widget(){}
 
-    public Widget(Long id, Long stateId, List<Message> posts){
+    public Widget(long id, long stateId, List<Message> posts){
     this.id = id;
     this.stateId = stateId;
     this.posts = posts;
     }
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 
-    public Long getStateId() {
+    public long getStateId() {
         return stateId;
     }
 
-    public void setStateId(Long stateId) {
+    public void setStateId(long stateId) {
         this.stateId = stateId;
     }
 
@@ -52,4 +52,6 @@ public class Widget {
     public void setPosts(List <Message> posts) {
         this.posts = posts;
     }
+
+
 }

@@ -10,9 +10,7 @@ import com.codeup.qshe.services.user.UserService;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -53,6 +51,28 @@ public class WidgetController {
         messagesService.save(message);
         return "redirect:/widget/all";
     }
+
+    @DeleteMapping("/widget/{id}/delete")
+    public String deleteMessage(@PathVariable long id){
+        messagesService.findOne(id);
+        messagesService.deleteMessage(id);
+
+        return "redirect: /widget";
+    }
+
+
+    @PostMapping("/widget/{id}/delete")
+    public String delete(@PathVariable long id){
+        User sessionUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = userDao.findById(sessionUser.getId()).get();
+        Message message = messagesService.findOne(id);
+        if (message.getSender().getId() != user.getId()) {
+            return "redirect:/login";
+        } else
+            messagesService.delete(id);
+        return "redirect:/widget";
+    }
+
 
 }
 

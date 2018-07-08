@@ -14,11 +14,11 @@
         <h1 class="text-center">Create an account</h1>
             <!-- USERNAME, EMAIL AND PASSWORD -->
         <div id="signupUser">
-        <ul id="progressbar">
-            <li class="active">Account Setup</li>
-            <li>State You live</li>
-            <li>Rating</li>
-        </ul>
+        <!--<ul id="progressbar">-->
+            <!--<li class="active">Account Setup</li>-->
+            <!--<li>State You live</li>-->
+            <!--<li>Rating</li>-->
+        <!--</ul>-->
         <form class="card card-block bg-faded m-3 p-3 login-card" th:action="@{/sign-up}" method="post" th:object="${user}">
             <h2 class="fs-title">Create your account</h2>
             <h3 class="fs-subtitle">This is step 1</h3>
@@ -41,6 +41,62 @@
                     <span class="input-group-text" id="email-addon">Email</span>
                 </div>
                 <input type="text" id="email" th:field="*{profile.email}" class="form-control" placeholder="email" aria-label="email" aria-describedby="basic-addon1">
+            </div>
+            <div class="input-group-prepend">
+                    <span class="input-group-text mb-3">State you live in</span>
+                <select id="inputState" class="form-control">
+                    <option selected>Choose...</option>
+                    <option>Alabama</option>
+                    <option>Alaska</option>
+                    <option>Arizona</option>
+                    <option>Arkansas</option>
+                    <option>California</option>
+                    <option>Colorado</option>
+                    <option>Connecticut</option>
+                    <option>Delaware</option>
+                    <option>Florida</option>
+                    <option>Georgia</option>
+                    <option>Hawaii</option>
+                    <option>Idaho</option>
+                    <option>Illinois</option>
+                    <option>Indiana</option>
+                    <option>Iowa</option>
+                    <option>Kansas</option>
+                    <option>Kentucky</option>
+                    <option>Louisiana</option>
+                    <option>Maine</option>
+                    <option>Maryland</option>
+                    <option>Massachusetts</option>
+                    <option>Michigan</option>
+                    <option>Minnesota</option>
+                    <option>Mississippi</option>
+                    <option>Missouri</option>
+                    <option>Montana</option>
+                    <option>Nebraska</option>
+                    <option>Nevada</option>
+                    <option>New Hampshire</option>
+                    <option>New Jersey</option>
+                    <option>New Mexico</option>
+                    <option>New York</option>
+                    <option>North Carolina</option>
+                    <option>North Dakota</option>
+                    <option>Ohio</option>
+                    <option>Oklahoma</option>
+                    <option>Oregon</option>
+                    <option>Pennsylvania</option>
+                    <option>Rhode Island</option>
+                    <option>South Carolina</option>
+                    <option>South Dakota</option>
+                    <option>Tennessee</option>
+                    <option>Texas</option>
+                    <option>Utah</option>
+                    <option>Vermont</option>
+                    <option>Virginia</option>
+                    <option>Washington</option>
+                    <option>West Virginia</option>
+                    <option>Wisconsin</option>
+                    <option>Wyoming</option>
+                </select>
             </div>
             <div class="input-group">
                 <div class="input-group-prepend">

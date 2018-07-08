@@ -48,5 +48,8 @@ public class MessagesService {
         return messageRepository.findById(id).get();
     }
 
+//    public void delete (long id){
+//        Message message = messageRepository.delete(id);
+//    }
 
 }

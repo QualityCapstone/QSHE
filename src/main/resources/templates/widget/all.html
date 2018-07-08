@@ -19,13 +19,19 @@
     </form>
 
 
-<div class="p-5 m-2 create-form text-dark border border-dark rounded" th:each="message: ${messages}" th:height="auto">
+<div class="p-5 m-2 text-dark " th:each="message: ${messages}" th:height="auto">
     <ul class="list-unstyled">
         <li class="media">
             <div class="media-body p-2">
-                <p class="text-center" th:text="'Posted by: ' + ${message.sender.username}"></p>
-                <p class="text-justify" th:text="${message.message}"></p>
+                <p class="text-left" th:text="'Posted by: ' + ${message.sender.username}"></p>
+                <p class="text-right" th:text="${message.message}"></p>
+                <hr class="create-form" style="height: 10px"/>
                 <!--<p th:text="${message.sender_id}"></p>-->
+            </div>
+            <div class="col-3" sec:authorize="isAuthenticated()">
+                <form class="form-group" th:action="@{/widget/{id}/delete(id=${message.id})}" method="post">
+                    <button type="submit" class="btn create-form" id="delete" name="delete">Delete</button>
+                </form>
             </div>
         </li>
     </ul>
