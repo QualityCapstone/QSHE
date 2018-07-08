@@ -61,17 +61,17 @@ public class WidgetController {
     }
 
 
-    @PostMapping("/widget/{id}/delete")
-    public String delete(@PathVariable long id){
-        User sessionUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        User user = userDao.findById(sessionUser.getId()).get();
-        Message message = messagesService.findOne(id);
-        if (message.getSender().getId() != user.getId()) {
-            return "redirect:/login";
-        } else
-            messagesService.delete(id);
-        return "redirect:/widget";
-    }
+//    @PostMapping("/widget/{id}/delete")
+//    public String delete(@PathVariable long id){
+//        User sessionUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//        User user = userDao.findById(sessionUser.getId()).get();
+//        Message message = messagesService.findOne(id);
+//        if (message.getSender().getId() != user.getId()) {
+//            return "redirect:/login";
+//        } else
+//            messagesService.delete(id);
+//        return "redirect:/widget";
+//    }
 
 
 }
