@@ -28,6 +28,10 @@ public class FileUploadController {
             @RequestParam(name = "file")MultipartFile uploadedFile,
             Model model
             ) {
+        if (uploadedFile.isEmpty()) {
+            model.addAttribute("message", "Please choose a file to upload.");
+            return "redirect:fileupload";
+        }
         String filename = uploadedFile.getOriginalFilename();
         String filepath = Paths.get(uploadPath, filename).toString();
         File destinationFile = new File(filepath);

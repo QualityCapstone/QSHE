@@ -1,6 +1,8 @@
 package com.codeup.qshe.models.user;
 
 
+import org.springframework.beans.factory.annotation.Value;
+
 import javax.persistence.*;
 
 @Entity
