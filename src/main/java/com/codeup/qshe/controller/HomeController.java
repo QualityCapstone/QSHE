@@ -14,19 +14,18 @@ public class HomeController {
 
     }
 
-    @GetMapping("/")
+    @GetMapping("")
     public String displayMainPage() {
-        return "/index";
+        return "index";
     }
 
-    @GetMapping("/dashboard")
+    @GetMapping("dashboard")
     public String viewDashboard(Model model) {
 
         return "user";
     }
-
-    @GetMapping("/map")
+    @GetMapping("map")
     public String displayMap(){
-        return "/Map/map";
+        return "Map/map";
     }
 }

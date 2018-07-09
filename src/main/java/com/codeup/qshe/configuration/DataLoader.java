@@ -56,44 +56,45 @@ public class DataLoader implements ApplicationRunner {
     }
 
     public void run(ApplicationArguments args) throws IOException, URISyntaxException {
-        if(!FRESHSTART) {
-            return;
+        if(FRESHSTART) {
+
+
+            try {
+                if (!site.isPopulated()) {
+                    System.out.println("Populated Returned FALSE");
+                    SiteSetting setting = site.getFirst();
+                }
+            } catch (NullPointerException e) {
+                SiteSetting setting = new SiteSetting(false);
+                site.save(setting);
+            }
+
+            if (!site.getFirst().getPopulated()) {
+                Random r = new Random();
+
+                generateStaticData();
+
+                // Get Population Data by State
+                for (int i = 1; i <= 9; i++) {
+                    String popURL = "https://api.census.gov/data/2016/pep/population?get=POP,GEONAME,DATE_DESC&for=state:*&DATE=" + i +
+                            "&key=50fdb2ea46d6471b7412b6b43204804309487999";
+                    populationsByDate(popURL);
+
+                }
+                System.out.println(stateDao.getStates().findAll().toString());
+
+                // Get State Crimes by Year
+                String crimeURL = "https://api.usa.gov/crime/fbi/sapi/api/estimates/states/TX?api_key=iiHnOKfno2Mgkt5AynpvPpUQTEyxE77jo1RU8PIv";
+                stateCrimesByYear(crimeURL);
+
+                womenGradsByYear();
+                getPovertyData();
+
+            } //END FRESH START
+
+            site.save(new SiteSetting(true));
         }
 
-        try {
-            if (!site.isPopulated()) {
-                System.out.println("Populated Returned FALSE");
-                SiteSetting setting = site.getFirst();
-            }
-        } catch (NullPointerException e) {
-            SiteSetting setting = new SiteSetting(false);
-            site.save(setting);
-        }
-
-        if (!site.getFirst().getPopulated()) {
-            Random r = new Random();
-
-            generateStaticData();
-
-            // Get Population Data by State
-            for (int i = 1; i <= 9; i++) {
-                String popURL = "https://api.census.gov/data/2016/pep/population?get=POP,GEONAME,DATE_DESC&for=state:*&DATE=" + i +
-                        "&key=50fdb2ea46d6471b7412b6b43204804309487999";
-                populationsByDate(popURL);
-
-            }
-            System.out.println(stateDao.getStates().findAll().toString());
-
-            // Get State Crimes by Year
-            String crimeURL = "https://api.usa.gov/crime/fbi/sapi/api/estimates/states/TX?api_key=iiHnOKfno2Mgkt5AynpvPpUQTEyxE77jo1RU8PIv";
-            stateCrimesByYear(crimeURL);
-
-            womenGradsByYear();
-            getPovertyData();
-
-        } //END FRESH START
-
-        site.save(new SiteSetting(true));
     }
 
 
