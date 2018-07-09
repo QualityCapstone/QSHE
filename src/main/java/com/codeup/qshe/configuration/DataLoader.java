@@ -112,7 +112,7 @@ public class DataLoader implements ApplicationRunner {
             }
 
                 // Get State Crimes by Year
-                String crimeURL = "https://api.usa.gov/crime/fbi/sapi/api/estimates/states/TX?api_key=iiHnOKfno2Mgkt5AynpvPpUQTEyxE77jo1RU8PIv";
+                crimeURL = "https://api.usa.gov/crime/fbi/sapi/api/estimates/states/TX?api_key=iiHnOKfno2Mgkt5AynpvPpUQTEyxE77jo1RU8PIv";
                 stateCrimesByYear(crimeURL);
 
 

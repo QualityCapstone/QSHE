@@ -94,7 +94,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                         .permitAll()
                     .and()
                      .authorizeRequests()
-                     .antMatchers("/bill/**","/dashboard","/plaid/**","/viewstate")
+                     .antMatchers("/bill/**","/profile","/plaid/**","/viewstate")
                      .hasAuthority("USER")
                     /* Pages that require authentication */
                 .and()
@@ -109,7 +109,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .rememberMe()
                 .and()
                 .apply(new SpringSocialConfigurer()
-                        .postLoginUrl("/dashboard")
+                        .postLoginUrl("/profile")
                         .alwaysUsePostLoginUrl(true));
 
     }
