@@ -35,7 +35,8 @@ public class UserService {
                 profile.getFirstName(),
                 profile.getLastName(),
                 profile.getName(),
-                profile.getUsername());
+                profile.getUsername(),
+                profile.getUserState());
 
     }
 

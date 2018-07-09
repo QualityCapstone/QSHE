@@ -11,6 +11,14 @@
 
 
 
+<div class="container bg-white text-center border border-dark rounded mt-5" sec:authorize="isAuthenticated()">
+    <h1>Create a message!</h1>
+    <form class="form-group" th:action="@{/messages/create}" method="post" th:object="${newMessage}">
+        <h2>Message:</h2>
+        <input type="text" id="user-message" class="form-control mb-5" th:field="*{message}"  />
+        <!--<br />-->
+        <input type="submit" class="btn btn-dark text-light" />
+    </form>
 
     <h1 class="mb-2" th:height="200"> These are all your messages</h1>
     <div sec:authorize="isAuthenticated()">
@@ -22,8 +30,10 @@
             <li class="media">
                 <img class="mr-3" src="http://via.placeholder.com/150x150" alt="Generic placeholder image" />
                 <div class="media-body p-2">
+
                     <p>From: <span  class="text-justify" th:text="${message.sender.username}"></span></p>
                     <p>To: <span class="text-justify" th:text="${message.recipient.username}"></span></p>
+
                     <p class="text-justify" th:text="${message.message}"></p>
 
                 </div>

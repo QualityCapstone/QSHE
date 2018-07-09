@@ -31,7 +31,8 @@ import java.util.List;
           List<State> states = stateService.findAll();
             view.addAttribute("state", states);
 
-            return "/users/viewstate"; }
+            return "/users/viewstate";
+      }
 
 
         @GetMapping("/viewstate/{id}")

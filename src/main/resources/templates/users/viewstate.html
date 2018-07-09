@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4" >
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"  >
 <head th:replace="partials/layout :: header" >
     <meta charset="UTF-8" />
     <title>State</title>
@@ -8,24 +8,15 @@
 <body>
 <div th:replace="partials/layout :: navbar" />
 <span class="overlay"></span>
-
-<h1>Hello World</h1>
-    <div class="container">
+    <div class="container" sec:authorize="isAuthenticated()">
     <h1>State Page</h1>
-
         <div>
-             <!--<img th:attr="src="-->
             <img id="#stateMap" name="stateMap" src="img/stateMaps/TX.png" height="500" width="500" alt="">
-            <!--<img src="img/test/spiderchart.png" height="400" width="400" alt="">-->
         </div>
-
         <div>
-
             <div class="col-md-8">
                 <form>
-
                     <div class="form-row">
-
                         <div class="form-group col-md-4">
                             <label for="inputState">State</label>
                             <select id="inputState" class="form-control">
