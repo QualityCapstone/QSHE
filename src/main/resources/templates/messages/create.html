@@ -10,7 +10,7 @@
 <span class="overlay"></span>
 
 
-<div class="container bg-white text-center border border-dark rounded mt-5">
+<div class="container bg-white text-center border border-dark rounded mt-5" sec:authorize="isAuthenticated()">
     <h1>Create a message!</h1>
     <form class="form-group" th:action="@{/messages/create}" method="post" th:object="${newMessage}">
         <h2>Message:</h2>
