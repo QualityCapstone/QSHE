@@ -14,7 +14,7 @@
 <div th:replace="partials/layout :: navbar" />
     <span class="overlay"></span>
 
-    <div class="container wrapper mx-auto">
+    <div class="container wrapper mx-auto" sec:authorize="isAuthenticated()">
         <div class="text-left col-12">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a th:href="@{~/profile}">Home</a></li>

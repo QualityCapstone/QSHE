@@ -10,7 +10,7 @@
 
 <h1 class="text-center m-3 p-3">Share your comments with other users about your state!</h1>
 
-<div class="container bg-white text-center border border-dark rounded mt-5">
+<div class="container bg-white text-center border border-dark rounded mt-5" sec:authorize="isAuthenticated()">
     <h1>Submit your post!</h1>
     <form class="form-group" th:action="@{/widget/all}" method="post" th:object="${newPost}">
         <input type="text" id="user-post" class="form-control mb-5" th:field="*{message}"  />

@@ -26,7 +26,7 @@
                     <div class="card">
                         <div class="card-body">
                             <h3 class="mb-3">Rate each element of your State</h3>
-                            <form class="card card-block bg-faded m-3 p-3 login-card">
+                            <form class="card card-block bg-faded m-3 p-3 login-card" th:action="@{/users/rating}" method="post" th:object="${newRating}">
                                 <h2 class="m-b-1 text-xs-center">Step 3</h2>
                                 <small class="form-text">You can rate your state now or later:</small>
                                 <div class="form-group">
@@ -57,6 +57,7 @@
                                     <input type="range" min="1" max="10"value="1" class="slider float-left" id="growthRate" />
                                     <p class="text-center float-right"><span id="demoGrowth"></span></p>
                                 </div>
+                                <!--<input type="submit" id="overallRating" th:field="*{userRating}" name="submit" class="submit form-control btn btn-secondary" value="Save" />-->
                             </form>
                         </div>
                     </div>
@@ -72,8 +73,8 @@
                         <div class="card-body">
                             <h3 class="mb-3">This is the overall rating you're giving to the State you live in</h3>
                             <h1 class="text-center m-5" id="totalMarks"></h1>
-                            <form class="form-control" th:action="@{/users/rating}" method="post" th:object="${newRating}">
-                                <input type="hidden" name="userId" th:value="${stateUserRating}">
+                            <!--<form class="form-control" th:action="@{/users/rating}" method="post" th:object="${newRating}">-->
+                                <!--<input type="hidden" name="userId" th:value="${stateUserRating}">-->
                                 <!--<input type="hidden" name="userRate" th:value="${userRating.id}">-->
                                 <!--<input type="hidden" name="stateId" th:value="${userRating.stateId}"-->
                                 <!--<input type="submit" id="overallRating" name="submit" class="submit form-control btn btn-secondary" th:field="*{userRating.id}"  value="Save" />-->
@@ -96,6 +97,7 @@
                     </div>
                 </div>
             </div>
+
     </div>
 </div>
 <div th:replace="partials/layout :: footer" />
