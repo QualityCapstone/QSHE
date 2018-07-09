@@ -18,25 +18,25 @@ import java.util.List;
 @Controller
 public class MessageController {
 
-     private final MessagesService messagesService;
+     private final MessagesService messageDao;
      private final UserService userDao;
 
-     public MessageController(MessagesService messagesService, UserService userDao){
-         this.messagesService = messagesService;
+     public MessageController(MessagesService messageDao, UserService userDao){
+         this.messageDao = messageDao;
          this.userDao = userDao;
      }
 
 
      @GetMapping("/messages")
         public String viewMessages(Model view) {
-         List<Message> messages = messagesService.findAll();
+         List<Message> messages = messageDao.findAll();
          view.addAttribute("messages", messages);
          return "/messages";
      }
 
     @GetMapping("/messages/{id}")
     public String showMessage(@PathVariable long id, Model view){
-        Message message = messagesService.findOne(id);
+        Message message = messageDao.findOne(id);
         view.addAttribute("message", message);
 
         return "messages/show";
@@ -44,9 +44,9 @@ public class MessageController {
 
    @PostMapping("/messages/{id}/edit")
     public String updateMessage(@PathVariable long id, @Valid Message messageDetails){
-         Message message = messagesService.findOne(id);
+         Message message = messageDao.findOne(id);
          message.setMessage(messageDetails.getMessage());
-         messagesService.save(message);
+        messageDao.save(message);
 
          return "redirect:/messages";
    }
@@ -54,8 +54,8 @@ public class MessageController {
 
    @DeleteMapping("/messages/{id}/delete")
    public String deleteMessage(@PathVariable long id){
-         messagesService.findOne(id);
-         messagesService.deleteMessage(id);
+       messageDao.findOne(id);
+       messageDao.deleteMessage(id);
 
          return "redirect: /messages";
    }
@@ -63,9 +63,15 @@ public class MessageController {
 
    @GetMapping("/messages/{id}/create")
     public String showMessageForm(@PathVariable Long id, Model model){
+        User sender = userDao.getLoggedInUser();
 
-         model.addAttribute("newMessage", new Message());
-        List<Message> messages = messagesService.findAll();
+      //  model.addAttribute("newMessage", new Message());
+
+
+        List<Message> messages = messageDao.getMessageRepository().findAllBySender(sender);
+
+        System.out.println(messages);
+
         model.addAttribute("messages", messages);
 
        User recipient = userDao.getUsers().findById(id).get();
@@ -83,7 +89,7 @@ public class MessageController {
          User recipient = userDao.getUsers().findById(id).get();
 
          Message message = new Message(user, recipient, userInput);
-         messagesService.save(message);
+         messageDao.save(message);
 
          model.addAttribute("recipient", recipient);
 

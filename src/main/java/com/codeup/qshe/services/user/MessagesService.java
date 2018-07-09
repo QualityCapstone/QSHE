@@ -13,11 +13,16 @@ import java.util.List;
 public class MessagesService {
     private MessageRepository messageRepository;
     private Users users;
+    private UserService userDao;
 
 
-    public MessagesService(MessageRepository messageRepository, Users users){
+    public MessagesService(MessageRepository messageRepository, Users users, UserService userDao){
         this.messageRepository = messageRepository;
         this.users = users;
+    }
+
+    public MessageRepository getMessageRepository() {
+        return messageRepository;
     }
 
     public List<Message> findAll() {
@@ -53,6 +58,9 @@ public class MessagesService {
     }
 
 
-
-
+    public List<Message> findBySenderId(Long id) {
+        User user = userDao.getLoggedInUser();
+        List<Message> messages = messageRepository.findAllBySender(user);
+        return messages;
+    }
 }
