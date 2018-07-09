@@ -23,7 +23,7 @@ public class HomeController {
     public String viewDashboard(Model model) {
 
         return "user";
-    } // change
+    } //
     @GetMapping("/map")
     public String displayMap(){
         return "Map/map";
