@@ -14,7 +14,7 @@ public class StateUserRating {
     @OneToOne
     private State state;
 
-    \
+    @OneToOne
     private StateMetric metric;
 
     @ManyToOne(cascade = CascadeType.ALL)
@@ -26,10 +26,11 @@ public class StateUserRating {
 
     public StateUserRating (){}
 
-    public StateUserRating(State state, User user, float userRate) {
+    public StateUserRating(State state, User user, StateMetric metric, float rating) {
         this.state = state;
         this.user = user;
-        this.userRate = userRate;
+        this.metric = metric;
+        this.rating = rating;
     }
 
     public State getState() {
@@ -48,12 +49,12 @@ public class StateUserRating {
         this.user = user;
     }
 
-    public float getUserRate() {
-        return userRate;
+    public float getRating() {
+        return rating;
     }
 
-    public void setUserRate(float userRate) {
-        this.userRate = userRate;
+    public void setRating(float rating) {
+        this.rating = rating;
     }
 
 

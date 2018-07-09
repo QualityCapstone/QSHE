@@ -83,17 +83,17 @@ public class UserRatingController {
         return "users/rating";
     }
 
-    @PostMapping("/users/rating")
-    public String saveUserRate (@RequestParam(name = "userRate") float userRate){
-
-        StateUserRating userRating = new StateUserRating();
-        userRating.setUserRate(userRate);
-
-        User user = userDao.getLoggedInUser();
-        userRating.setUser(user);
-        stateUserRatingService.save(userRating);
-        return "redirect:/users/rating";
-    }
+//    @PostMapping("/users/rating")
+//    public String saveUserRate (@RequestParam(name = "userRate") float userRate){
+//
+//        StateUserRating userRating = new StateUserRating();
+//        userRating.setUserRate(userRate);
+//
+//        User user = userDao.getLoggedInUser();
+//        userRating.setUser(user);
+//        stateUserRatingService.save(userRating);
+//        return "redirect:/users/rating";
+//    }
 
 //     -------------- Tercer Intento ------------------------------
 
