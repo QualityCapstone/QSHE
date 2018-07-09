@@ -76,12 +76,7 @@ public class UserRatingController {
         return "/users/rating";
     }
 
-    @GetMapping("/users/rating/{state}")
-    public String showRatingForm(Model model){
-        List<StateUserRating> userRatings = stateUserRatingService.findAll();
-        model.addAttribute("userRatings", userRatings);
-        return "users/rating";
-    }
+
 
 //    @PostMapping("/users/rating")
 //    public String saveUserRate (@RequestParam(name = "userRate") float userRate){
