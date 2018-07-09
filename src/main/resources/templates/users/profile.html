@@ -46,6 +46,7 @@
                         </div>
                     </div>
                 </div>
+                <a href="/fileupload">Change avatar picture!</a>
                 <div class="col-md-8">
                     <h2>User ID <span th:text="${#authentication.principal.id}" /></h2>
                     <form th:action="@{/user/} + ${#authentication.principal.id} + @{/edit}" th:method="post" th:object="${user}" >
