@@ -74,12 +74,22 @@ public class UserController {
         return "users/profile";
     }
 
+
+
+
+//     @GetMapping("/news")
+//     public String newsApi() {
+//         return "users/newstest";
+//     }
+
+
     @GetMapping("/users")
     public String viewAllUsers(Model view) {
         List<User> users = userDao.findAll();
         view.addAttribute("users", users);
         return "users/all";
     }
+
 
     private void authenticate(User user) {
         UserDetails userDetails = new UserWithRoles(user, roles.ofUserWith(user.getUsername()));
