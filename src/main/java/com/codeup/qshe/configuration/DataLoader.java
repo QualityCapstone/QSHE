@@ -56,7 +56,9 @@ public class DataLoader implements ApplicationRunner {
     }
 
     public void run(ApplicationArguments args) throws IOException, URISyntaxException {
-
+        if(!FRESHSTART) {
+            return;
+        }
 
         try {
             if (!site.isPopulated()) {
