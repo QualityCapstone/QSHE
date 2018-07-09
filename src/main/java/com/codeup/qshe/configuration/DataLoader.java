@@ -75,7 +75,8 @@ public class DataLoader implements ApplicationRunner {
 
             // Get Population Data by State
             for (int i = 1; i <= 9; i++) {
-                String popURL = "https://api.census.gov/data/2016/pep/population?get=POP,GEONAME,DATE_DESC&for=state:*&DATE=" + i;
+                String popURL = "https://api.census.gov/data/2016/pep/population?get=POP,GEONAME,DATE_DESC&for=state:*&DATE=" + i +
+                        "&key=50fdb2ea46d6471b7412b6b43204804309487999";
                 populationsByDate(popURL);
 
             }
