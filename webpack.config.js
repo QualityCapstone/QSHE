@@ -9,11 +9,8 @@ module.exports = {
     entry: {
         main: ['promise-polyfill', 'whatwg-fetch', './src/main/resources/static/js/global.js'],
         user: './src/main/resources/static/js/user.js',
-<<<<<<< HEAD
-        map: './src/main/resources/static/js/map.js'
-=======
+        map: './src/main/resources/static/js/map.js',
         news: './src/main/resources/static/js/newsapi.js'
->>>>>>> master
     },
     // where to put the transpiled javascript
     output: {
