@@ -93,7 +93,7 @@ public class MessageController {
 
          model.addAttribute("recipient", recipient);
 
-         return "redirect:messages/{id}/create";
+         return "messages/messages";
    }
 
 
