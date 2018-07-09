@@ -9,35 +9,7 @@
 <div th:replace="partials/layout :: navbar" />
 <span class="overlay"></span>
 
-<div class="container bg-white text-center border border-dark rounded mt-5">
-    <h1>New Message <i class="fas fa-comment" ></i></h1>
-    <div class="" tabindex="-1" role="dialog" aria-labelledby="exampleModal" aria-hidden="true">
-        <div class="" role="document">
-            <div class="">
-                <div class="">
-                    <h5 class="" id="exampleModalLabel">Post <span></span> New Message </h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-    <form th:action="@{/messages/}+${recipient.id}+@{/create}" method="post">
-        <div class="">
 
-            <input type="hidden" name="recipientId" th:value="${recipient.id}">
-
-        <input type="text"  class="form-control mb-5" id="message" name="message"/>
-
-        </div>
-        <div class="">
-            <input type="hidden" name="recipient" />
-            <!--<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>-->
-            <button type="submit" class="btn btn-outline-primary">Send</button>
-        </div>
-
-    </form>
-            </div>
-        </div>
-    </div>
 
 
     <h1 class="mb-2" th:height="200"> These are all your messages</h1>
@@ -50,11 +22,43 @@
             <li class="media">
                 <img class="mr-3" src="http://via.placeholder.com/150x150" alt="Generic placeholder image" />
                 <div class="media-body p-2">
+                    <p>From: <span  class="text-justify" th:text="${message.sender.username}"></span></p>
+                    <p>To: <span class="text-justify" th:text="${message.recipient.username}"></span></p>
                     <p class="text-justify" th:text="${message.message}"></p>
 
                 </div>
             </li>
         </ul>
+    </div>
+
+<div class="container bg-white text-center border border-dark rounded mt-5">
+    <h1>New Message <i class="fas fa-comment" ></i></h1>
+    <div class="" tabindex="-1" role="dialog" aria-labelledby="exampleModal" aria-hidden="true">
+        <div class="" role="document">
+            <div class="">
+                <div class="">
+                    <h5 class="" id="exampleModalLabel">Send <span></span> New Message to <span th:text="${recipient.username}"></span></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form th:action="@{/messages/}+${recipient.id}+@{/create}" method="post">
+                    <div class="">
+
+                        <input type="hidden" name="recipientId" th:value="${recipient.id}">
+
+                        <input type="text"  class="form-control mb-5" id="message" name="message"/>
+
+                    </div>
+                    <div class="">
+                        <input type="hidden" name="recipient" />
+                        <!--<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>-->
+                        <button type="submit" class="btn btn-outline-primary">Send</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
     </div>
 
 </div>

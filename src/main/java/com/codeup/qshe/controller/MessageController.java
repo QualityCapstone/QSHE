@@ -70,6 +70,7 @@ public class MessageController {
 
        User recipient = userDao.getUsers().findById(id).get();
 
+
        model.addAttribute("recipient", recipient);
 
          return "messages/create";
@@ -86,7 +87,7 @@ public class MessageController {
 
          model.addAttribute("recipient", recipient);
 
-         return "messages/create";
+         return "redirect:messages/{id}/create";
    }
 
 
