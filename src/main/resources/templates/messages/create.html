@@ -20,10 +20,13 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-    <form th:action="@{/messages/create}" method="post" th:object="${newMessage}" >
+    <form th:action="@{/messages/}+${recipient.id}+@{/create}" method="post">
         <div class="">
-        <input type="text" id="user-message" class="form-control mb-5" th:field="*{message}"  />
-               "${ message.setRecipient({id})}"
+
+            <input type="hidden" name="recipientId" th:value="${recipient.id}">
+
+        <input type="text"  class="form-control mb-5" id="message" name="message"/>
+
         </div>
         <div class="">
             <input type="hidden" name="recipient" />
@@ -36,14 +39,10 @@
         </div>
     </div>
 
-        <!--<br />-->
-        <!--<input type="submit" class="btn btn-dark text-light" />-->
+
     <h1 class="mb-2" th:height="200"> These are all your messages</h1>
     <div sec:authorize="isAuthenticated()">
-        <!--<h2 class="user-name">Hi, <span th:text="${#authentication.principal.sender}"/></h2>-->
-        <!--User ID: <span th:text="${#authentication.principal.id}"/>-->
-        <!--Username: <span th:text="${#authentication.principal.username}"/>-->
-        <!--Email: <span th:text="${#authentication.principal.email}"/>-->
+
     </div>
 <!------------------------- TO DISPLAY THE MESSAGES ------------------------------------------>
     <div class="p-5 m-2 create-form text-dark border border-dark rounded" th:each="message: ${messages}" th:height="auto">
@@ -52,7 +51,7 @@
                 <img class="mr-3" src="http://via.placeholder.com/150x150" alt="Generic placeholder image" />
                 <div class="media-body p-2">
                     <p class="text-justify" th:text="${message.message}"></p>
-                    <!--<p th:text="${message.sender_id}"></p>-->
+
                 </div>
             </li>
         </ul>

@@ -6,6 +6,7 @@ import com.codeup.qshe.models.user.User;
 import com.codeup.qshe.repositories.MessageRepository;
 import com.codeup.qshe.repositories.Users;
 import com.codeup.qshe.services.user.MessagesService;
+import com.codeup.qshe.services.user.UserService;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,11 +19,11 @@ import java.util.List;
 public class MessageController {
 
      private final MessagesService messagesService;
-     private final Users users;
+     private final UserService userDao;
 
-     public MessageController(MessagesService messagesService, Users users){
+     public MessageController(MessagesService messagesService, UserService userDao){
          this.messagesService = messagesService;
-         this.users = users;
+         this.userDao = userDao;
      }
 
 
@@ -61,28 +62,31 @@ public class MessageController {
 
 
    @GetMapping("/messages/{id}/create")
-    public String showMessageForm(Model model){
+    public String showMessageForm(@PathVariable Long id, Model model){
+
          model.addAttribute("newMessage", new Message());
-       List<Message> messages = messagesService.findAll();
-       model.addAttribute("messages", messages);
+        List<Message> messages = messagesService.findAll();
+        model.addAttribute("messages", messages);
+
+       User recipient = userDao.getUsers().findById(id).get();
+
+       model.addAttribute("recipient", recipient);
 
          return "messages/create";
    }
 
    @PostMapping("/messages/{id}/create")
-    public String create(@RequestParam(name = "message") String userInput, @RequestParam Long id){
-         Message message = new Message();
-         message.setMessage(userInput);
-         User sessionUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-         User user = users.findById(sessionUser.getId()).get();
-         User recipient = users.getOne(id);
-         message.setSender(user);
-         message.setRecipient(recipient);
-       System.out.println(recipient.getId());
-//         message.setRecipient(user.getId());
+    public String create(@PathVariable Long id, @RequestParam(name = "message") String userInput, Model model){
+
+         User user = userDao.getLoggedInUser();
+         User recipient = userDao.getUsers().findById(id).get();
+
+         Message message = new Message(user, recipient, userInput);
          messagesService.save(message);
 
-         return "redirect:/messages/create";
+         model.addAttribute("recipient", recipient);
+
+         return "messages/create";
    }
 
 
