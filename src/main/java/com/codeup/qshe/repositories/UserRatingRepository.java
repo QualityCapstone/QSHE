@@ -18,6 +18,7 @@ public interface UserRatingRepository extends CrudRepository <StateUserRating, L
 
     StateUserRating findByUserId(User userId);
 
+
     @Query(nativeQuery = true, value="SELECT * FROM state_user_rating LIMIT 1") // To insert any user without taking care of the id
     User first();
 

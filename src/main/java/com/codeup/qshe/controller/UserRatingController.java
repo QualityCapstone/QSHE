@@ -4,12 +4,14 @@ package com.codeup.qshe.controller;
 import com.codeup.qshe.models.user.Message;
 import com.codeup.qshe.models.user.StateUserRating;
 import com.codeup.qshe.models.user.User;
+import com.codeup.qshe.repositories.UserRatingRepository;
 import com.codeup.qshe.repositories.Users;
 import com.codeup.qshe.services.StateUserRatingService;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -90,6 +92,17 @@ public class UserRatingController {
         stateUserRatingService.save(userRating);
         return "redirect:/users/rating";
     }
+
+//     -------------- Tercer Intento ------------------------------
+
+//    @PostMapping("/users/rating")
+//    public String saveUserRating(@ModelAttribute StateUserRating userRating
+//    ){
+//       userRating.setUser(userDao.findById(id));
+//       stateUserRatingService.save(userRating);
+//
+//       return"redirect:/users/rating";
+//    }
 
 }
 
