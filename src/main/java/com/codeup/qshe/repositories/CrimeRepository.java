@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface CrimeRepository extends CrudRepository<StateCrime, Long>{
+ //second test
 }

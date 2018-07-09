@@ -14,8 +14,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" th:href="@{~/css/resources/bootstrap.min.css}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.0-beta/css/bootstrap-select.min.css">
+
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
-     <link rel="stylesheet" th:href="@{~/css/global.css}">
+    <link rel="stylesheet" th:href="@{~/css/global.css}">
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="/css/signup.css">
 
@@ -60,7 +61,7 @@
             <button class="btn btn-secondary" type="button">
 
                 <div sec:authorize="isAuthenticated()">
-                    <a th:href="@{~/dashboard}" th:text="${#authentication?.principal?.profile?.firstName}">
+                    <a th:href="@{~/users/displayprofile}" th:text="${#authentication?.principal?.profile?.username}">
                    </a>
                     <th:block th:if="${currentUserConnection == null}" >
 
@@ -90,15 +91,21 @@
                 <span class="sr-only">Toggle Dropdown</span>
             </button>
             <div class="dropdown-menu dropdown-menu-right">
-                <a class="dropdown-item" th:href="@{~/profile}">Profile</a>
+                <a class="dropdown-item" th:href="@{~/users/displayprofile}">Profile</a>
+               
+                <a class="dropdown-item" th:href="@{~/users}">Users</a>
+                <a class="dropdown-item" th:href="@{~/map}">Country</a>
+
                 <a class="dropdown-item" th:href="@{~/users/viewstate}">State</a>
                 <a class="dropdown-item" th:href="@{~/about/}">About</a>
                 <a class="dropdown-item" th:href="@{~/help}">Help</a>
+
                 <a class="dropdown-item" th:href="@{~/messages/create}">Create</a>
                 <a class="dropdown-item" th:href="@{~/users}">Users</a>
                 <a class="dropdown-item" th:href="@{~/widget/all}">Forum</a>
                 <a class="dropdown-item" th:href="@{~/map}">Map</a>
                 <a class="dropdown-item" th:href="@{~/users/rating}">My rating</a>
+
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" th:href="@{~/logout}">Logout</a>
             </div>
@@ -136,6 +143,7 @@
         })
         //]]>
     </script>
+    <script src="/messages.js"></script>
 
 </footer>
 

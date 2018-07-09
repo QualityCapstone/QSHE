@@ -1,0 +1,44 @@
+
+/*MAP CSS Save seperately later*/
+
+.map-container {
+    background:  #73b5c059;
+}
+
+#map {
+    padding-top: 50px;
+    min-width: 940px;
+    text-align: center;
+    height: calc(100vh - 175px);
+}
+
+.state .icon {
+    stroke-width: 1;
+    stroke: #fff;
+    fill: currentColor;
+    height: 100%;
+    width: 100%;
+}
+
+.state {
+    color: #ff9890;
+    transition: 500ms color;
+    height: 500px;
+}
+.state:hover {
+    color: pink;
+}
+
+.tooltip {
+    z-index: 9999999;
+}
+
+#popperElement {
+    padding: 15px;
+    background: rgba(255,255,255,0.9);
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    border: 2px solid #ff9890;
+    width: 400px;
+}

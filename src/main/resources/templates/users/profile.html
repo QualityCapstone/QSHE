@@ -1,5 +1,7 @@
 <!DOCTYPE html>
+
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4" lang="en">
+
 <head th:replace="partials/layout :: header">
     <meta charset="UTF-8" />
     <title>Home</title>
@@ -13,6 +15,7 @@
 <body>
 <div th:replace="partials/layout :: navbar" />
     <span class="overlay"></span>
+
 
     <div class="container wrapper mx-auto" sec:authorize="isAuthenticated()">
         <div class="text-left col-12">
@@ -45,103 +48,42 @@
                         </div>
                     </div>
                 </div>
+                <a href="/fileupload">Change avatar picture!</a>
                 <div class="col-md-8">
                     <h2>User ID <span th:text="${#authentication.principal.id}" /></h2>
+
                     <form th:action="@{/user/} + ${#authentication.principal.id} + @{/edit}" th:method="post" th:object="${user}" >
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label for="username">Username</label>
-                                <input type="text" class="form-control" id="username" th:placeholder="${#authentication.principal.username}" th:field="*{username}"/>
-                            </div>
 
-                            <div class="form-group col-md-6">
-                                <label for="email">Email</label>
-                                <input type="email" class="form-control"  id="email" th:attr="placeholder=${#authentication.principal.profile.email}"  th:field="*{profile.email}"/>
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label for="inputPassword4">Password</label>
-                                <input type="password" class="form-control" id="inputPassword4" placeholder="Password">
-                            </div>
 
-                        </div>
-                        <!--<div class="form-group">-->
-                            <!--<label for="inputAddress">Address</label>-->
-                            <!--<input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">-->
-                        <!--</div>-->
-                        <!--<div class="form-group">-->
-                            <!--<label for="inputAddress2">Address 2</label>-->
-                            <!--<input type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor">-->
-                        <!--</div>-->
-                        <div class="form-row">
-                            <!--<div class="form-group col-md-6">-->
-                                <!--<label for="inputCity">City</label>-->
-                                <!--<input type="text" class="form-control" id="inputCity">-->
-                            <!--</div>-->
-                            <div class="form-group col-md-4">
-                                <label for="inputState">State</label>
-                                <select id="inputState" class="form-control">
-                                    <option selected>Choose...</option>
-                                    <option>Alabama</option>
-                                    <option>Alaska</option>
-                                    <option>Arizona</option>
-                                    <option>Arkansas</option>
-                                    <option>California</option>
-                                    <option>Colorado</option>
-                                    <option>Connecticut</option>
-                                    <option>Delaware</option>
-                                    <option>Florida</option>
-                                    <option>Georgia</option>
-                                    <option>Hawaii</option>
-                                    <option>Idaho</option>
-                                    <option>Illinois</option>
-                                    <option>Indiana</option>
-                                    <option>Iowa</option>
-                                    <option>Kansas</option>
-                                    <option>Kentucky</option>
-                                    <option>Louisiana</option>
-                                    <option>Maine</option>
-                                    <option>Maryland</option>
-                                    <option>Massachusetts</option>
-                                    <option>Michigan</option>
-                                    <option>Minnesota</option>
-                                    <option>Mississippi</option>
-                                    <option>Missouri</option>
-                                    <option>Montana</option>
-                                    <option>Nebraska</option>
-                                    <option>Nevada</option>
-                                    <option>New Hampshire</option>
-                                    <option>New Jersey</option>
-                                    <option>New Mexico</option>
-                                    <option>New York</option>
-                                    <option>North Carolina</option>
-                                    <option>North Dakota</option>
-                                    <option>Ohio</option>
-                                    <option>Oklahoma</option>
-                                    <option>Oregon</option>
-                                    <option>Pennsylvania</option>
-                                    <option>Rhode Island</option>
-                                    <option>South Carolina</option>
-                                    <option>South Dakota</option>
-                                    <option>Tennessee</option>
-                                    <option>Texas</option>
-                                    <option>Utah</option>
-                                    <option>Vermont</option>
-                                    <option>Virginia</option>
-                                    <option>Washington</option>
-                                    <option>West Virginia</option>
-                                    <option>Wisconsin</option>
-                                    <option>Wyoming</option>
-                                </select>
-                            </div>
-                            <div class="form-group col-md-2">
-                                <label for="inputZip">Zip</label>
-                                <input type="text" class="form-control" id="inputZip">
-                            </div>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Save</button>
+                         <label for="username">Username</label>
+                         <input type="text" class="form-control" id="username" th:placeholder="${#authentication.principal.username}" th:field="*{username}"/>
+
+                        <br />
+
+                        <label for="firstName">First Name</label>
+                        <input id="firstName" class="form-control"  type="text" th:placeholder="${#authentication.principal.profile.firstName}" th:field="*{profile.firstName}">
+
+                        <br />
+
+                        <label for="lastName">Last Name</label>
+                        <input id="lastName" class="form-control" placeholder="Last Name" type="text" th:field="*{profile.lastName}">
+
+                        <br />
+
+
+                        <label for="email">Email</label>
+                        <input type="email" class="form-control"  id="email" th:attr="placeholder=${#authentication.principal.profile.email}"  th:field="*{profile.email}"/>
+
+                        <br />
+
+                        <label for="name">A Little About Me</label>
+                        <input id="name" class="form-control" placeholder="About Me" type="text"  th:field="*{profile.name}" />
+
+                        <button type="submit" class="btn btn-primary">save changes</button>
 
                     </form>
                 </div>
+<
                 <div class="row mt-5 mb-5">
                     <h3>Your notifications</h3>
                     <div class="col-12 text-left">
@@ -261,6 +203,7 @@
                         </form>
                     </div>
                 </div>
+
             </div>
         </div>
     </div>

@@ -2,11 +2,7 @@ package com.codeup.qshe.services;
 
 
 import com.codeup.qshe.models.State;
-import com.codeup.qshe.repositories.StateEducations;
-import com.codeup.qshe.repositories.CrimeRepository;
-import com.codeup.qshe.repositories.StatePopulations;
-import com.codeup.qshe.repositories.StatePoverties;
-import com.codeup.qshe.repositories.Staterepository;
+import com.codeup.qshe.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,18 +15,22 @@ public class StateService {
     private StateEducations educations;
     private StatePoverties poverties;
     private CrimeRepository crimes;
+    private States states;
 
     @Autowired
     public StateService(Staterepository staterepository, StatePopulations populations,
-                        StateEducations educations, StatePoverties poverties, CrimeRepository crimes) {
+                        StateEducations educations, StatePoverties poverties, CrimeRepository crimes,
+    States states) {
             this.staterepository = staterepository;
             this.populations = populations;
             this.educations = educations;
             this.poverties = poverties;
             this.crimes = crimes;
+            this.states = states;
     }
 
 
+    public States getStates() { return states; }
 
     public Staterepository getStaterepository() {
         return staterepository;
