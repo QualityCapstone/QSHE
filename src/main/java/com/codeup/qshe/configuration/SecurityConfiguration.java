@@ -77,7 +77,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                     .loginPage("/login")
                     .failureUrl("/login?error=true")
                     .successHandler(successHandler())
-                    .defaultSuccessUrl("/dashboard") // user's home page, it can be any URL
+                    .defaultSuccessUrl("/profile") // user's home page, it can be any URL
                     .permitAll() // Anyone can go to the login page
                     /* Logout configuration */
                 .and()
@@ -94,7 +94,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                         .permitAll()
                     .and()
                      .authorizeRequests()
-                     .antMatchers("/bill/**","/dashboard","/plaid/**","/viewstate")
+                     .antMatchers("/bill/**","/profile","/plaid/**","/viewstate")
                      .hasAuthority("USER")
                     /* Pages that require authentication */
                 .and()
@@ -112,7 +112,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .rememberMe()
                 .and()
                 .apply(new SpringSocialConfigurer()
-                        .postLoginUrl("/dashboard")
+                        .postLoginUrl("/profile")
                         .alwaysUsePostLoginUrl(true));
 
     }
