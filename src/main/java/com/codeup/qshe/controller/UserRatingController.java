@@ -7,6 +7,7 @@ import com.codeup.qshe.models.user.User;
 import com.codeup.qshe.repositories.UserRatingRepository;
 import com.codeup.qshe.repositories.Users;
 import com.codeup.qshe.services.StateUserRatingService;
+import com.codeup.qshe.services.user.UserService;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,9 +21,9 @@ import java.util.List;
 @Controller
 public class UserRatingController {
    private final StateUserRatingService stateUserRatingService;
-   private final Users userDao;
+   private final UserService userDao;
 
-   public UserRatingController (StateUserRatingService stateUserRatingService, Users userDao){
+   public UserRatingController (StateUserRatingService stateUserRatingService, UserService userDao){
        this.stateUserRatingService = stateUserRatingService;
        this.userDao = userDao;
    }
@@ -70,24 +71,25 @@ public class UserRatingController {
         System.out.println("hello");
         List<StateUserRating> userRatings = stateUserRatingService.findAll();
         view.addAttribute("userRatings", userRatings);
+        view.addAttribute("newRating", new StateUserRating());
 
         return "/users/rating";
     }
 
     @GetMapping("/users/rating/{state}")
     public String showRatingForm(Model model){
-        model.addAttribute("newRating", new StateUserRating());
         List<StateUserRating> userRatings = stateUserRatingService.findAll();
         model.addAttribute("userRatings", userRatings);
         return "users/rating";
     }
 
     @PostMapping("/users/rating")
-    public String saveUserRate (@RequestParam(name = "userRating") float userRate){
+    public String saveUserRate (@RequestParam(name = "userRate") float userRate){
+
         StateUserRating userRating = new StateUserRating();
         userRating.setUserRate(userRate);
-        User sessionUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        User user = userDao.findById(sessionUser.getId()).get();
+
+        User user = userDao.getLoggedInUser();
         userRating.setUser(user);
         stateUserRatingService.save(userRating);
         return "redirect:/users/rating";

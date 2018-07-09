@@ -14,11 +14,14 @@ public class StateUserRating {
     @OneToOne
     private State state;
 
+    \
+    private StateMetric metric;
+
     @ManyToOne(cascade = CascadeType.ALL)
     private User user;
 
-    @Column (name="user_rating", nullable = false)
-    private float userRate;
+    @Column (name="rating", nullable = false)
+    private float rating;
 
 
     public StateUserRating (){}
