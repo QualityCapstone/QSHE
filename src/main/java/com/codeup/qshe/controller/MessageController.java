@@ -60,21 +60,25 @@ public class MessageController {
    }
 
 
-   @GetMapping("/messages/create")
+   @GetMapping("/messages/{id}/create")
     public String showMessageForm(Model model){
          model.addAttribute("newMessage", new Message());
        List<Message> messages = messagesService.findAll();
        model.addAttribute("messages", messages);
+
          return "messages/create";
    }
 
-   @PostMapping("/messages/create")
-    public String create(@RequestParam(name = "message") String userInput){
+   @PostMapping("/messages/{id}/create")
+    public String create(@RequestParam(name = "message") String userInput, @RequestParam Long id){
          Message message = new Message();
          message.setMessage(userInput);
          User sessionUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
          User user = users.findById(sessionUser.getId()).get();
+         User recipient = users.getOne(id);
          message.setSender(user);
+         message.setRecipient(recipient);
+       System.out.println(recipient.getId());
 //         message.setRecipient(user.getId());
          messagesService.save(message);
 

@@ -19,7 +19,8 @@
                 <h5 class="text-center card-title" th:text="${user.profile.firstName}"></h5>
                 <h5 class="text-center card-title" th:text="${user.profile.email}"></h5>
                 <p class="text-center"> <span th:text="${user.profile.name}"></span> </p>
-                <a href="/messages/create" class="btn btn-primary">Send a message</a>
+                <p class="text-center"><span th:text="${user.id}"></span></p>
+                <a th:href="@{/messages/} + ${user.id} + @{/create}" class="btn btn-primary">Send a message</a>
             </div>
         </div>
     </div>

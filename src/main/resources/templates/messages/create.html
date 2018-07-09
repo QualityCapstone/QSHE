@@ -20,14 +20,14 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-    <form th:action="@{/messages/create}" method="post" th:object="${newMessage}">
+    <form th:action="@{/messages/create}" method="post" th:object="${newMessage}" >
         <div class="">
         <input type="text" id="user-message" class="form-control mb-5" th:field="*{message}"  />
-
+               "${ message.setRecipient({id})}"
         </div>
         <div class="">
-            <input type="hidden" name="recipents"/>
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <input type="hidden" name="recipient" />
+            <!--<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>-->
             <button type="submit" class="btn btn-outline-primary">Send</button>
         </div>
 
