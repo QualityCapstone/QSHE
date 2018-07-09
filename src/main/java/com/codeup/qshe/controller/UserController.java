@@ -1,5 +1,6 @@
 package com.codeup.qshe.controller;
 
+import com.codeup.qshe.models.user.Message;
 import com.codeup.qshe.models.user.User;
 import com.codeup.qshe.models.user.UserProfile;
 import com.codeup.qshe.models.user.UserWithRoles;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Controller
 public class UserController {
@@ -31,12 +33,15 @@ public class UserController {
     private UserProfilesRepository userProfilesRepository;
 
 
+
+
     public UserController(UserService userDao, PasswordEncoder passwordEncoder, Roles roles) {
         this.userDao = userDao;
         this.passwordEncoder = passwordEncoder;
         this.roles = roles;
 
     }
+
 
     @GetMapping("/sign-up")
     public String showSignupForm(Model model) {
@@ -51,6 +56,7 @@ public class UserController {
         String hash = passwordEncoder.encode(user.getPassword());
         user.setPassword(hash);
         user.setCreatedAt(LocalDateTime.now());
+        user.getProfile().setUsername(user.getUsername());
 
         userDao.getUsers().save(user);
         userDao.getUsers().addDefaultRole(user.getId());
@@ -70,6 +76,19 @@ public class UserController {
 
 
 
+
+//     @GetMapping("/news")
+//     public String newsApi() {
+//         return "users/newstest";
+//     }
+
+
+    @GetMapping("/users")
+    public String viewAllUsers(Model view) {
+        List<User> users = userDao.findAll();
+        view.addAttribute("users", users);
+        return "users/all";
+    }
 
 
     private void authenticate(User user) {

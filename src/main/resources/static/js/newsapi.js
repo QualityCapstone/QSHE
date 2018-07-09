@@ -17,8 +17,10 @@
 // You must include at least one q, source, or domain
     newsapi.v2.everything({
         q: 'texas',
+
         // need help changing this q to the name of each
         // state based on which state the user selects
+
         sources: 'bbc-news,the-verge,abc-news,cbs-news,cnbc,cnn,fox-news',
         // domains: 'bbc.co.uk, techcrunch.com',
         from: '2018-06-18',

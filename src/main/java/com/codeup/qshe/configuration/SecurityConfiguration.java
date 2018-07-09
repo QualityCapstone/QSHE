@@ -100,11 +100,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .and()
                     .authorizeRequests()
                     .antMatchers(
-                            "/bill/**", // only authenticated users can create posts
-                            "/posts/**/edit",
                             "/static/**",
-                            "/viewstate",
-                            "/plaid/**",// only authenticated users can edit posts
+                            "/viewstate/**",
                             "/messages/create"
                     )
                 .authenticated()

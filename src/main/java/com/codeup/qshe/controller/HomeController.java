@@ -12,19 +12,20 @@ public class HomeController {
     @Autowired
     public HomeController() {
 
-
     }
 
     @GetMapping("/")
     public String displayMainPage() {
-        return "/index";
+        return "index";
     }
 
     @GetMapping("/dashboard")
     public String viewDashboard(Model model) {
 
         return "user";
+    } //please help
+    @GetMapping("/map")
+    public String displayMap(){
+        return "Map/map";
     }
-
-
 }
