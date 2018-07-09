@@ -18,6 +18,7 @@
                 <h5 class="text-center card-title" th:text="${user.username}"></h5>
                 <h5 class="text-center card-title" th:text="${user.profile.firstName}"></h5>
                 <h5 class="text-center card-title" th:text="${user.profile.email}"></h5>
+
                 <h5 class="text-center card-title" th:text="${user.profile.userState}"></h5>
                 <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
                 <!--<a href="/messages/create/" class="btn btn-primary">Send a message</a>-->
@@ -53,6 +54,7 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 <button type="submit" class="btn btn-primary">Send message</button>
+
             </div>
         </div>
     </div>

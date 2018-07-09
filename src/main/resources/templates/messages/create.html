@@ -10,6 +10,7 @@
 <span class="overlay"></span>
 
 
+
 <div class="container bg-white text-center border border-dark rounded mt-5" sec:authorize="isAuthenticated()">
     <h1>Create a message!</h1>
     <form class="form-group" th:action="@{/messages/create}" method="post" th:object="${newMessage}">
@@ -18,12 +19,10 @@
         <!--<br />-->
         <input type="submit" class="btn btn-dark text-light" />
     </form>
+
     <h1 class="mb-2" th:height="200"> These are all your messages</h1>
     <div sec:authorize="isAuthenticated()">
-        <!--<h2 class="user-name">Hi, <span th:text="${#authentication.principal.sender}"/></h2>-->
-        <!--User ID: <span th:text="${#authentication.principal.id}"/>-->
-        <!--Username: <span th:text="${#authentication.principal.username}"/>-->
-        <!--Email: <span th:text="${#authentication.principal.email}"/>-->
+
     </div>
 <!------------------------- TO DISPLAY THE MESSAGES ------------------------------------------>
     <div class="p-5 m-2 create-form text-dark border border-dark rounded" th:each="message: ${messages}" th:height="auto">
@@ -31,12 +30,45 @@
             <li class="media">
                 <img class="mr-3" src="http://via.placeholder.com/150x150" alt="Generic placeholder image" />
                 <div class="media-body p-2">
-                    <p class="text-center" th:text="${message.sender.username}"></p>
+
+                    <p>From: <span  class="text-justify" th:text="${message.sender.username}"></span></p>
+                    <p>To: <span class="text-justify" th:text="${message.recipient.username}"></span></p>
+
                     <p class="text-justify" th:text="${message.message}"></p>
-                    <!--<p th:text="${message.sender_id}"></p>-->
+
                 </div>
             </li>
         </ul>
+    </div>
+
+<div class="container bg-white text-center border border-dark rounded mt-5">
+    <h1>New Message <i class="fas fa-comment" ></i></h1>
+    <div class="" tabindex="-1" role="dialog" aria-labelledby="exampleModal" aria-hidden="true">
+        <div class="" role="document">
+            <div class="">
+                <div class="">
+                    <h5 class="" id="exampleModalLabel">Send <span></span> New Message to <span th:text="${recipient.username}"></span></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form th:action="@{/messages/}+${recipient.id}+@{/create}" method="post">
+                    <div class="">
+
+                        <input type="hidden" name="recipientId" th:value="${recipient.id}">
+
+                        <input type="text"  class="form-control mb-5" id="message" name="message"/>
+
+                    </div>
+                    <div class="">
+                        <input type="hidden" name="recipient" />
+                        <!--<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>-->
+                        <button type="submit" class="btn btn-outline-primary">Send</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
     </div>
 
 </div>

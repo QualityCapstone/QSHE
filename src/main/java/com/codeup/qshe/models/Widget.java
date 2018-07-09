@@ -1,5 +1,6 @@
 package com.codeup.qshe.models;
 
+
 import com.codeup.qshe.models.user.Message;
 
 import javax.persistence.*;
@@ -21,7 +22,9 @@ public class Widget {
     private List<Message> posts;
 
 
+
     public Widget(){}
+
 
     public Widget(long id, long stateId, List<Message> posts){
     this.id = id;
@@ -52,6 +55,7 @@ public class Widget {
     public void setPosts(List <Message> posts) {
         this.posts = posts;
     }
+
 
 
 }

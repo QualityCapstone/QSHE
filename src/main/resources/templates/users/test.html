@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head th:replace="partials/layout :: header">
+    <meta charset="UTF-8">
+    <title>test</title>
+</head>
+<body>
+<div th:each="user : ${users}">
+    <div >
+        <span th:text="${user.id}"></span>
+        <h2> <span th:text="${user.username}">username</span></h2>
+        <p th:text="${user.email}"></p>
+
+    </div>
+</div>
+</body>
+</html>
