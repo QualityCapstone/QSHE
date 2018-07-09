@@ -22,6 +22,8 @@ public interface Users extends JpaRepository<User, Long> {
     void deleteByUsername(String username);
 
 
+//    @Query(nativeQuery = true, value="SELECT * FROM users LIMIT 1") // To insert any user without taking care of the id
+//    User first();
 
     @Query("select u.profile from User u where u.id = ?1")
     UserProfile getUserProfile(Long userId);
@@ -51,7 +53,7 @@ public interface Users extends JpaRepository<User, Long> {
     @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
     @Query(value = "INSERT into user_profile(email, first_name, last_name, name, username)" +
             "VALUES(?1,?2,?3,?4,?5)", nativeQuery = true)
-    void addProfile(String email, String firstName, String lastName, String name, String username);
+    void addProfile(String email, String firstName, String lastName, String name, String username, String userState);
 
 
 

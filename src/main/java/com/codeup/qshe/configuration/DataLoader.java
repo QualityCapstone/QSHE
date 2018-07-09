@@ -87,6 +87,7 @@ public class DataLoader implements ApplicationRunner {
                 String crimeURL = "https://api.usa.gov/crime/fbi/sapi/api/estimates/states/TX?api_key=iiHnOKfno2Mgkt5AynpvPpUQTEyxE77jo1RU8PIv";
                 stateCrimesByYear(crimeURL);
 
+
                 womenGradsByYear();
                 getPovertyData();
 
@@ -167,9 +168,9 @@ public class DataLoader implements ApplicationRunner {
         states.add(new State("WY", "Wyoming"));
 
         // Add State to DB
-        this.stateDao.getStates().deleteAll();
-        this.stateDao.getStates().saveAll(states);
-        System.out.println(stateDao.getStates().findAll());
+        this.stateDao.getStaterepository().deleteAll();
+        this.stateDao.getStaterepository().saveAll(states);
+        System.out.println(stateDao.getStaterepository().findAll());
 
 
     }
@@ -207,7 +208,7 @@ public class DataLoader implements ApplicationRunner {
                 }
 
                 if (i == 1) {
-                    state = stateDao.getStates().findByName(l);
+                    state = stateDao.getStaterepository().findByName(l);
                 }
                 if (i == 2) {
                     String[] split = l.split("\\s+");
@@ -324,7 +325,7 @@ public class DataLoader implements ApplicationRunner {
 
 
                String stateName = state.get(stateId);
-                State dbState = stateDao.getStates().findByName(stateName);
+                State dbState = stateDao.getStaterepository().findByName(stateName);
                 education.add(new StateEducation(dbState,Long.parseLong(count),Integer.parseInt(year),stateId));
 
             }
@@ -373,7 +374,7 @@ public class DataLoader implements ApplicationRunner {
                 }
 
                 String stateName = state.get(stateId);
-                State dbState = stateDao.getStates().findByName(stateName);
+                State dbState = stateDao.getStaterepository().findByName(stateName);
 
                 poverty.add(new StatePoverty(Integer.parseInt(year),dbState,
                         stateId, Double.parseDouble(femalePoverty), Double.parseDouble(malePoverty)));
@@ -396,7 +397,7 @@ public class DataLoader implements ApplicationRunner {
 //            reach inside of JSON and ignore first node
             JsonNode inner = node.get("results").get(i);
             StateCrime data = new StateCrime(
-                    stateDao.getStates().findByName("state_abbr"),
+                    stateDao.getStaterepository().findByName("state_abbr"),
                     inner.get("state_abbr").toString(),
                     inner.get("population").asLong(),
                     inner.get("year").asLong(),
