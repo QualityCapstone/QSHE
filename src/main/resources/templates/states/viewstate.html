@@ -13,17 +13,61 @@
 </div>
 
     <div class="container">
-    <h1><span th:text="${state.name}"></span></h1>
+
+    <div class="row">
+        <div class="col-md-6">
 
 
+            <div class="state state-tiny">
+                <svg th:class="@{icon icon-state-} + ${state.abbr}">
+                    <use th:xlink:href="@{#icon-state-} + ${state.abbr}"></use>
+                </svg>
+            </div>
+
+            <h1>
+                <span th:text="${state.name}"></span></h1></div>
+        <div class="col-md-6 ml-auto">
+            <div class="form-inline form-row text-right align-items-right">
+                <select id="inputState" class="form-control ml-auto mr-3">
+                    <option disabled selected>Select State...</option>
+                    <option  th:each="state : ${states}" th:text="${state.name}"> state name </option>
+                </select>
+                <button class="btn btn-primary">Go</button>
+            </div>
+
+        </div>
+    </div>
+
+<hr>
         <div class="row">
 
             <div class="col-md-4">
-                <div class="state">
-                    <svg th:class="@{icon icon-state-} + ${state.abbr}">
-                        <use th:xlink:href="@{#icon-state-} + ${state.abbr}"></use>
-                    </svg>
+
+                <div class="card">
+                    <div class="card-header state-header">
+                        <div class="state pt-4">
+                            <svg th:class="@{icon icon-state-} + ${state.abbr}">
+                                <use th:xlink:href="@{#icon-state-} + ${state.abbr}"></use>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <h5>State News</h5>
+                        <ul>
+                            <li>Test News</li>
+                            <li>Texas wooo!</li>
+                            <li>Pew Pew</li>
+                        </ul>
+
+
+                        <a href="#">See More...</a>
+                    </div>
+                    <div class="card-footer">
+                        Action Other Things???
+                    </div>
                 </div>
+
+
             </div>
             <div class="col-md-8">
                 <div id="radar-chart"></div>
@@ -33,36 +77,25 @@
 
 
         <div  class="row">
+
+
+            <div class="col-md-12 m-2 p-2">
+            <div class="card">
+                <div class="card-body">
+
             <div id="crime-chart"></div>
 
+                </div>
+            </div>
+
+
+            </div>
         </div>
 
         <div>
 
             <div class="col-md-8">
-                <form>
 
-
-                    <div class="form-row">
-
-                        <div class="form-group col-md-4">
-                            <label for="inputState">State</label>
-                            <select id="inputState" class="form-control">
-                                    <option  th:each="state : ${states}" th:text="${state.name}"> state name </option>
-                            </select>
-                        </div>
-
-                    </div>
-                    <div class="form-group">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="gridCheck">
-                            <label class="form-check-label" for="gridCheck">
-                                Check me out
-                            </label>
-                        </div>
-                    </div>
-                    <!--<button type="submit" class="btn btn-primary">Sign in</button>-->
-                </form>
             </div>
 
         </div>

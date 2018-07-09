@@ -73618,7 +73618,7 @@ exports = module.exports = __webpack_require__(188)(false);
 
 
 // module
-exports.push([module.i, "\n/*MAP CSS Save seperately later*/\n\n.map-container {\n    background:  #73b5c059;\n}\n\n#map {\n    padding-top: 50px;\n    min-width: 940px;\n    text-align: center;\n    height: calc(100vh - 175px);\n}\n\n.state .icon {\n    stroke-width: 1;\n    stroke: #fff;\n    fill: currentColor;\n    height: 100%;\n    width: 100%;\n}\n\n.state {\n    color: #ff9890;\n    transition: 500ms color;\n    height: 500px;\n}\n.state:hover {\n    color: pink;\n}\n\n.tooltip {\n    z-index: 9999999;\n}\n\n#popperElement {\n    padding: 15px;\n    background: rgba(255,255,255,0.9);\n    -webkit-border-radius: 10px;\n    -moz-border-radius: 10px;\n    border-radius: 10px;\n    border: 2px solid #ff9890;\n    width: 400px;\n}", ""]);
+exports.push([module.i, "\n/*MAP CSS Save seperately later*/\n\n.map-container {\n    background:  #73b5c059;\n}\n\n#map {\n    padding-top: 50px;\n    min-width: 940px;\n    text-align: center;\n    height: calc(100vh - 175px);\n}\n\n.state .icon {\n    stroke-width: 1;\n    stroke: #fff;\n    fill: currentColor;\n    height: 100%;\n    width: 100%;\n}\n\n.state {\n    color: #5a6aff;\n    transition: 500ms color;\n}\n\n\n.state-tiny {\n    width: 50px;\n    height: 50px;\n    float: left;\n    color: black;\n}\n\n\n\n\n.state:hover {\n    color: #72cfff;\n}\n\n.tooltip {\n    z-index: 9999999;\n}\n\n#popperElement {\n    padding: 15px;\n    background: rgba(255,255,255,0.9);\n    -webkit-border-radius: 10px;\n    -moz-border-radius: 10px;\n    border-radius: 10px;\n    border: 2px solid #ff9890;\n    width: 400px;\n}", ""]);
 
 // exports
 
