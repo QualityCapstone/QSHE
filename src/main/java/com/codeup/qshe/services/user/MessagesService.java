@@ -49,7 +49,7 @@ public class MessagesService {
     }
 
 //    public void delete (long id){
-//        Message message = messageRepository.delete(id);
+//        messageRepository.delete(id);
 //    }
 
 }

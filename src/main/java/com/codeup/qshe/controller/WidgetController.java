@@ -34,6 +34,8 @@ public class WidgetController {
 
     @GetMapping("/widget/all")
     public String showPostForum(Model model){
+        User sessionUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user =userDao.findById(sessionUser.getId()).get();
         model.addAttribute("newPost", new Message());
         List<Message> messages = messagesService.findAll();
         model.addAttribute("messages", messages);
@@ -66,9 +68,9 @@ public class WidgetController {
 //        User sessionUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 //        User user = userDao.findById(sessionUser.getId()).get();
 //        Message message = messagesService.findOne(id);
-//        if (message.getSender().getId() != user.getId()) {
-//            return "redirect:/login";
-//        } else
+////        if (message.getSender().getId() != user.getId()) {
+////            return "redirect:/login";
+////        } else
 //            messagesService.delete(id);
 //        return "redirect:/widget";
 //    }
