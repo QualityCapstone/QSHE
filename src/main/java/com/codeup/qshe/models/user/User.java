@@ -27,6 +27,10 @@ public class User {
     @Column
     private LocalDateTime lastLoginDate;
 
+    @Column
+    @Value("${file-upload-path}")
+    private String uploadPath;
+
     @ManyToOne(cascade = CascadeType.ALL)
     private UserProfile profile;
 
@@ -95,6 +99,14 @@ public class User {
 
     public void setProfile(UserProfile profile) {
         this.profile = profile;
+    }
+
+    public String getUploadPath() {
+        return uploadPath;
+    }
+
+    public void setUploadPath(String uploadPath) {
+        this.uploadPath = uploadPath;
     }
 
     @Override

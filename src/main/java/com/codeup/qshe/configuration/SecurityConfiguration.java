@@ -77,7 +77,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                     .loginPage("/login")
                     .failureUrl("/login?error=true")
                     .successHandler(successHandler())
-                    .defaultSuccessUrl("/dashboard") // user's home page, it can be any URL
+                    .defaultSuccessUrl("/profile") // user's home page, it can be any URL
                     .permitAll() // Anyone can go to the login page
                     /* Logout configuration */
                 .and()
