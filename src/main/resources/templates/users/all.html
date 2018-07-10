@@ -20,7 +20,7 @@
                 <h5 class="text-center card-title" th:text="${user.profile.email}"></h5>
 
                 <h5 class="text-center card-title" th:text="${user.profile.userState}"></h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                <p class="card-text" th:text="${user.profile.name}" ></p>
                 <!--<a href="/messages/create/" class="btn btn-primary">Send a message</a>-->
                 <button type="button" th:data-recipient-id="${user.id}" th:data-recipient-name="${user.username}" class="btn btn-secondary" data-toggle="modal" data-target="#exampleModal">Send message</button>
 
@@ -38,24 +38,28 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
+            <form th:action="@{/messages/create}" method="post">
             <div class="modal-body">
-                <form th:action="@{/messages/create}" method="post" th:object="${newMessage}">
+
                     <div class="form-group">
                         <label for="recipient-name" class="col-form-label">Recipient:</label>
-                        <input type="text" class="form-control" id="recipient-name"/><!--th:field="*{message.recipient}"-->
+                        <span id="recipient-name">James Turner</span>
                     </div>
                     <div class="form-group">
                         <label for="message-text" class="col-form-label">Message:</label>
-                        <textarea class="form-control" id="message-text"></textarea>
-                        <!--<input id="message-text" type="text" id="user-message" class="form-control mb-5" th:field="*{message}"  />-->
-                    </div>
-                </form>
+                        <textarea class="form-control" id="message-text" name="message"></textarea>
+
+                       </div>
+
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 <button type="submit" class="btn btn-primary">Send message</button>
 
             </div>
+
+                <input type="hidden" name="recipient-id" id="recipient-id" />
+            </form>
         </div>
     </div>
 </div>
@@ -67,9 +71,10 @@
         var recipient = button.data('whatever') // Extract info from data-* attributes
         // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
         // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
-        var modal = $(this)
-        modal.find('.modal-title').text('New message to ' + recipient)
-        modal.find('.modal-body input').val(recipient)
+        var modal = $(this);
+
+            $('#recipient-name').text(button.attr("data-recipient-name"));
+            $('#recipient-id').val(button.attr("data-recipient-id"));
     })
 
 </script>

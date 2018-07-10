@@ -5,9 +5,13 @@ import com.codeup.qshe.models.SiteSetting;
 import com.codeup.qshe.models.State;
 import com.codeup.qshe.models.StateCrime;
 import com.codeup.qshe.models.StatePopulation;
+import com.codeup.qshe.models.user.*;
 import com.codeup.qshe.repositories.SiteSettings;
 import com.codeup.qshe.services.CrimeService;
 import com.codeup.qshe.services.StateService;
+import com.codeup.qshe.services.StateUserRatingService;
+import com.codeup.qshe.services.messages.MessagesService;
+import com.codeup.qshe.services.user.UserService;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.type.TypeFactory;
@@ -15,6 +19,7 @@ import com.github.javafaker.Faker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 
@@ -23,6 +28,7 @@ import java.net.URL;
 import java.net.URISyntaxException;
 import java.sql.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -34,16 +40,18 @@ public class DataLoader implements ApplicationRunner {
 
     private SiteSettings site;
     private StateService stateDao;
+    private UserService userDao;
+    private StateUserRatingService ratingDao;
+    private PasswordEncoder passwordEncoder;
+    private MessagesService messageDao;
+
 
     // will delete data and refresh test data
     // probably can move to app props or something...
 
     // SET TRUE: Resets the user data tables and create false data
-    // THIS DOES NOT CHANGE THE BASE TABLES
-    private static final boolean FRESHSTART = false;
-
-    // THIS CLEARS STUFF! EVERYTHING REFRESH!
-    private static final boolean REFRESHBASE = false;
+    // Leave true, data now checks tables
+    private static final boolean FRESHSTART = true;
 
 
     private Faker faker = new Faker();
@@ -51,92 +59,143 @@ public class DataLoader implements ApplicationRunner {
 
 
     @Autowired
-    public DataLoader(SiteSettings site, StateService stateDao, CrimeService crimeDao) {
+    public DataLoader(UserService userDao, SiteSettings site,
+                      StateService stateDao,
+                      PasswordEncoder passwordEncoder,
+                      StateUserRatingService ratingDao,
+                      MessagesService messageDao
+
+
+    ) {
         this.stateDao = stateDao;
         this.site = site;
+        this.passwordEncoder = passwordEncoder;
+        this.ratingDao = ratingDao;
+        this.userDao = userDao;
+        this.messageDao = messageDao;
     }
 
 
     public void run(ApplicationArguments args) throws IOException, URISyntaxException, SQLException {
         if(FRESHSTART) {
+            Random r = new Random();
 
+            //How many users to create
+            Integer usersToCreate = 150;
+            // How many states a user will rate on average
+            Integer statesRankedPerUser = 5;
+            // Fake conversations seeding
+            Integer maxConvosPerUser = 10;
+            // Fake conversation length
+            Integer convoMessages = 20;
 
+            // Test Data for fake accounts
+            String testUserName = "test";
+            String testPassword = "test";
 
-            try {
-                if (!site.isPopulated()) {
-                    System.out.println("Populated Returned FALSE");
-                    SiteSetting setting = site.getFirst();
+            // Creates record for Site settings
+                try {
+                    if (!site.isPopulated()) {
+                        System.out.println("Populated Returned FALSE");
+                    }
+                } catch (NullPointerException e) {
+                    SiteSetting setting = new SiteSetting(false);
+                    site.save(setting);
                 }
-            } catch (NullPointerException e) {
-                SiteSetting setting = new SiteSetting(false);
-                site.save(setting);
-            }
 
-            if (!site.getFirst().getPopulated()) {
-                Random r = new Random();
 
-                generateStaticData();
+                // REFRESH APP DATA
+                if(site.getFirst().getRefreshAppData() || !site.getFirst().getPopulated()) {
+                    System.out.println("------- REFRESH APP DATA -----");
+                    // STATE DATA, POPULATION DATA
+                    generateStaticData();
 
-                // Get Population Data by State
-                for (int i = 1; i <= 9; i++) {
-                    String popURL = "https://api.census.gov/data/2016/pep/population?get=POP,GEONAME,DATE_DESC&for=state:*&DATE=" + i +
-                            "&key=50fdb2ea46d6471b7412b6b43204804309487999";
-                    populationsByDate(popURL);
+                    List<State> states = stateDao.getStates().findAll();
+
+
+                    // START DATA GENERATION (USERS)
+                    for (int i = 0; i < usersToCreate; i++) {
+                        User user = createUser(testUserName + i, testPassword);
+
+                        // State user Rankings
+                        State state = stateDao.getStates().findByName(user.getProfile().getUserState());
+
+                        generateStateUserMetrics(user, state);
+
+                        for(int j = 1; j < statesRankedPerUser; j++) {
+                            state = states.get(rand.nextInt(states.size()));
+                            generateStateUserMetrics(user, state);
+                        }
+
+                    }
+
+
+                    generateFakeConversations(maxConvosPerUser, convoMessages);
 
                 }
-                System.out.println(stateDao.getStates().findAll().toString());
 
-//            womenGradsByYear();
-//            getPovertyData();
-// Commented these functions out due to internal errors - will look into
+                // REFRESH API DATA
+                if(site.getFirst().getRefreshAPIs() || !site.getFirst().getPopulated()) {
+                    System.out.println("------- REFRESH APIS -----");
 
+                    // Get Population Data by State
+                    for (int i = 1; i <= 9; i++) {
+                        String popURL = "https://api.census.gov/data/2016/pep/population?get=POP,GEONAME,DATE_DESC&for=state:*&DATE=" + i +
+                                "&key=50fdb2ea46d6471b7412b6b43204804309487999";
+                        populationsByDate(popURL);
 
-            // Get State Crimes by Year
-//            String crimeURL = "https://api.usa.gov/crime/fbi/sapi/api/estimates/states/TX?api_key=iiHnOKfno2Mgkt5AynpvPpUQTEyxE77jo1RU8PIv";
-//            stateCrimesByYear(crimeURL);
+                    }
 
-            Connection connection = DriverManager.getConnection(
-                    "jdbc:mysql://localhost/QSHE_db?serverTimezone=UTC&useSSL=false",
-                    "root",
-                    "codeup"
-            );
-            // Get State Crimes by Year, need to make loop for iterating through all states
-            Statement stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM state");
-            String state;
-            String crimeURL;
-            while (rs.next()){
-                state = rs.getString("abbr");
-                crimeURL = "https://api.usa.gov/crime/fbi/sapi/api/estimates/states/"+state+"?api_key=iiHnOKfno2Mgkt5AynpvPpUQTEyxE77jo1RU8PIv";
-                stateCrimesByYear(crimeURL);
-            }
+                    womenGradsByYear();
+                    getPovertyData();
+                    crimeData();
 
-                // Get State Crimes by Year
-                crimeURL = "https://api.usa.gov/crime/fbi/sapi/api/estimates/states/TX?api_key=iiHnOKfno2Mgkt5AynpvPpUQTEyxE77jo1RU8PIv";
-                stateCrimesByYear(crimeURL);
+                }
 
-
-
-                womenGradsByYear();
-                getPovertyData();
 
             } //END FRESH START
 
-            site.save(new SiteSetting(true));
-        }
 
+            site.save(new SiteSetting(true));
     }
+
 
 
     // Function to kick off all static data generated as part of the application
     private void generateStaticData() {
+
         //Clean data
         stateDao.getPopulations().deleteAll();
         stateDao.getEducations().deleteAll();
         stateDao.getPoverties().deleteAll();
         stateDao.getCrimes().deleteAll();
 
+        messageDao.getMessages().deleteAll();
+        ratingDao.getUserRatings().deleteAll();
+
+        userDao.getUsers().deleteAll();
+
         stateGenerator();
+        metricGenerator();
+
+    }
+
+
+    private void metricGenerator() {
+
+
+        List<StateMetric> metrics = new ArrayList<>();
+
+        metrics.add(new StateMetric("Crime"));
+        metrics.add(new StateMetric("Education"));
+        metrics.add(new StateMetric("Employment"));
+        metrics.add(new StateMetric("Health"));
+        metrics.add(new StateMetric("Growth"));
+
+        // Add State to DB
+        // Add State to DB
+        this.ratingDao.getMetrics().deleteAll();
+        this.ratingDao.getMetrics().saveAll(metrics);
 
     }
 
@@ -312,8 +371,6 @@ public class DataLoader implements ApplicationRunner {
     }
 
 
-
-
     // Saves women grads by state.
     private void womenGradsByYear() throws IOException {
 
@@ -362,7 +419,6 @@ public class DataLoader implements ApplicationRunner {
 
         stateDao.getEducations().saveAll(education);
     }
-
 
     // Saves women grads by state.
     private void getPovertyData() throws IOException {
@@ -414,7 +470,20 @@ public class DataLoader implements ApplicationRunner {
         stateDao.getPoverties().saveAll(poverty);
     }
 
+    private void crimeData() throws IOException {
 
+      List<State> states  = stateDao.getStates().findAll();
+
+      for(State state : states) {
+          String crimeURL = "https://api.usa.gov/crime/fbi/sapi/api/estimates/states/"+state.getAbbr()+"?api_key=iiHnOKfno2Mgkt5AynpvPpUQTEyxE77jo1RU8PIv";
+          stateCrimesByYear(crimeURL);
+
+      }
+
+    }
+
+
+    //TODO: fix to correctly identify states
     private void stateCrimesByYear(String url) throws IOException {
         URL json = new URL(url);
         ObjectMapper mapper = new ObjectMapper();
@@ -426,7 +495,7 @@ public class DataLoader implements ApplicationRunner {
 //            reach inside of JSON and ignore first node
             JsonNode inner = node.get("results").get(i);
             StateCrime data = new StateCrime(
-                    stateDao.getStaterepository().findByName("state_abbr"),
+                    stateDao.getStates().findByName("state_abbr"),
                     inner.get("state_abbr").toString(),
                     inner.get("population").asLong(),
                     inner.get("year").asLong(),
@@ -446,5 +515,66 @@ public class DataLoader implements ApplicationRunner {
 //        save all crimes
         stateDao.getCrimes().saveAll(crimeList);
     }
+
+
+    private User createUser(String username, String password) {
+
+        User user = new User(username, password, LocalDateTime.now(), LocalDateTime.now());
+        String hash = passwordEncoder.encode(password);
+        user.setPassword(hash);
+        user.setCreatedAt(LocalDateTime.now());
+
+        user.setProfile(new UserProfile(faker.name().fullName(),  faker.name().firstName(),
+                faker.name().lastName(),  faker.internet().emailAddress(),  username,  faker.address().state()));
+
+        user = userDao.getUsers().save(user);
+        userDao.getUsers().addDefaultRole(user.getId());
+
+        return user;
+    }
+
+
+    private void generateStateUserMetrics(User user, State state) {
+
+        List<StateMetric> metrics = ratingDao.getMetrics().findAll();
+
+        for(StateMetric metric : metrics) {
+
+            float rating = (float) faker.random().nextInt(1,10);
+
+            ratingDao.getUserRatings().save(new StateUserRating(state, user, metric, rating));
+        }
+
+    }
+
+    private void generateFakeConversations(Integer maxConvosPerUser, Integer convoMessages) {
+
+        List<User> users = userDao.getUsers().findAll();
+        List<Message> messages = new ArrayList<>();
+
+        for(User sender : users ) {
+
+
+
+            for(int j = 0; j < maxConvosPerUser; j++) {
+
+                User recipient = users.get(rand.nextInt(users.size()));
+
+                for(int i = 0; i < convoMessages; i++) {
+                    String message = faker.friends().quote();
+                    if(i%2 ==  0) {
+                        messages.add(new Message(sender, recipient, message));
+                    } else {
+                        messages.add(new Message(recipient, sender, message));
+                    }
+                }
+
+            }
+        }
+
+        messageDao.getMessages().saveAll(messages);
+
+    }
+
 }
 

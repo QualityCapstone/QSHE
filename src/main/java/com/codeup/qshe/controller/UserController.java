@@ -1,13 +1,11 @@
 package com.codeup.qshe.controller;
 
-import com.codeup.qshe.models.user.Message;
 import com.codeup.qshe.models.user.User;
 import com.codeup.qshe.models.user.UserProfile;
 import com.codeup.qshe.models.user.UserWithRoles;
 import com.codeup.qshe.repositories.Roles;
-import com.codeup.qshe.repositories.UserProfilesRepository;
-import com.codeup.qshe.repositories.Users;
-import com.codeup.qshe.services.user.SimpleSocialUsersDetailService;
+import com.codeup.qshe.repositories.UserProfiles;
+import com.codeup.qshe.services.messages.MessagesService;
 import com.codeup.qshe.services.user.UserDetailsLoader;
 import com.codeup.qshe.services.user.UserService;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -18,6 +16,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -30,18 +29,17 @@ public class UserController {
     private UserService userDao;
     private PasswordEncoder passwordEncoder;
     private Roles roles;
-    private UserProfilesRepository userProfilesRepository;
+    private UserProfiles userProfiles;
+    private MessagesService messageDao;
 
-
-
-
-    public UserController(UserService userDao, PasswordEncoder passwordEncoder, Roles roles) {
+    public UserController(UserService userDao, PasswordEncoder passwordEncoder, Roles roles,
+                          MessagesService messageDao) {
         this.userDao = userDao;
         this.passwordEncoder = passwordEncoder;
         this.roles = roles;
+        this.messageDao = messageDao;
 
     }
-
 
     @GetMapping("/sign-up")
     public String showSignupForm(Model model) {
@@ -51,7 +49,15 @@ public class UserController {
     }
 
     @PostMapping("/sign-up")
-    public String saveUser(@ModelAttribute User user, @ModelAttribute UserProfile profile) {
+    public String saveUser(@Valid User user, Errors validation, Model model, @ModelAttribute UserProfile profile) {
+
+if(validation.hasErrors()){
+    model.addAttribute("errors", validation);
+    model.addAttribute("user", user);
+    System.out.println(user.getUsername());
+
+    return "redirect:/sign-up";
+}
 
         String hash = passwordEncoder.encode(user.getPassword());
         user.setPassword(hash);
@@ -71,17 +77,14 @@ public class UserController {
     public String loadProfile(Model model) {
         User user = userDao.getLoggedInUser();
 
+        model.addAttribute("conversations",
+                messageDao.getMessages().findDistinctBySenderOrRecipientOrderByIdAsc(user, user));
+
         model.addAttribute("user", user);
+
         return "users/profile";
     }
 
-
-
-
-//     @GetMapping("/news")
-//     public String newsApi() {
-//         return "users/newstest";
-//     }
 
 
     @GetMapping("/users")
@@ -102,20 +105,6 @@ public class UserController {
         SecurityContext context = SecurityContextHolder.getContext();
         context.setAuthentication(auth);
     }
-
-//    @PostMapping("/user/{id}/edit")
-//    public String updateUser(@PathVariable Long id, User user) {
-//
-//        User currentUser = users.getOne(id);
-//
-////        existingProfile.setEmail(userProfile.getEmail());
-//
-//        currentUser.setUsername(user.getUsername());
-//
-//        users.save(currentUser);
-//        return "redirect:/profile";
-//    }
-
 
 
 }
