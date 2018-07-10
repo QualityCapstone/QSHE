@@ -12,6 +12,7 @@ import com.codeup.qshe.repositories.SiteSettings;
 import com.codeup.qshe.services.CrimeService;
 import com.codeup.qshe.services.StateService;
 import com.codeup.qshe.services.StateUserRatingService;
+import com.codeup.qshe.services.messages.MessagesService;
 import com.codeup.qshe.services.user.UserService;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -44,6 +45,8 @@ public class DataLoader implements ApplicationRunner {
     private UserService userDao;
     private StateUserRatingService ratingDao;
     private PasswordEncoder passwordEncoder;
+    private MessagesService messageDao;
+
 
     // will delete data and refresh test data
     // probably can move to app props or something...
@@ -63,24 +66,23 @@ public class DataLoader implements ApplicationRunner {
     @Autowired
     public DataLoader(UserService userDao, SiteSettings site, StateService stateDao,
                       PasswordEncoder passwordEncoder,
-                      StateUserRatingService ratingDao) {
+                      StateUserRatingService ratingDao,
+                      MessagesService messageDao) {
         this.stateDao = stateDao;
         this.site = site;
         this.passwordEncoder = passwordEncoder;
         this.ratingDao = ratingDao;
         this.userDao = userDao;
+        this.messageDao = messageDao;
     }
 
 
     public void run(ApplicationArguments args) throws IOException, URISyntaxException, SQLException {
         if(FRESHSTART) {
 
-
-
             //How many users to create
             Integer usersToCreate = 30;
             // How many bills each user will have on AVG
-
 
             // Test Data for fake accounts
             String testUserName = "test";
@@ -171,6 +173,7 @@ public class DataLoader implements ApplicationRunner {
         stateDao.getPoverties().deleteAll();
         stateDao.getCrimes().deleteAll();
 
+        messageDao.getMessages().deleteAll();
 
         userDao.getUsers().deleteAll();
 

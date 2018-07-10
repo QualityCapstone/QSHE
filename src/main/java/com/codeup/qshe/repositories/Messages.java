@@ -23,7 +23,6 @@ public interface Messages extends CrudRepository <Message, Long>{
 
     List<Message> findAllByRecipientAndSender(User r, User s);
 
-
     List<Message> findAllBySender(User sender);
 
 
