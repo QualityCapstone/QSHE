@@ -50,8 +50,7 @@ public class FileUploadController {
 //        String filename = UUID.randomUUID().toString();
         String filepath = Paths.get(uploadPath, filename).toString();
         File destinationFile = new File(filepath);
-        copy.setUploadPath(filename);
-        userDao.getLoggedInUser().setUploadPath(filename);
+        copy.getProfile().setUploadPath(filename);
         userDao.getUsers().save(copy);
         try {
             uploadedFile.transferTo(destinationFile);
@@ -60,6 +59,6 @@ public class FileUploadController {
             e.printStackTrace();
             model.addAttribute("message", "Oops! Something went wrong..");
         }
-        return "redirect:users/profile";
+        return "redirect:/profile";
     }
 }
