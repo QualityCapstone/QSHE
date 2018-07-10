@@ -4,19 +4,60 @@
 <head th:replace="partials/layout :: header">
     <meta charset="UTF-8" />
     <title>Index page</title>
+    <!--<link rel="stylesheet" href="/css/bubble.css">-->
 </head>
-<body>
-
+<body class="bubble">
+<canvas id="canvasbg"></canvas>
+<canvas id="canvas"></canvas>
 <div th:replace="partials/layout :: navbar" />
-<div class="h-100 container  mx-auto w-100 text-center p-4">
 
-    <div class="text-center"> <i class="far fa-frown"></i> </div>
+<!-- Your logo on the top left -->
+<a href="#" class="logo-link" title="back home">
 
-    Page not found! or some other 404ish error...
+    <img src="/img/test/logo.png" class="logo" alt="Company's logo" />
+
+</a>
+
+<div class="content">
+
+    <div class="content-box">
+
+        <div class="big-content">
+
+            <h1>Oops! Error 404 not found.</h1>
+
+            <p>The page you were looking for doesn't exist.<br>
+                We think the page may have moved.</p>
+
+            <!-- The animated searching tool -->
+            <i class="fa fa-search color" aria-hidden="true"></i>
+
+            <!-- div clearing the float -->
+            <div class="clear"></div>
+
+        </div>
+
+        <!-- Your text -->
+
+
+    </div>
 
 </div>
 
+
+
+<!--<div class="h-100 container  mx-auto w-100 text-center p-4">-->
+
+    <!--<div class="text-center"> <i class="far fa-frown"></i> </div>-->
+
+    <!--Page not found! or some other 404ish error...-->
+    <!--<h1>Watch a video instead</h1>-->
+<!--</div>-->
+
 <div th:replace="partials/layout :: footer" />
-<script src="https://secure.xivdb.com/tooltips.js"></script>
+<!--<script src="https://secure.xivdb.com/tooltips.js"></script>-->
+<!--<script src="js/jquery.min.js"></script>-->
+<!--<script src="js/bootstrap.min.js"></script>-->
+<script src="js/bubble.js"></script>
 </body>
 </html>
