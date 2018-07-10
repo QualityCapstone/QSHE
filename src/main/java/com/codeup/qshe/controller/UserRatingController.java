@@ -88,7 +88,9 @@ public class UserRatingController {
 
     @PostMapping("/users/rating")
     public String saveUserRate (@ModelAttribute("hdrating") StateUserRating stateUserRating,
-    @RequestParam("hdrating")float rating, User user, State state){
+    @RequestParam(name="hdrating")float rating,
+    @RequestParam(name="user") User user,
+    @RequestParam(name="state") State state){
        user = userDao.getLoggedInUser();
        stateUserRating.setUser(user);
        stateUserRating.setState(state);

@@ -1,9 +1,8 @@
 package com.codeup.qshe.services;
 
-import com.codeup.qshe.models.user.Message;
+
 import com.codeup.qshe.models.user.StateUserRating;
 import com.codeup.qshe.models.user.User;
-import com.codeup.qshe.repositories.StateMetricRepository;
 import com.codeup.qshe.repositories.Staterepository;
 import com.codeup.qshe.repositories.UserRatings;
 import com.codeup.qshe.repositories.Users;
