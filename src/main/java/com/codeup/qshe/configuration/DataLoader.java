@@ -6,6 +6,7 @@ import com.codeup.qshe.models.State;
 import com.codeup.qshe.models.StateCrime;
 import com.codeup.qshe.models.StatePopulation;
 import com.codeup.qshe.models.user.StateMetric;
+import com.codeup.qshe.models.user.StateUserRating;
 import com.codeup.qshe.models.user.User;
 import com.codeup.qshe.models.user.UserProfile;
 import com.codeup.qshe.repositories.SiteSettings;
@@ -52,7 +53,7 @@ public class DataLoader implements ApplicationRunner {
     // probably can move to app props or something...
 
     // SET TRUE: Resets the user data tables and create false data
-    // THIS DOES NOT CHANGE THE BASE TABLES
+    // Leave true, data now checks tables
     private static final boolean FRESHSTART = true;
 
 
@@ -61,10 +62,14 @@ public class DataLoader implements ApplicationRunner {
 
 
     @Autowired
-    public DataLoader(UserService userDao, SiteSettings site, StateService stateDao,
+    public DataLoader(UserService userDao, SiteSettings site,
+                      StateService stateDao,
                       PasswordEncoder passwordEncoder,
                       StateUserRatingService ratingDao,
-                      MessagesService messageDao) {
+                      MessagesService messageDao
+
+
+    ) {
         this.stateDao = stateDao;
         this.site = site;
         this.passwordEncoder = passwordEncoder;
@@ -79,8 +84,9 @@ public class DataLoader implements ApplicationRunner {
             Random r = new Random();
 
             //How many users to create
-            Integer usersToCreate = 30;
-            // How many bills each user will have on AVG
+            Integer usersToCreate = 150;
+            // How many states a user will rate on average
+            Integer statesRankedPerUser = 5;
 
             // Test Data for fake accounts
             String testUserName = "test";
@@ -101,14 +107,26 @@ public class DataLoader implements ApplicationRunner {
                 // REFRESH APP DATA
                 if(site.getFirst().getRefreshAppData() || !site.getFirst().getPopulated()) {
                     System.out.println("------- REFRESH APP DATA -----");
-
                     // STATE DATA, POPULATION DATA
                     generateStaticData();
+
+                    List<State> states = stateDao.getStates().findAll();
 
 
                     // START DATA GENERATION (USERS)
                     for (int i = 0; i < usersToCreate; i++) {
                         User user = createUser(testUserName + i, testPassword);
+
+                        // State user Rankings
+                        State state = stateDao.getStates().findByName(user.getProfile().getUserState());
+
+                        generateStateUserMetrics(user, state);
+
+                        for(int j = 1; j < statesRankedPerUser; j++) {
+                            state = states.get(rand.nextInt(states.size()));
+                            generateStateUserMetrics(user, state);
+                        }
+
                     }
 
                 }
@@ -398,7 +416,6 @@ public class DataLoader implements ApplicationRunner {
         stateDao.getEducations().saveAll(education);
     }
 
-
     // Saves women grads by state.
     private void getPovertyData() throws IOException {
 
@@ -449,7 +466,6 @@ public class DataLoader implements ApplicationRunner {
         stateDao.getPoverties().saveAll(poverty);
     }
 
-
     private void crimeData() throws IOException {
 
       List<State> states  = stateDao.getStates().findAll();
@@ -462,8 +478,6 @@ public class DataLoader implements ApplicationRunner {
 
     }
 
-
-
     private void stateCrimesByYear(String url) throws IOException {
         URL json = new URL(url);
         ObjectMapper mapper = new ObjectMapper();
@@ -475,7 +489,7 @@ public class DataLoader implements ApplicationRunner {
 //            reach inside of JSON and ignore first node
             JsonNode inner = node.get("results").get(i);
             StateCrime data = new StateCrime(
-                    stateDao.getStaterepository().findByName("state_abbr"),
+                    stateDao.getStates().findByName("state_abbr"),
                     inner.get("state_abbr").toString(),
                     inner.get("population").asLong(),
                     inner.get("year").asLong(),
@@ -512,6 +526,22 @@ public class DataLoader implements ApplicationRunner {
 
         return user;
     }
+
+
+
+    private void generateStateUserMetrics(User user, State state) {
+
+        List<StateMetric> metrics = ratingDao.getMetrics().findAll();
+
+        for(StateMetric metric : metrics) {
+
+            float rating = (float) faker.random().nextInt(1,10);
+
+            ratingDao.getUserRatings().save(new StateUserRating(state, user, metric, rating));
+        }
+
+    }
+
 
 }
 
