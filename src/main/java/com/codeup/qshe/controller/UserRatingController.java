@@ -1,20 +1,12 @@
 package com.codeup.qshe.controller;
 
 
-import com.codeup.qshe.models.user.Message;
 import com.codeup.qshe.models.user.StateUserRating;
-import com.codeup.qshe.models.user.User;
-import com.codeup.qshe.repositories.UserRatingRepository;
-import com.codeup.qshe.repositories.Users;
 import com.codeup.qshe.services.StateUserRatingService;
 import com.codeup.qshe.services.user.UserService;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
