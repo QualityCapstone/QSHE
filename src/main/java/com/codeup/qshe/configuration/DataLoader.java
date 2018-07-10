@@ -6,10 +6,13 @@ import com.codeup.qshe.models.State;
 import com.codeup.qshe.models.StateCrime;
 import com.codeup.qshe.models.StatePopulation;
 import com.codeup.qshe.models.user.StateMetric;
+import com.codeup.qshe.models.user.User;
+import com.codeup.qshe.models.user.UserProfile;
 import com.codeup.qshe.repositories.SiteSettings;
 import com.codeup.qshe.services.CrimeService;
 import com.codeup.qshe.services.StateService;
 import com.codeup.qshe.services.StateUserRatingService;
+import com.codeup.qshe.services.user.UserService;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.type.TypeFactory;
@@ -17,6 +20,7 @@ import com.github.javafaker.Faker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 
@@ -25,6 +29,7 @@ import java.net.URL;
 import java.net.URISyntaxException;
 import java.sql.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -36,17 +41,19 @@ public class DataLoader implements ApplicationRunner {
 
     private SiteSettings site;
     private StateService stateDao;
+    private UserService userDao;
     private StateUserRatingService ratingDao;
+    private PasswordEncoder passwordEncoder;
 
     // will delete data and refresh test data
     // probably can move to app props or something...
 
     // SET TRUE: Resets the user data tables and create false data
     // THIS DOES NOT CHANGE THE BASE TABLES
-    private static final boolean FRESHSTART = false;
+    private static final boolean FRESHSTART = true;
 
     // THIS CLEARS STUFF! EVERYTHING REFRESH!
-    private static final boolean REFRESHBASE = false;
+    private static final boolean IGNOREPOPULATED = true;
 
 
     private Faker faker = new Faker();
@@ -54,10 +61,14 @@ public class DataLoader implements ApplicationRunner {
 
 
     @Autowired
-    public DataLoader(SiteSettings site, StateService stateDao, StateUserRatingService ratingDao) {
+    public DataLoader(UserService userDao, SiteSettings site, StateService stateDao,
+                      PasswordEncoder passwordEncoder,
+                      StateUserRatingService ratingDao) {
         this.stateDao = stateDao;
         this.site = site;
+        this.passwordEncoder = passwordEncoder;
         this.ratingDao = ratingDao;
+        this.userDao = userDao;
     }
 
 
@@ -66,19 +77,41 @@ public class DataLoader implements ApplicationRunner {
 
 
 
-            try {
-                if (!site.isPopulated()) {
-                    System.out.println("Populated Returned FALSE");
-                    SiteSetting setting = site.getFirst();
-                }
-            } catch (NullPointerException e) {
-                SiteSetting setting = new SiteSetting(false);
-                site.save(setting);
-            }
+            //How many users to create
+            Integer usersToCreate = 30;
+            // How many bills each user will have on AVG
 
-            if (!site.getFirst().getPopulated()) {
+
+            // Test Data for fake accounts
+            String testUserName = "test";
+            String testPassword = "test";
+
+
+
+
+                try {
+                    if (!site.isPopulated()) {
+                        System.out.println("Populated Returned FALSE");
+                        SiteSetting setting = site.getFirst();
+                    }
+                } catch (NullPointerException e) {
+                    SiteSetting setting = new SiteSetting(false);
+                    site.save(setting);
+                }
+
+
+            if (!site.getFirst().getPopulated() || IGNOREPOPULATED) {
                 Random r = new Random();
 
+
+                // START DATA GENERATION (USERS)
+                for (int i = 0; i < usersToCreate; i++) {
+                    User user = createUser(testUserName + i, testPassword);
+                }
+
+
+
+                // STATE DATA, POPULATION DATA
                 generateStaticData();
 
                 // Get Population Data by State
@@ -134,11 +167,15 @@ public class DataLoader implements ApplicationRunner {
 
     // Function to kick off all static data generated as part of the application
     private void generateStaticData() {
+
         //Clean data
         stateDao.getPopulations().deleteAll();
         stateDao.getEducations().deleteAll();
         stateDao.getPoverties().deleteAll();
         stateDao.getCrimes().deleteAll();
+
+
+        userDao.getUsers().deleteAll();
 
         stateGenerator();
         metricGenerator();
@@ -336,8 +373,6 @@ public class DataLoader implements ApplicationRunner {
     }
 
 
-
-
     // Saves women grads by state.
     private void womenGradsByYear() throws IOException {
 
@@ -470,5 +505,23 @@ public class DataLoader implements ApplicationRunner {
 //        save all crimes
         stateDao.getCrimes().saveAll(crimeList);
     }
+
+
+    private User createUser(String username, String password) {
+
+        User user = new User(username, password, LocalDateTime.now(), LocalDateTime.now());
+        String hash = passwordEncoder.encode(password);
+        user.setPassword(hash);
+        user.setCreatedAt(LocalDateTime.now());
+
+        user.setProfile(new UserProfile(faker.name().fullName(),  faker.name().firstName(),
+                faker.name().lastName(),  faker.internet().emailAddress(),  username,  faker.address().state()));
+
+        user = userDao.getUsers().save(user);
+        userDao.getUsers().addDefaultRole(user.getId());
+
+        return user;
+    }
+
 }
 
