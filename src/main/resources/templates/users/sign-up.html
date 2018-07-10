@@ -19,7 +19,7 @@
             <!--<li>State You live</li>-->
             <!--<li>Rating</li>-->
         <!--</ul>-->
-        <form name="register" class="card card-block bg-faded m-3 p-3 login-card" th:action="@{/sign-up}" method="post" th:object="${user}">
+        <form name="register" class="card card-block bg-faded m-3 p-3 login-card" th:action="@{/sign-up}" method="post" th:object="${user}" th:required="required">
             <h2 class="fs-title">Create your account</h2>
             <h3 class="fs-subtitle">This is step 1</h3>
             <!--<h2 class="m-b-1 text-xs-center">Step one</h2>-->
@@ -27,22 +27,22 @@
                 <div class="input-group-prepend">
                     <span class="input-group-text" id="basic-addon1">@</span>
                 </div>
-                <input type="text" id="username" th:field="*{username}" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" />
+                <input type="text" id="username" th:field="*{username}" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" th:required="required" />
                 <p th:if="${#fields.hasErrors('username')}" th:errors="${username}" />
             </div>
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
                     <span class="input-group-text" id="">First and last name</span>
                 </div>
-                <input id="firstName" th:field="*{profile.firstName}"  class="form-control" />
+                <input id="firstName" th:field="*{profile.firstName}"  class="form-control" th:required="required"/>
                 <!--<p th:if="${#fields.hasErrors('firstName')}" th:errors="*{profile.firstname}"/>-->
-                <input id="lastName" th:field="*{profile.lastName}" class="form-control" />
+                <input id="lastName" th:field="*{profile.lastName}" class="form-control" th:required="required"/>
             </div>
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
                     <span class="input-group-text" id="email-addon">Email</span>
                 </div>
-                <input type="text" id="email" th:field="*{profile.email}" class="form-control" placeholder="email" aria-label="email" aria-describedby="basic-addon1">
+                <input type="text" id="email" th:field="*{profile.email}" class="form-control" placeholder="email" aria-label="email" aria-describedby="basic-addon1" th:required="required">
             </div>
             <div class="input-group mb-3">
             <div class="input-group-prepend">
@@ -285,6 +285,7 @@
         var userInput = document.forms["register"][username][email].value;
         if (userInput == " "){
             alert("Username and Email must be filled in.");
+            return false;
         }
     }
 </script>
