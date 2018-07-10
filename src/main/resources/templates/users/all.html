@@ -20,7 +20,7 @@
                 <h5 class="text-center card-title" th:text="${user.profile.email}"></h5>
 
                 <h5 class="text-center card-title" th:text="${user.profile.userState}"></h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                <p class="card-text" th:text="${user.profile.name}" ></p>
                 <!--<a href="/messages/create/" class="btn btn-primary">Send a message</a>-->
                 <button type="button" th:data-recipient-id="${user.id}" th:data-recipient-name="${user.username}" class="btn btn-secondary" data-toggle="modal" data-target="#exampleModal">Send message</button>
 

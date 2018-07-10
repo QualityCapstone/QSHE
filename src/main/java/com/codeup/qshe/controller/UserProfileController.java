@@ -9,6 +9,8 @@ import com.codeup.qshe.services.user.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.validation.Errors;
+
 
 @Controller
 public class UserProfileController {
@@ -24,11 +26,11 @@ public class UserProfileController {
     }
 
     @GetMapping("/users/displayprofile")
-    public String displayProfile(Long id, Model view){
+    public String displayProfile(Model view){
 
     User current = userDao.getLoggedInUser();
+    
     view.addAttribute(current);
-
 
     return "users/displayprofile";
     }

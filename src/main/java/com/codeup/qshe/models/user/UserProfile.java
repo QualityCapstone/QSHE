@@ -4,6 +4,9 @@ package com.codeup.qshe.models.user;
 import org.springframework.beans.factory.annotation.Value;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table
@@ -14,11 +17,11 @@ public class UserProfile {
 
     @Column
     private String name;
-    @Column
+    @Column @NotBlank(message = "Please enter a first name")
     private  String firstName;
-    @Column
+    @Column @NotBlank(message = "Please enter a last name")
     private  String lastName;
-    @Column
+    @Column @Email
     private  String email;
     @Column
     private  String username;
