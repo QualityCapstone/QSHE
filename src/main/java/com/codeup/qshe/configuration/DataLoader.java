@@ -55,9 +55,6 @@ public class DataLoader implements ApplicationRunner {
     // THIS DOES NOT CHANGE THE BASE TABLES
     private static final boolean FRESHSTART = true;
 
-    // THIS CLEARS STUFF! EVERYTHING REFRESH!
-    private static final boolean IGNOREPOPULATED = true;
-
 
     private Faker faker = new Faker();
     private Random rand = new Random();
@@ -79,6 +76,7 @@ public class DataLoader implements ApplicationRunner {
 
     public void run(ApplicationArguments args) throws IOException, URISyntaxException, SQLException {
         if(FRESHSTART) {
+            Random r = new Random();
 
             //How many users to create
             Integer usersToCreate = 30;
@@ -88,10 +86,11 @@ public class DataLoader implements ApplicationRunner {
             String testUserName = "test";
             String testPassword = "test";
 
+
+            // Creates record for Site settings
                 try {
                     if (!site.isPopulated()) {
                         System.out.println("Populated Returned FALSE");
-                        SiteSetting setting = site.getFirst();
                     }
                 } catch (NullPointerException e) {
                     SiteSetting setting = new SiteSetting(false);
@@ -99,69 +98,46 @@ public class DataLoader implements ApplicationRunner {
                 }
 
 
-            if (!site.getFirst().getPopulated() || IGNOREPOPULATED) {
-                Random r = new Random();
+                // REFRESH APP DATA
+                if(site.getFirst().getRefreshAppData() || !site.getFirst().getPopulated()) {
+                    System.out.println("------- REFRESH APP DATA -----");
+
+                    // STATE DATA, POPULATION DATA
+                    generateStaticData();
 
 
-                // START DATA GENERATION (USERS)
-                for (int i = 0; i < usersToCreate; i++) {
-                    User user = createUser(testUserName + i, testPassword);
-                }
-
-
-
-                // STATE DATA, POPULATION DATA
-                generateStaticData();
-
-                // Get Population Data by State
-                for (int i = 1; i <= 9; i++) {
-                    String popURL = "https://api.census.gov/data/2016/pep/population?get=POP,GEONAME,DATE_DESC&for=state:*&DATE=" + i +
-                            "&key=50fdb2ea46d6471b7412b6b43204804309487999";
-                    populationsByDate(popURL);
+                    // START DATA GENERATION (USERS)
+                    for (int i = 0; i < usersToCreate; i++) {
+                        User user = createUser(testUserName + i, testPassword);
+                    }
 
                 }
-                System.out.println(stateDao.getStates().findAll().toString());
 
-//            womenGradsByYear();
-//            getPovertyData();
-// Commented these functions out due to internal errors - will look into
+                // REFRESH API DATA
+                if(site.getFirst().getRefreshAPIs() || !site.getFirst().getPopulated()) {
+                    System.out.println("------- REFRESH APIS -----");
 
+                    // Get Population Data by State
+                    for (int i = 1; i <= 9; i++) {
+                        String popURL = "https://api.census.gov/data/2016/pep/population?get=POP,GEONAME,DATE_DESC&for=state:*&DATE=" + i +
+                                "&key=50fdb2ea46d6471b7412b6b43204804309487999";
+                        populationsByDate(popURL);
 
-            // Get State Crimes by Year
-//            String crimeURL = "https://api.usa.gov/crime/fbi/sapi/api/estimates/states/TX?api_key=iiHnOKfno2Mgkt5AynpvPpUQTEyxE77jo1RU8PIv";
-//            stateCrimesByYear(crimeURL);
+                    }
 
-            Connection connection = DriverManager.getConnection(
-                    "jdbc:mysql://localhost/QSHE_db?serverTimezone=UTC&useSSL=false",
-                    "root",
-                    "codeup"
-            );
-            // Get State Crimes by Year, need to make loop for iterating through all states
-            Statement stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM state");
-            String state;
-            String crimeURL;
-            while (rs.next()){
-                state = rs.getString("abbr");
-                crimeURL = "https://api.usa.gov/crime/fbi/sapi/api/estimates/states/"+state+"?api_key=iiHnOKfno2Mgkt5AynpvPpUQTEyxE77jo1RU8PIv";
-                stateCrimesByYear(crimeURL);
-            }
+                    womenGradsByYear();
+                    getPovertyData();
+                    crimeData();
 
-                // Get State Crimes by Year
-                crimeURL = "https://api.usa.gov/crime/fbi/sapi/api/estimates/states/TX?api_key=iiHnOKfno2Mgkt5AynpvPpUQTEyxE77jo1RU8PIv";
-                stateCrimesByYear(crimeURL);
+                }
 
-
-
-                womenGradsByYear();
-                getPovertyData();
 
             } //END FRESH START
 
-            site.save(new SiteSetting(true));
-        }
 
+            site.save(new SiteSetting(true));
     }
+
 
 
     // Function to kick off all static data generated as part of the application
@@ -472,6 +448,20 @@ public class DataLoader implements ApplicationRunner {
 
         stateDao.getPoverties().saveAll(poverty);
     }
+
+
+    private void crimeData() throws IOException {
+
+      List<State> states  = stateDao.getStates().findAll();
+
+      for(State state : states) {
+          String crimeURL = "https://api.usa.gov/crime/fbi/sapi/api/estimates/states/"+state.getAbbr()+"?api_key=iiHnOKfno2Mgkt5AynpvPpUQTEyxE77jo1RU8PIv";
+          stateCrimesByYear(crimeURL);
+
+      }
+
+    }
+
 
 
     private void stateCrimesByYear(String url) throws IOException {
