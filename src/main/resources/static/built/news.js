@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 10);
+/******/ 	return __webpack_require__(__webpack_require__.s = 9);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -549,15 +549,14 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
 /* 6 */,
 /* 7 */,
 /* 8 */,
-/* 9 */,
-/* 10 */
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var $ = __webpack_require__(11);
-var NewsAPI = __webpack_require__(12);
+var $ = __webpack_require__(10);
+var NewsAPI = __webpack_require__(11);
 var newsapi = new NewsAPI('b8cc911c5a604eadac02a424f0945ae8');
 // To query /v2/top-headlines
 // All options passed to topHeadlines are optional, but you need to include at least one of them
@@ -609,7 +608,7 @@ newsapi.v2.sources({
 });
 
 /***/ }),
-/* 11 */
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -10980,7 +10979,7 @@ return jQuery;
 
 
 /***/ }),
-/* 12 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10996,9 +10995,9 @@ return jQuery;
  * claim to have created any of the facilities provided by NewsAPI.org.
  */
 
-const Promise = __webpack_require__(13),
-  fetch = __webpack_require__(14),
-  qs = __webpack_require__(15),
+const Promise = __webpack_require__(12),
+  fetch = __webpack_require__(13),
+  qs = __webpack_require__(14),
   host = 'https://newsapi.org';
 
 fetch.Promise = Promise;
@@ -11127,7 +11126,7 @@ module.exports = NewsAPI;
 
 
 /***/ }),
-/* 13 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(process, global, setImmediate) {/* @preserve
@@ -16756,7 +16755,7 @@ module.exports = ret;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1), __webpack_require__(0), __webpack_require__(2).setImmediate))
 
 /***/ }),
-/* 14 */
+/* 13 */
 /***/ (function(module, exports) {
 
 module.exports = exports = window.fetch;
@@ -16770,18 +16769,18 @@ exports.Response = window.Response;
 
 
 /***/ }),
-/* 15 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-exports.decode = exports.parse = __webpack_require__(16);
-exports.encode = exports.stringify = __webpack_require__(17);
+exports.decode = exports.parse = __webpack_require__(15);
+exports.encode = exports.stringify = __webpack_require__(16);
 
 
 /***/ }),
-/* 16 */
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -16872,7 +16871,7 @@ var isArray = Array.isArray || function (xs) {
 
 
 /***/ }),
-/* 17 */
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
