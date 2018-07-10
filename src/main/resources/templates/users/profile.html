@@ -18,6 +18,7 @@
 
 
     <div class="container wrapper mx-auto" sec:authorize="isAuthenticated()">
+
         <div class="text-left col-12">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a th:href="@{~/profile}">Home</a></li>
@@ -26,7 +27,6 @@
                 </a></li>
                 <li class="breadcrumb-item active">Profile</li>
             </ol>
-
         </div>
         <!-- THIS ARE THE TABS FOR THE PROFILE PAGE -->
         <nav>
@@ -36,14 +36,16 @@
                 <a class="nav-item nav-profile nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">Messages</a>
             </div>
         </nav>
+
+
         <!-- ThIS IS THE PROFILE TAB -->
-        <div class="tab-content" id="nav-tabContent">
-            <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+            <div class="tab-content" id="nav-tabContent">
+            ≈ç <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
                 PROFILE
                 <div class="row">
                     <div class="col-md-4">
-                        <!--<img th:src="@{/uploads/cool-doge.gif}"  alt="didn't work"/>-->
-                            <img th:src="@{/uploads/} + ${user.profile.uploadPath}"  alt="didn't work"/>
+
+                            <img th:src="@{/uploads/} + ${user.profile.uploadPath}"  class="img-float" alt="didn't work"/>
                             <div>
                                 Profile Picture
                             </div>
@@ -184,12 +186,12 @@
                 <!--</div>-->
                 <!-- HERE ARE THE MESSAGES -->
             <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
-            <h3 class="mb-3">Messages</h3>
+                <h3 class="mb-3">Messages</h3>
 
                 <table class="table table-hover">
                     <thead>
                     <tr>
-                        <th>UserName</th>
+                        <th>Username</th>
                         <th class="d-none d-sm-table-cell sticky-header">Message</th>
                         <th class="sticky-top">Status</th>
 
@@ -212,96 +214,16 @@
 
                     </th:block>
 
-
-
                     </tbody>
                 </table>
 
-
-
-
-
             </div>
-    </div>
-    </div>
+
+        </div>
+
+
+
+
 <div th:replace="partials/layout :: footer" />
-        <script type="text/javascript">
-            // USER RATE VALUE FOR VIOLENCE
-            var sliderOne = document.getElementById("violenceRate");
-            var outputOne = document.getElementById("demoViolence");
-            outputOne.innerHTML =sliderOne.value;
-
-            sliderOne.oninput = function(){
-                outputOne.innerHTML = this.value;
-            };
-            //
-            // // USER RATE VALUE FOR EMPLOYMENT
-            var sliderTwo = document.getElementById("employmentRate");
-            var outputTwo = document.getElementById("demoEmployment");
-            outputTwo.innerHTML = sliderTwo.value;
-
-            sliderTwo.oninput = function (){
-                outputTwo.innerHTML = this.value;
-            };
-            //
-            // //USER RATE VALUE FOR EDUCATION
-            var sliderThree = document.getElementById("educationRate");
-            var outputThree = document.getElementById("demoEducation");
-            outputThree.innerHTML = sliderThree.value;
-
-            sliderThree.oninput = function (){
-                outputThree.innerHTML = this.value;
-            };
-
-            // // USER RATE VALUE FOR HEALTH
-            var sliderFour = document.getElementById("healthRate");
-            var outputFour = document.getElementById("demoHealth");
-            outputFour.innerHTML = sliderFour.value;
-
-            sliderFour.oninput = function () {
-                outputFour.innerHTML = sliderFour.value;
-            };
-
-            // USER RATE VALUE FOR GROWTH
-            var slider = document.getElementById("growthRate");
-            var output = document.getElementById("demoGrowth");
-            output.innerHTML = slider.value; // Display the default slider value
-
-            // Update the current slider value (each time you drag the slider handle)
-            slider.oninput = function() {
-                output.innerHTML = this.value;
-            };
-
-
-// ---------------- OVERALL RATING FROM THE SLIDERS -------------------------------
-
-            $('.slider').each(function() {
-
-                $(this).on('change', function() {
-                    calcavg();
-                })
-            });
-            function calcavg() {
-                var total = 0;
-                var avg = 0;
-
-                $('.slider').each(function() {
-                    if (!isNaN(this.value) && this.value.lenght !=0) {
-                        total +=parseFloat(this.value);
-                        // alert(total);
-                    }
-                });
-                if (!isNaN(total) && total !=0) {
-                    // var txtboxes = $('.cal-rating').length;
-                    var txtboxes = 5;
-                    Average = parseFloat(total) / 5;
-                }
-                $('#totalMarks').html(Average);
-                // Show Average upto 2 decimal places using .toFixed() method.
-                // var star = parseFloat(Average.toFixed(2)) * 20;
-                // $('.avg-ovral-rtng .rating-stars').css("width", star + "%");
-            }
-        </script>
-
 </body>
 </html>

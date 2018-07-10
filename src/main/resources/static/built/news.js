@@ -74,7 +74,6 @@
 var $ = __webpack_require__(218);
 var NewsAPI = __webpack_require__(219);
 var newsapi = new NewsAPI('b8cc911c5a604eadac02a424f0945ae8');
-<<<<<<< HEAD
 // To query /v2/everything
 // You must include at least one q, source, or domain
 
@@ -85,36 +84,11 @@ newsapi.v2.everything({
     q: query, //need help changing state name for each state.
 
     sources: 'bbc-news,the-verge,abc-news,cbs-news,cnbc,cnn,fox-news',
-=======
-// To query /v2/top-headlines
-// All options passed to topHeadlines are optional, but you need to include at least one of them
-newsapi.v2.topHeadlines({
-    // sources: 'bbc-news,the-verge',
-    // q: 'Texas',
-    // category: 'business',
-    language: 'en',
-    country: 'us'
-}).then(function (response) {
-    // console.log(response);
-});
-
-// To query /v2/everything
-// You must include at least one q, source, or domain
-newsapi.v2.everything({
-    q: 'texas',
-
-    // need help changing this q to the name of each
-    // state based on which state the user selects
-
-    sources: 'bbc-news,the-verge,abc-news,cbs-news,cnbc,cnn,fox-news',
-    // domains: 'bbc.co.uk, techcrunch.com',
->>>>>>> 50b957ab9a41983d76277cd711a0dedcdc08e3b4
     from: '2018-06-18',
     to: '2018-07-17',
     language: 'en',
     sortBy: 'relevancy'
 }).then(function (response) {
-<<<<<<< HEAD
     // console.log(response);
     // console.log(response.articles);
     // console.log(response.articles[0]);
@@ -122,28 +96,6 @@ newsapi.v2.everything({
     for (var i = 0; i <= 2; i++) {
         $('#statenews').append('<li class=\'text-truncate\'>\n                    <a href="' + response.articles[i].url + '" class="">\n                        ' + response.articles[i].title + '\n                        </a>                 \n                   </li>\n                <li class="text-truncate pb-4">\n                <span class=""> ' + response.articles[i].description + '</span>\n</li>\n');
     }
-=======
-    console.log(response);
-    console.log(response.articles);
-    console.log(response.articles[0]);
-    console.log(response.articles[0].url);
-    /*
-      {
-        status: "ok",
-        articles: [...]
-      }
-    */
-    $('.state').append("<div class ='card-body'><p>" + response.articles[0].url + "</p></div>");
-});
-
-// To query sources
-// All options are optional
-newsapi.v2.sources({
-    language: 'en',
-    country: 'us'
-}).then(function (response) {
-    // console.log(response);
->>>>>>> 50b957ab9a41983d76277cd711a0dedcdc08e3b4
 });
 
 /***/ }),
