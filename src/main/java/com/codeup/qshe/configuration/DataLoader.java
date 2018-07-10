@@ -5,9 +5,11 @@ import com.codeup.qshe.models.SiteSetting;
 import com.codeup.qshe.models.State;
 import com.codeup.qshe.models.StateCrime;
 import com.codeup.qshe.models.StatePopulation;
+import com.codeup.qshe.models.user.StateMetric;
 import com.codeup.qshe.repositories.SiteSettings;
 import com.codeup.qshe.services.CrimeService;
 import com.codeup.qshe.services.StateService;
+import com.codeup.qshe.services.StateUserRatingService;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.type.TypeFactory;
@@ -34,6 +36,7 @@ public class DataLoader implements ApplicationRunner {
 
     private SiteSettings site;
     private StateService stateDao;
+    private StateUserRatingService ratingDao;
 
     // will delete data and refresh test data
     // probably can move to app props or something...
@@ -51,9 +54,10 @@ public class DataLoader implements ApplicationRunner {
 
 
     @Autowired
-    public DataLoader(SiteSettings site, StateService stateDao, CrimeService crimeDao) {
+    public DataLoader(SiteSettings site, StateService stateDao, StateUserRatingService ratingDao) {
         this.stateDao = stateDao;
         this.site = site;
+        this.ratingDao = ratingDao;
     }
 
 
@@ -137,6 +141,26 @@ public class DataLoader implements ApplicationRunner {
         stateDao.getCrimes().deleteAll();
 
         stateGenerator();
+        metricGenerator();
+
+    }
+
+
+    private void metricGenerator() {
+
+
+        List<StateMetric> metrics = new ArrayList<>();
+
+        metrics.add(new StateMetric("Crime"));
+        metrics.add(new StateMetric("Education"));
+        metrics.add(new StateMetric("Employment"));
+        metrics.add(new StateMetric("Health"));
+        metrics.add(new StateMetric("Growth"));
+
+        // Add State to DB
+        // Add State to DB
+        this.ratingDao.getMetrics().deleteAll();
+        this.ratingDao.getMetrics().saveAll(metrics);
 
     }
 
