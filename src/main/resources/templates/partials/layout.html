@@ -20,25 +20,6 @@
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="/css/signup.css">
 
-
-
-
-
-
-    <!--
-        This map was created using Pixel Map Generator by amCharts and is licensed under the Creative Commons Attribution 4.0 International License.
-        You may use this map the way you see fit as long as proper attribution to the name of amCharts is given in the form of link to https://pixelmap.amcharts.com/
-        To view a copy of this license, visit http://creativecommons.org/licenses/by/4.0/
-
-        If you would like to use this map without any attribution, you can acquire a commercial license for the JavaScript Maps - a tool that was used to produce this map.
-        To do so, visit amCharts Online Store: https://www.amcharts.com/online-store/
-    -->
-
-    <!-- amCharts javascript sources -->
-    <script type="text/javascript" src="https://www.amcharts.com/lib/3/ammap.js"></script>
-    <script type="text/javascript" src="https://www.amcharts.com/lib/3/maps/js/usaTerritoriesLow.js"></script>
-    <script type="text/javascript" src="/js/map.js"></script>
-    <!-- amCharts javascript code -->
 </head>
 
 
@@ -91,17 +72,16 @@
                 <span class="sr-only">Toggle Dropdown</span>
             </button>
             <div class="dropdown-menu dropdown-menu-right">
-                <a class="dropdown-item" th:href="@{~/users/displayprofile}">Profile</a>
+                <a class="dropdown-item" th:href="@{~/profile}">Profile</a>
                
                 <a class="dropdown-item" th:href="@{~/users}">Users</a>
-                <a class="dropdown-item" th:href="@{~/map}">Country</a>
+                <a class="dropdown-item" th:href="@{~/us}">Country</a>
 
                 <a class="dropdown-item" th:href="@{~/users/viewstate}">State</a>
+                <a class="dropdown-item" th:href="@{~/state/compare}">Compare States</a>
                 <a class="dropdown-item" th:href="@{~/about/}">About</a>
                 <a class="dropdown-item" th:href="@{~/help}">Help</a>
 
-                <a class="dropdown-item" th:href="@{~/messages/create}">Create</a>
-                <a class="dropdown-item" th:href="@{~/users}">Users</a>
                 <a class="dropdown-item" th:href="@{~/widget/all}">Forum</a>
                 <a class="dropdown-item" th:href="@{~/map}">Map</a>
                 <a class="dropdown-item" th:href="@{~/users/rating}">My rating</a>
@@ -122,6 +102,26 @@
 
     <nav class="navbar navbar-dark bg-dark navbar-footer">
         <a class="navbar-brand" href="#">Footer</a>
+
+        <div class="">
+            <a class="" th:href="@{~/profile}">Profile</a>
+
+            <a class="" th:href="@{~/users}">Users</a>
+            <a class="" th:href="@{~/us}">Country</a>
+
+            <a class="" th:href="@{~/users/viewstate}">State</a>
+            <a class="" th:href="@{~/state/compare}">Compare States</a>
+            <a class="" th:href="@{~/about/}">About</a>
+            <a class="" th:href="@{~/help}">Help</a>
+
+            <a class="" th:href="@{~/messages/create}">Create</a>
+            <a class="" th:href="@{~/users}">Users</a>
+            <a class="" th:href="@{~/widget/all}">Forum</a>
+            <a class="" th:href="@{~/map}">Map</a>
+            <a class="" th:href="@{~/users/rating}">My rating</a>
+
+        </div>
+
     </nav>
 
     <!--JS Files -->
@@ -143,8 +143,6 @@
         })
         //]]>
     </script>
-    <script src="/messages.js"></script>
-
 </footer>
 
 </body>

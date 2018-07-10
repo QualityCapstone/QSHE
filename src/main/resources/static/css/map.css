@@ -21,12 +21,23 @@
 }
 
 .state {
-    color: #ff9890;
+    color: #5a6aff;
     transition: 500ms color;
-    height: 500px;
 }
+
+
+.state-tiny {
+    width: 50px;
+    height: 50px;
+    float: left;
+    color: black;
+}
+
+
+
+
 .state:hover {
-    color: pink;
+    color: #72cfff;
 }
 
 .tooltip {

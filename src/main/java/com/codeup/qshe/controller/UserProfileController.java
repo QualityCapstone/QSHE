@@ -1,41 +1,36 @@
 package com.codeup.qshe.controller;
 
 import com.codeup.qshe.models.user.User;
-import com.codeup.qshe.repositories.UserProfilesRepository;
+import com.codeup.qshe.repositories.UserProfiles;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
-import com.codeup.qshe.repositories.Users;
 
-import com.codeup.qshe.models.user.UserProfile;
-import com.codeup.qshe.repositories.Users;
-import com.codeup.qshe.services.user.SimpleSocialUsersDetailService;
 import com.codeup.qshe.services.user.UserDetailsLoader;
 import com.codeup.qshe.services.user.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.validation.Errors;
 
-import javax.validation.Valid;
 
 @Controller
 public class UserProfileController {
     private UserService userDao;
     private UserDetailsLoader userDetailsLoader;
-    private UserProfilesRepository userProfilesRepository;
+    private UserProfiles userProfiles;
 
 @Autowired
-    public UserProfileController(UserDetailsLoader userDetailsLoader, UserService userDao, UserProfilesRepository userProfilesRepository) {
+    public UserProfileController(UserDetailsLoader userDetailsLoader, UserService userDao, UserProfiles userProfiles) {
         this.userDetailsLoader = userDetailsLoader;
-        this.userProfilesRepository = userProfilesRepository;
+        this.userProfiles = userProfiles;
         this.userDao =userDao;
     }
 
     @GetMapping("/users/displayprofile")
-    public String displayProfile(Long id, Model view){
+    public String displayProfile(Model view){
 
     User current = userDao.getLoggedInUser();
+    
     view.addAttribute(current);
-
 
     return "users/displayprofile";
     }
