@@ -53,12 +53,8 @@
                     </div>
                     <div class="card-body">
                         <h5>State News</h5>
-                        <ul>
-                            <li>Test News</li>
-                            <li>Texas wooo!</li>
-                            <li>Pew Pew</li>
-                        </ul>
 
+                        <ul id="statenews" th:data-state-name="${state.name}"></ul>
 
                         <a href="#">See More...</a>
                     </div>
@@ -107,5 +103,6 @@
 
 </div>
 <script  th:src="@{~/built/map.js}"> </script>
+<script th:src="@{~/built/news.js}"></script>
 </body>
 </html>
