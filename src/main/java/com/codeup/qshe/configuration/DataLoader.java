@@ -86,9 +86,6 @@ public class DataLoader implements ApplicationRunner {
             String testUserName = "test";
             String testPassword = "test";
 
-
-
-
                 try {
                     if (!site.isPopulated()) {
                         System.out.println("Populated Returned FALSE");

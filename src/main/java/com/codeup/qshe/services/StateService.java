@@ -14,13 +14,13 @@ public class StateService {
     private StatePopulations populations;
     private StateEducations educations;
     private StatePoverties poverties;
-    private CrimeRepository crimes;
+    private Crimes crimes;
     private States states;
 
     @Autowired
     public StateService(Staterepository staterepository, StatePopulations populations,
-                        StateEducations educations, StatePoverties poverties, CrimeRepository crimes,
-    States states) {
+                        StateEducations educations, StatePoverties poverties, Crimes crimes,
+                        States states) {
             this.staterepository = staterepository;
             this.populations = populations;
             this.educations = educations;
@@ -49,7 +49,7 @@ public class StateService {
         return poverties;
     }
 
-    public CrimeRepository getCrimes() {
+    public Crimes getCrimes() {
         return crimes;
     }
 

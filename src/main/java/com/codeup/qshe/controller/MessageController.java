@@ -28,7 +28,7 @@ public class MessageController {
          User user = userDao.getLoggedInUser();
          User recipient = userDao.getUsers().findById(id).get();
 
-       model.addAttribute("messages", messageDao.getMessageRepository().findAllByRecipientAndSender(recipient, user));
+       model.addAttribute("messages", messageDao.getMessages().findAllByRecipientAndSender(recipient, user));
        model.addAttribute("recipient", recipient);
 
          return "/messages/view";

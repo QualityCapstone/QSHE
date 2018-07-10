@@ -1,13 +1,10 @@
 package com.codeup.qshe.controller;
 
-import com.codeup.qshe.models.user.Message;
 import com.codeup.qshe.models.user.User;
 import com.codeup.qshe.models.user.UserProfile;
 import com.codeup.qshe.models.user.UserWithRoles;
 import com.codeup.qshe.repositories.Roles;
-import com.codeup.qshe.repositories.UserProfilesRepository;
-import com.codeup.qshe.repositories.Users;
-import com.codeup.qshe.services.user.SimpleSocialUsersDetailService;
+import com.codeup.qshe.repositories.UserProfiles;
 import com.codeup.qshe.services.user.UserDetailsLoader;
 import com.codeup.qshe.services.user.UserService;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -20,7 +17,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -30,7 +26,7 @@ public class UserController {
     private UserService userDao;
     private PasswordEncoder passwordEncoder;
     private Roles roles;
-    private UserProfilesRepository userProfilesRepository;
+    private UserProfiles userProfiles;
 
 
 
