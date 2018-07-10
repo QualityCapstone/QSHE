@@ -19,6 +19,15 @@ body {
     color: #DC6F68;
 }
 
+.navbar {
+    z-index: 10;
+}
+
+.error-title {
+    font-size: 56px;
+    font-weight: bold;
+}
+
 
 
 

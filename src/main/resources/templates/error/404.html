@@ -4,18 +4,16 @@
 <head th:replace="partials/layout :: header">
     <meta charset="UTF-8" />
     <title>Index page</title>
-    <!--<link rel="stylesheet" href="/css/bubble.css">-->
+    <link rel="stylesheet" href="css/bubble.css">
 </head>
-<body class="bubble">
-<canvas id="canvasbg"></canvas>
-<canvas id="canvas"></canvas>
+<body>
+
 <div th:replace="partials/layout :: navbar" />
 
+<canvas id="canvasbg" style="position: fixed"></canvas>
+<canvas id="canvas" ></canvas>
 <!-- Your logo on the top left -->
-<a href="#" class="logo-link" title="back home">
-
-    <img src="/img/test/logo.png" class="logo" alt="Company's logo" />
-
+<a href="/index" class="logo-link" title="back home">
 </a>
 
 <div class="content">
@@ -24,10 +22,9 @@
 
         <div class="big-content">
 
-            <h1>Oops! Error 404 not found.</h1>
-
-            <p>The page you were looking for doesn't exist.<br>
-                We think the page may have moved.</p>
+            <h1 class="error-title text-center">Oops! Error 404 not found.</h1>
+            <!--<p>The page you were looking for doesn't exist.<br>-->
+                <!--We think the page may have moved.</p>-->
 
             <!-- The animated searching tool -->
             <i class="fa fa-search color" aria-hidden="true"></i>
@@ -56,8 +53,8 @@
 
 <div th:replace="partials/layout :: footer" />
 <!--<script src="https://secure.xivdb.com/tooltips.js"></script>-->
-<!--<script src="js/jquery.min.js"></script>-->
-<!--<script src="js/bootstrap.min.js"></script>-->
+<script src="js/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
 <script src="js/bubble.js"></script>
 </body>
 </html>

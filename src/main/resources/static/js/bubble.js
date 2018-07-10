@@ -24,7 +24,7 @@ var Bubbles = function () {
     };
 
     Bubbles.prototype.addBgBubble = function addBgBubble() {
-        this.aBgBubbles.push(new Bubble('rgba(220, 111, 104)', 3.5)); // Color for the bubbles in the back
+        this.aBgBubbles.push(new Bubble('rgba(220, 111, 104, .6)', 3.5)); // Color for the bubbles in the back
     };
 
     Bubbles.prototype.update = function update() {
@@ -83,7 +83,7 @@ var Bubbles = function () {
 
 var Bubble = function () {
     function Bubble() {
-        var _c = arguments.length <= 0 || arguments[0] === undefined ? 'rgba(254,8,97,0.8)' : arguments[0]; // Color for the bubbles on the front
+        var _c = arguments.length <= 0 || arguments[0] === undefined ? 'rgba(239, 189, 186, .6)' : arguments[0]; // Color for the bubbles on the front
 
         var _y = arguments.length <= 1 || arguments[1] === undefined ? 0 : arguments[1];
 
