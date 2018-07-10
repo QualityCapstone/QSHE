@@ -15,8 +15,7 @@ public class StateMetric {
 
     public StateMetric(){}
 
-    public StateMetric(Long id, String name){
-        this.id = id;
+    public StateMetric(String name){
         this.name = name;
     }
 

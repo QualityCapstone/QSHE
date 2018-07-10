@@ -26,18 +26,12 @@ public class StateUserRating {
 
     public StateUserRating (){}
 
-    public StateUserRating(State state, User user, StateMetric metric, float rating) {
+    public StateUserRating(State state, User user, StateMetric metric) {
         this.state = state;
         this.user = user;
         this.metric = metric;
-        this.rating = rating;
     }
 
-    public StateUserRating(User user, State state, float rating){
-        this.user = user;
-        this.state = state;
-        this.rating = rating;
-    }
 
 
     public State getState() {

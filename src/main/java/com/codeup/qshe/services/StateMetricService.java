@@ -1,12 +1,9 @@
 package com.codeup.qshe.services;
 
 import com.codeup.qshe.models.user.StateMetric;
-import com.codeup.qshe.models.user.StateUserRating;
 import com.codeup.qshe.models.user.User;
-import com.codeup.qshe.repositories.StateMetricRepository;
+import com.codeup.qshe.repositories.StateMetrics;
 
-import com.codeup.qshe.repositories.Staterepository;
-import com.codeup.qshe.repositories.UserRatings;
 import com.codeup.qshe.repositories.Users;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -15,22 +12,22 @@ import java.util.List;
 
 @Service
 public class StateMetricService {
-    private StateMetricRepository stateMetricRepository;
+    private StateMetrics stateMetrics;
     private Users userDao;
 
 
-   public StateMetricService(StateMetricRepository stateMetricRepository, Users userDao){
-       this.stateMetricRepository = stateMetricRepository;
+   public StateMetricService(StateMetrics stateMetrics, Users userDao){
+       this.stateMetrics = stateMetrics;
        this.userDao = userDao;
    }
 
 
-    public StateMetricRepository getStateMetricRepository() {
-        return stateMetricRepository;
+    public StateMetrics getStateMetrics() {
+        return stateMetrics;
     }
 
-    public void setStateMetricRepository(StateMetricRepository stateMetricRepository) {
-        this.stateMetricRepository = stateMetricRepository;
+    public void setStateMetrics(StateMetrics stateMetrics) {
+        this.stateMetrics = stateMetrics;
     }
 
     public Users getUserDao() {
@@ -42,7 +39,7 @@ public class StateMetricService {
     }
 
     public List<StateMetric> findAll() {
-        Iterable <StateMetric> stateMetrics = stateMetricRepository.findAll();
+        Iterable <StateMetric> stateMetrics = this.stateMetrics.findAll();
         return (List<StateMetric>) stateMetrics;
     }
 
@@ -50,24 +47,24 @@ public class StateMetricService {
         User sessionUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User user = userDao.findById(sessionUser.getId()).get();
         stateMetric.setName("name");
-        stateMetricRepository.save(stateMetric);
+        stateMetrics.save(stateMetric);
         return stateMetric;
     }
 
     public StateMetric findOne(long id) {
-        StateMetric stateMetric = stateMetricRepository.findById(id).get();
+        StateMetric stateMetric = stateMetrics.findById(id).get();
         return stateMetric;
     }
 
 
     public StateMetric deleteRating (long id){
-        StateMetric stateMetric = stateMetricRepository.findById(id).get();
-        stateMetricRepository.delete(stateMetric);
+        StateMetric stateMetric = stateMetrics.findById(id).get();
+        stateMetrics.delete(stateMetric);
         return deleteRating(id);
     }
 
     public StateMetric findById (Long id){
-        return stateMetricRepository.findById(id).get();
+        return stateMetrics.findById(id).get();
     }
 
 }
