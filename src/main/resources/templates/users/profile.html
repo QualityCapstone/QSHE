@@ -49,6 +49,12 @@
                     </div>
                 </div>
                 <a href="/fileupload">Change avatar picture!</a>
+                <form th:action="@{/fileupload}" method="post" enctype="multipart/form-data" th:object="${user}">
+                    <label for="file">Change your profile picture!</label>
+                    <input id="file" name="file" type="file" />
+                    <br />
+                    <input type="submit" value="upload" />
+                </form>
                 <div class="col-md-8">
                     <h2>User ID <span th:text="${#authentication.principal.id}" /></h2>
 
@@ -83,7 +89,7 @@
 
                     </form>
                 </div>
-<
+
                 <div class="row mt-5 mb-5">
                     <h3>Your notifications</h3>
                     <div class="col-12 text-left">

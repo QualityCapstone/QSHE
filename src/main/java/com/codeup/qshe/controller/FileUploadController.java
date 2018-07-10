@@ -4,10 +4,7 @@ import com.codeup.qshe.models.user.User;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -22,7 +19,7 @@ public class FileUploadController {
 
     @GetMapping("/fileupload")
     public String showUploadFileForm() {
-        return "fileupload";
+        return "redirect:users/profile";
     }
 
     @PostMapping("/fileupload")
@@ -31,10 +28,10 @@ public class FileUploadController {
             Model model,
             @ModelAttribute User user
             ) {
-        if (uploadedFile.isEmpty()) {
-            model.addAttribute("message", "Please choose a file to upload.");
-            return "redirect:fileupload";
-        }
+//        if (uploadedFile.isEmpty()) {
+//            model.addAttribute("message", "Please choose a file to upload.");
+//            return "redirect:fileupload";
+//        }
         String filename = uploadedFile.getOriginalFilename();
         String filepath = Paths.get(uploadPath, filename).toString();
         File destinationFile = new File(filepath);
@@ -46,6 +43,6 @@ public class FileUploadController {
             e.printStackTrace();
             model.addAttribute("message", "Oops! Something went wrong..");
         }
-        return "fileupload";
+        return "redirect:users/profile";
     }
 }
