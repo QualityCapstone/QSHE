@@ -1,6 +1,7 @@
 package com.codeup.qshe.services;
 
 
+import com.codeup.qshe.models.State;
 import com.codeup.qshe.models.user.StateMetric;
 import com.codeup.qshe.models.user.StateUserRating;
 import com.codeup.qshe.models.user.User;
@@ -36,6 +37,7 @@ public class StateUserRatingService {
     public StateMetrics getMetrics() {
         return metrics;
     }
+
 
 
 }

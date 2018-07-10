@@ -17,7 +17,7 @@ public class StateUserRating {
     @OneToOne
     private StateMetric metric;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     private User user;
 
     @Column (name="rating", nullable = false)
@@ -26,10 +26,11 @@ public class StateUserRating {
 
     public StateUserRating (){}
 
-    public StateUserRating(State state, User user, StateMetric metric) {
+    public StateUserRating(State state, User user, StateMetric metric, float rating) {
         this.state = state;
         this.user = user;
         this.metric = metric;
+        this.rating = rating;
     }
 
 

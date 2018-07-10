@@ -39,18 +39,9 @@ public class UserRatingController {
     public String saveUserRate(@RequestParam HashMap<String, String> formData) {
 
         User user = userDao.getLoggedInUser();
+        State state = ratingDao.getStates().findByName(user.getProfile().getUserState());
 
-        System.out.println(formData.toString());
-
-
-
-        //Temp
-        State state = ratingDao.getStates().findByName("Texas");
-
-
-        // 1 . Add State to Data
-        // 2 . Locate State Object
-
+        ratingDao.getUserRatings().deleteByStateAndUser(state, user);
 
         for (Map.Entry<String, String> entry : formData.entrySet()) {
 
@@ -59,27 +50,16 @@ public class UserRatingController {
 
             String value = entry.getValue();
 
-            System.out.println("key, " + key + " value " + value);
+//            System.out.println("key, " + key + " value " + value);
 
             //Case sensitive
             StateMetric metric = ratingDao.getMetrics().findByName(cap);
 
             if(metric != null) {
-                ratingDao.getUserRatings().save(new StateUserRating(state, user, metric));
+                ratingDao.getUserRatings().save(new StateUserRating(state, user, metric, Float.parseFloat(value)));
             }
 
         }
-
-//        key, violenceRating value 4
-//        key, educationRating value 8
-//        key, employmentRating value 7
-//        key, healthRating value 8
-//        key, growthRating value 9
-//        key, userRate value 7.2
-
-
-
-        //ratingDao.getUserRatings().save(stateUserRating);
 
 
         return "/users/rating";
