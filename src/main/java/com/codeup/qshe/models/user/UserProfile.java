@@ -1,6 +1,8 @@
 package com.codeup.qshe.models.user;
 
 
+import org.springframework.beans.factory.annotation.Value;
+
 import javax.persistence.*;
 
 @Entity
@@ -20,6 +22,8 @@ public class UserProfile {
     private  String email;
     @Column
     private  String username;
+    @Column
+    private String userState;
 
     @OneToOne
     private User user;
@@ -27,22 +31,24 @@ public class UserProfile {
 
     public UserProfile() {}
 
-    public UserProfile(Long id, String name, String firstName, String lastName, String email, String username) {
+    public UserProfile(Long id, String name, String firstName, String lastName, String email, String username, String userState) {
         this.id = id;
         this.name = name;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.username = username;
+        this.userState = userState;
     }
 
 
-    public UserProfile(String name, String firstName, String lastName, String email, String username) {
+    public UserProfile(String name, String firstName, String lastName, String email, String username, String userState) {
         this.name = name;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.username = username;
+        this.userState = userState;
 
         fixName();
     }
@@ -125,9 +131,7 @@ public class UserProfile {
         return email;
     }
 
-    public String getUsername() {
-        return username;
-    }
+    public String getUsername() { return username; }
 
     public void setFirstName(String firstName) {
         this.firstName = firstName;
@@ -145,12 +149,17 @@ public class UserProfile {
         this.username = username;
     }
 
+    public String getUserState() { return userState; }
+
+    public void setUserState(String userState) { this.userState = userState; }
+
     public String toString() {
         return
             "name = " + name +
             ", firstName = " + firstName +
             ", lastName = " + lastName +
             ", email = " + email +
-            ", username = " + username;
+            ", username = " + username +
+                ", state = " + userState;
     }
 }

@@ -5,9 +5,11 @@ import com.codeup.qshe.models.SiteSetting;
 import com.codeup.qshe.models.State;
 import com.codeup.qshe.models.StateCrime;
 import com.codeup.qshe.models.StatePopulation;
+import com.codeup.qshe.models.user.StateMetric;
 import com.codeup.qshe.repositories.SiteSettings;
 import com.codeup.qshe.services.CrimeService;
 import com.codeup.qshe.services.StateService;
+import com.codeup.qshe.services.StateUserRatingService;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.type.TypeFactory;
@@ -21,6 +23,7 @@ import org.springframework.stereotype.Component;
 import java.io.IOException;
 import java.net.URL;
 import java.net.URISyntaxException;
+import java.sql.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -33,6 +36,7 @@ public class DataLoader implements ApplicationRunner {
 
     private SiteSettings site;
     private StateService stateDao;
+    private StateUserRatingService ratingDao;
 
     // will delete data and refresh test data
     // probably can move to app props or something...
@@ -50,47 +54,81 @@ public class DataLoader implements ApplicationRunner {
 
 
     @Autowired
-    public DataLoader(SiteSettings site, StateService stateDao, CrimeService crimeDao) {
+    public DataLoader(SiteSettings site, StateService stateDao, StateUserRatingService ratingDao) {
         this.stateDao = stateDao;
         this.site = site;
+        this.ratingDao = ratingDao;
     }
 
-    public void run(ApplicationArguments args) throws IOException, URISyntaxException {
+
+    public void run(ApplicationArguments args) throws IOException, URISyntaxException, SQLException {
+        if(FRESHSTART) {
 
 
-        try {
-            if (!site.isPopulated()) {
-                System.out.println("Populated Returned FALSE");
-                SiteSetting setting = site.getFirst();
+
+            try {
+                if (!site.isPopulated()) {
+                    System.out.println("Populated Returned FALSE");
+                    SiteSetting setting = site.getFirst();
+                }
+            } catch (NullPointerException e) {
+                SiteSetting setting = new SiteSetting(false);
+                site.save(setting);
             }
-        } catch (NullPointerException e) {
-            SiteSetting setting = new SiteSetting(false);
-            site.save(setting);
-        }
 
-        if (!site.getFirst().getPopulated()) {
-            Random r = new Random();
+            if (!site.getFirst().getPopulated()) {
+                Random r = new Random();
 
-            generateStaticData();
+                generateStaticData();
 
-            // Get Population Data by State
-            for (int i = 1; i <= 9; i++) {
-                String popURL = "https://api.census.gov/data/2016/pep/population?get=POP,GEONAME,DATE_DESC&for=state:*&DATE=" + i;
-                populationsByDate(popURL);
+                // Get Population Data by State
+                for (int i = 1; i <= 9; i++) {
+                    String popURL = "https://api.census.gov/data/2016/pep/population?get=POP,GEONAME,DATE_DESC&for=state:*&DATE=" + i +
+                            "&key=50fdb2ea46d6471b7412b6b43204804309487999";
+                    populationsByDate(popURL);
 
-            }
-            System.out.println(stateDao.getStates().findAll().toString());
+                }
+                System.out.println(stateDao.getStates().findAll().toString());
+
+//            womenGradsByYear();
+//            getPovertyData();
+// Commented these functions out due to internal errors - will look into
+
 
             // Get State Crimes by Year
-            String crimeURL = "https://api.usa.gov/crime/fbi/sapi/api/estimates/states/TX?api_key=iiHnOKfno2Mgkt5AynpvPpUQTEyxE77jo1RU8PIv";
-            stateCrimesByYear(crimeURL);
+//            String crimeURL = "https://api.usa.gov/crime/fbi/sapi/api/estimates/states/TX?api_key=iiHnOKfno2Mgkt5AynpvPpUQTEyxE77jo1RU8PIv";
+//            stateCrimesByYear(crimeURL);
 
-            womenGradsByYear();
-            getPovertyData();
+            Connection connection = DriverManager.getConnection(
+                    "jdbc:mysql://localhost/QSHE_db?serverTimezone=UTC&useSSL=false",
+                    "root",
+                    "codeup"
+            );
+            // Get State Crimes by Year, need to make loop for iterating through all states
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT * FROM state");
+            String state;
+            String crimeURL;
+            while (rs.next()){
+                state = rs.getString("abbr");
+                crimeURL = "https://api.usa.gov/crime/fbi/sapi/api/estimates/states/"+state+"?api_key=iiHnOKfno2Mgkt5AynpvPpUQTEyxE77jo1RU8PIv";
+                stateCrimesByYear(crimeURL);
+            }
 
-        } //END FRESH START
+                // Get State Crimes by Year
+                crimeURL = "https://api.usa.gov/crime/fbi/sapi/api/estimates/states/TX?api_key=iiHnOKfno2Mgkt5AynpvPpUQTEyxE77jo1RU8PIv";
+                stateCrimesByYear(crimeURL);
 
-        site.save(new SiteSetting(true));
+
+
+                womenGradsByYear();
+                getPovertyData();
+
+            } //END FRESH START
+
+            site.save(new SiteSetting(true));
+        }
+
     }
 
 
@@ -103,6 +141,26 @@ public class DataLoader implements ApplicationRunner {
         stateDao.getCrimes().deleteAll();
 
         stateGenerator();
+        metricGenerator();
+
+    }
+
+
+    private void metricGenerator() {
+
+
+        List<StateMetric> metrics = new ArrayList<>();
+
+        metrics.add(new StateMetric("Crime"));
+        metrics.add(new StateMetric("Education"));
+        metrics.add(new StateMetric("Employment"));
+        metrics.add(new StateMetric("Health"));
+        metrics.add(new StateMetric("Growth"));
+
+        // Add State to DB
+        // Add State to DB
+        this.ratingDao.getMetrics().deleteAll();
+        this.ratingDao.getMetrics().saveAll(metrics);
 
     }
 
@@ -163,9 +221,9 @@ public class DataLoader implements ApplicationRunner {
         states.add(new State("WY", "Wyoming"));
 
         // Add State to DB
-        this.stateDao.getStates().deleteAll();
-        this.stateDao.getStates().saveAll(states);
-        System.out.println(stateDao.getStates().findAll());
+        this.stateDao.getStaterepository().deleteAll();
+        this.stateDao.getStaterepository().saveAll(states);
+        System.out.println(stateDao.getStaterepository().findAll());
 
 
     }
@@ -203,7 +261,7 @@ public class DataLoader implements ApplicationRunner {
                 }
 
                 if (i == 1) {
-                    state = stateDao.getStates().findByName(l);
+                    state = stateDao.getStaterepository().findByName(l);
                 }
                 if (i == 2) {
                     String[] split = l.split("\\s+");
@@ -320,7 +378,7 @@ public class DataLoader implements ApplicationRunner {
 
 
                String stateName = state.get(stateId);
-                State dbState = stateDao.getStates().findByName(stateName);
+                State dbState = stateDao.getStaterepository().findByName(stateName);
                 education.add(new StateEducation(dbState,Long.parseLong(count),Integer.parseInt(year),stateId));
 
             }
@@ -369,7 +427,7 @@ public class DataLoader implements ApplicationRunner {
                 }
 
                 String stateName = state.get(stateId);
-                State dbState = stateDao.getStates().findByName(stateName);
+                State dbState = stateDao.getStaterepository().findByName(stateName);
 
                 poverty.add(new StatePoverty(Integer.parseInt(year),dbState,
                         stateId, Double.parseDouble(femalePoverty), Double.parseDouble(malePoverty)));
@@ -392,7 +450,7 @@ public class DataLoader implements ApplicationRunner {
 //            reach inside of JSON and ignore first node
             JsonNode inner = node.get("results").get(i);
             StateCrime data = new StateCrime(
-                    stateDao.getStates().findByName("state_abbr"),
+                    stateDao.getStaterepository().findByName("state_abbr"),
                     inner.get("state_abbr").toString(),
                     inner.get("population").asLong(),
                     inner.get("year").asLong(),

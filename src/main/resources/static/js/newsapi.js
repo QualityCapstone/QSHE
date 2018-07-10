@@ -4,7 +4,9 @@
 // To query /v2/everything
 // You must include at least one q, source, or domain
     newsapi.v2.everything({
+
         q: 'oregon', //need help changing state name for each state.
+
         sources: 'bbc-news,the-verge,abc-news,cbs-news,cnbc,cnn,fox-news',
         from: '2018-06-18',
         to: '2018-07-17',

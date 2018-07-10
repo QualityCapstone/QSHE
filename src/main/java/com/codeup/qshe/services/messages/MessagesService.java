@@ -1,4 +1,4 @@
-package com.codeup.qshe.services.user;
+package com.codeup.qshe.services.messages;
 
 import com.codeup.qshe.models.user.Message;
 import com.codeup.qshe.models.user.User;
@@ -38,6 +38,11 @@ public class MessagesService {
         return message;
     }
 
+
+    public MessageRepository getMessageRepository() {
+        return messageRepository;
+    }
+
     public Message deleteMessage (long id){
         Message message = messageRepository.findById(id).get();
         messageRepository.delete(message);
@@ -47,7 +52,6 @@ public class MessagesService {
     public Message findById (Long id){
         return messageRepository.findById(id).get();
     }
-
 
 
 
