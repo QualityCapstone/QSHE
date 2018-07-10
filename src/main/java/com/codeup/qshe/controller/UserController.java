@@ -18,6 +18,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -51,7 +52,14 @@ public class UserController {
     }
 
     @PostMapping("/sign-up")
-    public String saveUser(@ModelAttribute User user, @ModelAttribute UserProfile profile) {
+    public String saveUser(@Valid User user, Errors validation, Model model, @ModelAttribute UserProfile profile) {
+
+if(validation.hasErrors()){
+    model.addAttribute("errors", validation);
+    model.addAttribute("user", user);
+
+    return "redirect:/sign-up";
+}
 
         String hash = passwordEncoder.encode(user.getPassword());
         user.setPassword(hash);

@@ -28,6 +28,7 @@
                     <span class="input-group-text" id="basic-addon1">@</span>
                 </div>
                 <input type="text" id="username" th:field="*{username}" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" />
+                <p th:if="${#fields.hasErrors('username')}" th:errors="*{username}" />
             </div>
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
@@ -45,8 +46,8 @@
             <div class="input-group mb-3">
             <div class="input-group-prepend">
                     <span class="input-group-text">State you live in</span>
-                <select path="userState" id="inputState" class="form-control" th:field="*{profile.userState}">
-                    <option value="Choose" selected>Choose...</option>
+                <select path="userState" id="inputState" class="form-control" th:field="*{profile.userState}" >
+                    <option value="State" selected>Choose...</option>
                     <option value="Alabama">Alabama</option>
                     <option value="Alaska">Alaska</option>
                     <option value="Arizona">Arizona</option>
