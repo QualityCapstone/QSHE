@@ -5,18 +5,59 @@
     <meta charset="UTF-8" />
     <title>Index page</title>
 </head>
-<body>
+<body class="bubble">
+
+<canvas id="canvasbg"></canvas>
+<canvas id="canvas"></canvas>
+
+
 
 <div th:replace="partials/layout :: navbar" />
-<div class="h-100 container  mx-auto w-100 text-center">
 
-    <div class="text-center"> <img th:src="@{~/img/error.png}"/> </div>
 
-   Server done goofed. (500)
+<div class="content">
+
+    <div class="content-box">
+
+        <div class="big-content">
+
+            <!-- Main squares for the content logo in the background -->
+            <div class="list-square">
+                <span class="square"></span>
+                <span class="square"></span>
+                <span class="square"></span>
+            </div>
+
+            <!-- Main lines for the content logo in the background -->
+            <div class="list-line">
+                <span class="line"></span>
+                <span class="line"></span>
+                <span class="line"></span>
+                <span class="line"></span>
+                <span class="line"></span>
+                <span class="line"></span>
+            </div>
+
+            <!-- The animated searching tool -->
+            <i class="fa fa-search color" aria-hidden="true"></i>
+
+            <!-- div clearing the float -->
+            <div class="clear"></div>
+
+        </div>
+
+        <!-- Your text -->
+        <h1>Oops! Error 500 server failed.</h1>
+
+        <p>The server made a mistake.<br>
+            Who knows?</p>
+
+    </div>
 
 </div>
 
+
 <div th:replace="partials/layout :: footer" />
-<script src="https://secure.xivdb.com/tooltips.js"></script>
+<script th:src="@{~/built/bubble.js}"></script>
 </body>
 </html>
