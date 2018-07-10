@@ -12,17 +12,9 @@
 
 
 <div class="container bg-white text-center border border-dark rounded mt-5" sec:authorize="isAuthenticated()">
-    <h1>Create a message!</h1>
-    <form class="form-group" th:action="@{/messages/create}" method="post" th:object="${newMessage}">
-        <h2>Message:</h2>
-        <input type="text" id="user-message" class="form-control mb-5" th:field="*{message}"  />
-        <!--<br />-->
-        <input type="submit" class="btn btn-dark text-light" />
-    </form>
 
-    <h1 class="mb-2" th:height="200"> These are all your messages</h1>
     <div sec:authorize="isAuthenticated()">
-
+        <h1 class="mb-2" th:height="200"> These are all your messages</h1>
     </div>
 <!------------------------- TO DISPLAY THE MESSAGES ------------------------------------------>
     <div class="p-5 m-2 create-form text-dark border border-dark rounded" th:each="message: ${messages}" th:height="auto">
@@ -45,33 +37,29 @@
     <h1>New Message <i class="fas fa-comment" ></i></h1>
     <div class="" tabindex="-1" role="dialog" aria-labelledby="exampleModal" aria-hidden="true">
         <div class="" role="document">
-            <div class="">
+            <div class="mb-4">
                 <div class="">
                     <h5 class="" id="exampleModalLabel">Send <span></span> New Message to <span th:text="${recipient.username}"></span></h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form th:action="@{/messages/}+${recipient.id}+@{/create}" method="post">
+                <form th:action="@{~/messages/create}" method="post">
                     <div class="">
 
-                        <input type="hidden" name="recipientId" th:value="${recipient.id}">
+                        <input type="hidden" name="recipient-id" th:value="${recipient.id}">
 
                         <input type="text"  class="form-control mb-5" id="message" name="message"/>
 
                     </div>
                     <div class="">
-                        <input type="hidden" name="recipient" />
-                        <!--<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>-->
                         <button type="submit" class="btn btn-outline-primary">Send</button>
                     </div>
 
                 </form>
             </div>
-        </div>
-    </div>
 
-</div>
+        </div></div></div></div>
 <div th:replace="partials/layout :: footer" />
 
 </body>

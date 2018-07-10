@@ -1,12 +1,9 @@
 package com.codeup.qshe.controller;
 
-import com.codeup.qshe.models.State;
 import com.codeup.qshe.models.user.Message;
 import com.codeup.qshe.models.user.User;
 import com.codeup.qshe.repositories.Users;
-import com.codeup.qshe.services.StateService;
-import com.codeup.qshe.services.user.MessagesService;
-import com.codeup.qshe.services.user.UserService;
+import com.codeup.qshe.services.messages.MessagesService;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

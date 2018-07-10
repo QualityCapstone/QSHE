@@ -20,6 +20,10 @@ public interface MessageRepository extends CrudRepository <Message, Long>{
     Message getRelated(Long senderId, Long recipientId );
 
 
+
+    List<Message> findAllByRecipientAndSender(User r, User s);
+
+
     List<Message> findAllBySender(User sender);
 
 
