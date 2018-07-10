@@ -5,10 +5,7 @@ import com.codeup.qshe.models.SiteSetting;
 import com.codeup.qshe.models.State;
 import com.codeup.qshe.models.StateCrime;
 import com.codeup.qshe.models.StatePopulation;
-import com.codeup.qshe.models.user.StateMetric;
-import com.codeup.qshe.models.user.StateUserRating;
-import com.codeup.qshe.models.user.User;
-import com.codeup.qshe.models.user.UserProfile;
+import com.codeup.qshe.models.user.*;
 import com.codeup.qshe.repositories.SiteSettings;
 import com.codeup.qshe.services.CrimeService;
 import com.codeup.qshe.services.StateService;
@@ -87,11 +84,14 @@ public class DataLoader implements ApplicationRunner {
             Integer usersToCreate = 150;
             // How many states a user will rate on average
             Integer statesRankedPerUser = 5;
+            // Fake conversations seeding
+            Integer maxConvosPerUser = 10;
+            // Fake conversation length
+            Integer convoMessages = 20;
 
             // Test Data for fake accounts
             String testUserName = "test";
             String testPassword = "test";
-
 
             // Creates record for Site settings
                 try {
@@ -128,6 +128,9 @@ public class DataLoader implements ApplicationRunner {
                         }
 
                     }
+
+
+                    generateFakeConversations(maxConvosPerUser, convoMessages);
 
                 }
 
@@ -168,6 +171,7 @@ public class DataLoader implements ApplicationRunner {
         stateDao.getCrimes().deleteAll();
 
         messageDao.getMessages().deleteAll();
+        ratingDao.getUserRatings().deleteAll();
 
         userDao.getUsers().deleteAll();
 
@@ -478,6 +482,8 @@ public class DataLoader implements ApplicationRunner {
 
     }
 
+
+    //TODO: fix to correctly identify states
     private void stateCrimesByYear(String url) throws IOException {
         URL json = new URL(url);
         ObjectMapper mapper = new ObjectMapper();
@@ -528,7 +534,6 @@ public class DataLoader implements ApplicationRunner {
     }
 
 
-
     private void generateStateUserMetrics(User user, State state) {
 
         List<StateMetric> metrics = ratingDao.getMetrics().findAll();
@@ -542,6 +547,34 @@ public class DataLoader implements ApplicationRunner {
 
     }
 
+    private void generateFakeConversations(Integer maxConvosPerUser, Integer convoMessages) {
+
+        List<User> users = userDao.getUsers().findAll();
+        List<Message> messages = new ArrayList<>();
+
+        for(User sender : users ) {
+
+
+
+            for(int j = 0; j < maxConvosPerUser; j++) {
+
+                User recipient = users.get(rand.nextInt(users.size()));
+
+                for(int i = 0; i < convoMessages; i++) {
+                    String message = faker.friends().quote();
+                    if(i%2 ==  0) {
+                        messages.add(new Message(sender, recipient, message));
+                    } else {
+                        messages.add(new Message(recipient, sender, message));
+                    }
+                }
+
+            }
+        }
+
+        messageDao.getMessages().saveAll(messages);
+
+    }
 
 }
 

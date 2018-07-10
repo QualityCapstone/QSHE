@@ -5,6 +5,7 @@ import com.codeup.qshe.models.user.UserProfile;
 import com.codeup.qshe.models.user.UserWithRoles;
 import com.codeup.qshe.repositories.Roles;
 import com.codeup.qshe.repositories.UserProfiles;
+import com.codeup.qshe.services.messages.MessagesService;
 import com.codeup.qshe.services.user.UserDetailsLoader;
 import com.codeup.qshe.services.user.UserService;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -27,17 +28,16 @@ public class UserController {
     private PasswordEncoder passwordEncoder;
     private Roles roles;
     private UserProfiles userProfiles;
+    private MessagesService messageDao;
 
-
-
-
-    public UserController(UserService userDao, PasswordEncoder passwordEncoder, Roles roles) {
+    public UserController(UserService userDao, PasswordEncoder passwordEncoder, Roles roles,
+                          MessagesService messageDao) {
         this.userDao = userDao;
         this.passwordEncoder = passwordEncoder;
         this.roles = roles;
+        this.messageDao = messageDao;
 
     }
-
 
     @GetMapping("/sign-up")
     public String showSignupForm(Model model) {
@@ -66,17 +66,15 @@ public class UserController {
     @GetMapping("/profile")
     public String loadProfile(Model model) {
         User user = userDao.getLoggedInUser();
+
+        model.addAttribute("conversations",
+                messageDao.getMessages().findDistinctBySenderOrRecipientOrderByIdAsc(user, user));
+
         model.addAttribute("user", user);
+
         return "users/profile";
     }
 
-
-
-
-//     @GetMapping("/news")
-//     public String newsApi() {
-//         return "users/newstest";
-//     }
 
 
     @GetMapping("/users")
@@ -97,20 +95,6 @@ public class UserController {
         SecurityContext context = SecurityContextHolder.getContext();
         context.setAuthentication(auth);
     }
-
-//    @PostMapping("/user/{id}/edit")
-//    public String updateUser(@PathVariable Long id, User user) {
-//
-//        User currentUser = users.getOne(id);
-//
-////        existingProfile.setEmail(userProfile.getEmail());
-//
-//        currentUser.setUsername(user.getUsername());
-//
-//        users.save(currentUser);
-//        return "redirect:/profile";
-//    }
-
 
 
 }
