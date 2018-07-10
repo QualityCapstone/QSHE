@@ -19,7 +19,7 @@
             <!--<li>State You live</li>-->
             <!--<li>Rating</li>-->
         <!--</ul>-->
-        <form class="card card-block bg-faded m-3 p-3 login-card" th:action="@{/sign-up}" method="post" th:object="${user}">
+        <form name="register" class="card card-block bg-faded m-3 p-3 login-card" th:action="@{/sign-up}" method="post" th:object="${user}">
             <h2 class="fs-title">Create your account</h2>
             <h3 class="fs-subtitle">This is step 1</h3>
             <!--<h2 class="m-b-1 text-xs-center">Step one</h2>-->
@@ -28,13 +28,14 @@
                     <span class="input-group-text" id="basic-addon1">@</span>
                 </div>
                 <input type="text" id="username" th:field="*{username}" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" />
-                <p th:if="${#fields.hasErrors('username')}" th:errors="*{username}" />
+                <p th:if="${#fields.hasErrors('username')}" th:errors="${username}" />
             </div>
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
                     <span class="input-group-text" id="">First and last name</span>
                 </div>
                 <input id="firstName" th:field="*{profile.firstName}"  class="form-control" />
+                <!--<p th:if="${#fields.hasErrors('firstName')}" th:errors="*{profile.firstname}"/>-->
                 <input id="lastName" th:field="*{profile.lastName}" class="form-control" />
             </div>
             <div class="input-group mb-3">
@@ -279,6 +280,14 @@
     slider.oninput = function() {
         output.innerHTML = this.value;
     }
+
+    function validateForm(){
+        var userInput = document.forms["register"][username][email].value;
+        if (userInput == " "){
+            alert("Username and Email must be filled in.");
+        }
+    }
 </script>
+
 </body>
 </html>
