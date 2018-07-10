@@ -38,19 +38,20 @@ public class FileUploadController {
     @PostMapping("/fileupload")
     public String saveFile(
             @RequestParam(name = "file")MultipartFile uploadedFile,
-            Model model) {
+            Model model
+    ) {
 
 
         User user = userDao.getLoggedInUser();
         User copy = new User(user);
 
 
-        String filename = uploadedFile.getOriginalFilename().;
+        String filename = uploadedFile.getOriginalFilename();
 //        String filename = UUID.randomUUID().toString();
         String filepath = Paths.get(uploadPath, filename).toString();
         File destinationFile = new File(filepath);
         copy.setUploadPath(filename);
-
+        userDao.getLoggedInUser().setUploadPath(filename);
         userDao.getUsers().save(copy);
         try {
             uploadedFile.transferTo(destinationFile);

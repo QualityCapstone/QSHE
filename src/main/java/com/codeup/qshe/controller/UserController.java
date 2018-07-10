@@ -70,6 +70,7 @@ public class UserController {
     @GetMapping("/profile")
     public String loadProfile(Model model) {
         User user = userDao.getLoggedInUser();
+
         model.addAttribute("user", user);
         return "users/profile";
     }

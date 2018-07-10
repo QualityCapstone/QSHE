@@ -22,6 +22,10 @@ public class UserProfile {
     private  String email;
     @Column
     private  String username;
+
+    @Column
+    @Value("${file-upload-path}")
+    private String uploadPath;
     @Column
     private String userState;
 
@@ -61,7 +65,6 @@ public class UserProfile {
         this.email = up.getEmail();
         this.username = up.getUsername();
     }
-
 
     private void fixName() {
         // Is the name null?
@@ -114,7 +117,6 @@ public class UserProfile {
         this.name = name;
     }
 
-
     public String getName() {
         return name;
     }
@@ -152,6 +154,14 @@ public class UserProfile {
     public String getUserState() { return userState; }
 
     public void setUserState(String userState) { this.userState = userState; }
+
+    public String getUploadPath() {
+        return uploadPath;
+    }
+
+    public void setUploadPath(String uploadPath) {
+        this.uploadPath = uploadPath;
+    }
 
     public String toString() {
         return

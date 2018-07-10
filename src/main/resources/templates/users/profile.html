@@ -42,13 +42,14 @@
                 PROFILE
                 <div class="row">
                     <div class="col-md-4">
-                        <img src="http://via.placeholder.com/150x150">
-                        <div>
-                            Profile Picture
+                        <!--<img th:src="@{/uploads/cool-doge.gif}"  alt="didn't work"/>-->
+                            <img th:src="@{/uploads/} + ${user.upload_path}"  alt="didn't work"/>
+                            <div>
+                                Profile Picture
+                            </div>
                         </div>
                     </div>
                 </div>
-                <a href="/fileupload">Change avatar picture!</a>
                 <form th:action="@{/fileupload}" method="post" enctype="multipart/form-data" th:object="${user}">
                     <label for="file">Change your profile picture!</label>
                     <input id="file" name="file" type="file" />
