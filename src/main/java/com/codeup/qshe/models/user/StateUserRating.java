@@ -33,6 +33,13 @@ public class StateUserRating {
         this.rating = rating;
     }
 
+    public StateUserRating(User user, State state, float rating){
+        this.user = user;
+        this.state = state;
+        this.rating = rating;
+    }
+
+
     public State getState() {
         return state;
     }
@@ -56,6 +63,10 @@ public class StateUserRating {
     public void setRating(float rating) {
         this.rating = rating;
     }
+
+    public StateMetric getMetric() { return metric; }
+
+    public void setMetric(StateMetric metric) { this.metric = metric; }
 
 
 

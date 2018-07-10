@@ -26,7 +26,7 @@
                     <div class="card">
                         <div class="card-body">
                             <h3 class="mb-3">Rate each element of your State</h3>
-                            <div class="card card-block bg-faded m-3 p-3 login-card">
+                            <form class="card card-block bg-faded m-3 p-3 login-card" th:action="@{/users/rating}" method="post" th:object="${stateUserRating}">
                                 <h2 class="m-b-1 text-xs-center">Step 3</h2>
                                 <small class="form-text">You can rate your state now or later:</small>
                                 <div class="form-group">
@@ -35,7 +35,8 @@
                                 <div class="form-group m-0">
                                     <label class="text-left" for="violenceRate">How safe do you feel where you live?</label>
                                     <input type="range" min="1" max="10" value="1" class="slider float-left" id="violenceRate" />
-                                    <p class="text-center float-right"><span id="demoViolence"></span></p>
+                                    <input type="hidden" id="hdrating" name="hdrating">
+                                    <p class="text-center float-right" id="rating"><span id="demoViolence"></span></p>
                                 </div>
                                 <div class="form-group m-0">
                                     <label class="text-left" for="employmentRate">How would you rank the employment rate in your state?</label>
@@ -57,8 +58,9 @@
                                     <input type="range" min="1" max="10"value="1" class="slider float-left" id="growthRate" />
                                     <p class="text-center float-right"><span id="demoGrowth"></span></p>
                                 </div>
+                                <input type="submit" value="save" class="btn btn-secondary">
                                 <!--<input type="submit" id="overallRating" th:field="*{userRating}" name="submit" class="submit form-control btn btn-secondary" value="Save" />-->
-                            </div>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -147,6 +149,18 @@
     slider.oninput = function() {
         output.innerHTML = this.value;
     };
+
+    // ----------------- EACH INDEX RATING ----------------------
+
+$("#rating").each(function(){
+    var rating = 0;
+    $(this).on('change', function(){
+        $("#hdrating").val(rating);
+    })
+
+});
+
+
 
 
     // ---------------- OVERALL RATING FROM THE SLIDERS -------------------------------

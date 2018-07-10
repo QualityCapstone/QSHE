@@ -1,12 +1,17 @@
 package com.codeup.qshe.controller;
 
 
+import com.codeup.qshe.models.State;
 import com.codeup.qshe.models.user.StateUserRating;
+import com.codeup.qshe.models.user.User;
 import com.codeup.qshe.services.StateUserRatingService;
 import com.codeup.qshe.services.user.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -69,18 +74,31 @@ public class UserRatingController {
     }
 
 
-
 //    @PostMapping("/users/rating")
 //    public String saveUserRate (@RequestParam(name = "userRate") float userRate){
 //
 //        StateUserRating userRating = new StateUserRating();
-//        userRating.setUserRate(userRate);
-//
+//        userRating.setRating(userRate);
 //        User user = userDao.getLoggedInUser();
 //        userRating.setUser(user);
 //        stateUserRatingService.save(userRating);
 //        return "redirect:/users/rating";
 //    }
+
+
+    @PostMapping("/users/rating")
+    public String saveUserRate (@ModelAttribute("hdrating") StateUserRating stateUserRating,
+    @RequestParam("hdrating")float rating, User user, State state){
+       user = userDao.getLoggedInUser();
+       stateUserRating.setUser(user);
+       stateUserRating.setState(state);
+       stateUserRating.setRating(rating);
+       stateUserRatingService.save(stateUserRating);
+       return "redirect:/users/rating/" + stateUserRating.getState().getId() + stateUserRating.getMetric();
+
+    }
+
+
 
 //     -------------- Tercer Intento ------------------------------
 
