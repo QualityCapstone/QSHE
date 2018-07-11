@@ -96,7 +96,7 @@ newsapi.v2.everything({
     for (var i = 0; i <= 2; i++) {
         $('#statenews').append('<li class=\'text-truncate\'>\n                    <a href="' + response.articles[i].url + '">\n                        ' + response.articles[i].title + '\n                    </a>                 \n                </li>\n                <li class="text-truncate pb-4">\n                    <span class=""> ' + response.articles[i].description + '</span>\n                </li>');
     }
-    for (var _i = 0; _i <= 8; _i++) {
+    for (var _i = 0; _i <= 13; _i++) {
         $('#morenews').append('<li>\n                    <a href="' + response.articles[_i].url + '">\n                        <h4 class="text-center">' + response.articles[_i].title + '</h4>\n                    </a>\n                </li>\n                <li>\n                    <span>' + response.articles[_i].description + '</span>\n                </li>\n                <br />');
     }
 });

@@ -42,11 +42,8 @@
                 PROFILE
                 <div class="row">
                     <div class="col-md-4">
-                        <!--<img th:src="@{/uploads/cool-doge.gif}"  alt="didn't work"/>-->
-                            <img th:src="@{/uploads/} + ${user.profile.uploadPath}"  alt="didn't work"/>
-                            <div>
-                                Profile Picture
-                            </div>
+
+                            <img th:src="@{/uploads/} + ${user.profile.uploadPath}"  alt="didn't work" />
                         </div>
                     </div>
                 </div>

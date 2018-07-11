@@ -9,7 +9,7 @@
 <body>
 <div th:replace="states/svg :: states-svg" />
 
-<div th:replace="partials/layout :: navbar" >
+<div th:replace="partials/layout :: navbar" />
 </div>
 
 <!--state news modal-->
@@ -18,7 +18,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                <h5 class="modal-title" id="exampleModalLongTitle" th:text="${state.name}"></h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
