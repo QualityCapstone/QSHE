@@ -29,6 +29,11 @@ public class PostService {
         return (List<Post>) posts;
     }
 
+    public List<Post> findAllByStateId(long id) {
+        Iterable<Post> posts = getPosts().findAllByStateId(id);
+        return (List<Post>) posts;
+    }
+
     public PostRepository getPosts(){return postDao;}
 
 

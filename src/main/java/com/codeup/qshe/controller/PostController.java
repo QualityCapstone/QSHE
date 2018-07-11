@@ -21,9 +21,9 @@ public class PostController {
         this.userDao = userDao;
     }
 
-    @GetMapping("/posts/all")
-    private String viewPosts(Model model) {
-        List<Post> posts = postDao.findAll();
+    @GetMapping("/posts/all/{id}")
+    private String viewPosts(@PathVariable long id,Model model) {
+        List<Post> posts = postDao.findAllByStateId(id);
         model.addAttribute("posts", posts);
         return "posts/all";
     }

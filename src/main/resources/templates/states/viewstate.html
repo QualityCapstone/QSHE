@@ -99,6 +99,20 @@
     </div>
 </div>
 
+<form th:action="@{~/posts/all/}+ ${state.id}" method="get">
+    <div class="">
+
+        <input type="hidden" name="recipient-id" th:value="${state.id}">
+
+        <input type="text"  class="form-control mb-5" id="message" name="message"/>
+
+    </div>
+    <div class="">
+        <button type="submit" class="btn btn-outline-primary">Send</button>
+    </div>
+
+</form>
+
     <div th:replace="partials/layout :: footer" >
 
 </div>

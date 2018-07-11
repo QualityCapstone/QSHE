@@ -12,6 +12,9 @@ public interface PostRepository extends CrudRepository <Post, Long> {
     List<Post> findAll();
 
 
+    List<Post> findAllByStateId(long id);
+
+
 
 
 

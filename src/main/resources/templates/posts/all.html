@@ -23,7 +23,9 @@
             <div class="media-body p-2">
                 <p class="text-left" th:text="'Posted by: ' + ${post.user.username}"></p>
                 <p class="text-left" th:text="'From: ' + ${post.user.profile.userState}"></p>
-                <p class="text-right" th:text="${post.body}"></p>
+                <p class="text-left" th:text="'State: '+${post.stateId}"></p>
+                <p class="text-left" th:text="'Title: '+${post.title}"></p>
+                <p class="text-left" th:text="${post.body}"></p>
                 <hr class="create-form" style="height: 10px"/>
                 <!--<p th:text="${message.sender_id}"></p>-->
             </div>
