@@ -73993,8 +73993,6 @@ var Tooltip = __webpack_require__(185).default;
 
 var radarChart = __webpack_require__(186);
 
-console.log(data);
-
 window.onload = function () {
 
     if ($('#map').length > 0) {
@@ -74088,29 +74086,37 @@ window.onload = function () {
     } // end of full map
 
 
-    if ($('#state').length > 0) {
-        console.log("state found!");
+    if ($('#inputState').length > 0) {
 
-        var abbr = $('#state').data('state-abbr');
+        $('#inputState').on('change', function () {
 
-        for (var _state in data) {
-            if (_state.toUpperCase() === abbr) {
-                console.log(_state.toUpperCase());
+            var currentAbbr = $('#state-tiny').attr("data-state-abbr");
+            var abbr = this.value;
 
-                var _attr = {
-                    "fill": "#ff9890",
-                    "stroke": "#fff",
-                    "stroke-opacity": "3",
-                    "stroke-linejoin": "round",
-                    "stroke-miterlimit": "10",
-                    "stroke-width": "3.5",
-                    "stroke-dasharray": "none"
-                };
+            $('.state-btn').attr('data-selected-abbr', abbr);
+        });
 
-                var paper = Raphael("state", 450, 450);
-                var mark = paper.path(data[_state]).attr(_attr);
+        $('.state-btn').click(function () {
+
+            var selected = $(this).attr('data-selected-abbr');
+            var current = $(this).attr('data-current-abbr');
+
+            console.log(selected);
+            console.log(current);
+
+            if (current === undefined) {
+                console.log("this is go to button");
+                window.location = "/state/" + selected.toUpperCase();
+            } else {
+
+                if (selected === undefined) {
+                    console.log("nothing is selected");
+                    return;
+                }
+
+                window.location = "/state/compare/" + current.toUpperCase() + "/" + selected.toUpperCase();
             }
-        }
+        });
     }
 };
 

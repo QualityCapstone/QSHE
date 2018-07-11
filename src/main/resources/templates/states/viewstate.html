@@ -18,7 +18,7 @@
         <div class="col-md-6">
 
 
-            <div class="state state-tiny">
+            <div class="state state-tiny" id="state-tiny" th:data-state-abbr="${state.abbr}">
                 <svg th:class="@{icon icon-state-} + ${state.abbr}">
                     <use th:xlink:href="@{#icon-state-} + ${state.abbr}"></use>
                 </svg>
@@ -30,10 +30,10 @@
             <div class="form-inline form-row text-right align-items-right">
                 <select id="inputState" class="form-control ml-auto mr-3">
                     <option disabled selected>Select State...</option>
-                    <option  th:each="state : ${states}" th:text="${state.name}"> state name </option>
+                    <option  th:each="state : ${states}" th:text="${state.name}" th:value="${state.abbr}"> state name </option>
                 </select>
-                <button class="btn btn-primary mr-2">Compare with Current</button>
-                <button class="btn btn-primary">Go To</button>
+                <button class="state-btn btn btn-primary mr-2" th:data-current-abbr="${state.abbr}" data-selected-abbr="">Compare with Current</button>
+                <button class="state-btn btn btn-primary" data-selected-abbr="">Go To</button>
             </div>
 
         </div>
@@ -68,9 +68,17 @@
             </div>
             <div class="col-md-8">
                 <div id="radar-chart"></div>
-            </div>
+
 
         </div>
+
+            <div class="row">
+                <div id="col-md-12">{State} is ranked #{rank} of the top 50 states to live in.
+                    It is well known for something and something else. Based on over 50 user reviews it is also
+                    found to be in the bottom 10% of violent crimes.</div>
+            </div>
+
+            </div>
 
 
         <div  class="row">
@@ -80,7 +88,7 @@
             <div class="card">
                 <div class="card-body">
 
-                    <select id="inputState" class="form-control ml-auto mr-3">
+                    <select id="selectMetric" class="form-control ml-auto mr-3">
                         <option disabled selected>Select Metric...</option>
                         <option  th:each="state : ${states}" th:text="${state.name}"> state name </option>
                     </select>
