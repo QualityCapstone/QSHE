@@ -34,4 +34,4 @@ src/main/resources/static/uploads
 node_modules
 
 ### BUILT
-src/main/resources/built
+src/main/resources/static/built
