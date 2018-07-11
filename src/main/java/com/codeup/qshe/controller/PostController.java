@@ -28,15 +28,23 @@ public class PostController {
         return "posts/all";
     }
 
+//    @GetMapping("/posts/all")
+//    private String create( Model model){
+//
+//        System.out.println("hello new post");
+//        model.addAttribute("blogpost", new Post());
+//        return "posts/all";
+//    }
+
     @PostMapping("/posts/all")
-    public String createPost (@RequestParam(name = "post") String userInput){
+    public String createPost (@RequestParam(name = "blogpost") String userInput){
+        System.out.println("hello posts");
+        User user = userDao.getLoggedInUser();
         Post post = new Post();
         post.setBody(userInput);
-        User sessionUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        User user = userDao.getLoggedInUser();
         post.setUser(user);
         postDao.save(post);
-        return "redirect:/posts/all";
+        return "posts/all";
     }
 
 }
