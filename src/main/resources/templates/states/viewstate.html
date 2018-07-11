@@ -9,7 +9,28 @@
 <body>
 <div th:replace="states/svg :: states-svg" />
 
-<div th:replace="partials/layout :: navbar" >
+<div th:replace="partials/layout :: navbar" />
+</div>
+
+<!--state news modal-->
+<!--body continues to scroll while user is scrolling through modal-->
+<div class="modal fade" id="modal" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle" th:text="${state.name}"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <ul id="morenews"></ul>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
 </div>
 
     <div class="container">
@@ -56,11 +77,8 @@
 
                         <ul id="statenews" th:data-state-name="${state.name}"></ul>
 
-                        <a href="#">See More...</a>
-                    </div>
-                    <div class="card-footer">
-                        Action Other Things???
-                    </div>
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal">View more News</button>                    </div>
+
                 </div>
 
 

@@ -25,10 +25,13 @@
 /.nb-gradle/
 
 src/main/resources/application.properties
-src/main/resources/uploads
+src/main/resources/static/uploads
 
 ### JS NODE
 ./node
 /node
 /node_modules
 node_modules
+
+### BUILT
+src/main/resources/static/built/
