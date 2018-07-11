@@ -7,9 +7,6 @@ const Tooltip = require('tooltip.js').default;
 
 const radarChart = require('./module/charts/radar');
 
-console.log(data);
-
-
 window.onload = function () {
 
     if ($('#map').length > 0) {
@@ -104,35 +101,49 @@ window.onload = function () {
     } // end of full map
 
 
-    if ($('#state').length > 0) {
-        console.log("state found!");
+    if ($('#inputState').length > 0) {
 
-        let abbr =  $('#state').data('state-abbr');
+        $('#inputState').on('change', function() {
 
-        for (let state in data) {
-            if (state.toUpperCase() === abbr) {
-                console.log(state.toUpperCase());
+            let currentAbbr = $('#state-tiny').attr("data-state-abbr");
+            let abbr =  this.value;
 
+            $('.state-btn').attr('data-selected-abbr',abbr);
 
-                let   attr = {
-                        "fill": "#ff9890",
-                        "stroke": "#fff",
-                        "stroke-opacity": "3",
-                        "stroke-linejoin": "round",
-                        "stroke-miterlimit": "10",
-                        "stroke-width": "3.5",
-                        "stroke-dasharray": "none"
-                    };
+        })
 
 
-                let paper = Raphael("state", 450, 450);
-                let mark = paper.path(data[state]).attr(attr);
+        $('.state-btn').click(function() {
 
+            let selected = $(this).attr('data-selected-abbr');
+            let current = $(this).attr('data-current-abbr');
+
+
+            console.log(selected);
+            console.log(current);
+
+
+            if (current === undefined) {
+                console.log("this is go to button");
+                window.location = "/state/" + selected.toUpperCase();
+            } else {
+
+                if(selected === undefined) {
+                    console.log("nothing is selected");
+                    return;
+                }
+
+                window.location = "/state/compare/" + current.toUpperCase() + "/" + selected.toUpperCase() ;
 
 
             }
 
-        }
+        });
+
+
+
+
+
 
     }
 
