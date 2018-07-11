@@ -31,6 +31,7 @@ import java.util.List;
   @GetMapping("/us")
   public String viewAll(Model model) {
 
+
       model.addAttribute("states", stateDao.getStates().findAll());
       return "states/map";
   }

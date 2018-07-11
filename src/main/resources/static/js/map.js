@@ -7,6 +7,9 @@ const Tooltip = require('tooltip.js').default;
 
 const radarChart = require('./module/charts/radar');
 
+
+
+
 window.onload = function () {
 
     if ($('#map').length > 0) {

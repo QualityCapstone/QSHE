@@ -33,6 +33,12 @@ public class StateUserRating {
         this.rating = rating;
     }
 
+    public StateUserRating(State state, StateMetric metric, float rating) {
+        this.state = state;
+        this.metric = metric;
+        this.rating = rating;
+    }
+
 
 
     public State getState() {
