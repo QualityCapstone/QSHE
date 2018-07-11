@@ -33,8 +33,6 @@ import java.util.List;
         return "states/viewstate";
   }
 
-
-
         @GetMapping("/state/compare/{abbr}/{abbr2}")
     public String compareState(@PathVariable String abbr, @PathVariable String abbr2, Model model) {
 

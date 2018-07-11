@@ -32,7 +32,8 @@
                     <option disabled selected>Select State...</option>
                     <option  th:each="state : ${states}" th:text="${state.name}"> state name </option>
                 </select>
-                <button class="btn btn-primary">Go</button>
+                <button class="btn btn-primary mr-2">Compare with Current</button>
+                <button class="btn btn-primary">Go To</button>
             </div>
 
         </div>
@@ -79,7 +80,12 @@
             <div class="card">
                 <div class="card-body">
 
-            <div id="crime-chart"></div>
+                    <select id="inputState" class="form-control ml-auto mr-3">
+                        <option disabled selected>Select Metric...</option>
+                        <option  th:each="state : ${states}" th:text="${state.name}"> state name </option>
+                    </select>
+
+                     <div id="crime-chart"></div>
 
                 </div>
             </div>
@@ -102,7 +108,7 @@
     <div th:replace="partials/layout :: footer" >
 
 </div>
-<script  th:src="@{~/built/map.js}"> </script>
+<script th:src="@{~/built/map.js}"> </script>
 <script th:src="@{~/built/news.js}"></script>
 </body>
 </html>

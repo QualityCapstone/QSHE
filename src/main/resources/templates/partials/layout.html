@@ -39,7 +39,7 @@
             <button class="btn btn-secondary" type="button">
 
                 <div sec:authorize="isAuthenticated()">
-                    <a th:href="@{~/users/displayprofile}" th:text="${#authentication?.principal?.profile?.username}">
+                    <a th:href="@{~/profile}" th:text="${#authentication?.principal?.profile?.username}">
                    </a>
                     <th:block th:if="${currentUserConnection == null}" >
 
