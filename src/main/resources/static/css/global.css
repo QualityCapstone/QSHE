@@ -7,6 +7,10 @@ body {
 
 }
 
+html {
+    overflow-x: hidden;
+}
+
 .container {
     padding-bottom: 80px;
     padding-top: 10px;
@@ -15,6 +19,7 @@ body {
 
 .padding-container {
     padding: 10px;
+    padding-top: 0;
 }
 
 /* Preloader */
@@ -163,10 +168,21 @@ blockquote::after {
     margin: 0;
 }
 
+.row-full-screen {
+    min-height: calc(100vh - 65px);
+}
+
+.row-dark {
+    background: #b0b0b0;
+    padding: 15px;
+}
+
 .state-header-name {
     font-size: 7em;
     color: #fff;
     text-shadow: 2px 1px 8px rgba(150, 150, 150, 0.75);
+    margin:0;
+
 }
 
 
@@ -176,5 +192,7 @@ blockquote::after {
     top: 0; /* required */
     z-index: 10000;
     padding: 10px;
+    padding-top: 15px;
     background-color: rgba(255,255,255,0.75);
+    border-bottom: 2px solid pink;
 }
