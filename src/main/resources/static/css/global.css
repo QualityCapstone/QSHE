@@ -122,3 +122,7 @@ blockquote::after {
     height: 50vh;
 }
 
+.modal-body {
+    margin-left: 1rem;
+}
+
