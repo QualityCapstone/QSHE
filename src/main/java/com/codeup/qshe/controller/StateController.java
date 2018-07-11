@@ -33,22 +33,4 @@ import java.util.List;
         return "states/viewstate"; }
 
 
-        @GetMapping("/users/viewstate")
-        public String viewState(Model view) {
-            System.out.println("hello");
-          List<State> states = stateDao.findAll();
-            view.addAttribute("state", states);
-
-            return "/users/viewstate";
-      }
-
-
-        @GetMapping("/viewstate/{id}")
-        public String showDetails(@PathVariable long id, Model view){
-            System.out.println("entro");
-            State state = stateDao.findByName("state");
-            view.addAttribute("state", state);
-
-            return "redirect:/viewstate";
-        }
 }
