@@ -57,4 +57,9 @@ public class UserProfileController {
         userDao.getUsers().updateUser(existingUser.getUsername(),existingUser.getId());
         return "redirect:/users/displayprofile";
     }
+
+    public String findByUsernameLike(String searchString){
+
+    return "";
+    }
 }

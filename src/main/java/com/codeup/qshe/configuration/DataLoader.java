@@ -263,7 +263,6 @@ public class DataLoader implements ApplicationRunner {
 
     }
 
-
     private void populationsByDate(String URL) throws URISyntaxException, IOException {
 
         URL jsonURL = new URL(URL);
@@ -355,12 +354,24 @@ public class DataLoader implements ApplicationRunner {
                 int j = 0;
                 String stateName = "";
                 String stateId = "";
+                String img = "";
                 for (String l : list) {
 
                     if(j==1) { stateName = l;}
+                    if(j==3) { img = l; }
                     if(j==8) { stateId = l; }
                     j++;
                 }
+
+
+                // Adds state image
+               State state = stateDao.getStates().findByName(stateName);
+
+                if(state != null) {
+                    state.setImg(img);
+                    stateDao.getStates().save(state);
+                }
+
 
                 data.put(stateId, stateName);
             }
@@ -369,7 +380,6 @@ public class DataLoader implements ApplicationRunner {
         return data;
 
     }
-
 
     // Saves women grads by state.
     private void womenGradsByYear() throws IOException {
@@ -482,7 +492,6 @@ public class DataLoader implements ApplicationRunner {
 
     }
 
-
     //TODO: fix to correctly identify states
     private void stateCrimesByYear(String url) throws IOException {
         URL json = new URL(url);
@@ -515,7 +524,6 @@ public class DataLoader implements ApplicationRunner {
 //        save all crimes
         stateDao.getCrimes().saveAll(crimeList);
     }
-
 
     private User createUser(String username, String password) {
 

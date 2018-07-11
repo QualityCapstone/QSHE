@@ -1,7 +1,11 @@
 package com.codeup.qshe.controller;
 
 import com.codeup.qshe.models.State;
+import com.codeup.qshe.services.FlickrService;
 import com.codeup.qshe.services.StateService;
+import com.flickr4java.flickr.FlickrException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +18,12 @@ import java.util.List;
  class StateController {
   private final StateService stateDao;
 
+    @Value("${flickr-key}")
+    private String apiKey;
+    @Value("${flickr-secret}")
+    private String sharedSecret;
+
+    @Autowired
   public StateController(StateService stateDao){
       this.stateDao = stateDao;
   }
@@ -21,15 +31,21 @@ import java.util.List;
   @GetMapping("/us")
   public String viewAll(Model model) {
 
+
       model.addAttribute("states", stateDao.getStates().findAll());
       return "states/map";
   }
 
     @GetMapping("/state/{abbr}")
-    public String viewState(@PathVariable String abbr, Model model) {
+    public String viewState(@PathVariable String abbr, Model model) throws FlickrException {
       State state = stateDao.getStates().findByAbbr(abbr);
+
+      FlickrService f = new FlickrService(apiKey, sharedSecret);
+
+
         model.addAttribute("states", stateDao.getStates().findAll());
         model.addAttribute("state", state);
+        model.addAttribute("photos", f.getPhotos(state.getName(),1));
         return "states/viewstate";
   }
 

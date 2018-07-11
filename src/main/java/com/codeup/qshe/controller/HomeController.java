@@ -28,4 +28,7 @@ public class HomeController {
     public String displayMap(){
         return "Map/map";
     }
+
+    @GetMapping("/about")
+    public String aboutUs(){ return "about"; }
 }
