@@ -1,6 +1,6 @@
 webpackJsonp([2],{
 
-/***/ 225:
+/***/ 230:
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(Buffer) {/* build: `node build.js modules=ALL exclude=gestures,accessors requirejs minifier=uglifyjs` */
@@ -21,17 +21,17 @@ if (typeof document !== 'undefined' && typeof window !== 'undefined') {
 }
 else {
   // assume we're running under node.js when document/window are not present
-  fabric.document = __webpack_require__(236)
+  fabric.document = __webpack_require__(241)
     .jsdom(
       decodeURIComponent('%3C!DOCTYPE%20html%3E%3Chtml%3E%3Chead%3E%3C%2Fhead%3E%3Cbody%3E%3C%2Fbody%3E%3C%2Fhtml%3E'),
       { features: {
         FetchExternalResources: ['img']
       }
       });
-  fabric.jsdomImplForWrapper = __webpack_require__(237).implForWrapper;
-  fabric.nodeCanvas = __webpack_require__(238).Canvas;
+  fabric.jsdomImplForWrapper = __webpack_require__(242).implForWrapper;
+  fabric.nodeCanvas = __webpack_require__(243).Canvas;
   fabric.window = fabric.document.defaultView;
-  DOMParser = __webpack_require__(239).DOMParser;
+  DOMParser = __webpack_require__(244).DOMParser;
 }
 
 /**
@@ -28664,11 +28664,11 @@ fabric.util.object.extend(fabric.IText.prototype, /** @lends fabric.IText.protot
 })();
 
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(230).Buffer))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(235).Buffer))
 
 /***/ }),
 
-/***/ 230:
+/***/ 235:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -28682,9 +28682,9 @@ fabric.util.object.extend(fabric.IText.prototype, /** @lends fabric.IText.protot
 
 
 
-var base64 = __webpack_require__(231)
-var ieee754 = __webpack_require__(232)
-var isArray = __webpack_require__(233)
+var base64 = __webpack_require__(236)
+var ieee754 = __webpack_require__(237)
+var isArray = __webpack_require__(238)
 
 exports.Buffer = Buffer
 exports.SlowBuffer = SlowBuffer
@@ -30466,7 +30466,7 @@ function isnan (val) {
 
 /***/ }),
 
-/***/ 231:
+/***/ 236:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -30625,7 +30625,7 @@ function fromByteArray (uint8) {
 
 /***/ }),
 
-/***/ 232:
+/***/ 237:
 /***/ (function(module, exports) {
 
 exports.read = function (buffer, offset, isLE, mLen, nBytes) {
@@ -30716,7 +30716,7 @@ exports.write = function (buffer, value, offset, isLE, mLen, nBytes) {
 
 /***/ }),
 
-/***/ 233:
+/***/ 238:
 /***/ (function(module, exports) {
 
 var toString = {}.toString;
@@ -30728,28 +30728,28 @@ module.exports = Array.isArray || function (arr) {
 
 /***/ }),
 
-/***/ 236:
+/***/ 241:
 /***/ (function(module, exports) {
 
 /* (ignored) */
 
 /***/ }),
 
-/***/ 237:
+/***/ 242:
 /***/ (function(module, exports) {
 
 /* (ignored) */
 
 /***/ }),
 
-/***/ 238:
+/***/ 243:
 /***/ (function(module, exports) {
 
 /* (ignored) */
 
 /***/ }),
 
-/***/ 239:
+/***/ 244:
 /***/ (function(module, exports) {
 
 /* (ignored) */

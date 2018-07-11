@@ -60,72 +60,47 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 217);
+/******/ 	return __webpack_require__(__webpack_require__.s = 222);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ 217:
+/***/ 222:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var $ = __webpack_require__(218);
-var NewsAPI = __webpack_require__(219);
+var $ = __webpack_require__(223);
+var NewsAPI = __webpack_require__(224);
 var newsapi = new NewsAPI('b8cc911c5a604eadac02a424f0945ae8');
-// To query /v2/top-headlines
-// All options passed to topHeadlines are optional, but you need to include at least one of them
-newsapi.v2.topHeadlines({
-    // sources: 'bbc-news,the-verge',
-    // q: 'Texas',
-    // category: 'business',
-    language: 'en',
-    country: 'us'
-}).then(function (response) {
-    // console.log(response);
-});
-
 // To query /v2/everything
 // You must include at least one q, source, or domain
-newsapi.v2.everything({
-    q: 'texas',
 
-    // need help changing this q to the name of each
-    // state based on which state the user selects
+var query = $('#statenews').attr("data-state-name") + ' female';
+
+newsapi.v2.everything({
+
+    q: query, //need help changing state name for each state.
 
     sources: 'bbc-news,the-verge,abc-news,cbs-news,cnbc,cnn,fox-news',
-    // domains: 'bbc.co.uk, techcrunch.com',
     from: '2018-06-18',
     to: '2018-07-17',
     language: 'en',
     sortBy: 'relevancy'
 }).then(function (response) {
-    console.log(response);
-    console.log(response.articles);
-    console.log(response.articles[0]);
-    console.log(response.articles[0].url);
-    /*
-      {
-        status: "ok",
-        articles: [...]
-      }
-    */
-    $('.state').append("<div class ='card-body'><p>" + response.articles[0].url + "</p></div>");
-});
-
-// To query sources
-// All options are optional
-newsapi.v2.sources({
-    language: 'en',
-    country: 'us'
-}).then(function (response) {
     // console.log(response);
+    // console.log(response.articles);
+    // console.log(response.articles[0]);
+    // console.log(response.articles[0].url);
+    for (var i = 0; i <= 2; i++) {
+        $('#statenews').append('<li class=\'text-truncate\'>\n                    <a href="' + response.articles[i].url + '" class="">\n                        ' + response.articles[i].title + '\n                        </a>                 \n                   </li>\n                <li class="text-truncate pb-4">\n                <span class=""> ' + response.articles[i].description + '</span>\n</li>\n');
+    }
 });
 
 /***/ }),
 
-/***/ 218:
+/***/ 223:
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -10497,7 +10472,7 @@ return jQuery;
 
 /***/ }),
 
-/***/ 219:
+/***/ 224:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10513,9 +10488,9 @@ return jQuery;
  * claim to have created any of the facilities provided by NewsAPI.org.
  */
 
-const Promise = __webpack_require__(220),
-  fetch = __webpack_require__(221),
-  qs = __webpack_require__(222),
+const Promise = __webpack_require__(225),
+  fetch = __webpack_require__(226),
+  qs = __webpack_require__(227),
   host = 'https://newsapi.org';
 
 fetch.Promise = Promise;
@@ -10645,7 +10620,7 @@ module.exports = NewsAPI;
 
 /***/ }),
 
-/***/ 220:
+/***/ 225:
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(process, global, setImmediate) {/* @preserve
@@ -16271,11 +16246,11 @@ module.exports = ret;
 
 },{"./es5":13}]},{},[4])(4)
 });                    ;if (typeof window !== 'undefined' && window !== null) {                               window.P = window.Promise;                                                     } else if (typeof self !== 'undefined' && self !== null) {                             self.P = self.Promise;                                                         }
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(56), __webpack_require__(24), __webpack_require__(76).setImmediate))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(56), __webpack_require__(24), __webpack_require__(77).setImmediate))
 
 /***/ }),
 
-/***/ 221:
+/***/ 226:
 /***/ (function(module, exports) {
 
 module.exports = exports = window.fetch;
@@ -16290,19 +16265,19 @@ exports.Response = window.Response;
 
 /***/ }),
 
-/***/ 222:
+/***/ 227:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-exports.decode = exports.parse = __webpack_require__(223);
-exports.encode = exports.stringify = __webpack_require__(224);
+exports.decode = exports.parse = __webpack_require__(228);
+exports.encode = exports.stringify = __webpack_require__(229);
 
 
 /***/ }),
 
-/***/ 223:
+/***/ 228:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -16394,7 +16369,7 @@ var isArray = Array.isArray || function (xs) {
 
 /***/ }),
 
-/***/ 224:
+/***/ 229:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -16706,7 +16681,7 @@ process.umask = function() { return 0; };
 
 /***/ }),
 
-/***/ 76:
+/***/ 77:
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {var scope = (typeof global !== "undefined" && global) ||
@@ -16762,7 +16737,7 @@ exports._unrefActive = exports.active = function(item) {
 };
 
 // setimmediate attaches itself to the global object
-__webpack_require__(77);
+__webpack_require__(78);
 // On some exotic environments, it's not clear which object `setimmediate` was
 // able to install onto.  Search each possibility in the same order as the
 // `setimmediate` library.
@@ -16777,7 +16752,7 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
 
 /***/ }),
 
-/***/ 77:
+/***/ 78:
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, process) {(function (global, undefined) {
