@@ -51,21 +51,22 @@ public class UserController {
     @PostMapping("/sign-up")
     public String saveUser(@Valid User user, Errors validation, Model model, @ModelAttribute UserProfile profile) {
 
-if(validation.hasErrors()){
-    model.addAttribute("errors", validation);
-    model.addAttribute("user", user);
-    System.out.println(user.getUsername());
+        if(validation.hasErrors()){
+            model.addAttribute("errors", validation);
+            model.addAttribute("user", user);
+            System.out.println(user.getUsername());
 
-    return "redirect:/sign-up";
-}
+            return "redirect:/sign-up";
+        }
 
         String hash = passwordEncoder.encode(user.getPassword());
         user.setPassword(hash);
         user.setCreatedAt(LocalDateTime.now());
         user.getProfile().setUsername(user.getUsername());
-
+        user.getProfile().setUploadPath("defaultavatar.png");
         userDao.getUsers().save(user);
         userDao.getUsers().addDefaultRole(user.getId());
+
 
         authenticate(user);
         return "redirect:/profile";
