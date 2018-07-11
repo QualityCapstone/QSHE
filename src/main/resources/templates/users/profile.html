@@ -27,6 +27,39 @@
         </ol>
     </div>
     <!-- THIS ARE THE TABS FOR THE PROFILE PAGE -->
+<!--file upload modal-->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel" style="margin: 0 auto">Profile Picture editor</h5>
+            </div>
+            <div class="modal-body">
+                <form th:action="@{/fileupload}" method="post" enctype="multipart/form-data" th:object="${user}">
+                    <input id="file" name="file" type="file" />
+                    <br />
+                    <input type="submit" value="upload" />
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="container wrapper mx-auto" sec:authorize="isAuthenticated()">
+        <div class="text-left col-12">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a th:href="@{~/profile}">Home</a></li>
+                <li class="breadcrumb-item"><a  th:href="@{~/dashboard}">
+                    <span th:text="${#authentication?.principal?.profile?.name}"></span>
+                </a></li>
+                <li class="breadcrumb-item active">Profile</li>
+            </ol>
+
+        </div>
+        <!-- THIS ARE THE TABS FOR THE PROFILE PAGE -->
         <nav>
             <div class="nav nav-tabs" id="nav-tab" role="tablist">
                 <a class="nav-item nav-profile nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Profile</a>
@@ -39,6 +72,7 @@
             <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
                 PROFILE
                 <div class="row">
+                    <p>Profile Picture</p>
                     <div class="col-md-4">
                         <!--<img th:src="@{/uploads/cool-doge.gif}"  alt="didn't work"/>-->
                         <img th:src="@{/uploads/} + ${user.profile.uploadPath}"  alt="didn't work"/>
@@ -54,6 +88,16 @@
                     <br />
                     <input type="submit" value="upload" />
                 </form>
+=======
+                            <img style="height: 150px; width: 150px" th:src="@{/uploads/} + ${user.profile.uploadPath}"  alt="didn't work" />
+                        </div>
+                    </div>
+                </div>
+            <br />
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                Change your profile picture!
+            </button>
+            <br />
                 <div class="col-md-8">
                     <h2>User ID <span th:text="${#authentication.principal.id}" /></h2>
 

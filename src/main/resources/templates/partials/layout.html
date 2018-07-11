@@ -13,11 +13,8 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" th:href="@{~/css/resources/bootstrap.min.css}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.0-beta/css/bootstrap-select.min.css">
-
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
     <link rel="stylesheet" th:href="@{~/css/global.css}">
-    <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="/css/signup.css">
 
 </head>
@@ -42,7 +39,7 @@
             <button class="btn btn-secondary" type="button">
 
                 <div sec:authorize="isAuthenticated()">
-                    <a th:href="@{~/users/displayprofile}" th:text="${#authentication?.principal?.profile?.username}">
+                    <a th:href="@{~/profile}" th:text="${#authentication?.principal?.profile?.username}">
                    </a>
                     <th:block th:if="${currentUserConnection == null}" >
 
@@ -102,21 +99,15 @@
 
     <nav class="navbar navbar-dark bg-dark navbar-footer">
         <div class="mx-auto text-center">
-            <a class="" th:href="@{~/profile}">Home</a>
+            <a class="hvr-underline-reveal mr-2" th:href="@{~/profile}">Home</a>
 
-            <a class="" th:href="@{~/users}">Users</a>
-            <a class="" th:href="@{~/us}">Country</a>
+            <a class="hvr-underline-reveal mr-2" th:href="@{~/us}">Country</a>
 
-            <a class="" th:href="@{~/users/viewstate}">State</a>
-            <a class="" th:href="@{~/state/compare}">Compare States</a>
-            <a class="" th:href="@{~/about/}">About</a>
-            <a class="" th:href="@{~/help}">Help</a>
+            <a class="hvr-underline-reveal mr-2" th:href="@{~/state/compare}">Compare States</a>
+            <a class="hvr-underline-reveal mr-2" th:href="@{~/about/}">About</a>
+            <a class="hvr-underline-reveal mr-2" th:href="@{~/help}">Help</a>
 
-            <a class="" th:href="@{~/messages/create}">Create</a>
-            <a class="" th:href="@{~/users}">Users</a>
-            <a class="" th:href="@{~/widget/all}">Forum</a>
-            <a class="" th:href="@{~/map}">Map</a>
-            <a class="" th:href="@{~/users/rating}">My rating</a>
+            <a class="hvr-underline-reveal mr-2" th:href="@{~/users/rating}">Login</a>
 
         </div>
 
@@ -127,7 +118,6 @@
 
     <!-- Preloader -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.0-beta/js/bootstrap-select.min.js"></script>
     <script type="text/javascript">
         //<![CDATA[
         $(window).on('load', function() { // makes sure the whole site is loaded
