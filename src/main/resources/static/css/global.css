@@ -1,23 +1,16 @@
 @import url(https://fonts.googleapis.com/css?family=Droid+Serif:400,700);
-@import url('https://fonts.googleapis.com/css?family=Pathway+Gothic+One');
 
 /* PRELOADER START */
 body {
     overflow: hidden;
-    background: #E9E9E9;
-    font-family: 'Pathway Gothic One', sans-serif;
+    background: #F5F5F5;
 
-}
-
-body, p, h1,h2,h3,h4,h5,h6, div, span, button {
-    font-family: 'Pathway Gothic One', sans-serif;
 }
 
 .container {
     padding-bottom: 80px;
     padding-top: 10px;
     min-height: 100vh;
-    font-family: 'Pathway Gothic One', sans-serif;
 }
 
 /* Preloader */
@@ -29,7 +22,6 @@ body, p, h1,h2,h3,h4,h5,h6, div, span, button {
     bottom:0;
     background-color: #262626; /* change if the mask should have another color then white */
     z-index:99999; /* makes sure it stays on top */
-    font-family: 'Pathway Gothic One', sans-serif;
 }
 
 #status {
@@ -58,18 +50,17 @@ body, p, h1,h2,h3,h4,h5,h6, div, span, button {
 nav a {
     text-decoration: none;
     color: #fff;
-    font-family: 'Pathway Gothic One', sans-serif;
 }
 
 blockquote {
     width: 100%;
+     font-family: 'Droid Serif', serif;
+
     padding: 36px 50px;
     position: relative;
     background: #dfc6cf;
     margin-bottom: 28px;
     margin-top:20px;
-    font-size: 25px;
-    font-family: 'Pathway Gothic One', sans-serif;
 }
 
 blockquote::before,  blockquote::after {
@@ -94,7 +85,7 @@ blockquote::after {
     font-size: 2.5em;
 }
  blockquote p::before {
-     top: -127px;
+     top: -58px;
      left: 3px;
      color: #fff;
      content: '“';
@@ -106,7 +97,7 @@ blockquote::after {
      right: 3px;
      color: #fff;
      content: '”';
-     bottom: -205px;
+     bottom: -123px;
      font-size: 3em;
      position: absolute;
      text-shadow: 3px 0 #c64860;
@@ -114,7 +105,6 @@ blockquote::after {
 
 .logo-big {
     width:50vw;
-    filter: drop-shadow(9px 9px 9px rgba(0,0,0,0.3));
 
 }
 
@@ -132,40 +122,7 @@ blockquote::after {
     height: 50vh;
 }
 
-
-
-/*SPECIAL CSS HOVER.CSS */
-
-/* Underline Reveal */
-.hvr-underline-reveal {
-    display: inline-block;
-    vertical-align: middle;
-    -webkit-transform: perspective(1px) translateZ(0);
-    transform: perspective(1px) translateZ(0);
-    box-shadow: 0 0 1px rgba(0, 0, 0, 0);
-    position: relative;
-    overflow: hidden;
-    color: rgba(255,255,255,0.5);
+.modal-body {
+    margin-left: 1rem;
 }
-.hvr-underline-reveal:before {
-    content: "";
-    position: absolute;
-    z-index: -1;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: #d15762;
-    height: 4px;
-    -webkit-transform: translateY(4px);
-    transform: translateY(4px);
-    -webkit-transition-property: transform;
-    transition-property: transform;
-    -webkit-transition-duration: 0.3s;
-    transition-duration: 0.3s;
-    -webkit-transition-timing-function: ease-out;
-    transition-timing-function: ease-out;
-}
-.hvr-underline-reveal:hover:before, .hvr-underline-reveal:focus:before, .hvr-underline-reveal:active:before {
-    -webkit-transform: translateY(0);
-    transform: translateY(0);
-}
+

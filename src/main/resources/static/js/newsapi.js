@@ -24,14 +24,26 @@
         for (let i = 0; i <=2; i++) {
             $('#statenews').append(
                 `<li class='text-truncate'>
-                    <a href="${response.articles[i].url}" class="">
+                    <a href="${response.articles[i].url}">
                         ${response.articles[i].title}
-                        </a>                 
-                   </li>
+                    </a>                 
+                </li>
                 <li class="text-truncate pb-4">
-                <span class=""> ${response.articles[i].description}</span>
-</li>
-`
+                    <span class=""> ${response.articles[i].description}</span>
+                </li>`
             );
+        }
+        for (let i = 0; i <=13; i++) {
+            $('#morenews').append(
+                `<li>
+                    <a href="${response.articles[i].url}">
+                        <h4 class="text-center">${response.articles[i].title}</h4>
+                    </a>
+                </li>
+                <li>
+                    <span>${response.articles[i].description}</span>
+                </li>
+                <br />`
+            )
         }
     });
