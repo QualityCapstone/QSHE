@@ -32,3 +32,6 @@ src/main/resources/uploads
 /node
 /node_modules
 node_modules
+
+### BUILT
+src/main/resources/built
