@@ -8,22 +8,52 @@
 <body>
 <div th:replace="partials/layout :: navbar" />
 
-<div class="container">
-        <div class="userProfile">
-            <div class="col-md-4">
-                <img src="http://via.placeholder.com/150x150">
+<div class="container mt-4">
+        <div class="userProfile row">
+            <div class="col-sm-6">
+                <div class="card">
+                    <img class="card-img-top img-fluid mx-auto mt-3" src="/img/face_icons-circle-63.png" alt="Card image cap" style="width: 200px">
+                    <div class="card-body">
+                        <!--<h5 class="card-title">Card title</h5>-->
+                        <h1 class="text-center"> <span th:text="${#authentication.principal.profile.firstName}"></span> </h1>
+                        <h5 class="card-title text-center"> <span th:text="${#authentication.principal.profile.name}"></span> </h5>
+                        <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
+                    </div>
+                </div>
             </div>
+            <div class="col-sm-6">
+                <div class="col-sm-3">
+                <div class="card">
+                    <div class="card-body">
+                        <!--<h5 class="card-title">Card title</h5>-->
+                        <h4 class="text-left">My name</h4>
+                        <h4 class="text-center"> <span th:text="${#authentication.principal.profile.firstName}"></span> </h4>
+                        <h4 class="text-center"> <span th:text="${#authentication.principal.profile.lastName}"></span> </h4>
+                        <h4 class="text-left">My email</h4>
+                        <h4 class="text-center"> <span th:text="${#authentication.principal.profile.email}"></span></h4>
+                        <h4 class="text-left">I live in:</h4>
+                        <h4 class="text-center"> <span th:text="${#authentication.principal.profile.userState}"></span></h4>
+                        <h1 class="text-center"> <span th:text="${#authentication.principal.profile.firstName}"></span> </h1>
+                        <h5 class="card-title text-center"> <span th:text="${#authentication.principal.profile.name}"></span> </h5>
+                        <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
+                    </div>
+                </div>
+            </div>
+
+
             <div class="col-xs-8" >
                 <h4 class="text-center"> <span th:text="${#authentication.principal.profile.name}"></span> </h4>
             </div>
 
 
              <h1>Display Profile Page</h1>
+            <h1 class="text-left"> <span th:text="${#authentication.principal.profile.firstName}"></span> </h1>
             <div class="col-xs-8">
-                <h3 class="text-center"> <span th:text="${#authentication.principal.username}"></span> </h3>
+
                 <h4 class="text-center"> <span th:text="${#authentication.principal.profile.firstName}"></span> </h4>
                 <h4 class="text-center"> <span th:text="${#authentication.principal.profile.lastName}"></span> </h4>
-                <h4 class="text-center"> <span th:text="${#authentication.principal.profile.email}"></span> </h4>
+                <h4 class="text-center"> <span th:text="${#authentication.principal.profile.email}"></span></h4>
+                <h4 class="text-center"> <span th:text="${#authentication.principal.profile.userState}"></span></h4>
             </div>
 
             <button class="btn"><a th:href="@{/profile}"> Edit Profile</a> </button>
