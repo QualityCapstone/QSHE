@@ -63,7 +63,8 @@
                 <div class="row">
                     <p>Profile Picture</p>
                     <div class="col-md-4">
-                            <img style="height: 150px; width: 150px" th:src="@{/uploads/} + ${user.profile.uploadPath}"  alt="didn't work" />
+                            <img th:if="${user.profile.uploadPath == null}" style="height: 150px; width: 150px" th:src="@{/img/defaultavatar.png}" alt="none" />
+                            <img th:if="${user.profile.uploadPath}" style="height: 150px; width: 150px" th:src="@{/uploads/} + ${user.profile.uploadPath}"  alt="didn't work" />
                         </div>
                     </div>
                 </div>
