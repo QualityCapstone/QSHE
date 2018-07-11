@@ -13,6 +13,10 @@ body {
     min-height: 100vh;
 }
 
+.padding-container {
+    padding: 10px;
+}
+
 /* Preloader */
 #preloader {
     position: fixed;
@@ -163,4 +167,14 @@ blockquote::after {
     font-size: 7em;
     color: #fff;
     text-shadow: 2px 1px 8px rgba(150, 150, 150, 0.75);
+}
+
+
+.state-nav {
+    position: sticky;
+    position: -webkit-sticky;
+    top: 0; /* required */
+    z-index: 10000;
+    padding: 10px;
+    background-color: rgba(255,255,255,0.75);
 }
