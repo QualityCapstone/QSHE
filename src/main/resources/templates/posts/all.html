@@ -12,7 +12,7 @@
 
 <div class="container bg-white text-center border border-dark rounded mt-5" sec:authorize="isAuthenticated()">
     <h1>Submit your post!</h1>
-    <form class="form-group" th:action="@{posts/all}" method="post" >
+    <form class="form-group" th:action="@{/posts/all}" method="post" >
         <input type="text" id="blogpost" name="blogpost" class="form-control mb-5"  />
 
         <br />
