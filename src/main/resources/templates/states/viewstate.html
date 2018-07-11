@@ -17,7 +17,6 @@
     <div class="row">
         <div class="col-md-6">
 
-
             <div class="state state-tiny" id="state-tiny" th:data-state-abbr="${state.abbr}">
                 <svg th:class="@{icon icon-state-} + ${state.abbr}">
                     <use th:xlink:href="@{#icon-state-} + ${state.abbr}"></use>
@@ -38,12 +37,10 @@
 
         </div>
     </div>
+    <hr>
 
-<hr>
-        <div class="row">
-
+        <div class="row mb-4">
             <div class="col-md-4">
-
                 <div class="card">
                     <div class="card-header state-header">
                         <div class="state pt-4">
@@ -69,49 +66,60 @@
             <div class="col-md-8">
                 <div id="radar-chart"></div>
 
-
+            </div>
         </div>
 
             <div class="row">
-                <div id="col-md-12">{State} is ranked #{rank} of the top 50 states to live in.
-                    It is well known for something and something else. Based on over 50 user reviews it is also
-                    found to be in the bottom 10% of violent crimes.</div>
-            </div>
+
+                <div class="col-md-4">
+                    <h2>Safety / Crime</h2>
+
+                    <p>User Ratings: </p>
+                    <p>True Sense: </p>
+
+                    <p>Texas is ranked 50 out of 50 in Crime.</p>
+                    <p>The average crime rate has gone down 1.2% from 2010 to 2015</p>
+                    <p>A rise in rapes, murders and suicides has been noted over the same period</p>
+
+                </div>
+
+                <div class="col-md-8">
+                    <div class="card">
+                        <div class="card-body">
+                            <div id="crime-chart"></div>
+                        </div>
+                    </div>
+                </div>
 
             </div>
 
+        <div class="row mb-4">
 
-        <div  class="row">
+            <div class="col-md-4">
+                <h2>Growth</h2>
 
+                <p>User Ratings: </p>
+                <p>True Sense: </p>
 
-            <div class="col-md-12 m-2 p-2">
-            <div class="card">
-                <div class="card-body">
+                <p>Texas is ranked 50 out of 50 in Crime.</p>
+                <p>The average crime rate has gone down 1.2% from 2010 to 2015</p>
+                <p>A rise in rapes, murders and suicides has been noted over the same period</p>
 
-                    <select id="selectMetric" class="form-control ml-auto mr-3">
-                        <option disabled selected>Select Metric...</option>
-                        <option  th:each="state : ${states}" th:text="${state.name}"> state name </option>
-                    </select>
+            </div>
 
-                     <div id="crime-chart"></div>
-
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-body">
+                        <div id="growth-chart"></div>
+                    </div>
                 </div>
             </div>
 
-
-            </div>
         </div>
 
-        <div>
-
-            <div class="col-md-8">
-
-            </div>
-
-        </div>
 
     </div>
-</div>
+
 
     <div th:replace="partials/layout :: footer" >
 
