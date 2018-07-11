@@ -16,6 +16,17 @@
 <div th:replace="partials/layout :: navbar" />
     <span class="overlay"></span>
 
+<div class="container wrapper mx-auto" sec:authorize="isAuthenticated()">
+    <div class="text-left col-12">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a th:href="@{~/profile}">Home</a></li>
+            <li class="breadcrumb-item"><a  th:href="@{~/dashboard}">
+                <span th:text="${#authentication?.principal?.profile?.name}"></span>
+            </a></li>
+            <li class="breadcrumb-item active">Profile</li>
+        </ol>
+    </div>
+    <!-- THIS ARE THE TABS FOR THE PROFILE PAGE -->
 <!--file upload modal-->
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -63,6 +74,21 @@
                 <div class="row">
                     <p>Profile Picture</p>
                     <div class="col-md-4">
+                        <!--<img th:src="@{/uploads/cool-doge.gif}"  alt="didn't work"/>-->
+                        <img th:src="@{/uploads/} + ${user.profile.uploadPath}"  alt="didn't work"/>
+                        <div>
+                            Profile Picture
+                        </div>
+                    </div>
+                </div>
+
+                <form th:action="@{/fileupload}" method="post" enctype="multipart/form-data" th:object="${user}">
+                    <label for="file">Change your profile picture!</label>
+                    <input id="file" name="file" type="file" />
+                    <br />
+                    <input type="submit" value="upload" />
+                </form>
+=======
                             <img style="height: 150px; width: 150px" th:src="@{/uploads/} + ${user.profile.uploadPath}"  alt="didn't work" />
                         </div>
                     </div>
@@ -106,7 +132,6 @@
 
                     </form>
                 </div>
-
                 <div class="row mt-5 mb-5">
                     <h3>Your notifications</h3>
                     <div class="col-12 text-left">
@@ -118,6 +143,7 @@
                         </button>
                     </div>
                 </div>
+
                 <div class="row mb-5">
                     <h3>Social media</h3>
                     <div class="col-12">
@@ -126,8 +152,7 @@
                     </div>
                 </div>
             </div>
-            <!-- THIS IS THE ABOUT ME AREA -->
-
+        <!-- THIS IS THE RATING AREA -->
             <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
                 <!-- TO RATE -->
                 <h2>My Rating</h2>
@@ -135,39 +160,39 @@
                     <div class="col-sm-6">
                         <div class="card">
                             <div class="card-body">
-                                <h3 class="mb-3">Rate each element of your State</h3>
-                        <form class="card card-block bg-faded m-3 p-3 login-card" th:action="@{/profile/rating}" method="POST" th:object="${userRating}">
-                        <h2 class="m-b-1 text-xs-center">Step 3</h2>
-                        <small class="form-text">You can rate your state now or later:</small>
-                        <div class="form-group">
-                        <h5 class="m-b-1 text-center">1 = Good  10 = Bad</h5>
-                        </div>
-                        <div class="form-group m-0">
-                        <label class="text-left" for="violenceRate">How safe do you feel where you live?</label>
-                        <input type="range" min="1" max="10" value="1" class="slider float-left" id="violenceRate" />
-                        <p class="text-center float-right"><span id="demoViolence"></span></p>
-                        </div>
-                        <div class="form-group m-0">
-                        <label class="text-left" for="employmentRate">How would you rank the employment rate in your state?</label>
-                        <input type="range" min="1" max="10" value="1" class="slider float-left" id="employmentRate" />
-                        <p class="text-center float-right"><span id="demoEmployment"></span></p>
-                        </div>
-                        <div class="form-group m-0">
-                        <label class="text-left" for="educationRate">How would you rank the education system in your state?</label>
-                        <input type="range" min="1" max="10" value="1" class="slider float-left" id="educationRate" />
-                        <p class="text-center float-right"><span id="demoEducation"></span></p>
-                        </div>
-                        <div class="form-group m-0">
-                        <label class="left-text" for="healthRate">How would you rank the health care system in your state?</label>
-                        <input type="range" min="1" max="10" value="1" class="slider float-left" id="healthRate"/>
-                        <p class="text-center float-right"><span id="demoHealth"></span></p>
-                        </div>
-                        <div class="form-group m-0">
-                        <label class="text-left" for="growthRate">How would you rate the general growth in your state?</label>
-                        <input type="range" min="1" max="10"value="1" class="slider float-left" id="growthRate" />
-                        <p class="text-center float-right"><span id="demoGrowth"></span></p>
-                        </div>
-                        </form>
+                            <h3 class="mb-3">Rate each element of your State</h3>
+                                <form class="card card-block bg-faded m-3 p-3 login-card" th:action="@{/profile/rating}" method="POST" th:object="${userRating}">
+                                <h2 class="m-b-1 text-xs-center">Step 3</h2>
+                                <small class="form-text">You can rate your state now or later:</small>
+                                <div class="form-group">
+                                <h5 class="m-b-1 text-center">1 = Good  10 = Bad</h5>
+                                </div>
+                                <div class="form-group m-0">
+                                <label class="text-left" for="violenceRate">How safe do you feel where you live?</label>
+                                <input type="range" min="1" max="10" value="1" class="slider float-left" id="violenceRate" />
+                                <p class="text-center float-right"><span id="demoViolence"></span></p>
+                                </div>
+                                <div class="form-group m-0">
+                                <label class="text-left" for="employmentRate">How would you rank the employment rate in your state?</label>
+                                <input type="range" min="1" max="10" value="1" class="slider float-left" id="employmentRate" />
+                                <p class="text-center float-right"><span id="demoEmployment"></span></p>
+                                </div>
+                                <div class="form-group m-0">
+                                <label class="text-left" for="educationRate">How would you rank the education system in your state?</label>
+                                <input type="range" min="1" max="10" value="1" class="slider float-left" id="educationRate" />
+                                <p class="text-center float-right"><span id="demoEducation"></span></p>
+                                </div>
+                                <div class="form-group m-0">
+                                <label class="left-text" for="healthRate">How would you rank the health care system in your state?</label>
+                                <input type="range" min="1" max="10" value="1" class="slider float-left" id="healthRate"/>
+                                <p class="text-center float-right"><span id="demoHealth"></span></p>
+                                </div>
+                                <div class="form-group m-0">
+                                <label class="text-left" for="growthRate">How would you rate the general growth in your state?</label>
+                                <input type="range" min="1" max="10"value="1" class="slider float-left" id="growthRate" />
+                                <p class="text-center float-right"><span id="demoGrowth"></span></p>
+                                </div>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -178,7 +203,7 @@
                                 <img class="img-fluid m-5" src="/img/stateMaps/TX.png" style="width: 100px">
                             </div>
                         </div>
-                        <div class="card m-3">
+                        <div class="card m-3"><!-- FOR THE OVERALL RATING -->
                             <div class="card-body">
                                 <h3 class="mb-3">This is the overall rating you're giving to the State you live in</h3>
                                 <h1 class="text-center m-5" id="totalMarks"></h1>
@@ -192,15 +217,11 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-6 float-right">
-
-                    </div>
                 </div>
             </div>
-                <!--</div>-->
-                <!-- HERE ARE THE MESSAGES -->
+            <!-- HERE ARE THE MESSAGES -->
             <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
-            <h3 class="mb-3">Messages</h3>
+                <h3 class="mb-3">Messages</h3>
 
                 <table class="table table-hover">
                     <thead>
@@ -232,15 +253,14 @@
 
                     </tbody>
                 </table>
-
-
-
-
-
             </div>
-    </div>
-    </div>
-<div th:replace="partials/layout :: footer" />
+        </div><!-- THIS IS THE END OF THE TAB-CONTENT -->
+
+    </div><!-- THIS IS THE END OF THE DIV COL-12 -->
+
+</div><!-- THIS IS THE END OF MAIN WRAPPER OF THE CONTENT -->
+
+    <div th:replace="partials/layout :: footer" />
         <script type="text/javascript">
             // USER RATE VALUE FOR VIOLENCE
             var sliderOne = document.getElementById("violenceRate");
