@@ -12,23 +12,23 @@
 
 <div class="container bg-white text-center border border-dark rounded mt-5" sec:authorize="isAuthenticated()">
     <h1>Submit your post!</h1>
-    <form class="form-group" th:action="@{/widget/all}" method="post" th:object="${newPost}">
-        <input type="text" id="user-post" class="form-control mb-5" th:field="*{message}"  />
+    <form class="form-group" th:action="@{posts/all}" method="post" >
+        <input type="text" id="user-post" class="form-control mb-5"  />
         <br />
         <input type="submit" class="btn btn-dark text-light" />
     </form>
-<div class="p-5 m-2 text-dark " th:each="message: ${messages}" th:height="auto">
+<div class="p-5 m-2 text-dark " th:each="post: ${posts}" th:height="auto">
     <ul class="list-unstyled">
         <li class="media">
             <div class="media-body p-2">
-                <p class="text-left" th:text="'Posted by: ' + ${message.sender.username}"></p>
-                <p class="text-left" th:text="'From: ' + ${message.sender.profile.userState}"></p>
-                <p class="text-right" th:text="${message.message}"></p>
+                <p class="text-left" th:text="'Posted by: ' + ${post.user.username}"></p>
+                <p class="text-left" th:text="'From: ' + ${post.user.profile.userState}"></p>
+                <p class="text-right" th:text="${post.body}"></p>
                 <hr class="create-form" style="height: 10px"/>
                 <!--<p th:text="${message.sender_id}"></p>-->
             </div>
             <div class="col-3" sec:authorize="isAuthenticated()">
-                <form class="form-group" th:action="@{/widget/{id}/delete(id=${message.id})}" method="post">
+                <form class="form-group" th:action="@{/posts/{id}/delete(id=${post.id})}" method="post">
                     <button type="submit" class="btn create-form" id="delete" name="delete">Delete</button>
                 </form>
             </div>
