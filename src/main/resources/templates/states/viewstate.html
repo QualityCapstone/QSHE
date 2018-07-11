@@ -6,11 +6,30 @@
     <meta charset="UTF-8" />
     <title>State</title>
 </head>
+
 <body>
+
 <div th:replace="states/svg :: states-svg" />
 
-<div th:replace="partials/layout :: navbar" >
-</div>
+<div th:replace="partials/layout :: navbar" />
+
+<th:block th:each="p : ${photos}">
+    <!--<img th:src="${p.medium800Url}">-->
+    <div  class="d-flex flex-column justify-content-center align-items-center state-header" th:style="@{background-image: url(} + ${p.large1600Url}+ @{);}">
+
+
+        <div class="state-header-icon">
+            <div class="state pt-4">
+                <svg th:class="@{icon icon-state-} + ${state.abbr}">
+                    <use th:xlink:href="@{#icon-state-} + ${state.abbr}"></use>
+                </svg>
+            </div>
+        </div>
+
+        <div class="state-header-name" th:text="${state.name}"></div>
+
+    </div>
+</th:block>
 
     <div class="container">
 
@@ -22,6 +41,7 @@
                     <use th:xlink:href="@{#icon-state-} + ${state.abbr}"></use>
                 </svg>
             </div>
+
 
             <h1>
                 <span th:text="${state.name}"></span></h1></div>
@@ -42,12 +62,8 @@
         <div class="row mb-4">
             <div class="col-md-4">
                 <div class="card">
-                    <div class="card-header state-header">
-                        <div class="state pt-4">
-                            <svg th:class="@{icon icon-state-} + ${state.abbr}">
-                                <use th:xlink:href="@{#icon-state-} + ${state.abbr}"></use>
-                            </svg>
-                        </div>
+                    <div class="card-header state-header" >
+                        <h5>State Discussions</h5>
                     </div>
                     <div class="card-body">
                         <h5>State News</h5>
@@ -121,9 +137,7 @@
     </div>
 
 
-    <div th:replace="partials/layout :: footer" >
-
-</div>
+    <div th:replace="partials/layout :: footer" />
 <script th:src="@{~/built/map.js}"> </script>
 <script th:src="@{~/built/news.js}"></script>
 </body>

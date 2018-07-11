@@ -17,6 +17,10 @@ public class State {
     @Column
     private String abbr;
 
+
+    @Column
+    private String img;
+
     public State() {
 
     }
@@ -54,5 +58,13 @@ public class State {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
     }
 }
