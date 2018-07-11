@@ -17,6 +17,10 @@
     min-height: 400px;
 }
 
+#education-chart {
+    height: 500px;
+}
+
 .state .icon {
     stroke-width: 1;
     stroke: #fff;
