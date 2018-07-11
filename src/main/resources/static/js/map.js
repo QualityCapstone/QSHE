@@ -160,7 +160,7 @@ window.onload = function () {
         interstitialSection : "body",
         easing: "easeOutExpo",
         scrollSpeed: 1100,
-        offset : -75,
+        offset : -62,
         scrollbars: true,
         standardScrollElements: "",
         overflowScroll: true,

@@ -60,7 +60,7 @@
     <div class="padding-container">
 
     <div class="state-nav row">
-        <div class="col-md-6">
+        <div class="col-md-2 text-nowrap">
 
             <div class="state state-tiny" id="state-tiny" th:data-state-abbr="${state.abbr}">
                 <svg th:class="@{icon icon-state-} + ${state.abbr}">
@@ -71,7 +71,7 @@
 
             <h1>
                 <span th:text="${state.name}"></span></h1></div>
-        <div class="col-md-6 ml-auto">
+        <div class="col-md-10 ml-auto text-nowrap">
             <div class="form-inline form-row text-right align-items-right">
                 <select id="inputState" class="form-control ml-auto mr-3">
                     <option disabled selected>Select State...</option>
@@ -87,9 +87,9 @@
 
     <hr>
 
-        <div class=" page row row-full-screen mb-4">
+        <div class=" page row row-full-screen ">
             <div class="col-md-4">
-                <div class="card mb-4">
+                <div class="card mb-4 mt-4">
                     <div class="card-header" >
                         <h5>State News</h5>
                     </div>
@@ -118,7 +118,7 @@
             </div>
         </div>
 
-            <div class="row  page   row-full-screen mb-4 row-dark">
+            <div class="row  page   row-full-screen row-dark">
 
                 <div class="col-md-4">
                     <h2>Safety / Crime</h2>
@@ -144,7 +144,7 @@
 
 
 
-        <div class="row   page row-full-screen mb-4">
+        <div class="row   page row-full-screen">
 
             <div class="col-md-4">
                 <h2>Growth</h2>
@@ -166,7 +166,9 @@
                 </div>
             </div>
 
-        </div> <div class="row  page  row-full-screen mb-4 row-dark">
+        </div>
+
+        <div class="row  page  row-full-screen mb-4 row-dark">
 
         <div class="col-md-4">
             <h2>Education</h2>
@@ -189,6 +191,31 @@
         </div>
 
     </div>
+
+
+        <div class="row  page   row-full-screen">
+
+            <div class="col-md-4">
+                <h2>Health</h2>
+
+                <p>User Ratings: </p>
+                <p>True Sense: </p>
+
+                <p>Texas is ranked 50 out of 50 in Crime.</p>
+                <p>The average crime rate has gone down 1.2% from 2010 to 2015</p>
+                <p>A rise in rapes, murders and suicides has been noted over the same period</p>
+
+            </div>
+
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-body">
+                        <div id="health-chart"></div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
 
 </div>
 
