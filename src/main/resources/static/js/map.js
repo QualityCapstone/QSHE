@@ -13,8 +13,6 @@ const horizontalBar = require('./module/charts/horizontal-bar');
 require('jquery-scrollify')($);
 
 
-
-
 window.onload = function () {
 
     if ($('#map').length > 0) {
