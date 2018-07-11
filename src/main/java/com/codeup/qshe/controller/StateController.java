@@ -30,7 +30,27 @@ import java.util.List;
       State state = stateDao.getStates().findByAbbr(abbr);
         model.addAttribute("states", stateDao.getStates().findAll());
         model.addAttribute("state", state);
-        return "states/viewstate"; }
+        return "states/viewstate";
+  }
+
+
+
+        @GetMapping("/state/compare/{abbr}/{abbr2}")
+    public String compareState(@PathVariable String abbr, @PathVariable String abbr2, Model model) {
+
+            State stateA = stateDao.getStates().findByAbbr(abbr);
+            State stateB = stateDao.getStates().findByAbbr(abbr2);
+
+            model.addAttribute("states", stateDao.getStates().findAll());
+
+            model.addAttribute("stateA", stateA);
+            model.addAttribute("stateB", stateB);
+
+      return "states/compare";
+
+
+    }
+
 
 
 }
