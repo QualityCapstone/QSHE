@@ -63,10 +63,8 @@ public class UserController {
         user.setPassword(hash);
         user.setCreatedAt(LocalDateTime.now());
         user.getProfile().setUsername(user.getUsername());
-//        user.getProfile().setUploadPath("defaultavatar.png");
         userDao.getUsers().save(user);
         userDao.getUsers().addDefaultRole(user.getId());
-
 
         authenticate(user);
         return "redirect:/profile";
