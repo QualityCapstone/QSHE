@@ -18,6 +18,8 @@ require('jquery-scrollify')($);
 window.onload = function () {
 
     if ($('#map').length > 0) {
+        require('../css/map-world.css');
+
         console.log("map found");
         // exists.
         var R = Raphael("map", "100%", "100%"),
