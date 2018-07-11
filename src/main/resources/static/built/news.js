@@ -60,19 +60,19 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 222);
+/******/ 	return __webpack_require__(__webpack_require__.s = 224);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ 222:
+/***/ 224:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var $ = __webpack_require__(223);
-var NewsAPI = __webpack_require__(224);
+var $ = __webpack_require__(225);
+var NewsAPI = __webpack_require__(226);
 var newsapi = new NewsAPI('b8cc911c5a604eadac02a424f0945ae8');
 // To query /v2/everything
 // You must include at least one q, source, or domain
@@ -100,7 +100,7 @@ newsapi.v2.everything({
 
 /***/ }),
 
-/***/ 223:
+/***/ 225:
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -10472,7 +10472,7 @@ return jQuery;
 
 /***/ }),
 
-/***/ 224:
+/***/ 226:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10488,9 +10488,9 @@ return jQuery;
  * claim to have created any of the facilities provided by NewsAPI.org.
  */
 
-const Promise = __webpack_require__(225),
-  fetch = __webpack_require__(226),
-  qs = __webpack_require__(227),
+const Promise = __webpack_require__(227),
+  fetch = __webpack_require__(228),
+  qs = __webpack_require__(229),
   host = 'https://newsapi.org';
 
 fetch.Promise = Promise;
@@ -10620,7 +10620,7 @@ module.exports = NewsAPI;
 
 /***/ }),
 
-/***/ 225:
+/***/ 227:
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(process, global, setImmediate) {/* @preserve
@@ -16250,7 +16250,7 @@ module.exports = ret;
 
 /***/ }),
 
-/***/ 226:
+/***/ 228:
 /***/ (function(module, exports) {
 
 module.exports = exports = window.fetch;
@@ -16265,19 +16265,19 @@ exports.Response = window.Response;
 
 /***/ }),
 
-/***/ 227:
+/***/ 229:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-exports.decode = exports.parse = __webpack_require__(228);
-exports.encode = exports.stringify = __webpack_require__(229);
+exports.decode = exports.parse = __webpack_require__(230);
+exports.encode = exports.stringify = __webpack_require__(231);
 
 
 /***/ }),
 
-/***/ 228:
+/***/ 230:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -16369,7 +16369,7 @@ var isArray = Array.isArray || function (xs) {
 
 /***/ }),
 
-/***/ 229:
+/***/ 231:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";

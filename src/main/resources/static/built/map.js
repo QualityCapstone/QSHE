@@ -61047,7 +61047,7 @@ var Export = /** @class */ (function (_super) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, __webpack_require__.e/* import() */(2).then(__webpack_require__.bind(null, 230))];
+                    case 0: return [4 /*yield*/, __webpack_require__.e/* import() */(2).then(__webpack_require__.bind(null, 232))];
                     case 1: return [2 /*return*/, _a.sent()];
                 }
             });
@@ -61082,8 +61082,8 @@ var Export = /** @class */ (function (_super) {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, Promise.all([
-                            __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 231)),
-                            __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 232))
+                            __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 233)),
+                            __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 234))
                         ])];
                     case 1:
                         a = _a.sent();
@@ -61122,7 +61122,7 @@ var Export = /** @class */ (function (_super) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, __webpack_require__.e/* import() */(1).then(__webpack_require__.bind(null, 233))];
+                    case 0: return [4 /*yield*/, __webpack_require__.e/* import() */(1).then(__webpack_require__.bind(null, 235))];
                     case 1: return [2 /*return*/, _a.sent()];
                 }
             });
@@ -63503,7 +63503,7 @@ var Responsive = /** @class */ (function (_super) {
      * @return {Promise<any>} Responsive rules
      */
     Responsive.prototype.loadDefaultRules = function () {
-        return __webpack_require__.e/* import() */(3).then(__webpack_require__.bind(null, 234));
+        return __webpack_require__.e/* import() */(3).then(__webpack_require__.bind(null, 236));
     };
     return Responsive;
 }(__WEBPACK_IMPORTED_MODULE_0__Base__["b" /* BaseObjectEvents */]));
@@ -73852,449 +73852,6 @@ var RadarColumn = /** @class */ (function (_super) {
             this.radarColumn.copyFrom(source.radarColumn);
         }
     };
-<<<<<<< HEAD
-    return ConeColumn;
-}(__WEBPACK_IMPORTED_MODULE_0__Column__["a" /* Column */]));
-
-/**
- * Register class in system, so that it can be instantiated using its name from
- * anywhere.
- *
- * @ignore
- */
-__WEBPACK_IMPORTED_MODULE_2__core_Registry__["b" /* registry */].registeredClasses["ConeColumn"] = ConeColumn;
-//# sourceMappingURL=ConeColumn.js.map
-
-/***/ }),
-/* 172 */,
-/* 173 */,
-/* 174 */,
-/* 175 */,
-/* 176 */,
-/* 177 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _map = __webpack_require__(178);
-
-var _map2 = _interopRequireDefault(_map);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var data = __webpack_require__(183);
-var Raphael = __webpack_require__(184);
-var Popper = __webpack_require__(106).default;
-var Tooltip = __webpack_require__(185).default;
-
-var radarChart = __webpack_require__(186);
-
-console.log(data);
-
-window.onload = function () {
-
-    if ($('#map').length > 0) {
-        var R, attr, usRaphael;
-        var state;
-        var state;
-
-        (function () {
-            var popperUpdate = function popperUpdate(inputState) {
-                var popEle = $('#popperElement');
-
-                var selectedState = [];
-
-                for (state in stateData) {
-
-                    var currState = stateData[state].abbr;
-
-                    if (currState === inputState.toUpperCase()) {
-                        selectedState = stateData[state];
-                    }
-                }
-
-                $('#state-name').text(selectedState.name);
-                $('#state-abbr').text(selectedState.abbr);
-            };
-
-            console.log("map found");
-            // exists.
-            R = Raphael("map", "100%", "100%");
-            attr = {
-                "fill": "#ff9890",
-                "stroke": "#fff",
-                "stroke-opacity": "3",
-                "stroke-linejoin": "round",
-                "stroke-miterlimit": "10",
-                "stroke-width": "3.5",
-                "stroke-dasharray": "none"
-            };
-            usRaphael = {};
-
-            //Draw Map and store Raphael paths
-
-            for (state in data) {
-                usRaphael[state] = R.path(data[state]).attr(attr);
-            }
-
-            //Do Work on Map
-            for (state in usRaphael) {
-                usRaphael[state].color = Raphael.getColor();
-
-                usRaphael[state].attr({ "fill": usRaphael[state].color });
-
-                (function (st, state) {
-
-                    st[0].style.cursor = "pointer";
-
-                    var popEle = $('#popperElement');
-                    popEle.hide();
-
-                    st[0].onmouseover = function () {
-                        st.animate({ fill: "#ff9890" }, 500);
-                        st.toFront();
-                        popperUpdate(state);
-                        popEle.show();
-
-                        var instance = new Popper(st[0], popEle, {
-                            placement: 'auto',
-                            title: state,
-                            trigger: 'hover focus',
-                            delay: {
-                                show: 500, hide: 500
-                            },
-                            boundariesElement: '#map',
-                            html: true
-                        });
-
-                        instance.scheduleUpdate();
-                    };
-                    st[0].onmouseout = function () {
-                        st.animate({ fill: st.color }, 500);
-                        st.toFront();
-
-                        popEle.hide();
-                    };
-                    st[0].onclick = function () {
-                        window.location = "/state/" + state.toUpperCase();
-                    };
-                })(usRaphael[state], state);
-            }
-        })();
-    } // end of full map
-
-
-    if ($('#state').length > 0) {
-        console.log("state found!");
-
-        var abbr = $('#state').data('state-abbr');
-
-        for (var _state in data) {
-            if (_state.toUpperCase() === abbr) {
-                console.log(_state.toUpperCase());
-
-                var _attr = {
-                    "fill": "#ff9890",
-                    "stroke": "#fff",
-                    "stroke-opacity": "3",
-                    "stroke-linejoin": "round",
-                    "stroke-miterlimit": "10",
-                    "stroke-width": "3.5",
-                    "stroke-dasharray": "none"
-                };
-
-                var paper = Raphael("state", 450, 450);
-                var mark = paper.path(data[_state]).attr(_attr);
-            }
-        }
-    }
-};
-
-/***/ }),
-/* 178 */
-/***/ (function(module, exports, __webpack_require__) {
-
-
-var content = __webpack_require__(179);
-
-if(typeof content === 'string') content = [[module.i, content, '']];
-
-var transform;
-var insertInto;
-
-
-
-var options = {"hmr":true}
-
-options.transform = transform
-options.insertInto = undefined;
-
-var update = __webpack_require__(181)(content, options);
-
-if(content.locals) module.exports = content.locals;
-
-if(false) {
-	module.hot.accept("!!../../../../../node_modules/css-loader/index.js!./map.css", function() {
-		var newContent = require("!!../../../../../node_modules/css-loader/index.js!./map.css");
-
-		if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-
-		var locals = (function(a, b) {
-			var key, idx = 0;
-
-			for(key in a) {
-				if(!b || a[key] !== b[key]) return false;
-				idx++;
-			}
-
-			for(key in b) idx--;
-
-			return idx === 0;
-		}(content.locals, newContent.locals));
-
-		if(!locals) throw new Error('Aborting CSS HMR due to changed css-modules locals.');
-
-		update(newContent);
-	});
-
-	module.hot.dispose(function() { update(); });
-}
-
-/***/ }),
-/* 179 */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(180)(false);
-// imports
-
-
-// module
-exports.push([module.i, "\n/*MAP CSS Save seperately later*/\n\n.map-container {\n    background:  #73b5c059;\n}\n\n#map {\n    padding-top: 50px;\n    min-width: 940px;\n    text-align: center;\n    height: calc(100vh - 175px);\n}\n\n.state .icon {\n    stroke-width: 1;\n    stroke: #fff;\n    fill: currentColor;\n    height: 100%;\n    width: 100%;\n}\n\n.state {\n    color: #5a6aff;\n    transition: 500ms color;\n}\n\n\n.state-tiny {\n    width: 50px;\n    height: 50px;\n    float: left;\n    color: black;\n}\n\n\n\n\n.state:hover {\n    color: #72cfff;\n}\n\n.tooltip {\n    z-index: 9999999;\n}\n\n#popperElement {\n    padding: 15px;\n    background: rgba(255,255,255,0.9);\n    -webkit-border-radius: 10px;\n    -moz-border-radius: 10px;\n    border-radius: 10px;\n    border: 2px solid #ff9890;\n    width: 400px;\n}", ""]);
-
-// exports
-
-
-/***/ }),
-/* 180 */
-/***/ (function(module, exports) {
-
-/*
-	MIT License http://www.opensource.org/licenses/mit-license.php
-	Author Tobias Koppers @sokra
-*/
-// css base code, injected by the css-loader
-module.exports = function(useSourceMap) {
-	var list = [];
-
-	// return the list of modules as css string
-	list.toString = function toString() {
-		return this.map(function (item) {
-			var content = cssWithMappingToString(item, useSourceMap);
-			if(item[2]) {
-				return "@media " + item[2] + "{" + content + "}";
-			} else {
-				return content;
-			}
-		}).join("");
-	};
-
-	// import a list of modules into the list
-	list.i = function(modules, mediaQuery) {
-		if(typeof modules === "string")
-			modules = [[null, modules, ""]];
-		var alreadyImportedModules = {};
-		for(var i = 0; i < this.length; i++) {
-			var id = this[i][0];
-			if(typeof id === "number")
-				alreadyImportedModules[id] = true;
-		}
-		for(i = 0; i < modules.length; i++) {
-			var item = modules[i];
-			// skip already imported module
-			// this implementation is not 100% perfect for weird media query combinations
-			//  when a module is imported multiple times with different media queries.
-			//  I hope this will never occur (Hey this way we have smaller bundles)
-			if(typeof item[0] !== "number" || !alreadyImportedModules[item[0]]) {
-				if(mediaQuery && !item[2]) {
-					item[2] = mediaQuery;
-				} else if(mediaQuery) {
-					item[2] = "(" + item[2] + ") and (" + mediaQuery + ")";
-				}
-				list.push(item);
-			}
-		}
-	};
-	return list;
-};
-
-function cssWithMappingToString(item, useSourceMap) {
-	var content = item[1] || '';
-	var cssMapping = item[3];
-	if (!cssMapping) {
-		return content;
-	}
-
-	if (useSourceMap && typeof btoa === 'function') {
-		var sourceMapping = toComment(cssMapping);
-		var sourceURLs = cssMapping.sources.map(function (source) {
-			return '/*# sourceURL=' + cssMapping.sourceRoot + source + ' */'
-		});
-
-		return [content].concat(sourceURLs).concat([sourceMapping]).join('\n');
-	}
-
-	return [content].join('\n');
-}
-
-// Adapted from convert-source-map (MIT)
-function toComment(sourceMap) {
-	// eslint-disable-next-line no-undef
-	var base64 = btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap))));
-	var data = 'sourceMappingURL=data:application/json;charset=utf-8;base64,' + base64;
-
-	return '/*# ' + data + ' */';
-}
-
-
-/***/ }),
-/* 181 */
-/***/ (function(module, exports, __webpack_require__) {
-
-/*
-	MIT License http://www.opensource.org/licenses/mit-license.php
-	Author Tobias Koppers @sokra
-*/
-
-var stylesInDom = {};
-
-var	memoize = function (fn) {
-	var memo;
-
-	return function () {
-		if (typeof memo === "undefined") memo = fn.apply(this, arguments);
-		return memo;
-	};
-};
-
-var isOldIE = memoize(function () {
-	// Test for IE <= 9 as proposed by Browserhacks
-	// @see http://browserhacks.com/#hack-e71d8692f65334173fee715c222cb805
-	// Tests for existence of standard globals is to allow style-loader
-	// to operate correctly into non-standard environments
-	// @see https://github.com/webpack-contrib/style-loader/issues/177
-	return window && document && document.all && !window.atob;
-});
-
-var getTarget = function (target) {
-  return document.querySelector(target);
-};
-
-var getElement = (function (fn) {
-	var memo = {};
-
-	return function(target) {
-                // If passing function in options, then use it for resolve "head" element.
-                // Useful for Shadow Root style i.e
-                // {
-                //   insertInto: function () { return document.querySelector("#foo").shadowRoot }
-                // }
-                if (typeof target === 'function') {
-                        return target();
-                }
-                if (typeof memo[target] === "undefined") {
-			var styleTarget = getTarget.call(this, target);
-			// Special case to return head of iframe instead of iframe itself
-			if (window.HTMLIFrameElement && styleTarget instanceof window.HTMLIFrameElement) {
-				try {
-					// This will throw an exception if access to iframe is blocked
-					// due to cross-origin restrictions
-					styleTarget = styleTarget.contentDocument.head;
-				} catch(e) {
-					styleTarget = null;
-				}
-			}
-			memo[target] = styleTarget;
-		}
-		return memo[target]
-	};
-})();
-
-var singleton = null;
-var	singletonCounter = 0;
-var	stylesInsertedAtTop = [];
-
-var	fixUrls = __webpack_require__(182);
-
-module.exports = function(list, options) {
-	if (typeof DEBUG !== "undefined" && DEBUG) {
-		if (typeof document !== "object") throw new Error("The style-loader cannot be used in a non-browser environment");
-	}
-
-	options = options || {};
-
-	options.attrs = typeof options.attrs === "object" ? options.attrs : {};
-
-	// Force single-tag solution on IE6-9, which has a hard limit on the # of <style>
-	// tags it will allow on a page
-	if (!options.singleton && typeof options.singleton !== "boolean") options.singleton = isOldIE();
-
-	// By default, add <style> tags to the <head> element
-        if (!options.insertInto) options.insertInto = "head";
-
-	// By default, add <style> tags to the bottom of the target
-	if (!options.insertAt) options.insertAt = "bottom";
-
-	var styles = listToStyles(list, options);
-
-	addStylesToDom(styles, options);
-
-	return function update (newList) {
-		var mayRemove = [];
-
-		for (var i = 0; i < styles.length; i++) {
-			var item = styles[i];
-			var domStyle = stylesInDom[item.id];
-
-			domStyle.refs--;
-			mayRemove.push(domStyle);
-		}
-
-		if(newList) {
-			var newStyles = listToStyles(newList, options);
-			addStylesToDom(newStyles, options);
-		}
-
-		for (var i = 0; i < mayRemove.length; i++) {
-			var domStyle = mayRemove[i];
-
-			if(domStyle.refs === 0) {
-				for (var j = 0; j < domStyle.parts.length; j++) domStyle.parts[j]();
-
-				delete stylesInDom[domStyle.id];
-			}
-		}
-	};
-};
-
-function addStylesToDom (styles, options) {
-	for (var i = 0; i < styles.length; i++) {
-		var item = styles[i];
-		var domStyle = stylesInDom[item.id];
-
-		if(domStyle) {
-			domStyle.refs++;
-
-			for(var j = 0; j < domStyle.parts.length; j++) {
-				domStyle.parts[j](item.parts[j]);
-			}
-
-			for(; j < item.parts.length; j++) {
-				domStyle.parts.push(addStyle(item.parts[j], options));
-			}
-		} else {
-			var parts = [];
-=======
     /**
      * X coordinate for the slice tooltip.
      *
@@ -74321,7 +73878,6 @@ function addStylesToDom (styles, options) {
     };
     return RadarColumn;
 }(__WEBPACK_IMPORTED_MODULE_0__Column__["a" /* Column */]));
->>>>>>> 8697b6660e08cfb6117c11af6d72374af1467456
 
 /**
  * Register class in system, so that it can be instantiated using its name from
@@ -74617,7 +74173,7 @@ exports = module.exports = __webpack_require__(60)(false);
 
 
 // module
-exports.push([module.i, "\r\n/*MAP CSS Save seperately later*/\r\n\r\n.map-container {\r\n    background:  #73b5c059;\r\n}\r\n\r\n#map {\r\n    padding-top: 50px;\r\n    min-width: 940px;\r\n    text-align: center;\r\n    height: calc(100vh - 175px);\r\n}\r\n\r\n.state .icon {\r\n    stroke-width: 1;\r\n    stroke: #fff;\r\n    fill: currentColor;\r\n    height: 100%;\r\n    width: 100%;\r\n}\r\n\r\n.state {\r\n    color: #5a6aff;\r\n    transition: 500ms color;\r\n}\r\n\r\n\r\n.state-tiny {\r\n    width: 50px;\r\n    height: 50px;\r\n    float: left;\r\n    color: black;\r\n}\r\n\r\n\r\n\r\n\r\n.state:hover {\r\n    color: #72cfff;\r\n}\r\n\r\n.tooltip {\r\n    z-index: 9999999;\r\n}\r\n\r\n#popperElement {\r\n    padding: 15px;\r\n    background: rgba(255,255,255,0.9);\r\n    -webkit-border-radius: 10px;\r\n    -moz-border-radius: 10px;\r\n    border-radius: 10px;\r\n    border: 2px solid #ff9890;\r\n    width: 400px;\r\n}", ""]);
+exports.push([module.i, "\n/*MAP CSS Save seperately later*/\n\n.map-container {\n    background:  #73b5c059;\n}\n\n#map {\n    padding-top: 50px;\n    min-width: 940px;\n    text-align: center;\n    height: calc(100vh - 175px);\n}\n\n.state .icon {\n    stroke-width: 1;\n    stroke: #fff;\n    fill: currentColor;\n    height: 100%;\n    width: 100%;\n}\n\n.state {\n    color: #5a6aff;\n    transition: 500ms color;\n}\n\n\n.state-tiny {\n    width: 50px;\n    height: 50px;\n    float: left;\n    color: black;\n}\n\n\n\n\n.state:hover {\n    color: #72cfff;\n}\n\n.tooltip {\n    z-index: 9999999;\n}\n\n#popperElement {\n    padding: 15px;\n    background: rgba(255,255,255,0.9);\n    -webkit-border-radius: 10px;\n    -moz-border-radius: 10px;\n    border-radius: 10px;\n    border: 2px solid #ff9890;\n    width: 400px;\n}", ""]);
 
 // exports
 
