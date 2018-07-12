@@ -52,4 +52,9 @@ public class PostService {
         postDao.delete(post);
         return deletePost(id);
     }
+
+    public void delete(long id){
+        postDao.delete(deletePost(id));
+    }
+
 }
