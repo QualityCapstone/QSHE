@@ -1,10 +1,12 @@
 package com.codeup.qshe.controller;
 
+import com.codeup.qshe.models.State;
 import com.codeup.qshe.models.user.User;
 import com.codeup.qshe.models.user.UserProfile;
 import com.codeup.qshe.models.user.UserWithRoles;
 import com.codeup.qshe.repositories.Roles;
 import com.codeup.qshe.repositories.UserProfiles;
+import com.codeup.qshe.services.StateService;
 import com.codeup.qshe.services.messages.MessagesService;
 import com.codeup.qshe.services.user.UserDetailsLoader;
 import com.codeup.qshe.services.user.UserService;
@@ -31,6 +33,7 @@ public class UserController {
     private Roles roles;
     private UserProfiles userProfiles;
     private MessagesService messageDao;
+    private StateService stateDao;
 
     public UserController(UserService userDao, PasswordEncoder passwordEncoder, Roles roles,
                           MessagesService messageDao) {
@@ -78,7 +81,9 @@ public class UserController {
 
         model.addAttribute("conversations",
                 messageDao.getMessages().findDistinctBySenderOrRecipientOrderByIdAsc(user, user));
-
+        String userstate = user.getProfile().getUserState();
+        State state = stateDao.getStates().findByName(userstate);
+        model.addAttribute("state", state);
         model.addAttribute("user", user);
 
         return "users/profile";
