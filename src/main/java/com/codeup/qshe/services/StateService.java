@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class StateService {
@@ -61,6 +62,11 @@ public class StateService {
 
     public State findByName (String stateName) {
         State state = staterepository.findByName(stateName);
+        return state;
+    }
+
+    public Optional<State> findById(long id){
+        Optional<State> state = staterepository.findById(id);
         return state;
     }
 
