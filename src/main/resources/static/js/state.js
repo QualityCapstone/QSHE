@@ -3,8 +3,11 @@ import css from '../css/map.css';
 
 const api = require('./lib/local');
 
+
 const radarChart = require('./module/charts/radar');
 const horizontalBar = require('./module/charts/horizontal-bar');
+const growthChart = require('./module/charts/growth');
+const healthChart = require('./module/charts/waterfall');
 
 require('jquery-scrollify')($);
 
