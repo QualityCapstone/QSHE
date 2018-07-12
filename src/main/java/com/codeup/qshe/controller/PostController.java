@@ -5,18 +5,18 @@ import com.codeup.qshe.models.user.Post;
 import com.codeup.qshe.models.user.User;
 import com.codeup.qshe.repositories.Staterepository;
 import com.codeup.qshe.services.PostService;
-import com.codeup.qshe.services.StateService;
+
 import com.codeup.qshe.services.user.UserService;
-import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties;
+
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
-import org.springframework.security.core.context.SecurityContextHolder;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 public class PostController {
@@ -32,9 +32,11 @@ public class PostController {
     }
 
     @GetMapping("/posts/all/{id}")
-    private String viewPosts(@PathVariable long id, Model model, @PageableDefault(value=10)  Pageable pageable ) {
-        List<Post> posts = postDao.findAllByStateId(id);
+    private String viewPosts(@PathVariable long id, Model model, @PageableDefault(value=10) Pageable pageable) {
+        List<Post> posts = postDao.getPosts().findAllByStateId(id, pageable);
+
         model.addAttribute("posts", posts);
+
         return "posts/all";
     }
 
