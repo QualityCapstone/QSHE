@@ -9,56 +9,57 @@
 <div th:replace="partials/layout :: navbar" />
 
 <div class="container mt-4">
-        <div class="userProfile row">
-            <div class="col-sm-6">
-                <div class="card">
-                    <img class="card-img-top img-fluid mx-auto mt-3" src="/img/face_icons-circle-63.png" alt="Card image cap" style="width: 200px">
-                    <div class="card-body">
-                        <!--<h5 class="card-title">Card title</h5>-->
-                        <h1 class="text-center"> <span th:text="${#authentication.principal.profile.firstName}"></span> </h1>
-                        <p class="card-text text-center"> <span th:text="${#authentication.principal.profile.name}"></span> </p>
+    <div class="userProfile row">
+        <div class="col-sm-6">
+            <div class="card">
+                <img class="card-img-top img-fluid mx-auto mt-3" src="/img/face_icons-circle-63.png" alt="Card image cap" style="width: 200px">
+                <div class="card-body">
+                    <!--<h5 class="card-title">Card title</h5>-->
+                    <h1 class="text-center"> <span th:text="${#authentication.principal.profile.firstName}"></span> </h1>
+                    <p class="card-text text-center"> <span th:text="${#authentication.principal.profile.name}"></span> </p>
 
-                    </div>
                 </div>
             </div>
-            <div class="col-sm-6">
-                <div class="card">
-                    <div class="card-body">
-                        <!--<h5 class="card-title">Card title</h5>-->
-                        <h4 class="text-left">My name</h4>
-                        <h4 class="text-center"> <span th:text="${#authentication.principal.profile.firstName}"></span> </h4>
-                        <h4 class="text-center"> <span th:text="${#authentication.principal.profile.lastName}"></span> </h4>
-                        <h4 class="text-left">My email</h4>
-                        <h4 class="text-center"> <span th:text="${#authentication.principal.profile.email}"></span></h4>
-                        <h4 class="text-left">I live in:</h4>
-                        <h4 class="text-center"><span th:text="${#authentication.principal.profile.userState}"></span></h4>
-                        <!--<h1 class="text-center"> <span th:text="${#authentication.principal.profile.firstName}"></span> </h1>-->
-                        <h4 class="text-left">About me</h4>
-                        <p class="card-text text-center"> <span th:text="${#authentication.principal.profile.name}"></span> </p>
-                    </div>
-                    <button class="btn btn-sm"><a th:href="@{/profile}"> Edit Profile</a> </button>
+        </div>
+        <div class="col-sm-6">
+            <div class="card">
+                <div class="card-body">
+                    <!--<h5 class="card-title">Card title</h5>-->
+                    <h4 class="text-left">My name</h4>
+                    <h4 class="text-center"> <span th:text="${#authentication.principal.profile.firstName}"></span> </h4>
+                    <h4 class="text-center"> <span th:text="${#authentication.principal.profile.lastName}"></span> </h4>
+                    <h4 class="text-left">My email</h4>
+                    <h4 class="text-center"> <span th:text="${#authentication.principal.profile.email}"></span></h4>
+                    <h4 class="text-left">I live in:</h4>
+                    <h4 class="text-center"><span th:text="${#authentication.principal.profile.userState}"></span></h4>
+                    <!--<h1 class="text-center"> <span th:text="${#authentication.principal.profile.firstName}"></span> </h1>-->
+                    <h4 class="text-left">About me</h4>
+                    <p class="card-text text-center"> <span th:text="${#authentication.principal.profile.name}"></span> </p>
                 </div>
-
+                <button class="btn btn-sm"><a th:href="@{/profile}"> Edit Profile</a> </button>
             </div>
-            <!--<div class="row">-->
-                <!--<div class="col-md-4">-->
-                    <!--&lt;!&ndash;<img th:src="@{/uploads/cool-doge.gif}"  alt="didn't work"/>&ndash;&gt;-->
-                    <!--<img th:src="@{/uploads/} + ${user.profile.uploadPath}"  alt="didn't work"/>-->
-                    <!--<div>-->
-                        <!--Profile Picture-->
-                    <!--</div>-->
-                <!--</div>-->
-            <!--</div>-->
-            <div class="row mb-5">
+
+        </div>
+        <!--<div class="row">-->
+        <!--<div class="col-md-4">-->
+        <!--&lt;!&ndash;<img th:src="@{/uploads/cool-doge.gif}"  alt="didn't work"/>&ndash;&gt;-->
+        <!--<img th:src="@{/uploads/} + ${user.profile.uploadPath}"  alt="didn't work"/>-->
+        <!--<div>-->
+        <!--Profile Picture-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--</div>-->
+        <div class="row mb-5">
             <form th:action="@{/fileupload}" method="post" enctype="multipart/form-data" th:object="${user}">
                 <label for="file">Change your profile picture!</label>
                 <input id="file" name="file" type="file" />
                 <br />
                 <input type="submit" value="upload" />
             </form>
-            </div>
-            <div class="row m-5 m-auto">
-                <div class="col-6 text-center">
+        </div>
+        <div class="row m-5 m-auto">
+            <div class="col-6 text-center">
+
                 <h3>Your notifications</h3>
                 <div class="col-12 m-3 d-inline">
                     <button type="button" class="btn btn-primary notification-profile m-2">
@@ -68,134 +69,118 @@
                         Text Message <span class="badge badge-light">4</span>
                     </button>
                 </div>
-                </div>
-                <div class="col-6 text-center">
-                    <h3>Social media</h3>
-                    <div class="col-12 m-4 d-inline">
-                        <img class="fluid-img m-2" th:height="50" src="/img/Facebook.png">
-                        <img class="fluid-img m-2" th:height="50" src="/img/Google%20Plus.png">
-                    </div>
+            </div>
+            <div class="col-6 text-center">
+                <h3>Social media</h3>
+                <div class="col-12 m-4 d-inline">
+                    <img class="fluid-img m-2" th:height="50" src="/img/Facebook.png">
+                    <img class="fluid-img m-2" th:height="50" src="/img/Google%20Plus.png">
                 </div>
             </div>
-         </div>
-        </div><!-- end of tab-pane-fade -->
-
-        <!-- RATING-->
-        <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-            <!-- TO RATE -->
-            <h2>My Rating</h2>
-            <div class="row">
-                <div class="col-sm-6">
-                    <div class="card">
-                        <div class="card-body">
-                            <h3 class="mb-3">Rate each element of your State</h3>
-                            <form class="card card-block bg-faded m-3 p-3 login-card" th:action="@{/profile/rating}" method="POST" th:object="${userRating}">
-                                <h2 class="m-b-1 text-xs-center">Rate your state based on your own experiences</h2>
-                                <small class="form-text">From 1 as Good to 10 as bad:</small>
-                                <div class="form-group m-0">
-                                    <label class="text-left" for="violenceRate">How safe do you feel where you live?</label>
-                                    <input type="range" min="1" max="10" value="1" class="slider float-left" id="violenceRate" />
-                                    <p class="text-center float-right"><span id="demoViolence"></span></p>
-                                </div>
-                                <div class="form-group m-0">
-                                    <label class="text-left" for="employmentRate">How would you rank the employment rate in your state?</label>
-                                    <input type="range" min="1" max="10" value="1" class="slider float-left" id="employmentRate" />
-                                    <p class="text-center float-right"><span id="demoEmployment"></span></p>
-                                </div>
-                                <div class="form-group m-0">
-                                    <label class="text-left" for="educationRate">How would you rank the education system in your state?</label>
-                                    <input type="range" min="1" max="10" value="1" class="slider float-left" id="educationRate" />
-                                    <p class="text-center float-right"><span id="demoEducation"></span></p>
-                                </div>
-                                <div class="form-group m-0">
-                                    <label class="left-text" for="healthRate">How would you rank the health care system in your state?</label>
-                                    <input type="range" min="1" max="10" value="1" class="slider float-left" id="healthRate"/>
-                                    <p class="text-center float-right"><span id="demoHealth"></span></p>
-                                </div>
-                                <div class="form-group m-0">
-                                    <label class="text-left" for="growthRate">How would you rate the general growth in your state?</label>
-                                    <input type="range" min="1" max="10"value="1" class="slider float-left" id="growthRate" />
-                                    <p class="text-center float-right"><span id="demoGrowth"></span></p>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-6 float-right">
-                    <div class="card m-3">
-                        <div class="card-body">
-                            <h3 class="m-3">The state where you are living</h3>
-                            <img class="img-fluid m-5" src="/img/stateMaps/TX.png" style="width: 100px">
-                        </div>
-                    </div>
-                    <div class="card m-3"><!-- FOR THE OVERALL RATING -->
-                        <div class="card-body">
-                            <h3 class="mb-3">This is the overall rating you're giving to the State you live in</h3>
-                            <h1 class="text-center m-5" id="totalMarks"></h1>
-                            <form class="form-controll">
-                                <!--<input type="hidden" name="userId" th:value="${user.id}">-->
-                                <!--<input type="hidden" name="userRate" th:value="${userRating.id}">-->
-                                <!--<input type="hidden" name="stateId" th:value="${userRating.stateId}"-->
-                                <!--<input type="submit" id="overallRating" name="submit" class="submit form-control btn btn-secondary" th:field="*{userRating.id}"  value="Save" />-->
-                                <input type="submit" id="overallRating" name="submit" class="submit form-control btn btn-secondary" value="Save" />
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div><!-- THIS IS THE END OF THE RATING TAB -->
-        <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
-            <h3 class="mb-3">Messages</h3>
-
-            <table class="table table-hover">
-                <thead>
-                <tr>
-                    <th>UserName</th>
-                    <th class="d-none d-sm-table-cell sticky-header">Message</th>
-                    <th class="sticky-top">Status</th>
-
-                </tr>
-                </thead>
-                <tbody id="transaction-list">
-
-                <th:block th:each="c : ${conversations}">
-                    <tr class="conversation"  th:data-id="${c.id}">
-                        <td>
-                            <a th:href="@{~/messages/view/} + ${c.recipient.id}" th:text="${c.recipient.username}"></a>
-                        </td>
-                        <td>
-                            <span class="text-muted" th:text="${c.message} ">Since 05/01/2012</span>
-                        </td>
-                        <td><span>Unread</span>
-                        </td>
-
-                    </tr>
-
-                </th:block>
-
-                </tbody>
-            </table>
         </div>
     </div>
+</div><!-- end of tab-pane-fade -->
+
+<!-- RATING-->
+<div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+    <!-- TO RATE -->
+    <h2>My Rating</h2>
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="mb-3">Rate each element of your State</h3>
+                    <form class="card card-block bg-faded m-3 p-3 login-card" th:action="@{/profile/rating}" method="POST" th:object="${userRating}">
+                        <h2 class="m-b-1 text-xs-center">Rate your state based on your own experiences</h2>
+                        <small class="form-text">From 1 as Good to 10 as bad:</small>
+                        <div class="form-group m-0">
+                            <label class="text-left" for="violenceRate">How safe do you feel where you live?</label>
+                            <input type="range" min="1" max="10" value="1" class="slider float-left" id="violenceRate" />
+                            <p class="text-center float-right"><span id="demoViolence"></span></p>
+                        </div>
+                        <div class="form-group m-0">
+                            <label class="text-left" for="employmentRate">How would you rank the employment rate in your state?</label>
+                            <input type="range" min="1" max="10" value="1" class="slider float-left" id="employmentRate" />
+                            <p class="text-center float-right"><span id="demoEmployment"></span></p>
+                        </div>
+                        <div class="form-group m-0">
+                            <label class="text-left" for="educationRate">How would you rank the education system in your state?</label>
+                            <input type="range" min="1" max="10" value="1" class="slider float-left" id="educationRate" />
+                            <p class="text-center float-right"><span id="demoEducation"></span></p>
+                        </div>
+                        <div class="form-group m-0">
+                            <label class="left-text" for="healthRate">How would you rank the health care system in your state?</label>
+                            <input type="range" min="1" max="10" value="1" class="slider float-left" id="healthRate"/>
+                            <p class="text-center float-right"><span id="demoHealth"></span></p>
+                        </div>
+                        <div class="form-group m-0">
+                            <label class="text-left" for="growthRate">How would you rate the general growth in your state?</label>
+                            <input type="range" min="1" max="10"value="1" class="slider float-left" id="growthRate" />
+                            <p class="text-center float-right"><span id="demoGrowth"></span></p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 float-right">
+            <div class="card m-3">
+                <div class="card-body">
+                    <h3 class="m-3">The state where you are living</h3>
+                    <img class="img-fluid m-5" src="/img/stateMaps/TX.png" style="width: 100px">
+                </div>
+            </div>
+            <div class="card m-3"><!-- FOR THE OVERALL RATING -->
+                <div class="card-body">
+                    <h3 class="mb-3">This is the overall rating you're giving to the State you live in</h3>
+                    <h1 class="text-center m-5" id="totalMarks"></h1>
+                    <form class="form-controll">
+                        <!--<input type="hidden" name="userId" th:value="${user.id}">-->
+                        <!--<input type="hidden" name="userRate" th:value="${userRating.id}">-->
+                        <!--<input type="hidden" name="stateId" th:value="${userRating.stateId}"-->
+                        <!--<input type="submit" id="overallRating" name="submit" class="submit form-control btn btn-secondary" th:field="*{userRating.id}"  value="Save" />-->
+                        <input type="submit" id="overallRating" name="submit" class="submit form-control btn btn-secondary" value="Save" />
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div><!-- THIS IS THE END OF THE RATING TAB -->
+<div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+    <h3 class="mb-3">Messages</h3>
+
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th>UserName</th>
+            <th class="d-none d-sm-table-cell sticky-header">Message</th>
+            <th class="sticky-top">Status</th>
+
+        </tr>
+        </thead>
+        <tbody id="transaction-list">
+
+        <th:block th:each="c : ${conversations}">
+            <tr class="conversation"  th:data-id="${c.id}">
+                <td>
+                    <a th:href="@{~/messages/view/} + ${c.recipient.id}" th:text="${c.recipient.username}"></a>
+                </td>
+                <td>
+                    <span class="text-muted" th:text="${c.message} ">Since 05/01/2012</span>
+                </td>
+                <td><span>Unread</span>
+                </td>
+
+            </tr>
+
+        </th:block>
+
+        </tbody>
+    </table>
+</div>
+</div>
 </div>
 
-             <h1>Display Profile Page</h1>
-            <h1 class="text-left"> <span th:text="${#authentication.principal.profile.firstName}"></span> </h1>
-            <div class="col-xs-8">
-
-                <h4 class="text-center"> <span th:text="${#authentication.principal.profile.firstName}"></span> </h4>
-                <h4 class="text-center"> <span th:text="${#authentication.principal.profile.lastName}"></span> </h4>
-                <h4 class="text-center"> <span th:text="${#authentication.principal.profile.email}"></span></h4>
-                <h4 class="text-center"> <span th:text="${#authentication.principal.profile.userState}"></span></h4>
-            </div>
-
-            <button class="btn"><a th:href="@{/profile}"> Edit Profile</a> </button>
-
-            <br   />
-            <div>
-                <h1 class="userState"><span text="UserState"></span></h1>
-            </div>
-         </div>
+</div>
 </div>
 <div th:replace="partials/layout :: footer" />
 
@@ -208,7 +193,7 @@
     sliderOne.oninput = function(){
         outputOne.innerHTML = this.value;
     };
-    //
+
     // // USER RATE VALUE FOR EMPLOYMENT
     var sliderTwo = document.getElementById("employmentRate");
     var outputTwo = document.getElementById("demoEmployment");
@@ -277,4 +262,4 @@
     }
 </script>
 </body>
-</html>
+</html></html>
