@@ -1,7 +1,11 @@
 package com.codeup.qshe.controller;
 
 import com.codeup.qshe.models.State;
+import com.codeup.qshe.services.FlickrService;
 import com.codeup.qshe.services.StateService;
+import com.flickr4java.flickr.FlickrException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +18,12 @@ import java.util.List;
  class StateController {
   private final StateService stateDao;
 
+    @Value("${flickr-key}")
+    private String apiKey;
+    @Value("${flickr-secret}")
+    private String sharedSecret;
+
+    @Autowired
   public StateController(StateService stateDao){
       this.stateDao = stateDao;
   }
@@ -26,29 +36,34 @@ import java.util.List;
   }
 
     @GetMapping("/state/{abbr}")
-    public String viewState(@PathVariable String abbr, Model model) {
+    public String viewState(@PathVariable String abbr, Model model) throws FlickrException {
       State state = stateDao.getStates().findByAbbr(abbr);
+
+      FlickrService f = new FlickrService(apiKey, sharedSecret);
+
+
         model.addAttribute("states", stateDao.getStates().findAll());
         model.addAttribute("state", state);
-        return "states/viewstate"; }
+        model.addAttribute("photos", f.getPhotos(state.getName(),1));
+        return "states/viewstate";
+  }
+
+        @GetMapping("/state/compare/{abbr}/{abbr2}")
+    public String compareState(@PathVariable String abbr, @PathVariable String abbr2, Model model) {
+
+            State stateA = stateDao.getStates().findByAbbr(abbr);
+            State stateB = stateDao.getStates().findByAbbr(abbr2);
+
+            model.addAttribute("states", stateDao.getStates().findAll());
+
+            model.addAttribute("stateA", stateA);
+            model.addAttribute("stateB", stateB);
+
+      return "states/compare";
 
 
-        @GetMapping("/users/viewstate")
-        public String viewState(Model view) {
-            System.out.println("hello");
-          List<State> states = stateDao.findAll();
-            view.addAttribute("state", states);
-
-            return "/users/viewstate";
-      }
+    }
 
 
-        @GetMapping("/viewstate/{id}")
-        public String showDetails(@PathVariable long id, Model view){
-            System.out.println("entro");
-            State state = stateDao.findByName("state");
-            view.addAttribute("state", state);
 
-            return "redirect:/viewstate";
-        }
 }

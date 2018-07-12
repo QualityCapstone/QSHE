@@ -46,8 +46,8 @@ public class FileUploadController {
         User copy = new User(user);
 
 
-        String filename = uploadedFile.getOriginalFilename();
-//        String filename = UUID.randomUUID().toString();
+//        String filename = uploadedFile.getOriginalFilename();
+        String filename = UUID.randomUUID().toString();
         String filepath = Paths.get(uploadPath, filename).toString();
         File destinationFile = new File(filepath);
         copy.getProfile().setUploadPath(filename);

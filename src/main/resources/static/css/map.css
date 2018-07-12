@@ -12,6 +12,11 @@
     height: calc(100vh - 175px);
 }
 
+
+#radar-chart {
+    min-height: 400px;
+}
+
 .state .icon {
     stroke-width: 1;
     stroke: #fff;
