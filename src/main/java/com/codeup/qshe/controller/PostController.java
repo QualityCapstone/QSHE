@@ -78,10 +78,10 @@ public class PostController {
     public String delete(@PathVariable long id){
         User currentuser = userDao.getLoggedInUser();
         Post post = postDao.findOne(id);
-        if (post.getUser().getId() != currentuser.getId()){
-            System.out.println("this message");
-            return "redirect:/login";
-        }else
+//        if (post.getUser().getId() != currentuser.getId()){
+//            System.out.println("this message");
+//            return "redirect:/login";
+//        }else
             postDao.delete(id);
         return "redirect:/posts/{id}/all";
     }

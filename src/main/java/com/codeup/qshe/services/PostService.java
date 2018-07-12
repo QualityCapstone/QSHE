@@ -50,7 +50,7 @@ public class PostService {
     public Post deletePost(long id){
         Post post = postDao.findById(id).get();
         postDao.delete(post);
-        return deletePost(id);
+        return post;
     }
 
     public void delete(long id){
