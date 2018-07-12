@@ -7,10 +7,20 @@ const Raphael = require('raphael');
 const Popper = require('popper.js').default;
 const Tooltip = require('tooltip.js').default;
 
+const api = require('./lib/local');
+
 const radarChart = require('./module/charts/radar');
 const horizontalBar = require('./module/charts/horizontal-bar');
 
 require('jquery-scrollify')($);
+
+
+let apiData;
+
+api.getData("state/ratings/average").then(function(data) {
+    console.log(data);
+    apiData = data;
+});
 
 
 window.onload = function () {
@@ -19,6 +29,9 @@ window.onload = function () {
         require('../css/map-world.css');
 
         console.log("map found");
+
+
+
         // exists.
         var R = Raphael("map", "100%", "100%"),
             attr = {
@@ -89,18 +102,33 @@ window.onload = function () {
             let popEle = $('#popperElement');
 
            let selectedState = [];
+           let selectedMetrics = [];
 
-            for(state in stateData) {
+            for(state in apiData) {
 
-               let currState = stateData[state].abbr;
+               let currState = apiData[state].abbr;
 
                 if  (currState === inputState.toUpperCase()) {
-                    selectedState =  stateData[state];
+                    selectedState =  apiData[state];
+                    selectedMetrics = apiData[state].metrics;
                 }
             }
 
             $('#state-name').text(selectedState.name);
             $('#state-abbr').text(selectedState.abbr);
+
+
+            for(let key in  selectedMetrics) {
+
+                let percent = selectedMetrics[key] * 10;
+
+                $(`#${key.toLowerCase()}-progress`).css("width",percent + '%');
+
+                console.log(key + selectedMetrics[key]);
+
+            }
+
+            console.log(selectedMetrics);
 
 
         }
