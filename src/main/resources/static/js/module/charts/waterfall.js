@@ -3,46 +3,59 @@ import * as am4charts from "@amcharts/amcharts4/charts";
 import am4themes_animated from "@amcharts/amcharts4/themes/animated";
 
 am4core.useTheme(am4themes_animated);
+am4core.Sprite.configField = "config";
 
 
 var chart = am4core.create("health-chart", am4charts.XYChart);
 
 chart.data = [ {
-    "name": "Income A",
+    "name": "Non-Violent",
     "open": 0,
     "close": 11.13,
-    "color": "#54cb6a",
-    "balloonValue": 11.13
+    "balloonValue": 11.13,
+    "config": {
+        "fill": "#54cb6a"
+    }
 }, {
-    "name": "Income B",
+    "name": "Violent",
     "open": 11.13,
     "close": 15.81,
-    "color": "#54cb6a",
-    "balloonValue": 4.68
+    "balloonValue": 4.68,
+    "config": {
+        "fill": "#54cb6a"
+    }
 }, {
-    "name": "Total Income",
+    "name": "Total Crime",
     "open": 0,
     "close": 15.81,
-    "color": "#169b2f",
-    "balloonValue": 15.81
+    "balloonValue": 15.81,
+    "config": {
+        "fill": "#169b2f"
+    }
 }, {
-    "name": "Expenses A",
+    "name": "Rape",
     "open": 12.92,
     "close": 15.81,
-    "color": "#cc4b48",
-    "balloonValue": 2.89
+    "balloonValue": 2.89,
+    "config": {
+        "fill": "#cc4b48"
+    }
 }, {
-    "name": "Expenses B",
+    "name": "Murder",
     "open": 8.64,
     "close": 12.92,
-    "color": "#cc4b48",
-    "balloonValue": 4.24
+    "balloonValue": 4.24,
+    "config": {
+        "fill": "#cc4b48"
+    }
 }, {
-    "name": "Revenue",
+    "name": "Burglary",
     "open": 0,
     "close": 8.64,
-    "color": "#1c8ceb",
-    "balloonValue": 11.13
+    "balloonValue": 11.13,
+    "config": {
+        "fill": "#1c8ceb"
+    }
 } ];
 
 
@@ -51,29 +64,32 @@ chart.data = [ {
 var categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
 categoryAxis.dataFields.category = "name";
 categoryAxis.title.text = "Crime Category";
-categoryAxis.renderer.grid.template.location = 0;
-categoryAxis.renderer.minGridDistance = 20;
+
 
 var  valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
 valueAxis.title.text = "Incidents";
 
-
 // Create series
 var series = chart.series.push(new am4charts.ColumnSeries());
-series.dataFields.valueY = "balloonValue";
-series.dataFields.categoryX = "close";
-series.dataFields.openCategoryX = "open";
+series.dataFields.categoryX = "name";
+series.dataFields.valueY = "close";
+series.dataFields.openValueY = "open";
+
+
+series.columns.template.configField = "config";
 series.name = "Crime - 2010";
 series.tooltipText = "{name}: [bold]{valueY}[/]";
-// This has no effect
-// series.stacked = true;
 
+
+// series.columns.template.adapter.add("fill", (fill, target) => {
+//     return chart.colors.getIndex(target.dataItem.index);
+// });
 
 // Add cursor
 chart.cursor = new am4charts.XYCursor();
 
-// Add legend
-chart.legend = new am4charts.Legend();
+// // Add legend
+// chart.legend = new am4charts.Legend();
 
 
 //     "valueAxes": [ {
