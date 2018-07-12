@@ -33,25 +33,26 @@
         </ul>
     </div>
 
-<div class="container bg-white text-center border border-dark rounded mt-5">
+<div class="card bg-white text-center border border-dark rounded mt-5">
     <h1>New Message <i class="fas fa-comment" ></i></h1>
     <div class="" tabindex="-1" role="dialog" aria-labelledby="exampleModal" aria-hidden="true">
         <div class="" role="document">
-            <div class="mb-4">
+            <div class="col-12 mb-4">
                 <div class="">
                     <h5 class="" id="exampleModalLabel">Send <span></span> New Message to <span th:text="${recipient.username}"></span></h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
+                        <!--<span aria-hidden="true">&times;</span>-->
                     </button>
                 </div>
                 <form th:action="@{~/messages/create}" method="post">
-                    <div class="">
+                    <div class="col-6">
 
                         <input type="hidden" name="recipient-id" th:value="${recipient.id}">
-
-                        <input type="text"  class="form-control mb-5" id="message" name="message"/>
-
                     </div>
+                    <div class="col-6">
+                        <input type="text"  class="form-control mb-5" id="message" name="message"/>
+                    </div>
+
                     <div class="">
                         <button type="submit" class="btn btn-outline-primary">Send</button>
                     </div>
