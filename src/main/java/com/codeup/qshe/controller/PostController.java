@@ -1,8 +1,10 @@
 package com.codeup.qshe.controller;
 
+import com.codeup.qshe.models.State;
 import com.codeup.qshe.models.user.Post;
 import com.codeup.qshe.models.user.User;
 import com.codeup.qshe.services.PostService;
+import com.codeup.qshe.services.StateService;
 import com.codeup.qshe.services.user.UserService;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -15,10 +17,12 @@ import java.util.List;
 public class PostController {
     private final PostService postDao;
     private final UserService userDao;
+    private final StateService stateDao;
 
-    public PostController(PostService postDao, UserService userDao){
+    public PostController(PostService postDao, UserService userDao, StateService stateDao){
         this.postDao = postDao;
         this.userDao = userDao;
+        this.stateDao =stateDao;
     }
 
     @GetMapping("/posts/all/{id}")
@@ -37,14 +41,20 @@ public class PostController {
 //    }
 
     @PostMapping("/posts/all")
-    public String createPost (@RequestParam(name = "blogpost") String userInput){
+    public String createPost (@RequestParam(name = "blogpost") String userInput,
+                              @RequestParam(name = "title") String title,
+                              @RequestParam(name = "state") String state){
         System.out.println("hello posts");
         User user = userDao.getLoggedInUser();
+     State thisState=stateDao.findByName(state);
+
         Post post = new Post();
+        post.setTitle(title);
+        post.setStateId(thisState.getId());
         post.setBody(userInput);
         post.setUser(user);
         postDao.save(post);
-        return "posts/all";
+        return "redirect:/posts/all";
     }
 
 }
