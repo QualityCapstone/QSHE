@@ -70,7 +70,7 @@ public class UserController {
         userDao.getUsers().addDefaultRole(user.getId());
 
         authenticate(user);
-        return "redirect:/profile";
+        return "redirect:/users/displayprofile";
     }
 
 
@@ -81,9 +81,9 @@ public class UserController {
 
         model.addAttribute("conversations",
                 messageDao.getMessages().findDistinctBySenderOrRecipientOrderByIdAsc(user, user));
-        String userstate = user.getProfile().getUserState();
-        State state = stateDao.getStates().findByName(userstate);
-        model.addAttribute("state", state);
+//        String userstate = user.getProfile().getUserState();
+//        State state = stateDao.getStates().findByName(userstate);
+//        model.addAttribute("state", state);
         model.addAttribute("user", user);
 
         return "users/profile";
