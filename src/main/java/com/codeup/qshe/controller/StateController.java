@@ -1,7 +1,9 @@
 package com.codeup.qshe.controller;
 
 import com.codeup.qshe.models.State;
+import com.codeup.qshe.models.user.StateMetric;
 import com.codeup.qshe.services.FlickrService;
+import com.codeup.qshe.services.StateMetricService;
 import com.codeup.qshe.services.StateService;
 import com.flickr4java.flickr.FlickrException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +19,7 @@ import java.util.List;
 @Controller
  class StateController {
   private final StateService stateDao;
+  private final StateMetricService metricDao;
 
     @Value("${flickr-key}")
     private String apiKey;
@@ -24,14 +27,17 @@ import java.util.List;
     private String sharedSecret;
 
     @Autowired
-  public StateController(StateService stateDao){
+  public StateController(StateService stateDao, StateMetricService metricDao){
       this.stateDao = stateDao;
+      this.metricDao = metricDao;
   }
 
   @GetMapping("/us")
   public String viewAll(Model model) {
 
       model.addAttribute("states", stateDao.getStates().findAll());
+      model.addAttribute("ratings", metricDao.averageUserRatingsByState());
+
       return "states/map";
   }
 
@@ -40,7 +46,6 @@ import java.util.List;
       State state = stateDao.getStates().findByAbbr(abbr);
 
       FlickrService f = new FlickrService(apiKey, sharedSecret);
-
 
         model.addAttribute("states", stateDao.getStates().findAll());
         model.addAttribute("state", state);

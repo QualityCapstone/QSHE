@@ -1,0 +1,19 @@
+.navbar {
+    z-index: 100;
+    background-color: transparent;
+}
+
+.navbar-dark, .bg-primary {
+    background-color: transparent !important;
+
+}
+
+
+.btn-secondary {
+    background-color: transparent;
+    border: 0;
+}
+
+.btn-secondary:hover {
+    background-color: transparent;
+}

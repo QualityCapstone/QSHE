@@ -1,20 +1,37 @@
 
 /*MAP CSS Save seperately later*/
 
+body {
+    background-image: url("../img/map.jpg");
+    -webkit-background-size: cover;
+    background-size: cover;
+}
+
+
 .map-container {
-    background:  #73b5c059;
+
+    height: calc(100vh - 115px);
 }
 
 #map {
-    padding-top: 50px;
+    padding-top: 5px;
     min-width: 940px;
     text-align: center;
-    height: calc(100vh - 175px);
+    height: 600px;
+    max-height: 100vh;
 }
 
 
 #radar-chart {
     min-height: 400px;
+}
+
+#education-chart {
+    height: calc(100vh - 200px);
+}
+
+#growth-chart, #health-chart {
+    height: calc(100vh - 200px);
 }
 
 .state .icon {
@@ -40,7 +57,6 @@
 
 
 
-
 .state:hover {
     color: #72cfff;
 }
@@ -57,4 +73,8 @@
     border-radius: 10px;
     border: 2px solid #ff9890;
     width: 400px;
+}
+
+.page {
+    padding: 20px;
 }

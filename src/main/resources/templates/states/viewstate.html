@@ -13,9 +13,11 @@
 
 <div th:replace="partials/layout :: navbar" />
 
+<div class="scroller">
+
 <th:block th:each="p : ${photos}">
     <!--<img th:src="${p.medium800Url}">-->
-    <div  class="d-flex flex-column justify-content-center align-items-center state-header" th:style="@{background-image: url(} + ${p.large1600Url}+ @{);}">
+    <div  class=" page d-flex flex-column justify-content-center align-items-center state-header" th:style="@{background-image: url(} + ${p.large1600Url}+ @{);}">
 
 
         <div class="state-header-icon">
@@ -58,7 +60,7 @@
     <div class="padding-container">
 
     <div class="state-nav row">
-        <div class="col-md-6">
+        <div class="col-md-2 text-nowrap">
 
             <div class="state state-tiny" id="state-tiny" th:data-state-abbr="${state.abbr}">
                 <svg th:class="@{icon icon-state-} + ${state.abbr}">
@@ -69,7 +71,7 @@
 
             <h1>
                 <span th:text="${state.name}"></span></h1></div>
-        <div class="col-md-6 ml-auto">
+        <div class="col-md-10 ml-auto text-nowrap">
             <div class="form-inline form-row text-right align-items-right">
                 <select id="inputState" class="form-control ml-auto mr-3">
                     <option disabled selected>Select State...</option>
@@ -85,14 +87,13 @@
 
     <hr>
 
-        <div class="row row-full-screen mb-4">
+        <div class=" page row row-full-screen ">
             <div class="col-md-4">
-                <div class="card mb-4">
+                <div class="card mb-4 mt-4">
                     <div class="card-header" >
                         <h5>State News</h5>
                     </div>
                     <div class="card-body">
-
                         <ul id="statenews" th:data-state-name="${state.name}"></ul>
                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal">View more News</button>
                     </div>
@@ -103,8 +104,12 @@
                         <h5>State Discussions</h5>
                     </div>
                     <div class="card-body">
-
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal">View all</button>
+                        <ul>
+                            <li>People want more taxes!</li>
+                            <li>Why did my neighbor wake up so early?</li>
+                            <li>Health concerns are threatening my TV</li>
+                        </ul>
+                        <a th:href="@{~/posts/all/}+ ${state.id}" class="btn btn-primary">View More</a>
                     </div>
                 </div>
             </div>
@@ -112,8 +117,21 @@
                 <div id="radar-chart"></div>
             </div>
         </div>
+        <form th:action="@{~/posts/all/}+ ${state.id}" method="get">
+            <div class="">
 
-            <div class="row  row-full-screen mb-4 row-dark">
+                <input type="hidden" name="recipient-id" th:value="${state.id}">
+
+                <!--<input type="text"  class="form-control mb-5" id="message" name="message"/>-->
+                <div class="">
+                    <button type="submit" class="btn btn-outline-primary">Blog</button>
+                </div>
+
+            </div>
+
+        </form>
+
+            <div class="row  page   row-full-screen row-dark">
 
                 <div class="col-md-4">
                     <h2>Safety / Crime</h2>
@@ -139,7 +157,7 @@
 
 
 
-        <div class="row   row-full-screen mb-4">
+        <div class="row   page row-full-screen">
 
             <div class="col-md-4">
                 <h2>Growth</h2>
@@ -161,7 +179,9 @@
                 </div>
             </div>
 
-        </div> <div class="row  row-full-screen mb-4 row-dark">
+        </div>
+
+        <div class="row  page  row-full-screen mb-4 row-dark">
 
         <div class="col-md-4">
             <h2>Education</h2>
@@ -178,7 +198,7 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-body">
-                    <div id="crime-chart"></div>
+                    <div id="education-chart"></div>
                 </div>
             </div>
         </div>
@@ -187,14 +207,36 @@
 
 
 
+        <div class="row  page   row-full-screen">
+
+            <div class="col-md-4">
+                <h2>Health</h2>
 
 
+                <p>User Ratings: </p>
+                <p>True Sense: </p>
 
-    </div>
+                <p>Texas is ranked 50 out of 50 in Crime.</p>
+                <p>The average crime rate has gone down 1.2% from 2010 to 2015</p>
+                <p>A rise in rapes, murders and suicides has been noted over the same period</p>
+
+            </div>
+
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-body">
+                        <div id="health-chart"></div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+</div>
 
 
     <div th:replace="partials/layout :: footer" />
-<script th:src="@{~/built/map.js}"> </script>
+<script th:src="@{~/built/state.js}"> </script>
 <script th:src="@{~/built/news.js}"></script>
 </body>
 </html>
