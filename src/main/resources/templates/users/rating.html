@@ -25,14 +25,14 @@
                 <div class="col-sm-6">
                     <div class="card">
                         <div class="card-body">
-                            <h3 class="mb-3">Rate each element of your State</h3>
-                            <form class=" bg-faded m-3 p-3 rating-slider" th:action="@{/users/rating}" method="post" th:object="${stateUserRating}">
+                            <h3 class="col-10 mb-3">Rate each element of your State</h3>
+                            <form class=" bg-faded m-3 p-3" th:action="@{/users/rating}" method="post" th:object="${stateUserRating}">
                                 <!--<h2 class="m-b-1 text-xs-center"></h2>-->
                                 <!--<small class="form-text">You can rate your state now or later:</small>-->
                                 <div class="form-group">
                                     <h5 class="m-b-1 text-center">From 1 as Good to 10 as Bad:</h5>
                                 </div>
-                                <div class="form-group m-0">
+                                <div class="form-group m-0 mb-2">
                                     <label class="text-left" for="violenceRate">How safe do you feel where you live?</label>
                                     <input type="range" min="1" max="10" value="1" class="slider float-left" id="violenceRate" style="background-color: #DC6F68" />
                                     <input type="hidden" id="hdrating" name="hdrating">
