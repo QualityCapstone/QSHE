@@ -6,7 +6,7 @@ am4core.useTheme(am4themes_animated);
 am4core.Sprite.configField = "config";
 
 
-var chart = am4core.create("health-chart", am4charts.XYChart);
+var chart = am4core.create("crime-chart", am4charts.XYChart);
 
 chart.data = [ {
     "name": "Non-Violent",
