@@ -2,6 +2,7 @@ package com.codeup.qshe.controller.api;
 
 
 import com.codeup.qshe.models.State;
+import com.codeup.qshe.models.StateCrime;
 import com.codeup.qshe.models.state.StateAverageRanking;
 import com.codeup.qshe.models.user.StateUserRating;
 import com.codeup.qshe.services.StateMetricService;
@@ -47,6 +48,19 @@ public class ApiStateMetricController {
 
         return ResponseEntity.ok(rating);
     }
+
+
+    @RequestMapping(value="/crime/{abbr}", method=GET, produces= MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody ResponseEntity getCrimeData(@PathVariable String abbr) throws Exception {
+        State state  = stateDao.getStates().findByAbbr(abbr);
+
+
+        List<StateCrime> crime = stateDao.getCrimes().findAllByState(state);
+
+        return ResponseEntity.ok(crime);
+    }
+
+
 
 
 

@@ -1,5 +1,5 @@
 import css from '../css/map.css';
-require('../css/map-world.css');
+
 
 
 const data = require('./module/map/us-map-svg');
@@ -11,12 +11,19 @@ const api = require('./lib/local');
 
 let apiData;
 
+api.getData("state/ratings/average").then(function(data) {
+    console.log(data);
+    apiData = data;
+});
+
+
 window.onload = function () {
 
     if ($('#map').length > 0) {
+        require('../css/map-world.css');
 
-        api.getData("state/ratings/average").then(function(avgData) {
-            apiData = avgData;
+        console.log("map found");
+
 
 
         // exists.
@@ -44,6 +51,7 @@ window.onload = function () {
             usRaphael[state].attr({"fill": usRaphael[state].color});
 
             (function (st, state) {
+
 
                 st[0].style.cursor = "pointer";
 
@@ -110,15 +118,21 @@ window.onload = function () {
 
                 $(`#${key.toLowerCase()}-progress`).css("width",percent + '%');
 
+                console.log(key + selectedMetrics[key]);
 
             }
+
+            console.log(selectedMetrics);
+
 
         }
 
 
-        });
-
     } // end of full map
 
+
+
 };
+
+
 

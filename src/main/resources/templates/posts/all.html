@@ -22,7 +22,6 @@
                 <p class="text-left" th:text="'About: '+${post.title}"></p>
                 <p class="text-left" th:text="${post.body}"></p>
                 <hr class="create-form" style="height: 10px"/>
-                <!--<p th:text="${message.sender_id}"></p>-->
             </div>
 
             <div class="col-3" sec:authorize="isAuthenticated()">
