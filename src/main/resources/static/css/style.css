@@ -27,6 +27,20 @@ body {
     background-color: none;
 }
 
+.slider {
+    background-color: #DC6F68;
+
+}
+.rating-slider {
+    border: solid 1px #DC6F68;
+}
+
+.title-slider {
+    color: #DC6F68;
+    margin: 10px;
+    font-size: 96px;
+}
+
 .bubble-message {
     width: 20%;
     position: relative;

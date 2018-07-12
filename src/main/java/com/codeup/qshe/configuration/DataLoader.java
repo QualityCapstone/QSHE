@@ -504,8 +504,8 @@ public class DataLoader implements ApplicationRunner {
 //            reach inside of JSON and ignore first node
             JsonNode inner = node.get("results").get(i);
             StateCrime data = new StateCrime(
-                    stateDao.getStates().findByName("state_abbr"),
-                    inner.get("state_abbr").toString(),
+                    stateDao.getStates().findByAbbr(inner.get("state_abbr").asText()),
+                    inner.get("state_abbr").asText(),
                     inner.get("population").asLong(),
                     inner.get("year").asLong(),
                     inner.get("violent_crime").asLong(),

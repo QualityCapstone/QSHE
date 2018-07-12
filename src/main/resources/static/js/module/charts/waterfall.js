@@ -1,62 +1,142 @@
 import * as am4core from "@amcharts/amcharts4/core";
 import * as am4charts from "@amcharts/amcharts4/charts";
 import am4themes_animated from "@amcharts/amcharts4/themes/animated";
+const api = require('../../lib/local');
 
 am4core.useTheme(am4themes_animated);
-am4core.Sprite.configField = "config";
+
+
+let currentData = [];
+
+api.getData("state/crime/TX").then(function(stateData) {
+
+    console.log(stateData);
+    let crimeData = stateData;
+
+    for(let key in crimeData) {
+
+        if(crimeData[key].year === 2015) {
+            currentData = crimeData[key]
+        }
+    }
+
+    console.log(currentData);
+
 
 
 var chart = am4core.create("crime-chart", am4charts.XYChart);
 
+
 chart.data = [ {
     "name": "Non-Violent",
     "open": 0,
-    "close": 11.13,
-    "balloonValue": 11.13,
+    "close": currentData.nonViolentCrimeTotal,
+    "balloonValue": currentData.nonViolentCrimeTotal,
     "config": {
         "fill": "#54cb6a"
     }
 }, {
     "name": "Violent",
-    "open": 11.13,
-    "close": 15.81,
-    "balloonValue": 4.68,
+    "open": currentData.nonViolentCrimeTotal,
+    "close": currentData.totalCrime ,
+    "balloonValue": currentData.violentCrimeTotal,
     "config": {
         "fill": "#54cb6a"
     }
 }, {
     "name": "Total Crime",
     "open": 0,
-    "close": 15.81,
-    "balloonValue": 15.81,
+    "close": currentData.totalCrime,
+    "balloonValue": currentData.totalCrime,
     "config": {
         "fill": "#169b2f"
     }
+
+
+//    NON VIOLENT CRIMES
+
 }, {
-    "name": "Rape",
-    "open": 12.92,
-    "close": 15.81,
-    "balloonValue": 2.89,
-    "config": {
-        "fill": "#cc4b48"
-    }
-}, {
-    "name": "Murder",
-    "open": 8.64,
-    "close": 12.92,
-    "balloonValue": 4.24,
+    "name": "Property Damage",
+    "open": 0,
+    "close": currentData.propertyCrimeCount,
+    "balloonValue": currentData.propertyCrimeCount,
     "config": {
         "fill": "#cc4b48"
     }
 }, {
     "name": "Burglary",
-    "open": 0,
-    "close": 8.64,
-    "balloonValue": 11.13,
+    "open": currentData.propertyCrimeCount,
+    "close": currentData.propertyCrimeCount + currentData.burglaryCount,
+    "balloonValue": currentData.burglaryCount,
+    "config": {
+        "fill": "#cc4b48"
+    }
+}, {
+    "name": "Larceny",
+    "open": currentData.propertyCrimeCount + currentData.burglaryCount,
+    "close": currentData.propertyCrimeCount + currentData.burglaryCount + currentData.larcenyCount,
+    "balloonValue": currentData.larcenyCount,
     "config": {
         "fill": "#1c8ceb"
     }
-} ];
+}, {
+    "name": "Car Theft",
+    "open": currentData.propertyCrimeCount + currentData.burglaryCount + currentData.larcenyCount,
+    "close": currentData.propertyCrimeCount + currentData.burglaryCount + currentData.larcenyCount + currentData.motorTheftCount,
+    "balloonValue": currentData.motorTheftCount,
+    "config": {
+        "fill": "#1c8ceb"
+    }
+}, {
+    "name": "Assault",
+    "open":  currentData.nonViolentCrimeTotal,
+    "close":  currentData.nonViolentCrimeTotal + currentData.assaultCount,
+    "balloonValue": currentData.assaultCount,
+    "config": {
+        "fill": "#1c8ceb"
+    }
+
+    //VIOLENT CRIMES
+}, {
+    "name": "Arson",
+    "open":  currentData.propertyCrimeCount + currentData.burglaryCount + currentData.larcenyCount + currentData.motorTheftCount,
+    "close":  currentData.propertyCrimeCount + currentData.burglaryCount + currentData.larcenyCount + currentData.motorTheftCount + currentData.arsonCount,
+    "balloonValue": currentData.arsonCount,
+    "config": {
+        "fill": "#1c8ceb"
+    }
+}, {
+    "name": "Arson",
+    "open":  currentData.propertyCrimeCount + currentData.burglaryCount + currentData.larcenyCount + currentData.motorTheftCount,
+    "close":  currentData.propertyCrimeCount + currentData.burglaryCount + currentData.larcenyCount + currentData.motorTheftCount + currentData.arsonCount,
+    "balloonValue": currentData.arsonCount,
+    "config": {
+        "fill": "#1c8ceb"
+    }
+}, {
+    "name": "Arson",
+    "open":  currentData.propertyCrimeCount + currentData.burglaryCount + currentData.larcenyCount + currentData.motorTheftCount,
+    "close":  currentData.propertyCrimeCount + currentData.burglaryCount + currentData.larcenyCount + currentData.motorTheftCount + currentData.arsonCount,
+    "balloonValue": currentData.arsonCount,
+    "config": {
+        "fill": "#1c8ceb"
+    }
+}, {
+    "name": "Arson",
+    "open":  currentData.propertyCrimeCount + currentData.burglaryCount + currentData.larcenyCount + currentData.motorTheftCount,
+    "close":  currentData.propertyCrimeCount + currentData.burglaryCount + currentData.larcenyCount + currentData.motorTheftCount + currentData.arsonCount,
+    "balloonValue": currentData.arsonCount,
+    "config": {
+        "fill": "#1c8ceb"
+    }
+}
+
+
+];
+
+
+
+
 
 
 
@@ -68,6 +148,7 @@ categoryAxis.title.text = "Crime Category";
 
 var  valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
 valueAxis.title.text = "Incidents";
+valueAxis.min = 500000;
 
 // Create series
 var series = chart.series.push(new am4charts.ColumnSeries());
@@ -148,3 +229,6 @@ chart.cursor = new am4charts.XYCursor();
 //     "enabled": true
 // }
 // } );
+
+
+});
