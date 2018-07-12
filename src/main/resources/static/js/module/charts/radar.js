@@ -81,11 +81,11 @@ if ($('#radar-chart').length > 0) {
 }
 
 
-if ($('#crime-chart').length > 0) {
+if ($('#health-chart').length > 0) {
 
 
     // Create chart instance
-    var chart = am4core.create("crime-chart", am4charts.XYChart);
+    var chart = am4core.create("health-chart", am4charts.XYChart);
 
 // Add data
     chart.data = [{
