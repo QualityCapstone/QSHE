@@ -1,7 +1,5 @@
 <!DOCTYPE html>
-
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4" lang="en">
-
 <head th:replace="partials/layout :: header">
     <meta charset="UTF-8" />
     <title>Home</title>
@@ -12,21 +10,19 @@
     </style>
 </head>
 <body>
-<div th:replace="states/svg :: states-svg" />
 <div th:replace="partials/layout :: navbar" />
 <span class="overlay"></span>
-
 <div class="container wrapper mx-auto" sec:authorize="isAuthenticated()">
-    <div class="text-left col-12">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a th:href="@{~/profile}">Home</a></li>
-            <li class="breadcrumb-item"><a  th:href="@{~/dashboard}">
-                <span th:text="${#authentication?.principal?.profile?.name}"></span>
-            </a></li>
-            <li class="breadcrumb-item active">Profile</li>
-        </ol>
-    </div>
-
+    <!--<div class="text-left col-12">-->
+    <!--<ol class="breadcrumb">-->
+    <!--<li class="breadcrumb-item"><a th:href="@{~/profile}">Home</a></li>-->
+    <!--<li class="breadcrumb-item"><a  th:href="@{~/dashboard}">-->
+    <!--<span th:text="${#authentication?.principal?.profile?.username}"></span>-->
+    <!--</a></li>-->
+    <!--<li class="breadcrumb-item active">Profile</li>-->
+    <!--</ol>-->
+    <!--</div>-->
+    <!-- THIS ARE THE TABS FOR THE PROFILE PAGE -->
     <!--file upload modal-->
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -38,7 +34,6 @@
                     <form th:action="@{/fileupload}" method="post" enctype="multipart/form-data" th:object="${user}">
                         <input id="file" name="file" type="file" />
                         <br />
-                        <br />
                         <input type="submit" value="upload" />
                     </form>
                 </div>
@@ -48,96 +43,79 @@
             </div>
         </div>
     </div>
-
     <div class="container wrapper mx-auto" sec:authorize="isAuthenticated()">
-        <div class="text-left col-12">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a th:href="@{~/profile}">Home</a></li>
-                <li class="breadcrumb-item"><a  th:href="@{~/dashboard}">
-                    <span th:text="${#authentication?.principal?.profile?.name}"></span>
-                </a></li>
-                <li class="breadcrumb-item active">Profile</li>
-            </ol>
-
-        </div>
-        <!-- THESE ARE THE TABS FOR THE PROFILE PAGE -->
-        <nav>
-            <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                <a class="nav-item nav-profile nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Profile</a>
-                <a class="nav-item nav-profile nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">My rating</a>
-                <a class="nav-item nav-profile nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">Messages</a>
-            </div>
-        </nav>
+        <!--<div class="text-left col-12">-->
+        <!--<ol class="breadcrumb">-->
+        <!--<li class="breadcrumb-item"><a th:href="@{~/profile}">Home</a></li>-->
+        <!--<li class="breadcrumb-item"><a  th:href="@{~/dashboard}">-->
+        <!--<span th:text="${#authentication?.principal?.profile?.name}"></span>-->
+        <!--</a></li>-->
+        <!--<li class="breadcrumb-item active">Profile</li>-->
+        <!--</ol>-->
+        <!--</div>-->
+        <!-- THIS ARE THE TABS FOR THE PROFILE PAGE -->
+        <!--<nav>-->
+        <!--<div class="nav nav-tabs" id="nav-tab" role="tablist">-->
+        <!--<a class="nav-item nav-profile nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Profile</a>-->
+        <!--<a class="nav-item nav-profile nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">My rating</a>-->
+        <!--<a class="nav-item nav-profile nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">Messages</a>-->
+        <!--</div>-->
+        <!--</nav>-->
         <!-- ThIS IS THE PROFILE TAB -->
         <div class="tab-content" id="nav-tabContent">
             <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-                PROFILE
-                <div class="row">
-                    <p>Profile Picture</p>
-                    <div class="col-md-4">
-                        <img th:if="${user.profile.uploadPath == null}" style="height: 150px; width: 150px" th:src="@{/img/defaultavatar.png}" alt="none" />
-                        <img th:if="${user.profile.uploadPath}" style="height: 150px; width: 150px" th:src="@{/uploads/} + ${user.profile.uploadPath}"  alt="didn't work" />
-                    </div>
-                </div>
+                <h1 class="text-center">Edit your profile</h1>
+                <!--<div class="row">-->
+                <!--<p>Profile Picture</p>-->
+                <!--<div class="col-md-4">-->
+                <!--<img th:if="${user.profile.uploadPath == null}" style="height: 150px; width: 150px" th:src="@{/img/defaultavatar.png}" alt="none" />-->
+                <!--<img th:if="${user.profile.uploadPath}" style="height: 150px; width: 150px" th:src="@{/uploads/} + ${user.profile.uploadPath}"  alt="didn't work" />-->
+                <!--</div>-->
+                <!--</div>-->
             </div>
             <br />
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+            <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#exampleModal">
                 Change your profile picture!
             </button>
             <br />
-            <div class="col-md-8">
+            <div class="col-md-8 m-auto">
                 <h2>User ID <span th:text="${#authentication.principal.id}" /></h2>
-
                 <form th:action="@{/user/} + ${#authentication.principal.id} + @{/edit}" th:method="post" th:object="${user}" >
-
-
                     <label for="username">Username</label>
                     <input type="text" class="form-control" id="username" th:placeholder="${#authentication.principal.username}" th:field="*{username}"/>
-
                     <br />
-
                     <label for="firstName">First Name</label>
                     <input id="firstName" class="form-control"  type="text" th:placeholder="${#authentication.principal.profile.firstName}" th:field="*{profile.firstName}">
-
                     <br />
-
                     <label for="lastName">Last Name</label>
                     <input id="lastName" class="form-control" placeholder="Last Name" type="text" th:field="*{profile.lastName}">
-
                     <br />
-
-
                     <label for="email">Email</label>
                     <input type="email" class="form-control"  id="email" th:attr="placeholder=${#authentication.principal.profile.email}"  th:field="*{profile.email}"/>
-
                     <br />
-
                     <label for="name">A Little About Me</label>
                     <input id="name" class="form-control" placeholder="About Me" type="text"  th:field="*{profile.name}" />
-
                     <button type="submit" class="btn btn-primary m-5">save changes</button>
-
                 </form>
             </div>
-            <div class="row mt-5 mb-5">
-                <h3>Your notifications</h3>
-                <div class="col-12 text-left">
-                    <button type="button" class="btn btn-primary notification-profile">
-                        Email <span class="badge badge-light">4</span>
-                    </button>
-                    <button type="button" class="btn btn-primary notification-profile">
-                        Text Message <span class="badge badge-light">4</span>
-                    </button>
-                </div>
-            </div>
-
-            <div class="row mb-5">
-                <h3>Social media</h3>
-                <div class="col-12">
-                    <img class="fluid-img m-2" th:height="50" src="/img/Facebook.png">
-                    <img class="fluid-img m-2" th:height="50" src="/img/Google%20Plus.png">
-                </div>
-            </div>
+            <!--<div class="row mt-5 mb-5">-->
+            <!--<h3>Your notifications</h3>-->
+            <!--<div class="col-12 text-left">-->
+            <!--<button type="button" class="btn btn-primary notification-profile">-->
+            <!--Email <span class="badge badge-light">4</span>-->
+            <!--</button>-->
+            <!--<button type="button" class="btn btn-primary notification-profile">-->
+            <!--Text Message <span class="badge badge-light">4</span>-->
+            <!--</button>-->
+            <!--</div>-->
+            <!--</div>-->
+            <!--<div class="row mb-5">-->
+            <!--<h3>Social media</h3>-->
+            <!--<div class="col-12">-->
+            <!--<img class="fluid-img m-2" th:height="50" src="/img/Facebook.png">-->
+            <!--<img class="fluid-img m-2" th:height="50" src="/img/Google%20Plus.png">-->
+            <!--</div>-->
+            <!--</div>-->
         </div>
         <!-- THIS IS THE RATING AREA -->
         <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
@@ -169,7 +147,8 @@
                                     <input type="range" min="1" max="10" value="1" class="slider float-left" id="educationRate" />
                                     <p class="text-center float-right"><span id="demoEducation"></span></p>
                                 </div>
-                                <div class="form-group m-0"><label class="left-text" for="healthRate">How would you rank the health care system in your state?</label>
+                                <div class="form-group m-0">
+                                    <label class="left-text" for="healthRate">How would you rank the health care system in your state?</label>
                                     <input type="range" min="1" max="10" value="1" class="slider float-left" id="healthRate"/>
                                     <p class="text-center float-right"><span id="demoHealth"></span></p>
                                 </div>
@@ -186,13 +165,7 @@
                     <div class="card m-3">
                         <div class="card-body">
                             <h3 class="m-3">The state where you are living</h3>
-                            <div class="state-header-icon">
-                                <div class="state pt-4">
-                                    <svg th:class="@{icon icon-state-} + ${state.abbr}">
-                                        <use th:xlink:href="@{#icon-state-} + ${state.abbr}"></use>
-                                    </svg>
-                                </div>
-                            </div>
+                            <img class="img-fluid m-5" src="/img/stateMaps/TX.png" style="width: 100px">
                         </div>
                     </div>
                     <div class="card m-3"><!-- FOR THE OVERALL RATING -->
@@ -214,18 +187,15 @@
         <!-- HERE ARE THE MESSAGES -->
         <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
             <h3 class="mb-3">Messages</h3>
-
             <table class="table table-hover">
                 <thead>
                 <tr>
                     <th>UserName</th>
                     <th class="d-none d-sm-table-cell sticky-header">Message</th>
                     <th class="sticky-top">Status</th>
-
                 </tr>
                 </thead>
                 <tbody id="transaction-list">
-
                 <th:block th:each="c : ${conversations}">
                     <tr class="conversation"  th:data-id="${c.id}">
                         <td>
@@ -236,22 +206,14 @@
                         </td>
                         <td><span>Unread</span>
                         </td>
-
                     </tr>
-
                 </th:block>
-
-
-
                 </tbody>
             </table>
         </div>
     </div><!-- THIS IS THE END OF THE TAB-CONTENT -->
-
 </div><!-- THIS IS THE END OF THE DIV COL-12 -->
-
 </div><!-- THIS IS THE END OF MAIN WRAPPER OF THE CONTENT -->
-
 <div th:replace="partials/layout :: footer" />
 <script type="text/javascript">
     // USER RATE VALUE FOR VIOLENCE
@@ -318,6 +280,5 @@
         // $('.avg-ovral-rtng .rating-stars').css("width", star + "%");
     }
 </script>
-
 </body>
 </html>
