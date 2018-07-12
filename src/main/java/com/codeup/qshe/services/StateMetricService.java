@@ -95,6 +95,23 @@ public class StateMetricService {
     }
 
 
+    public StateAverageRanking averageUserRatingsByState(State state) {
+
+        List<StateMetric> metrics = getStateMetrics().findAll();
+        StateAverageRanking rank = new StateAverageRanking(state);
+
+        for(StateMetric metric : metrics) {
+            Float  average = getRatings().avgRatingByStateAndMetric(state, metric);
+            rank.addMetric(metric,average);
+        }
+
+        return rank;
+
+
+    }
+
+
+
 //    public HashMap<State, Float> overallAverageRatingByState() {
 //
 //    }

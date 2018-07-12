@@ -1,6 +1,7 @@
 package com.codeup.qshe.controller.api;
 
 
+import com.codeup.qshe.models.State;
 import com.codeup.qshe.models.state.StateAverageRanking;
 import com.codeup.qshe.models.user.StateUserRating;
 import com.codeup.qshe.services.StateMetricService;
@@ -35,5 +36,18 @@ public class ApiStateMetricController {
 
         return ResponseEntity.ok(ratings);
     }
+
+
+    @RequestMapping(value="/ratings/average/{abbr}", method=GET, produces= MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody ResponseEntity getAvgRatings(@PathVariable String abbr) throws Exception {
+
+        State state  = stateDao.getStates().findByAbbr(abbr);
+
+        StateAverageRanking rating = metricDao.averageUserRatingsByState(state);
+
+        return ResponseEntity.ok(rating);
+    }
+
+
 
 }
