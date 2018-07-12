@@ -11,12 +11,11 @@
     <!-- STEP ONE -->
         <div class="row">
         <div class="col-12 col-lg-6 col-md-10 m-auto">
-        <h1 class="text-center">Create an account</h1>
+        <h1 class="text-center">Register</h1>
             <!-- USERNAME, EMAIL AND PASSWORD -->
         <div id="signupUser">
         <form name="register" class="card card-block bg-faded m-3 p-3 login-card" th:action="@{/sign-up}" method="post" th:object="${user}" th:required="required">
             <h2 class="fs-title">Create your account</h2>
-            <h3 class="fs-subtitle">This is step 1</h3>
             <!--<h2 class="m-b-1 text-xs-center">Step one</h2>-->
             <div class="input-group mb-3">
                 <div class="input-group-prepend">

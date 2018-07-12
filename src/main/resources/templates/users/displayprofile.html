@@ -40,15 +40,7 @@
             </div>
 
         </div>
-        <!--<div class="row">-->
-        <!--<div class="col-md-4">-->
-        <!--&lt;!&ndash;<img th:src="@{/uploads/cool-doge.gif}"  alt="didn't work"/>&ndash;&gt;-->
-        <!--<img th:src="@{/uploads/} + ${user.profile.uploadPath}"  alt="didn't work"/>-->
-        <!--<div>-->
-        <!--Profile Picture-->
-        <!--</div>-->
-        <!--</div>-->
-        <!--</div>-->
+
         <div class="row mb-5">
             <form th:action="@{/fileupload}" method="post" enctype="multipart/form-data" th:object="${user}">
                 <label for="file">Change your profile picture!</label>
