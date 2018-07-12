@@ -26,7 +26,7 @@
             <li class="breadcrumb-item active">Profile</li>
         </ol>
     </div>
-    <!-- THIS ARE THE TABS FOR THE PROFILE PAGE -->
+
 <!--file upload modal-->
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -37,6 +37,7 @@
             <div class="modal-body">
                 <form th:action="@{/fileupload}" method="post" enctype="multipart/form-data" th:object="${user}">
                     <input id="file" name="file" type="file" />
+                    <br />
                     <br />
                     <input type="submit" value="upload" />
                 </form>
@@ -59,7 +60,7 @@
             </ol>
 
         </div>
-        <!-- THIS ARE THE TABS FOR THE PROFILE PAGE -->
+        <!-- THESE ARE THE TABS FOR THE PROFILE PAGE -->
         <nav>
             <div class="nav nav-tabs" id="nav-tab" role="tablist">
                 <a class="nav-item nav-profile nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Profile</a>
