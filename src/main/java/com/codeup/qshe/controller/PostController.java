@@ -7,11 +7,14 @@ import com.codeup.qshe.repositories.Staterepository;
 import com.codeup.qshe.services.PostService;
 import com.codeup.qshe.services.StateService;
 import com.codeup.qshe.services.user.UserService;
+import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -29,7 +32,7 @@ public class PostController {
     }
 
     @GetMapping("/posts/all/{id}")
-    private String viewPosts(@PathVariable long id,Model model) {
+    private String viewPosts(@PathVariable long id, Model model, @PageableDefault(value=10)  Pageable pageable ) {
         List<Post> posts = postDao.findAllByStateId(id);
         model.addAttribute("posts", posts);
         return "posts/all";
@@ -54,13 +57,38 @@ public class PostController {
         Post post = new Post();
         model.addAttribute("blogpost", post);
         post.setBody(blogpost);
-        post.setTitle(title);
+        post.setCreatedAt(LocalDateTime.now());
+
+        post.setTitle(state.getName());
         post.setStateId(state.getId());
         post.setUser(user);
 
 
         postDao.save(post);
         return "redirect:/posts/all/{id}";
+    }
+
+    @DeleteMapping("/posts/{id}/delete")
+    public String deletePost(@PathVariable long id, Model model){
+
+        model.addAttribute("post", postDao);
+        postDao.findOne(id);
+        postDao.deletePost(id);
+
+        return "redirect: /posts/{id}/all";
+    }
+
+    @PostMapping("posts/{id}/delete")
+    public String delete(@PathVariable long id,
+                         @RequestParam(name = "state_id") long stateid){
+        User currentuser = userDao.getLoggedInUser();
+        Post post = postDao.findOne(id);
+//        if (post.getUser().getId() != currentuser.getId()){
+//            System.out.println("this message");
+//            return "redirect:/login";
+//        }else
+        postDao.delete(id);
+        return "redirect:/posts/all/"+ stateid;
     }
 
 }

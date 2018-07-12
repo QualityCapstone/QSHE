@@ -6,6 +6,7 @@ import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 import javax.persistence.GeneratedValue;
+import java.time.LocalDateTime;
 
 @Entity
 @Table
@@ -21,6 +22,9 @@ public class Post {
 
     @Column
     private String title;
+
+    @Column
+    private LocalDateTime createdAt;
 
     @Column(name = "body", columnDefinition = "TEXT")
     private String body;
@@ -50,12 +54,13 @@ public class Post {
         this.body = body;
     }
 
-    public Post(User user, String title, String body, String topic, Long stateId) {
+    public Post(User user, String title, String body, String topic, Long stateId, LocalDateTime createdAt) {
         this.user = user;
         this.title = title;
         this.body = body;
         this.topic = topic;
         this.stateId = stateId;
+        this.createdAt = createdAt;
     }
 
     public Long getId() {
@@ -68,6 +73,10 @@ public class Post {
 
     public String getTitle() {
         return title;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
     }
 
     public String getBody() {
@@ -92,6 +101,10 @@ public class Post {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
     }
 
     public void setBody(String body) {

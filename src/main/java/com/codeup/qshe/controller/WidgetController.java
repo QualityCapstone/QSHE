@@ -18,13 +18,13 @@ public class WidgetController {
         this.postService= postService;
     }
 
-    @DeleteMapping("/posts/{id}/delete")
-    public String deleteMessage(@PathVariable long id){
-        postService.findOne(id);
-        postService.deletePost(id);
-
-        return "redirect: /posts";
-    }
+//    @DeleteMapping("/posts/{id}/delete")
+//    public String deleteMessage(@PathVariable long id){
+//        postService.findOne(id);
+//        postService.deletePost(id);
+//
+//        return "redirect: /posts";
+//    }
 
 
 //    @PostMapping("/posts/{id}/delete")
