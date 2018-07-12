@@ -1,18 +1,23 @@
 import css from '../css/map.css';
 
+
+
 const data = require('./module/map/us-map-svg');
 const Raphael = require('raphael');
 const Popper = require('popper.js').default;
 const Tooltip = require('tooltip.js').default;
 
 const radarChart = require('./module/charts/radar');
+const horizontalBar = require('./module/charts/horizontal-bar');
 
-
+require('jquery-scrollify')($);
 
 
 window.onload = function () {
 
     if ($('#map').length > 0) {
+        require('../css/map-world.css');
+
         console.log("map found");
         // exists.
         var R = Raphael("map", "100%", "100%"),
@@ -150,5 +155,26 @@ window.onload = function () {
 
     }
 
+    $.scrollify({
+        section : ".page",
+        interstitialSection : "body",
+        easing: "easeOutExpo",
+        scrollSpeed: 1100,
+        offset : -62,
+        scrollbars: true,
+        standardScrollElements: "",
+        overflowScroll: true,
+        updateHash: true,
+        touchScroll:true,
+        before:function() {},
+        after:function() {},
+        afterResize:function() {},
+        afterRender:function() {}
+    });
+
+
 
 };
+
+
+
