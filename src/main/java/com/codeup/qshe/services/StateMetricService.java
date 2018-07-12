@@ -1,6 +1,7 @@
 package com.codeup.qshe.services;
 
 import com.codeup.qshe.models.State;
+import com.codeup.qshe.models.state.StateAverageRanking;
 import com.codeup.qshe.models.user.StateMetric;
 import com.codeup.qshe.models.user.StateUserRating;
 import com.codeup.qshe.models.user.User;
@@ -70,24 +71,27 @@ public class StateMetricService {
 
     // Returns all states average User ratings for the associated
     // ranking
-    public HashMap<State, List<StateUserRating>> averageUserRatingsByState() {
+    public List<StateAverageRanking> averageUserRatingsByState() {
 
-       HashMap<State, List<StateUserRating>> map = new HashMap<>();
        List<State> states = getStates().findAll();
+       List<StateMetric> metrics = getStateMetrics().findAll();
+
+       List<StateAverageRanking> avgRankings = new ArrayList<>();
 
        for(State state : states) {
-           List<StateUserRating> avgRatings = new ArrayList<>();
-           List<StateMetric> metrics = getStateMetrics().findAll();
+
+           StateAverageRanking rank = new StateAverageRanking(state);
 
            for(StateMetric metric : metrics) {
-               Float  average = getRatings().avgRatingByStateAndMetric(state, metric );
-               avgRatings.add(new StateUserRating(state,metric,average));
+               Float  average = getRatings().avgRatingByStateAndMetric(state, metric);
+                rank.addMetric(metric,average);
            }
 
-           map.put(state, avgRatings);
+           avgRankings.add(rank);
+
        }
 
-       return map;
+       return avgRankings;
     }
 
 

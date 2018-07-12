@@ -1,19 +1,31 @@
 import css from '../css/map.css';
 
+
+
 const data = require('./module/map/us-map-svg');
 const Raphael = require('raphael');
 const Popper = require('popper.js').default;
 const Tooltip = require('tooltip.js').default;
 
-const radarChart = require('./module/charts/radar');
+const api = require('./lib/local');
 
+let apiData;
 
+api.getData("state/ratings/average").then(function(data) {
+    console.log(data);
+    apiData = data;
+});
 
 
 window.onload = function () {
 
     if ($('#map').length > 0) {
+        require('../css/map-world.css');
+
         console.log("map found");
+
+
+
         // exists.
         var R = Raphael("map", "100%", "100%"),
             attr = {
@@ -84,18 +96,33 @@ window.onload = function () {
             let popEle = $('#popperElement');
 
            let selectedState = [];
+           let selectedMetrics = [];
 
-            for(state in stateData) {
+            for(state in apiData) {
 
-               let currState = stateData[state].abbr;
+               let currState = apiData[state].abbr;
 
                 if  (currState === inputState.toUpperCase()) {
-                    selectedState =  stateData[state];
+                    selectedState =  apiData[state];
+                    selectedMetrics = apiData[state].metrics;
                 }
             }
 
             $('#state-name').text(selectedState.name);
             $('#state-abbr').text(selectedState.abbr);
+
+
+            for(let key in  selectedMetrics) {
+
+                let percent = selectedMetrics[key] * 10;
+
+                $(`#${key.toLowerCase()}-progress`).css("width",percent + '%');
+
+                console.log(key + selectedMetrics[key]);
+
+            }
+
+            console.log(selectedMetrics);
 
 
         }
@@ -104,51 +131,9 @@ window.onload = function () {
     } // end of full map
 
 
-    if ($('#inputState').length > 0) {
-
-        $('#inputState').on('change', function() {
-
-            let currentAbbr = $('#state-tiny').attr("data-state-abbr");
-            let abbr =  this.value;
-
-            $('.state-btn').attr('data-selected-abbr',abbr);
-
-        })
-
-
-        $('.state-btn').click(function() {
-
-            let selected = $(this).attr('data-selected-abbr');
-            let current = $(this).attr('data-current-abbr');
-
-
-            console.log(selected);
-            console.log(current);
-
-
-            if (current === undefined) {
-                console.log("this is go to button");
-                window.location = "/state/" + selected.toUpperCase();
-            } else {
-
-                if(selected === undefined) {
-                    console.log("nothing is selected");
-                    return;
-                }
-
-                window.location = "/state/compare/" + current.toUpperCase() + "/" + selected.toUpperCase() ;
-
-
-            }
-
-        });
-
-
-
-
-
-
-    }
 
 
 };
+
+
+
