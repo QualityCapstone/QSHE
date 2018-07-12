@@ -1,5 +1,6 @@
 package com.codeup.qshe.controller;
 
+import com.codeup.qshe.models.State;
 import com.codeup.qshe.models.user.User;
 import com.codeup.qshe.repositories.UserProfiles;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,11 +27,13 @@ public class UserProfileController {
     }
 
     @GetMapping("/users/displayprofile")
-    public String displayProfile(Model view){
-
-    User current = userDao.getLoggedInUser();
-    
-    view.addAttribute(current);
+    public String displayProfile(Model model) {
+        User user = userDao.getLoggedInUser();
+        String userstate = user.getProfile().getUserState();
+        System.out.println(userstate);
+        System.out.println("hello world");
+        model.addAttribute("state", userstate);
+        model.addAttribute("user", user);
 
     return "users/displayprofile";
     }
