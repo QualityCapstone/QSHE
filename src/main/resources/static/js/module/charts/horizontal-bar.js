@@ -6,9 +6,10 @@ am4core.useTheme(am4themes_animated);
 
 if ($('#education-chart').length > 0) {
 
-
     // Create chart instance
     var chart = am4core.create("education-chart", am4charts.XYChart);
+
+
 
 // Add data
     chart.data = [{
