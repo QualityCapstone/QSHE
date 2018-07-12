@@ -234,4 +234,22 @@ public class StateCrime {
     public void setArsonCount(Long arsonCount) {
         this.arsonCount = arsonCount;
     }
+
+
+    public Long getViolentCrimeTotal() {
+        return this.getHomicideCount() +
+                this.getRapeCount() + this.getRobberyCount() +
+                this.getAssaultCount();
+    }
+
+    public Long getNonViolentCrimeTotal() {
+        return this.propertyCrimeCount + this.burglaryCount +
+                this.larcenyCount + this.motorTheftCount + this.arsonCount;
+
+    }
+
+    public Long  getTotalCrime() {
+        return getViolentCrimeTotal() + getNonViolentCrimeTotal();
+    }
+
 }
