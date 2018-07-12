@@ -4,12 +4,14 @@ import am4themes_animated from "@amcharts/amcharts4/themes/animated";
 
 const api = require('../../lib/local');
 
-
 am4core.useTheme(am4themes_animated);
 
 if ($('#radar-chart').length > 0) {
 
-    api.getData("state/ratings/average/ID").then(function(avgData) {
+
+    let abbr = $('#state-name').attr('data-abbr');
+
+    api.getData("state/ratings/average/" + abbr).then(function(avgData) {
 
         console.log(avgData.metrics);
         let  radarData = avgData.metrics;

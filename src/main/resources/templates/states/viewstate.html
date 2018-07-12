@@ -28,7 +28,7 @@
             </div>
         </div>
 
-        <div class="state-header-name" th:text="${state.name}"></div>
+        <div id="state-name" class="state-header-name" th:data-abbr="${state.abbr}" th:text="${state.name}"></div>
 
     </div>
 </th:block>
