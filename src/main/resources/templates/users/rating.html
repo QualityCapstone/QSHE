@@ -5,60 +5,61 @@
     <title>Home</title>
 </head>
 <body>
+<div th:replace="states/svg :: states-svg" />
 <div th:replace="partials/layout :: navbar" />
 <span class="overlay"></span>
 
 <div class="container wrapper mx-auto" sec:authorize="isAuthenticated()">
-    <div class="text-left col-12">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a th:href="@{~/profile}">Home</a></li>
-            <li class="breadcrumb-item"><a  th:href="@{~/dashboard}">
-                <span th:text="${#authentication?.principal?.profile?.name}"></span>
-            </a></li>
-            <li class="breadcrumb-item active">Profile</li>
-        </ol>
-    </div>
+    <!--<div class="text-left col-12">-->
+        <!--<ol class="breadcrumb">-->
+            <!--<li class="breadcrumb-item"><a th:href="@{~/profile}">Home</a></li>-->
+            <!--<li class="breadcrumb-item"><a  th:href="@{~/dashboard}">-->
+                <!--<span th:text="${#authentication?.principal?.profile?.name}"></span>-->
+            <!--</a></li>-->
+            <!--<li class="breadcrumb-item active">Profile</li>-->
+        <!--</ol>-->
+    <!--</div>-->
     <div class="container">
             <!-- TO RATE -->
-            <h2>My Rating</h2>
+            <h2 class="text-center mb-5">Please rate each element of your state!</h2>
             <div class="row">
                 <div class="col-sm-6">
                     <div class="card">
                         <div class="card-body">
-                            <h3 class="mb-3">Rate each element of your State</h3>
-                            <form class="card card-block bg-faded m-3 p-3 login-card" th:action="@{/users/rating}" method="post" th:object="${stateUserRating}">
-                                <h2 class="m-b-1 text-xs-center">Step 3</h2>
-                                <small class="form-text">You can rate your state now or later:</small>
+                            <!--<h3 class="col-10 mb-3">Rate each element of your State</h3>-->
+                            <form class=" bg-faded m-3 p-3" th:action="@{/users/rating}" method="post" th:object="${stateUserRating}">
+                                <!--<h2 class="m-b-1 text-xs-center"></h2>-->
+                                <!--<small class="form-text">You can rate your state now or later:</small>-->
                                 <div class="form-group">
-                                    <h5 class="m-b-1 text-center">1 = Good  10 = Bad</h5>
+                                    <h5 class="m-b-1 text-center">1:Bad | 10: Good:</h5>
                                 </div>
-                                <div class="form-group m-0">
+                                <div class="form-group m-0 mb-2">
                                     <label class="text-left" for="violenceRate">How safe do you feel where you live?</label>
-                                    <input type="range" min="1" max="10" value="1" class="slider float-left" id="violenceRate" />
+                                    <input type="range" min="1" max="10" value="1" class="slider float-left" id="violenceRate" style="background-color: #DC6F68" />
                                     <input type="hidden" id="hdrating" name="hdrating">
                                     <p class="text-center float-right" id="rating"><span class="slider-val"></span></p>
                                 </div>
                                 <div class="form-group m-0">
                                     <label class="text-left" for="employmentRate">How would you rank the employment rate in your state?</label>
-                                    <input type="range" min="1" max="10" value="1" class="slider float-left" id="employmentRate" />
+                                    <input type="range" min="1" max="10" value="1" class="slider float-left" id="employmentRate" style="background-color: #DC6F68"/>
                                     <p class="text-center float-right"><span class="slider-val"></span></p>
                                 </div>
                                 <div class="form-group m-0">
                                     <label class="text-left" for="educationRate">How would you rank the education system in your state?</label>
-                                    <input type="range" min="1" max="10" value="1" class="slider float-left" id="educationRate" />
+                                    <input type="range" min="1" max="10" value="1" class="slider float-left" id="educationRate" style="background-color: #DC6F68"/>
                                     <p class="text-center float-right"><span class="slider-val"></span></p>
                                 </div>
                                 <div class="form-group m-0">
                                     <label class="left-text" for="healthRate">How would you rank the health care system in your state?</label>
-                                    <input type="range" min="1" max="10" value="1" class="slider float-left" id="healthRate"/>
+                                    <input type="range" min="1" max="10" value="1" class="slider float-left" id="healthRate" style="background-color: #DC6F68"/>
                                     <p class="text-center float-right"><span class="slider-val"</span></p>
                                 </div>
                                 <div class="form-group m-0">
                                     <label class="text-left" for="growthRate">How would you rate the general growth in your state?</label>
-                                    <input type="range" min="1" max="10"value="1" class="slider float-left" id="growthRate" />
+                                    <input type="range" min="1" max="10"value="1" class="slider float-left" id="growthRate" style="background-color: #DC6F68"/>
                                     <p class="text-center float-right"><span class="slider-val"></span></p>
                                 </div>
-                                <input type="submit" value="save" class="btn btn-secondary">
+                                <input type="submit" value="Save Ratings" class="btn btn-secondary m-5">
                                 <!--<input type="submit" id="overallRating" th:field="*{userRating}" name="submit" class="submit form-control btn btn-secondary" value="Save" />-->
                             </form>
                         </div>
@@ -66,16 +67,24 @@
                 </div>
                 <div class="col-sm-6 float-right">
                     <div class="card m-3">
-                        <div class="card-body">
+                        <div class="card-body text-center">
                             <h3 class="m-3">The state where you are living</h3>
-                            <img class="img-fluid m-5" src="/img/stateMaps/TX.png" style="width: 100px">
+
+                            <!--TODO: fix state icon, will move outside of div when the screen is changing sizes.-->
+                                <div class="state pt-4">
+                                    <svg th:class="@{icon icon-state-} + ${state.abbr}">
+                                        <use th:xlink:href="@{#icon-state-} + ${state.abbr}"></use>
+                                    </svg>
+                                </div>
+
+                            <a href="/us"><button type="button" class="btn btn-secondary text-center">Go to your state</button></a>
                         </div>
                     </div>
                     <!--<div class="card m-3">-->
                         <div class="card-body">
                             <h3 class="mb-3">This is the overall rating you're giving to the State you live in</h3>
-                            <h1 class="text-center m-5" id="totalMarks"></h1>
-                            <form class="form-control" th:action="@{/users/rating}" method="post" th:object="${newRating}">
+                            <h1 class="text-center m-5 title-slider" id="totalMarks"></h1>
+                            <form class="form-control" th:action="@{/users/rating}" method="post" th:object="${userRate}">
 
                                 <input type="hidden" name="crime" id="crime">
                                 <input type="hidden" name="education" id="education">
@@ -87,6 +96,9 @@
 
                                 <input type="submit" id="overallRating"  class="submit form-control btn btn-secondary" />
                             </form>
+                        </div>
+                        <div class="col-sm-6 m-auto">
+                            <a href="/users/displayprofile"><button type="button" class="btn btn-secondary btn-lg">Go back to your profile</button></a>
                         </div>
                     </div>
                 </div>
@@ -103,6 +115,9 @@
                         </ul>
                     </div>
                 </div>
+            </div>
+    </div>
+            </div>
             </div>
 
     </div>
@@ -169,6 +184,7 @@
         }
 
     }
+    // commemnt
 </script>
 </body>
 </html>

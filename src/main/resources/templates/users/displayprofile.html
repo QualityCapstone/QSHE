@@ -8,11 +8,36 @@
 <body>
 <div th:replace="partials/layout :: navbar" />
 
+<!--state news modal-->
+<!--body continues to scroll while user is scrolling through modal-->
+<div class="modal fade" id="modal" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle" th:text="${state}"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <ul id="morenews"></ul>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="container mt-4">
     <div class="userProfile row">
-        <div class="col-sm-6">
+        <div class="col-md-6">
             <div class="card">
-                <img class="card-img-top img-fluid mx-auto mt-3" src="/img/face_icons-circle-63.png" alt="Card image cap" style="width: 200px">
+                <!--placeholder-->
+                <!--<img class="card-img-top img-fluid mx-auto mt-3" src="/img/face_icons-circle-63.png" alt="Card image cap" style="width: 200px">-->
+                <!--actual profile pictures-->
+                <img th:if="${user.profile.uploadPath == null}" style="height: 150px; width: 150px; margin: 0 auto" th:src="@{/img/defaultavatar.png}" alt="none" />
+                <img th:if="${user.profile.uploadPath}" style="height: 150px; width: 150px; margin: 0 auto" th:src="@{/uploads/} + ${user.profile.uploadPath}"  alt="didn't work" />
                 <div class="card-body">
                     <!--<h5 class="card-title">Card title</h5>-->
                     <h1 class="text-center"> <span th:text="${#authentication.principal.profile.firstName}"></span> </h1>
@@ -21,46 +46,43 @@
                 </div>
             </div>
         </div>
-        <div class="col-sm-6">
+        <div class="col-md-6">
             <div class="card">
                 <div class="card-body">
                     <!--<h5 class="card-title">Card title</h5>-->
-                    <h4 class="text-left">My name</h4>
+                    <h4 class="text-left">Your name:</h4>
                     <h4 class="text-center"> <span th:text="${#authentication.principal.profile.firstName}"></span> </h4>
                     <h4 class="text-center"> <span th:text="${#authentication.principal.profile.lastName}"></span> </h4>
-                    <h4 class="text-left">My email</h4>
+                    <h4 class="text-left">Your email:</h4>
                     <h4 class="text-center"> <span th:text="${#authentication.principal.profile.email}"></span></h4>
-                    <h4 class="text-left">I live in:</h4>
+                    <h4 class="text-left">You live in:</h4>
                     <h4 class="text-center"><span th:text="${#authentication.principal.profile.userState}"></span></h4>
                     <!--<h1 class="text-center"> <span th:text="${#authentication.principal.profile.firstName}"></span> </h1>-->
-                    <h4 class="text-left">About me</h4>
+                    <h4 class="text-left">About you:</h4>
                     <p class="card-text text-center"> <span th:text="${#authentication.principal.profile.name}"></span> </p>
                 </div>
                 <button class="btn btn-sm"><a th:href="@{/profile}"> Edit Profile</a> </button>
             </div>
+        </div>
+
+
+        <!--news tab for user's state-->
+
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <ul id="statenews" th:data-state-name="${#authentication.principal.profile.userState}"></ul>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal">View more News</button>
+                </div>
+            </div>
 
         </div>
-        <!--<div class="row">-->
-        <!--<div class="col-md-4">-->
-        <!--&lt;!&ndash;<img th:src="@{/uploads/cool-doge.gif}"  alt="didn't work"/>&ndash;&gt;-->
-        <!--<img th:src="@{/uploads/} + ${user.profile.uploadPath}"  alt="didn't work"/>-->
-        <!--<div>-->
-        <!--Profile Picture-->
-        <!--</div>-->
-        <!--</div>-->
-        <!--</div>-->
-        <div class="row mb-5">
-            <form th:action="@{/fileupload}" method="post" enctype="multipart/form-data" th:object="${user}">
-                <label for="file">Change your profile picture!</label>
-                <input id="file" name="file" type="file" />
-                <br />
-                <input type="submit" value="upload" />
-            </form>
-        </div>
+
+        <!--notifications area-->
+
         <div class="row m-5 m-auto">
             <div class="col-6 text-center">
-
-                <h3>Your notifications</h3>
+                <h3 style="margin-top: 1em">Your notifications</h3>
                 <div class="col-12 m-3 d-inline">
                     <button type="button" class="btn btn-primary notification-profile m-2">
                         Email <span class="badge badge-light">4</span>
@@ -71,7 +93,7 @@
                 </div>
             </div>
             <div class="col-6 text-center">
-                <h3>Social media</h3>
+                <h3 style="margin-top: 1em">Social media</h3>
                 <div class="col-12 m-4 d-inline">
                     <img class="fluid-img m-2" th:height="50" src="/img/Facebook.png">
                     <img class="fluid-img m-2" th:height="50" src="/img/Google%20Plus.png">
@@ -86,7 +108,7 @@
     <!-- TO RATE -->
     <h2>My Rating</h2>
     <div class="row">
-        <div class="col-sm-6">
+        <div class="col-md-6">
             <div class="card">
                 <div class="card-body">
                     <h3 class="mb-3">Rate each element of your State</h3>
@@ -126,7 +148,7 @@
             <div class="card m-3">
                 <div class="card-body">
                     <h3 class="m-3">The state where you are living</h3>
-                    <img class="img-fluid m-5" src="/img/stateMaps/TX.png" style="width: 100px">
+                    <!--<img class="img-fluid m-5" src="/img/stateMaps/TX.png" style="width: 100px">-->
                 </div>
             </div>
             <div class="card m-3"><!-- FOR THE OVERALL RATING -->
@@ -177,11 +199,7 @@
         </tbody>
     </table>
 </div>
-</div>
-</div>
 
-</div>
-</div>
 <div th:replace="partials/layout :: footer" />
 
 <script type="text/javascript">
@@ -261,5 +279,7 @@
         // $('.avg-ovral-rtng .rating-stars').css("width", star + "%");
     }
 </script>
+<script th:src="@{~/built/state.js}"></script>
+<script th:src="@{~/built/news.js}"></script>
 </body>
-</html></html>
+</html>
