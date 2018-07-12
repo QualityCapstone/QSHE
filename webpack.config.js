@@ -18,6 +18,12 @@ module.exports = {
         path: path.resolve(__dirname, 'src/main/resources/static/built'),
         filename: '[name].js'
     },
+    plugins: [
+        new webpack.ProvidePlugin({
+            $: 'jquery',
+            jQuery: 'jquery'
+        }),
+    ],
 
     // babel config
     module: {
