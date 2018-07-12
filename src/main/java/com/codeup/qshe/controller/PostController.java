@@ -7,6 +7,8 @@ import com.codeup.qshe.repositories.Staterepository;
 import com.codeup.qshe.services.PostService;
 import com.codeup.qshe.services.StateService;
 import com.codeup.qshe.services.user.UserService;
+import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,7 +32,7 @@ public class PostController {
     }
 
     @GetMapping("/posts/all/{id}")
-    private String viewPosts(@PathVariable long id,Model model) {
+    private String viewPosts(@PathVariable long id, Model model, @PageableDefault(value=10)  Pageable pageable ) {
         List<Post> posts = postDao.findAllByStateId(id);
         model.addAttribute("posts", posts);
         return "posts/all";
@@ -86,7 +88,7 @@ public class PostController {
 //            return "redirect:/login";
 //        }else
         postDao.delete(id);
-        return "redirect:/posts/all/"+stateid;
+        return "redirect:/posts/all/"+ stateid;
     }
 
 }
