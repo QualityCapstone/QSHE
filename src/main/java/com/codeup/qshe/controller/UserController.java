@@ -10,6 +10,7 @@ import com.codeup.qshe.services.StateService;
 import com.codeup.qshe.services.messages.MessagesService;
 import com.codeup.qshe.services.user.UserDetailsLoader;
 import com.codeup.qshe.services.user.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
@@ -35,12 +36,15 @@ public class UserController {
     private MessagesService messageDao;
     private StateService stateDao;
 
+
+    @Autowired
     public UserController(UserService userDao, PasswordEncoder passwordEncoder, Roles roles,
-                          MessagesService messageDao) {
+                          MessagesService messageDao, StateService stateDao) {
         this.userDao = userDao;
         this.passwordEncoder = passwordEncoder;
         this.roles = roles;
         this.messageDao = messageDao;
+        this.stateDao  = stateDao;
 
     }
 
@@ -81,9 +85,10 @@ public class UserController {
 
         model.addAttribute("conversations",
                 messageDao.getMessages().findDistinctBySenderOrRecipientOrderByIdAsc(user, user));
-//        String userstate = user.getProfile().getUserState();
-//        State state = stateDao.getStates().findByName(userstate);
-//        model.addAttribute("state", state);
+
+       user = userDao.getUsers().findByUsername(user.getUsername());
+        State state = stateDao.getStates().findByName(user.getProfile().getUserState());
+       model.addAttribute("state", state);
         model.addAttribute("user", user);
 
         return "users/profile";
