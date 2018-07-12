@@ -180,22 +180,6 @@
 </div>
 </div>
 
-<h1>Display Profile Page</h1>
-<h1 class="text-left"> <span th:text="${#authentication.principal.profile.firstName}"></span> </h1>
-<div class="col-xs-8">
-
-    <h4 class="text-center"> <span th:text="${#authentication.principal.profile.firstName}"></span> </h4>
-    <h4 class="text-center"> <span th:text="${#authentication.principal.profile.lastName}"></span> </h4>
-    <h4 class="text-center"> <span th:text="${#authentication.principal.profile.email}"></span></h4>
-    <h4 class="text-center"> <span th:text="${#authentication.principal.profile.userState}"></span></h4>
-</div>
-
-<button class="btn"><a th:href="@{/profile}"> Edit Profile</a> </button>
-
-<br   />
-<div>
-    <h1 class="userState"><span text="UserState"></span></h1>
-</div>
 </div>
 </div>
 <div th:replace="partials/layout :: footer" />
@@ -209,7 +193,7 @@
     sliderOne.oninput = function(){
         outputOne.innerHTML = this.value;
     };
-    //
+
     // // USER RATE VALUE FOR EMPLOYMENT
     var sliderTwo = document.getElementById("employmentRate");
     var outputTwo = document.getElementById("demoEmployment");
