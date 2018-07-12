@@ -32,10 +32,10 @@ public class PostController {
     }
 
     @GetMapping("/posts/all/{id}")
-    private String viewPosts(@PathVariable long id, Model model, @PageableDefault(value=10) Pageable pageable) {
-        List<Post> posts = postDao.getPosts().findAllByStateId(id, pageable);
+    private String viewPosts(@PathVariable long id, Model model, @PageableDefault(value=3) Pageable pageable) {
+//        List<Post> posts = postDao.getPosts().findAllByStateId(id, pageable);
 
-        model.addAttribute("posts", posts);
+        model.addAttribute("posts", postDao.getPosts().findAllByStateId(id, pageable));
 
         return "posts/all";
     }
