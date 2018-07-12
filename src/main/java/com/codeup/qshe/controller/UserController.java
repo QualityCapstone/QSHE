@@ -67,7 +67,7 @@ public class UserController {
         userDao.getUsers().addDefaultRole(user.getId());
 
         authenticate(user);
-        return "redirect:/profile";
+        return "redirect:/users/rating";
     }
 
 
