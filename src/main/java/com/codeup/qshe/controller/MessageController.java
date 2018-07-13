@@ -50,19 +50,10 @@ public class MessageController {
 
          User user = userDao.getLoggedInUser();
          User recipient = userDao.getUsers().findById(Long.parseLong(sentToId)).get();
-
          Message message = new Message(user, recipient, userInput);
-
-       messageDao.save(message);
-
+         messageDao.save(message);
          model.addAttribute("recipient", recipient);
 
          return "redirect:/messages/view/" + sentToId;
    }
-
-
-
-
-
-
 }

@@ -1,20 +1,33 @@
 
 /*MAP CSS Save seperately later*/
 
+
+
 .map-container {
-    background:  #73b5c059;
+    height: calc(100vh - 115px);
 }
 
 #map {
-    padding-top: 50px;
+    padding-top: 5px;
     min-width: 940px;
     text-align: center;
-    height: calc(100vh - 175px);
+    height: 600px;
+    max-height: 100vh;
 }
 
 
-#radar-chart {
-    min-height: 400px;
+.navbar {
+    padding-top:0;
+    padding-bottom:0;
+}
+
+
+#education-chart {
+    height: calc(100vh - 200px);
+}
+
+#growth-chart, #health-chart, #radar-chart, #crime-chart {
+    height: calc(100vh - 200px);
 }
 
 .state .icon {
@@ -40,7 +53,6 @@
 
 
 
-
 .state:hover {
     color: #72cfff;
 }
@@ -58,3 +70,91 @@
     border: 2px solid #ff9890;
     width: 400px;
 }
+
+.page {
+    padding: 20px;
+}
+
+
+/*.one {*/
+    /*background-color: rgba(41, 17, 18, 0.8);*/
+/*}*/
+
+.two {
+    background-color: rgba(111, 102, 102, 0.8);
+}
+.three {
+    background-color: rgba(156, 143, 143, 0.8);
+}
+
+.four {
+    background-color: rgba(185, 170, 170, 0.8);
+}
+
+.five {
+    background-color: rgba(208, 191, 191, 0.8);
+}
+
+h2 {
+    font-size: 5.2vw;
+}
+
+
+.metric {
+
+}
+
+.metric .name {
+    text-transform: uppercase;
+    font-size: 1.0vw;
+    text-align: center;
+}
+
+.metric .number {
+    font-size: 3.0vw;
+    text-align: center;
+}
+
+.bold {
+    font-weight: bold;
+    font-weight: bold;
+}
+
+.state-header-name {
+    font-size: 7em;
+    color: #fff;
+    text-shadow: 2px 1px 8px rgba(150, 150, 150, 0.75);
+    margin:0;
+
+}
+
+.state-nav {
+    position: sticky;
+    position: -webkit-sticky;
+    top: 0; /* required */
+    z-index: 100;
+    padding-top: 10px;
+    background-color: rgba(255,255,255,1);
+    border-bottom: 2px solid pink;
+}
+
+
+.state-header {
+    width: 100vw;
+    height: calc(100vh - 50px);
+    -webkit-background-size: cover;
+    background-size: cover;
+    padding: 0;
+    margin: 0;
+}
+
+
+.state-header-half {
+    width: 50vw;
+    height: calc(100vh - 50px);
+    -webkit-background-size: cover;
+    background-size: cover;
+    padding: 0;
+    margin: 0;
+}
+

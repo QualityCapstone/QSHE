@@ -13,9 +13,11 @@
 
 <div th:replace="partials/layout :: navbar" />
 
+<div class="scroller">
+
 <th:block th:each="p : ${photos}">
     <!--<img th:src="${p.medium800Url}">-->
-    <div  class="d-flex flex-column justify-content-center align-items-center state-header" th:style="@{background-image: url(} + ${p.large1600Url}+ @{);}">
+    <div  class=" page d-flex flex-column justify-content-center align-items-center state-header" th:style="@{background-image: url(} + ${p.large1600Url}+ @{);}">
 
 
         <div class="state-header-icon">
@@ -26,7 +28,7 @@
             </div>
         </div>
 
-        <div class="state-header-name" th:text="${state.name}"></div>
+        <div id="state-name" class="state-header-name" th:data-abbr="${state.abbr}" th:text="${state.name}"></div>
 
     </div>
 </th:block>
@@ -54,11 +56,10 @@
     </div>
 </div>
 
-
     <div class="padding-container">
 
     <div class="state-nav row">
-        <div class="col-md-6">
+        <div class="col-md-2 text-nowrap">
 
             <div class="state state-tiny" id="state-tiny" th:data-state-abbr="${state.abbr}">
                 <svg th:class="@{icon icon-state-} + ${state.abbr}">
@@ -69,7 +70,7 @@
 
             <h1>
                 <span th:text="${state.name}"></span></h1></div>
-        <div class="col-md-6 ml-auto">
+        <div class="col-md-10 ml-auto text-nowrap">
             <div class="form-inline form-row text-right align-items-right">
                 <select id="inputState" class="form-control ml-auto mr-3">
                     <option disabled selected>Select State...</option>
@@ -78,21 +79,16 @@
                 <button class="state-btn btn btn-primary mr-2" th:data-current-abbr="${state.abbr}" data-selected-abbr="">Compare with Current</button>
                 <button class="state-btn btn btn-primary" data-selected-abbr="">Go To</button>
             </div>
-
         </div>
     </div>
 
-
-    <hr>
-
-        <div class="row row-full-screen mb-4">
+        <div class=" page one row row-full-screen ">
             <div class="col-md-4">
-                <div class="card mb-4">
+                <div class="card mb-2">
                     <div class="card-header" >
                         <h5>State News</h5>
                     </div>
                     <div class="card-body">
-
                         <ul id="statenews" th:data-state-name="${state.name}"></ul>
                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal">View more News</button>
                     </div>
@@ -103,27 +99,64 @@
                         <h5>State Discussions</h5>
                     </div>
                     <div class="card-body">
-
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal">View all</button>
+                        <ul>
+                            <li class="text-truncate" th:each="p : ${topPosts}" th:text="${p.title}"></li>
+                        </ul>
+                        <a th:href="@{~/posts/state/}+ ${state.abbr}" class="btn btn-primary">View More</a>
                     </div>
                 </div>
             </div>
+
             <div class="col-md-8">
                 <div id="radar-chart"></div>
             </div>
         </div>
 
-            <div class="row  row-full-screen mb-4 row-dark">
+        <div class="row page two row-full-screen">
 
-                <div class="col-md-4">
-                    <h2>Safety / Crime</h2>
+                <div class="col-md-4 text-center">
+                    <h2><i class="far fa-smile"></i>Safety</h2>
 
-                    <p>User Ratings: </p>
-                    <p>True Sense: </p>
 
-                    <p>Texas is ranked 50 out of 50 in Crime.</p>
-                    <p>The average crime rate has gone down 1.2% from 2010 to 2015</p>
-                    <p>A rise in rapes, murders and suicides has been noted over the same period</p>
+                    <div class="row pt-4">
+
+                        <div class="description-text">
+                            <p>This chart displays the breakdown of crimes in <span th:text="${state.name}"></span>
+                                for the past 5 years. Overall crime has increased by <span class="bold">1.2%</span> since 2010. Violent crime
+                                has decreaed by <span>3.2%</span> in the same time period.</p>
+                        </div>
+
+                    </div>
+
+                    <div  class="row pt-4">
+                        <div class="metric col-md-6">
+                            <div class="number">8.7</div>
+                            <div class="name">User Rating</div>
+                        </div>
+
+                        <div class="metric col-md-6">
+                            <div class="number">6.2</div>
+                            <div class="name">True Sense</div>
+                        </div>
+
+                        <div class="col-md-3"></div>
+                        <div class="metric col-md-6">
+                            <div class="number text-center">20th</div>
+                            <div class="name text-center">RANKING VS OTHER STATES</div>
+                        </div>
+                        <div class="col-md-3"></div>
+
+
+                    </div>
+
+                    <div class="row pt-4">
+
+                        <div class="description-text">
+                            <p>The state ranks <span class="bold">20th</span> overall when compared against graduates totals
+                                from all other States.
+
+                    </div>
+                </div>
 
                 </div>
 
@@ -139,19 +172,9 @@
 
 
 
-        <div class="row   row-full-screen mb-4">
+        <div class="row page three row-full-screen">
 
-            <div class="col-md-4">
-                <h2>Growth</h2>
 
-                <p>User Ratings: </p>
-                <p>True Sense: </p>
-
-                <p>Texas is ranked 50 out of 50 in Crime.</p>
-                <p>The average crime rate has gone down 1.2% from 2010 to 2015</p>
-                <p>A rise in rapes, murders and suicides has been noted over the same period</p>
-
-            </div>
 
             <div class="col-md-8">
                 <div class="card">
@@ -161,40 +184,163 @@
                 </div>
             </div>
 
-        </div> <div class="row  row-full-screen mb-4 row-dark">
 
-        <div class="col-md-4">
-            <h2>Education</h2>
+            <div class="col-md-4 text-center">
+                <h2><i class="far fa-chart-bar"></i>Growth</h2>
 
-            <p>User Ratings: </p>
-            <p>True Sense: </p>
 
-            <p>Texas is ranked 50 out of 50 in Crime.</p>
-            <p>The average crime rate has gone down 1.2% from 2010 to 2015</p>
-            <p>A rise in rapes, murders and suicides has been noted over the same period</p>
+                <div class="row pt-4">
+                    <div class="description-text">
+                        <p>This chart displays population growth in <span th:text="${state.name}"></span>
+                            from 2010 to 2016. The state population has increased by <span class="bold">4%</span> in the last 6 years.</p>
+                    </div>
 
+                </div>
+
+                <div  class="row pt-4">
+                    <div class="metric col-md-6">
+                        <div class="number">3.7</div>
+                        <div class="name">User Rating</div>
+                    </div>
+
+                    <div class="metric col-md-6">
+                        <div class="number">7.2</div>
+                        <div class="name">True Sense</div>
+                    </div>
+
+                    <div class="col-md-3"></div>
+                    <div class="metric col-md-6">
+                        <div class="number text-center">4%</div>
+                        <div class="name text-center">YEAR OVER YEAR POPULATION GROWTH</div>
+                    </div>
+                    <div class="col-md-3"></div>
+
+                </div>
+
+                <div class="row pt-4">
+                    <div class="description-text">
+                        <p>The state ranks <span class="bold">15th</span> overall when compared against
+                            all other States.
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+
+        <div class="row page four row-full-screen">
+
+        <div class="col-md-4 text-center">
+            <h2><i class="fas fa-chalkboard"></i> Education</h2>
+
+            <div class="row pt-4">
+
+                <div class="description-text">
+                    <p>This chart displays the number of female graduates in the state of <span th:text="${state.name}"></span>
+                    from 2013 to 2015. The number of graduates has increased by <span class="bold">1.2%</span> in the last 3 years.</p>
+                </div>
+
+            </div>
+
+            <div  class="row pt-4">
+            <div class="metric col-md-6">
+                <div class="number">6.7</div>
+                <div class="name">User Rating</div>
+            </div>
+
+            <div class="metric col-md-6">
+                <div class="number">4.2</div>
+                <div class="name">True Sense</div>
+            </div>
+
+                <div class="col-md-3"></div>
+            <div class="metric col-md-6">
+                <div class="number text-center">917,179</div>
+                <div class="name text-center">FEMALE GRADUATES SINCE 2013</div>
+            </div>
+                <div class="col-md-3"></div>
+
+
+            </div>
+
+            <div class="row pt-4">
+
+                <div class="description-text">
+                    <p>The state ranks <span class="bold">45th</span> overall when compared against graduates totals
+                        from all other States. It ranks <span class="bold">32nd</span> when compared as a increase of
+                    graduates over the past 3 years.
+                </div>
+
+            </div>
         </div>
 
         <div class="col-md-8">
             <div class="card">
                 <div class="card-body">
-                    <div id="crime-chart"></div>
+                    <div id="education-chart"></div>
                 </div>
             </div>
         </div>
 
     </div>
 
+        <div class="row page five row-full-screen">
+
+            <div class="col-md-4 text-center">
+                <h2><i class="fas fa-user-md"></i> Health</h2>
+
+                <div class="row pt-4">
+
+                    <div class="description-text">
+                        <p>This chart displays Health options for  <span th:text="${state.name}"></span>
+                            from 2013 to 2015.
+                    </div>
+
+                </div>
+
+                <div  class="row pt-4">
+                    <div class="metric col-md-6">
+                        <div class="number">8.2</div>
+                        <div class="name">User Rating</div>
+                    </div>
+
+                    <div class="metric col-md-6">
+                        <div class="number">9.2</div>
+                        <div class="name">True Sense</div>
+                    </div>
+
+                    <div class="col-md-3"></div>
+                    <div class="metric col-md-6">
+                        <div class="number text-center">101,011</div>
+                        <div class="name text-center">NEW HEALTH CARE FACILITIES PER YEAR</div>
+                    </div>
+                    <div class="col-md-3"></div>
 
 
+                </div>
 
+                <div class="row pt-4">
+
+                    <div class="description-text">
+                        <p>The state ranks <span class="bold">15th</span> overall when compared against other states.
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-body">
+                        <div id="health-chart"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
 
     </div>
-
-
-    <div th:replace="partials/layout :: footer" />
-<script th:src="@{~/built/map.js}"> </script>
+<div th:replace="partials/layout :: footer" />
+<script th:src="@{~/built/state.js}"> </script>
 <script th:src="@{~/built/news.js}"></script>
 </body>
 </html>

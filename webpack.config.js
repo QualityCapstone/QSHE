@@ -10,14 +10,22 @@ module.exports = {
         main: ['promise-polyfill', 'whatwg-fetch', './src/main/resources/static/js/global.js'],
         user: './src/main/resources/static/js/user.js',
         map: './src/main/resources/static/js/map.js',
+        state: './src/main/resources/static/js/state.js',
         bubble: './src/main/resources/static/js/bubble.js',
-        news: './src/main/resources/static/js/newsapi.js'
+        news: './src/main/resources/static/js/newsapi.js',
+        signup: './src/main/resources/static/js/signup.js'
     },
     // where to put the transpiled javascript
     output: {
         path: path.resolve(__dirname, 'src/main/resources/static/built'),
         filename: '[name].js'
     },
+    plugins: [
+        new webpack.ProvidePlugin({
+            $: 'jquery',
+            jQuery: 'jquery'
+        }),
+    ],
 
     // babel config
     module: {

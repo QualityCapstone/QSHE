@@ -70,4 +70,8 @@ public interface Users extends JpaRepository<User, Long> {
     @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
     @Query(value = "UPDATE users SET username = ? WHERE ID = ?", nativeQuery = true)
     void updateUser(String username, Long id);
+
+    @Query(value = "SELECT * FROM user_profile where username LIKE = ?",nativeQuery = true)
+    UserProfile findByUsernameLike(String searchstring);
+
 }

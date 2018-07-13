@@ -1,13 +1,19 @@
 package com.codeup.qshe.controller;
 
+import com.codeup.qshe.models.State;
 import com.codeup.qshe.models.user.User;
 import com.codeup.qshe.models.user.UserProfile;
 import com.codeup.qshe.models.user.UserWithRoles;
 import com.codeup.qshe.repositories.Roles;
 import com.codeup.qshe.repositories.UserProfiles;
+import com.codeup.qshe.services.FlickrService;
+import com.codeup.qshe.services.StateService;
 import com.codeup.qshe.services.messages.MessagesService;
 import com.codeup.qshe.services.user.UserDetailsLoader;
 import com.codeup.qshe.services.user.UserService;
+import com.flickr4java.flickr.FlickrException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
@@ -31,20 +37,36 @@ public class UserController {
     private Roles roles;
     private UserProfiles userProfiles;
     private MessagesService messageDao;
+    private StateService stateDao;
 
+
+    @Value("${flickr-key}")
+    private String apiKey;
+    @Value("${flickr-secret}")
+    private String sharedSecret;
+
+
+    @Autowired
     public UserController(UserService userDao, PasswordEncoder passwordEncoder, Roles roles,
-                          MessagesService messageDao) {
+                          MessagesService messageDao, StateService stateDao) {
         this.userDao = userDao;
         this.passwordEncoder = passwordEncoder;
         this.roles = roles;
         this.messageDao = messageDao;
+        this.stateDao  = stateDao;
 
     }
 
+
     @GetMapping("/sign-up")
-    public String showSignupForm(Model model) {
-        model.addAttribute("user", new User());
-        return "users/sign-up";
+        public String showSignupForm(Model model) throws FlickrException {
+
+            FlickrService f = new FlickrService(apiKey, sharedSecret);
+            State state =  stateDao.getStates().getRandom();
+
+            model.addAttribute("photo", f.getPhoto(state.getName()));
+            model.addAttribute("user", new User());
+            return "users/sign-up";
 
     }
 
@@ -63,27 +85,27 @@ public class UserController {
         user.setPassword(hash);
         user.setCreatedAt(LocalDateTime.now());
         user.getProfile().setUsername(user.getUsername());
-        user.getProfile().setUploadPath("defaultavatar.png");
         userDao.getUsers().save(user);
         userDao.getUsers().addDefaultRole(user.getId());
 
-
         authenticate(user);
-        return "redirect:/profile";
+
+        return "redirect:/users/rating";
     }
 
 
 
-    @GetMapping("/profile")
+    @GetMapping("/editprofile")
     public String loadProfile(Model model) {
         User user = userDao.getLoggedInUser();
-
         model.addAttribute("conversations",
                 messageDao.getMessages().findDistinctBySenderOrRecipientOrderByIdAsc(user, user));
-
+        user = userDao.getUsers().findByUsername(user.getUsername());
+        State state = stateDao.getStates().findByName(user.getProfile().getUserState());
+        model.addAttribute("state", state);
         model.addAttribute("user", user);
 
-        return "users/profile";
+        return "users/editprofile";
     }
 
 

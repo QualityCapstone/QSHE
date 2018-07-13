@@ -19,6 +19,87 @@ body {
     color: #DC6F68;
 }
 
+.about-us {
+    height: auto;
+    /*box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.4);*/
+}
+.card-footer {
+    background-color: none;
+}
+
+.slider {
+    background-color: #DC6F68;
+
+}
+.rating-slider {
+    border: solid 1px #DC6F68;
+}
+
+.title-slider {
+    color: #DC6F68;
+    margin: 10px;
+    font-size: 96px;
+}
+
+.bubble-message {
+    width: 20%;
+    position: relative;
+    margin: 30px auto 10px auto;
+    padding: 50px;
+    text-align: center;
+    background: #DC6F68;
+    -webkit-box-shadow: 1px 5px 5px #aeaeae;
+    -moz-box-shadow: 1px 5px 5px #aeaeae;
+    -o-box-shadow: 1px 5px 5px #aeaeae;
+    -ms-box-shadow: 1px 5px 5px #aeaeae;
+    box-shadow: 1px 5px 5px #aeaeae;
+    -moz-border-radius: 220px;
+    border-radius: 220px;
 
 
+}
 
+.mediumBubble {
+    content:"";
+    position:absolute;
+    /*top: -40px;*/
+    left: -60px;
+    width: 30px;
+    height: 30px;
+    background: #DC6F68;
+    -webkit-box-shadow: 1px 5px 5px #aeaeae;
+    -moz-box-shadow: 1px 5px 5px #aeaeae;
+    -o-box-shadow: 1px 5px 5px #aeaeae;
+    -ms-box-shadow: 1px 5px 5px #aeaeae;
+    box-shadow: 1px 5px 5px #aeaeae;
+    -moz-border-radius: 30px;
+    border-radius: 30px;
+}
+
+.smallBubble {
+    content:"";
+    position:absolute;
+    /*top: -60px;*/
+    left: -100px;
+    width: 15px;
+    height: 15px;
+    background: #DC6F68;
+    -webkit-box-shadow: 1px 5px 5px #aeaeae;
+    -moz-box-shadow: 1px 5px 5px #aeaeae;
+    -o-box-shadow: 1px 5px 5px #aeaeae;
+    -ms-box-shadow: 1px 5px 5px #aeaeae;
+    box-shadow: 1px 5px 5px #aeaeae;
+    -moz-border-radius: 15px;
+    border-radius: 15px;
+}
+
+#info-crime, #info-employment, #info-education,
+#info-health, #info-growth{
+    display: none;
+}
+
+body .modal-open{
+    position: relative;
+    overflow: hidden;
+    height: 100%;
+}

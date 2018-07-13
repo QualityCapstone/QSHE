@@ -1,0 +1,95 @@
+package com.codeup.qshe.controller;
+
+import com.codeup.qshe.models.State;
+import com.codeup.qshe.models.user.PostTopic;
+import com.codeup.qshe.models.user.User;
+import com.codeup.qshe.repositories.Staterepository;
+import com.codeup.qshe.services.PostService;
+
+import com.codeup.qshe.services.StateService;
+import com.codeup.qshe.services.user.UserService;
+
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDateTime;
+
+@Controller
+@RequestMapping("posts/")
+public class PostController {
+    private final PostService postDao;
+    private final UserService userDao;
+    private final StateService stateDao;
+
+
+    public PostController(PostService postDao, UserService userDao, StateService stateDao) {
+        this.postDao = postDao;
+        this.userDao = userDao;
+        this.stateDao = stateDao;
+    }
+
+
+    @GetMapping("state/{abbr}")
+    private String getStatePosts(@PathVariable String abbr, Model model, @PageableDefault(value = 10) Pageable pageable) {
+
+        State state = stateDao.getStates().findByAbbr(abbr);
+        model.addAttribute("state", state);
+        model.addAttribute("posts", postDao.getPosts().findAllByState(state, pageable));
+
+        return "posts/all";
+    }
+
+
+
+    @PostMapping("topic/add")
+    public String createTopic(@RequestParam(name = "title") String title,
+                              @RequestParam(name = "state-abbr") String abbr) {
+
+        User user = userDao.getLoggedInUser();
+        State state = stateDao.getStates().findByAbbr(abbr);
+
+        PostTopic topic = new PostTopic(user,title,state);
+
+        postDao.save(topic);
+
+        return "redirect:/posts/state/" + state.getAbbr();
+    }
+
+
+//
+//    @PostMapping("/posts/{id}/all")
+//    public String createPost (@PathVariable long id,
+//                              @RequestParam(name= "blogpost") String blogpost,
+//                               Model model){
+//        System.out.println("hello posts");
+//        User user = userDao.getLoggedInUser();
+//        State state = stateDao.findById(id).get();
+//
+//        PostTopic postTopic = new PostTopic();
+//        model.addAttribute("blogpost", postTopic);
+//        postTopic.setBody(blogpost);
+//        postTopic.setCreatedAt(LocalDateTime.now());
+//
+//        postTopic.setTitle(state.getName());
+//        postTopic.setStateId(state.getId());
+//        postTopic.setUser(user);
+//
+//
+//        postDao.save(postTopic);
+//        return "redirect:/posts/all/{id}";
+//    }
+//
+
+
+    @DeleteMapping("/topic/{id}/delete")
+    public String deletePost(@PathVariable long id) {
+        PostTopic topic = postDao.getPosts().findById(id).get();
+        postDao.deletePost(id);
+        return "redirect: /state/" + topic.getState().getAbbr();
+    }
+
+}
