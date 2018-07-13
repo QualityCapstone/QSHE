@@ -7,7 +7,7 @@
     <title>State</title>
 </head>
 
-<body>
+<body class="view-state">
 
 <div th:replace="states/svg :: states-svg" />
 
@@ -58,7 +58,7 @@
 
     <div class="padding-container">
 
-    <div class="state-nav row">
+    <div class="state-nav main-state-nav row">
         <div class="col-md-2 text-nowrap">
 
             <div class="state state-tiny" id="state-tiny" th:data-state-abbr="${state.abbr}">
@@ -115,7 +115,7 @@
         <div class="row page two row-full-screen">
 
                 <div class="col-md-4 text-center">
-                    <h2><i class="far fa-smile"></i>Safety</h2>
+                    <h2><i class="far fa-smile"></i> Safety</h2>
 
 
                     <div class="row pt-4">
@@ -186,7 +186,7 @@
 
 
             <div class="col-md-4 text-center">
-                <h2><i class="far fa-chart-bar"></i>Growth</h2>
+                <h2><i class="far fa-chart-bar"></i> Growth</h2>
 
 
                 <div class="row pt-4">
