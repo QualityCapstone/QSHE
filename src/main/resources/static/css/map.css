@@ -1,11 +1,6 @@
 
 /*MAP CSS Save seperately later*/
 
-body {
-    background-image: url("../img/map.jpg");
-    -webkit-background-size: cover;
-    background-size: cover;
-}
 
 
 .map-container {
