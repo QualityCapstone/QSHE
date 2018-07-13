@@ -4,6 +4,7 @@ import com.codeup.qshe.models.State;
 import com.codeup.qshe.models.user.User;
 import com.codeup.qshe.repositories.UserProfiles;
 import com.codeup.qshe.services.StateService;
+import com.codeup.qshe.services.messages.MessagesService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.codeup.qshe.services.user.UserDetailsLoader;
@@ -20,18 +21,26 @@ public class UserProfileController {
     private UserDetailsLoader userDetailsLoader;
     private UserProfiles userProfiles;
     private StateService stateDao;
+    private MessagesService messageDao;
 
 @Autowired
-    public UserProfileController(UserDetailsLoader userDetailsLoader, UserService userDao, UserProfiles userProfiles, StateService stateDao) {
+    public UserProfileController(UserDetailsLoader userDetailsLoader,
+                                 MessagesService messageDao,
+                                 UserService userDao, UserProfiles userProfiles, StateService stateDao) {
         this.userDetailsLoader = userDetailsLoader;
         this.userProfiles = userProfiles;
         this.userDao =userDao;
         this.stateDao = stateDao;
+        this.messageDao = messageDao;
     }
 
     @GetMapping("/users/displayprofile")
     public String displayProfile(Model model) {
         User user = userDao.getLoggedInUser();
+
+        model.addAttribute("conversations",
+                messageDao.getMessages().findDistinctBySenderOrRecipientOrderByIdAsc(user, user));
+
         String userstate = user.getProfile().getUserState();
         State state = stateDao.getStates().findByName(userstate);
         model.addAttribute("state", state);

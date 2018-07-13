@@ -97,8 +97,7 @@ public class UserController {
     @GetMapping("/editprofile")
     public String loadProfile(Model model) {
         User user = userDao.getLoggedInUser();
-        model.addAttribute("conversations",
-                messageDao.getMessages().findDistinctBySenderOrRecipientOrderByIdAsc(user, user));
+
         user = userDao.getUsers().findByUsername(user.getUsername());
         State state = stateDao.getStates().findByName(user.getProfile().getUserState());
         model.addAttribute("state", state);
