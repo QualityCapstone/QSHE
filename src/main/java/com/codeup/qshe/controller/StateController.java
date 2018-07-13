@@ -54,15 +54,20 @@ import java.util.List;
   }
 
         @GetMapping("/state/compare/{abbr}/{abbr2}")
-    public String compareState(@PathVariable String abbr, @PathVariable String abbr2, Model model) {
+    public String compareState(@PathVariable String abbr, @PathVariable String abbr2, Model model) throws FlickrException {
 
             State stateA = stateDao.getStates().findByAbbr(abbr);
             State stateB = stateDao.getStates().findByAbbr(abbr2);
+
+            FlickrService f = new FlickrService(apiKey, sharedSecret);
 
             model.addAttribute("states", stateDao.getStates().findAll());
 
             model.addAttribute("stateA", stateA);
             model.addAttribute("stateB", stateB);
+
+            model.addAttribute("photoA", f.getPhotos(stateA.getName(),1));
+            model.addAttribute("photoB", f.getPhotos(stateB.getName(),1));
 
       return "states/compare";
 

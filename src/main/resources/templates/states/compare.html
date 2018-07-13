@@ -7,24 +7,78 @@
 </head>
 <body>
 
-
+<div th:replace="states/svg :: states-svg" />
 <div th:replace="partials/layout :: navbar" />
 
-
-
 <div class="row">
-    <div class="col-md-6">
-        State A
+
+<th:block th:each="p : ${photoA}">
+
+    <div  class="d-flex flex-column justify-content-center align-items-center state-header-half" th:style="@{background-image: url(} + ${p.large1600Url}+ @{);}">
+
+
+        <div class="state-header-icon">
+            <div class="state pt-4">
+                <svg th:class="@{icon icon-state-} + ${stateA.abbr}">
+                    <use th:xlink:href="@{#icon-state-} + ${stateA.abbr}"></use>
+                </svg>
+            </div>
+        </div>
+
+        <div id="state-nameA" class="state-header-name" th:data-abbr="${stateA.abbr}" th:text="${stateA.name}"></div>
+
     </div>
-    <div class="col-md-6">
-        State B
+</th:block>
+
+
+<th:block th:each="p : ${photoB}">
+    <!--<img th:src="${p.medium800Url}">-->
+
+    <div  class="d-flex flex-column justify-content-center align-items-center state-header-half" th:style="@{background-image: url(} + ${p.large1600Url}+ @{);}">
+
+
+        <div class="state-header-icon">
+            <div class="state pt-4">
+                <svg th:class="@{icon icon-state-} + ${stateB.abbr}">
+                    <use th:xlink:href="@{#icon-state-} + ${stateB.abbr}"></use>
+                </svg>
+            </div>
+        </div>
+
+        <div id="state-nameB" class="state-header-name" th:data-abbr="${stateB.abbr}" th:text="${stateB.name}"></div>
+
     </div>
+</th:block>
+
 </div>
 
 
 
-<div th:replace="partials/layout :: footer" />
 
-<script  th:src="@{~/built/map.js}"></script>
+
+<div class="row  page one row-full-screen">
+
+</div>
+
+
+<div class="row  page two row-full-screen">
+
+</div>
+
+
+<div class="row  page three row-full-screen">
+
+</div>
+
+
+<div class="row  page four row-full-screen">
+
+</div>
+
+
+
+
+<div th:replace="partials/layout :: footer" />
+<script th:src="@{~/built/state.js}"> </script>
 </body>
 </html>

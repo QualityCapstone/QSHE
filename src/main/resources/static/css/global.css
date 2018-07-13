@@ -159,14 +159,6 @@ blockquote::after {
 }
 
 
-.state-header {
-    width: 100vw;
-    height: calc(100vh - 65px);
-    -webkit-background-size: cover;
-    background-size: cover;
-    padding: 0;
-    margin: 0;
-}
 
 .row-full-screen {
     min-height: calc(100vh - 65px);
@@ -175,23 +167,5 @@ blockquote::after {
 .row-dark {
     background: #b0b0b0;
     padding: 15px;
-}
-
-.state-header-name {
-    font-size: 7em;
-    color: #fff;
-    text-shadow: 2px 1px 8px rgba(150, 150, 150, 0.75);
-    margin:0;
-
-}
-
-.state-nav {
-    position: sticky;
-    position: -webkit-sticky;
-    top: 0; /* required */
-    z-index: 100;
-    padding-top: 10px;
-    background-color: rgba(255,255,255,1);
-    border-bottom: 2px solid pink;
 }
 
