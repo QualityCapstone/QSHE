@@ -4,179 +4,145 @@
     <meta charset="UTF-8" />
     <title>Home</title>
 </head>
-<body>
+<body th:style="@{background-image: url(} + ${photo.large1600Url}+ @{);}">
 <div th:replace="partials/layout :: navbar" />
-<div class="header-spacer"></div>
-<div class="container mx-auto">
+<div class="d-flex flew-row  justify-content-center align-items-center sign-up-container ">
+
+    <div id="register-bg">
+        <div class="form-sign-up">
+
+
+
+
+            <div >
+                <form name="register" id="signupUser" class="card card-block bg-faded m-3 p-3 login-card" th:action="@{/sign-up}" method="post" th:object="${user}" th:required="required">
+                    <h4>Register</h4>
+                    <hr>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="basic-addon1">@</span>
+                        </div>
+                        <input type="text" id="username" th:field="*{username}" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" th:required="required" />
+                        <p th:if="${#fields.hasErrors('username')}" th:errors="${username}" />
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="">First and last name</span>
+                        </div>
+                        <input id="firstName" th:field="*{profile.firstName}"  class="form-control" th:required="required"/>
+                        <!--<p th:if="${#fields.hasErrors('firstName')}" th:errors="*{profile.firstname}"/>-->
+                        <input id="lastName" th:field="*{profile.lastName}" class="form-control" th:required="required"/>
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="email-addon">Email</span>
+                        </div>
+                        <input type="text" id="email" th:field="*{profile.email}" class="form-control" placeholder="email" aria-label="email" aria-describedby="basic-addon1" th:required="required">
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">State you live in</span>
+                            <select path="userState" id="inputState" class="form-control" th:field="*{profile.userState}" >
+                                <option value="State" selected>Choose...</option>
+                                <option value="Alabama">Alabama</option>
+                                <option value="Alaska">Alaska</option>
+                                <option value="Arizona">Arizona</option>
+                                <option value="Arkansas">Arkansas</option>
+                                <option value="California">California</option>
+                                <option value="Colorado">Colorado</option>
+                                <option value="Connecticut">Connecticut</option>
+                                <option value="Delaware">Delaware</option>
+                                <option value="Florida">Florida</option>
+                                <option value="Georgia">Georgia</option>
+                                <option value="Hawaii">Hawaii</option>
+                                <option value="Idaho">Idaho</option>
+                                <option value="Illinois">Illinois</option>
+                                <option value="Indiana">Indiana</option>
+                                <option value="Iowa">Iowa</option>
+                                <option value="Kansas">Kansas</option>
+                                <option value="Kentucky">Kentucky</option>
+                                <option value="Louisiana">Louisiana</option>
+                                <option value="Maine">Maine</option>
+                                <option value="Maryland">Maryland</option>
+                                <option value="Massachusetts">Massachusetts</option>
+                                <option value="Michigan">Michigan</option>
+                                <option value="Minnesota">Minnesota</option>
+                                <option value="Mississippi">Mississippi</option>
+                                <option value="Missouri">Missouri</option>
+                                <option value="Montana">Montana</option>
+                                <option value="Nebraska">Nebraska</option>
+                                <option value="Nevada">Nevada</option>
+                                <option value="New Hampshire">New Hampshire</option>
+                                <option value="New Jersey">New Jersey</option>
+                                <option value="New Mexico">New Mexico</option>
+                                <option value="New York">New York</option>
+                                <option value="North Carolina">North Carolina</option>
+                                <option value="North Dakota">North Dakota</option>
+                                <option value="Ohio">Ohio</option>
+                                <option value="Oklahoma">Oklahoma</option>
+                                <option value="Oregon">Oregon</option>
+                                <option value="Pennsylvania">Pennsylvania</option>
+                                <option value="Rhode Island">Rhode Island</option>
+                                <option value="South Carolina">South Carolina</option>
+                                <option value="South Dakota">South Dakota</option>
+                                <option value="Tennessee">Tennessee</option>
+                                <option value="Texas">Texas</option>
+                                <option value="Utah">Utah</option>
+                                <option value="Vermont">Vermont</option>
+                                <option value="Virginia">Virginia</option>
+                                <option value="Washington">Washington</option>
+                                <option value="West Virginia">West Virginia</option>
+                                <option value="Wisconsin">Wisconsin</option>
+                                <option value="Wyoming">Wyoming</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="pass-addon">Password</span>
+                        </div>
+                        <input type="password" class="form-control col-6" th:field="*{password}" placeholder="Password" aria-describedby="passwordHelpBlock"/>
+                    </div>
+                    <small id="passwordHelpBlock" class="form-text text-left text-muted mx-sm-3">
+                        Your password must be 8-20 characters long.
+                    </small>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="verifyPass-addon">Password</span>
+                        </div>
+                        <input type="password" class="form-control col-6" id="verifyPass" name="verifyPass" placeholder="Verify Password"/>
+                    </div>
+                    <!--<input type="button" name="next" class="next action-button" value="Next" />-->
+                    <input type="submit" name="submit" class="submit action-button bt btn-secondary" value="Submit" />
+
+                </form>
+            </div><!-- end of div signupUser -->
+
+
+
+
+        </div>
+
+
+            <div class="d-flex flew-row  justify-content-center align-items-center" id="account-check-container">
+                <div id="account-check">
+                <p>Have an account?</p>
+                <button class="btn  btn-outline-light">Login</button>
+                </div>
+            </div>
+
+
+    </div>
+
     <!-- STEP ONE -->
-        <div class="row">
-        <div class="col-12 col-lg-6 col-md-10 m-auto">
-        <h1 class="text-center">Register</h1>
-            <!-- USERNAME, EMAIL AND PASSWORD -->
-        <div id="signupUser">
-        <form name="register" class="card card-block bg-faded m-3 p-3 login-card" th:action="@{/sign-up}" method="post" th:object="${user}" th:required="required">
-            <h2 class="fs-title">Create your account</h2>
-            <!--<h2 class="m-b-1 text-xs-center">Step one</h2>-->
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" id="basic-addon1">@</span>
-                </div>
-                <input type="text" id="username" th:field="*{username}" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" th:required="required" />
-                <p th:if="${#fields.hasErrors('username')}" th:errors="${username}" />
-            </div>
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" id="">First and last name</span>
-                </div>
-                <input id="firstName" th:field="*{profile.firstName}"  class="form-control" th:required="required"/>
-                <!--<p th:if="${#fields.hasErrors('firstName')}" th:errors="*{profile.firstname}"/>-->
-                <input id="lastName" th:field="*{profile.lastName}" class="form-control" th:required="required"/>
-            </div>
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" id="email-addon">Email</span>
-                </div>
-                <input type="text" id="email" th:field="*{profile.email}" class="form-control" placeholder="email" aria-label="email" aria-describedby="basic-addon1" th:required="required">
-            </div>
-            <div class="input-group mb-3">
-            <div class="input-group-prepend">
-                    <span class="input-group-text">State you live in</span>
-                <select path="userState" id="inputState" class="form-control" th:field="*{profile.userState}" >
-                    <option value="State" selected>Choose...</option>
-                    <option value="Alabama">Alabama</option>
-                    <option value="Alaska">Alaska</option>
-                    <option value="Arizona">Arizona</option>
-                    <option value="Arkansas">Arkansas</option>
-                    <option value="California">California</option>
-                    <option value="Colorado">Colorado</option>
-                    <option value="Connecticut">Connecticut</option>
-                    <option value="Delaware">Delaware</option>
-                    <option value="Florida">Florida</option>
-                    <option value="Georgia">Georgia</option>
-                    <option value="Hawaii">Hawaii</option>
-                    <option value="Idaho">Idaho</option>
-                    <option value="Illinois">Illinois</option>
-                    <option value="Indiana">Indiana</option>
-                    <option value="Iowa">Iowa</option>
-                    <option value="Kansas">Kansas</option>
-                    <option value="Kentucky">Kentucky</option>
-                    <option value="Louisiana">Louisiana</option>
-                    <option value="Maine">Maine</option>
-                    <option value="Maryland">Maryland</option>
-                    <option value="Massachusetts">Massachusetts</option>
-                    <option value="Michigan">Michigan</option>
-                    <option value="Minnesota">Minnesota</option>
-                    <option value="Mississippi">Mississippi</option>
-                    <option value="Missouri">Missouri</option>
-                    <option value="Montana">Montana</option>
-                    <option value="Nebraska">Nebraska</option>
-                    <option value="Nevada">Nevada</option>
-                    <option value="New Hampshire">New Hampshire</option>
-                    <option value="New Jersey">New Jersey</option>
-                    <option value="New Mexico">New Mexico</option>
-                    <option value="New York">New York</option>
-                    <option value="North Carolina">North Carolina</option>
-                    <option value="North Dakota">North Dakota</option>
-                    <option value="Ohio">Ohio</option>
-                    <option value="Oklahoma">Oklahoma</option>
-                    <option value="Oregon">Oregon</option>
-                    <option value="Pennsylvania">Pennsylvania</option>
-                    <option value="Rhode Island">Rhode Island</option>
-                    <option value="South Carolina">South Carolina</option>
-                    <option value="South Dakota">South Dakota</option>
-                    <option value="Tennessee">Tennessee</option>
-                    <option value="Texas">Texas</option>
-                    <option value="Utah">Utah</option>
-                    <option value="Vermont">Vermont</option>
-                    <option value="Virginia">Virginia</option>
-                    <option value="Washington">Washington</option>
-                    <option value="West Virginia">West Virginia</option>
-                    <option value="Wisconsin">Wisconsin</option>
-                    <option value="Wyoming">Wyoming</option>
-                </select>
-            </div>
-            </div>
-            <div class="input-group">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" id="pass-addon">Password</span>
-                </div>
-                <input type="password" class="form-control col-6" th:field="*{password}" placeholder="Password" aria-describedby="passwordHelpBlock"/>
-            </div>
-            <small id="passwordHelpBlock" class="form-text text-left text-muted mx-sm-3">
-                Your password must be 8-20 characters long.
-            </small>
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" id="verifyPass-addon">Password</span>
-                </div>
-                <input type="password" class="form-control col-6" id="verifyPass" name="verifyPass" placeholder="Verify Password"/>
-            </div>
-            <!--<input type="button" name="next" class="next action-button" value="Next" />-->
-            <input type="submit" name="submit" class="submit action-button bt btn-secondary" value="Submit" />
-
-        </form>
-        </div><!-- end of div signupUser -->
-        </div>
-        </div>
-    <!---------------------------------------------------------------------------------------------->
-
-    <div th:replace="partials/layout :: footer" />
 </div>
-<script>
-    // USER RATE VALUE FOR VIOLENCE
-    var sliderOne = document.getElementById("violenceRate");
-    var outputOne = document.getElementById("demoViolence");
-    outputOne.innerHTML =sliderOne.value;
 
-    sliderOne.oninput = function(){
-        outputOne.innerHTML = this.value;
-    };
-    //
-    // // USER RATE VALUE FOR EMPLOYMENT
-    var sliderTwo = document.getElementById("employmentRate");
-    var outputTwo = document.getElementById("demoEmployment");
-    outputTwo.innerHTML = sliderTwo.value;
 
-    sliderTwo.oninput = function (){
-        outputTwo.innerHTML = this.value;
-    };
-    //
-    // //USER RATE VALUE FOR EDUCATION
-    var sliderThree = document.getElementById("educationRate");
-    var outputThree = document.getElementById("demoEducation");
-    outputThree.innerHTML = sliderThree.value;
 
-    sliderThree.oninput = function (){
-    outputThree.innerHTML = this.value;
-    };
 
-    // // USER RATE VALUE FOR HEALTH
-    var sliderFour = document.getElementById("healthRate");
-    var outputFour = document.getElementById("demoHealth");
-    outputFour.innerHTML = sliderFour.value;
 
-    sliderFour.oninput = function () {
-        outputFour.innerHTML = sliderFour.value;
-    };
 
-    // USER RATE VALUE FOR GROWTH
-    var slider = document.getElementById("growthRate");
-    var output = document.getElementById("demoGrowth");
-    output.innerHTML = slider.value; // Display the default slider value
-
-    // Update the current slider value (each time you drag the slider handle)
-    slider.oninput = function() {
-        output.innerHTML = this.value;
-    }
-
-    function validateForm(){
-        var userInput = document.forms["register"][username][email].value;
-        if (userInput == " "){
-            alert("Username and Email must be filled in.");
-            return false;
-        }
-    }
-</script>
-
+<div th:replace="partials/layout :: footer" />
+<script th:src="@{~/built/signup.js}"></script>
 </body>
 </html>

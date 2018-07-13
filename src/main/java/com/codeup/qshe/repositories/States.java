@@ -2,6 +2,7 @@ package com.codeup.qshe.repositories;
 
 import com.codeup.qshe.models.State;
 
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
@@ -19,6 +20,8 @@ public interface States extends CrudRepository <State, Long> {
 
    State findById(long id);
 
+   @Query(nativeQuery=true, value="SELECT * FROM state ORDER BY rand() LIMIT 1")
+   State getRandom();
 
 
 }
