@@ -60,15 +60,15 @@
         <div class="col-md-6">
             <div class="card card-border m-4">
                 <br />
-                <h3 class="card-title title-card text-center">Welcome to your Profile!</h3>
-                <div style="margin: 0 auto; height: 200px; width: 200px">
-                    <div style="text-align: center">
-                        <img th:if="${user.profile.uploadPath == null}" style="height: 150px; width: 150px; margin: 0 auto" th:src="@{/img/defaultavatar.png}" alt="none" />
-                        <img th:if="${user.profile.uploadPath}" style="height: 150px; width: 150px; margin: 0 auto" th:src="@{/uploads/} + ${user.profile.uploadPath}"  alt="didn't work" />
-                    </div>
+                <div class="card-title text-center"><h3>Welcome <span th:text="${#authentication.principal.profile.firstName}"></span>!</h3>
                 </div>
                 <div class="card-body">
-                    <h3 class="text-center"> <span th:text="${#authentication.principal.profile.firstName}"></span> </h3>
+                    <div style="margin: 0 auto; height: 200px; width: 200px">
+                        <div style="text-align: center">
+                            <img th:if="${user.profile.uploadPath == null}" style="height: 150px; width: 150px; margin: 0 auto" th:src="@{/img/defaultavatar.png}" alt="none" />
+                            <img th:if="${user.profile.uploadPath}" style="height: 150px; width: 150px; margin: 0 auto" th:src="@{/uploads/} + ${user.profile.uploadPath}"  alt="didn't work" />
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
