@@ -25,6 +25,8 @@ public class FlickrService {
          TestInterface testInterface = f.getTestInterface();
     }
 
+
+    // TODO: redo this....better
     public PhotoList<Photo> getPhotos(String search, Integer limit) throws FlickrException {
 
         PhotosInterface photoInterface = f.getPhotosInterface();
@@ -34,24 +36,13 @@ public class FlickrService {
 
         PhotoList<Photo> photos = photoInterface.search(searchParams, limit, 1);
 
-        System.out.println(photos.toString());
-
         return photos;
 
     }
 
 
-    public BufferedImage getPhoto(String search, Integer offset) throws FlickrException {
-
-        PhotoList<Photo> photos = getPhotos(search, 10);
-
-        for (Photo p : photos) {
-            p.getLarge1600Url();
-        }
-
-        return null;
-
-
+    public Photo getPhoto(String search) throws FlickrException {
+       return getPhotos(search, 1).get(0);
     }
 
 
