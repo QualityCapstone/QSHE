@@ -104,9 +104,7 @@
                     </div>
                     <div class="card-body">
                         <ul>
-                            <li>People want more taxes!</li>
-                            <li>Why did my neighbor wake up so early?</li>
-                            <li>Health concerns are threatening my TV</li>
+                            <li class="text-truncate" th:each="p : ${topPosts}" th:text="${p.title}"></li>
                         </ul>
                         <a th:href="@{~/posts/all/}+ ${state.id}" class="btn btn-primary">View More</a>
                     </div>

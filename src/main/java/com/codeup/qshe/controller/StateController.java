@@ -4,6 +4,7 @@ import com.codeup.qshe.models.State;
 import com.codeup.qshe.models.user.StateMetric;
 import com.codeup.qshe.models.user.User;
 import com.codeup.qshe.services.FlickrService;
+import com.codeup.qshe.services.PostService;
 import com.codeup.qshe.services.StateMetricService;
 import com.codeup.qshe.services.StateService;
 import com.codeup.qshe.services.user.UserService;
@@ -22,6 +23,7 @@ import java.util.List;
  class StateController {
   private final StateService stateDao;
   private final StateMetricService metricDao;
+  private final PostService postDao;
   private final UserService userDao;
 
     @Value("${flickr-key}")
@@ -30,10 +32,15 @@ import java.util.List;
     private String sharedSecret;
 
     @Autowired
-  public StateController(StateService stateDao, StateMetricService metricDao, UserService userDao){
+  public StateController(StateService stateDao,
+                         StateMetricService metricDao,
+                         UserService userDao,
+                         PostService postDao){
+
       this.stateDao = stateDao;
       this.metricDao = metricDao;
       this.userDao = userDao;
+      this.postDao = postDao;
   }
 
   @GetMapping("/us")
@@ -51,6 +58,9 @@ import java.util.List;
 
       FlickrService f = new FlickrService(apiKey, sharedSecret);
 
+
+        model.addAttribute("topPosts", postDao.getPosts().findTop3ByStateId(state.getId()));
+
         model.addAttribute("states", stateDao.getStates().findAll());
         model.addAttribute("state", state);
         model.addAttribute("photos", f.getPhotos(state.getName(),1));
@@ -66,7 +76,6 @@ import java.util.List;
 
         return "redirect:/state/" + state.getAbbr();
     }
-
 
 
         @GetMapping("/state/compare/{abbr}/{abbr2}")
