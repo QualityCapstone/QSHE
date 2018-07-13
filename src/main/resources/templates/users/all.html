@@ -35,7 +35,7 @@
 <h1 class="text-center m-2">Connect with other users!</h1>
 <div class="row d-flex flex-wrap" sec:authorize="isAuthenticated()">
     <div class="col-sm-4 col-lg-8 d-flex flex-wrap m-auto">
-        <div class="card create-form" id="signupUser" style="width: 18rem;" th:each="user: ${users}">
+        <div class="card create-form m-1" id="signupUser" style="width: 18rem;" th:each="user: ${users}">
             <img class="card-img-top mt-3 img-fluid mr-3 mx-auto" th:if="${user.profile.uploadPath == null}" style="width: 100px" th:src="@{/img/defaultavatar.png}" alt="none" />
             <img class="card-img-top mt-3 img-fluid mr-3 mx-auto" th:if="${user.profile.uploadPath}" style=" width: 100px" th:src="@{/uploads/} + ${user.profile.uploadPath}"  alt="didn't work" />
             <!--<img class="card-img-top mt-3 img-fluid mr-3 mx-auto" src="img/face_icons-circle-63.png" style=" width: 100px" alt="Card image cap" />-->
