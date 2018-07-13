@@ -48,3 +48,36 @@ body {
     box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.2);
     min-height: 63vh;
 }
+
+
+@media only screen and (max-width : 1000px) {
+    /* Styles */
+
+
+    #register-bg {
+        background: #EC6F66;  /* fallback for old browsers */
+        background: -webkit-linear-gradient(to right, rgba(243,161,131, 0.9), rgba(236,111,102, 0.9));  /* Chrome 10-25, Safari 5.1-6 */
+        background: linear-gradient(to right, rgba(243,161,131, 0.9), rgba(236,111,102, 0.9)); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+        height: 50vh;
+        width: 90vw;
+        align-items: left;
+
+        box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.2);
+    }
+
+
+}
+
+@media only screen and (max-width : 730px) {
+
+    #account-check {
+        display: none;
+    }
+
+    .form-sign-up {
+        margin-left: 0px;
+
+    }
+
+
+}
