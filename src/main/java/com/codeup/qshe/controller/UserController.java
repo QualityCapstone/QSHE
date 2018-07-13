@@ -6,11 +6,14 @@ import com.codeup.qshe.models.user.UserProfile;
 import com.codeup.qshe.models.user.UserWithRoles;
 import com.codeup.qshe.repositories.Roles;
 import com.codeup.qshe.repositories.UserProfiles;
+import com.codeup.qshe.services.FlickrService;
 import com.codeup.qshe.services.StateService;
 import com.codeup.qshe.services.messages.MessagesService;
 import com.codeup.qshe.services.user.UserDetailsLoader;
 import com.codeup.qshe.services.user.UserService;
+import com.flickr4java.flickr.FlickrException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
@@ -37,6 +40,12 @@ public class UserController {
     private StateService stateDao;
 
 
+    @Value("${flickr-key}")
+    private String apiKey;
+    @Value("${flickr-secret}")
+    private String sharedSecret;
+
+
     @Autowired
     public UserController(UserService userDao, PasswordEncoder passwordEncoder, Roles roles,
                           MessagesService messageDao, StateService stateDao) {
@@ -48,10 +57,16 @@ public class UserController {
 
     }
 
+
     @GetMapping("/sign-up")
-    public String showSignupForm(Model model) {
-        model.addAttribute("user", new User());
-        return "users/sign-up";
+        public String showSignupForm(Model model) throws FlickrException {
+
+            FlickrService f = new FlickrService(apiKey, sharedSecret);
+            State state =  stateDao.getStates().getRandom();
+
+            model.addAttribute("photo", f.getPhoto(state.getName()));
+            model.addAttribute("user", new User());
+            return "users/sign-up";
 
     }
 

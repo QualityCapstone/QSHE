@@ -12,7 +12,8 @@ module.exports = {
         map: './src/main/resources/static/js/map.js',
         state: './src/main/resources/static/js/state.js',
         bubble: './src/main/resources/static/js/bubble.js',
-        news: './src/main/resources/static/js/newsapi.js'
+        news: './src/main/resources/static/js/newsapi.js',
+        signup: './src/main/resources/static/js/signup.js'
     },
     // where to put the transpiled javascript
     output: {
