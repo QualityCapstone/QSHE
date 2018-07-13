@@ -56,55 +56,24 @@
 
 <div class="container mt-4">
     <div class="userProfile row">
-        <div class="col-md-6">
+        <div class="col-md-6" style="margin-bottom: 1rem">
             <div class="card">
-                <!--placeholder-->
-                <!--<img class="card-img-top img-fluid mx-auto mt-3" src="/img/face_icons-circle-63.png" alt="Card image cap" style="width: 200px">-->
-                <!--actual profile pictures-->
-                <img th:if="${user.profile.uploadPath == null}" style="height: 150px; width: 150px; margin: 0 auto" th:src="@{/img/defaultavatar.png}" alt="none" />
-                <img th:if="${user.profile.uploadPath}" style="height: 150px; width: 150px; margin: 0 auto" th:src="@{/uploads/} + ${user.profile.uploadPath}"  alt="didn't work" />
+                <br />
+                <h3 class="card-title" style="text-align: center">Welcome to your Profile!</h3>
+                <div style="margin: 0 auto; height: 200px; width: 200px">
+                    <div style="text-align: center">
+                        <img th:if="${user.profile.uploadPath == null}" style="height: 150px; width: 150px; margin: 0 auto" th:src="@{/img/defaultavatar.png}" alt="none" />
+                        <img th:if="${user.profile.uploadPath}" style="height: 150px; width: 150px; margin: 0 auto" th:src="@{/uploads/} + ${user.profile.uploadPath}"  alt="didn't work" />
+                    </div>
+                </div>
                 <div class="card-body">
-                    <!--<h5 class="card-title">Card title</h5>-->
-                    <h1 class="text-center"> <span th:text="${#authentication.principal.profile.firstName}"></span> </h1>
-                    <p class="card-text text-center"> <span th:text="${#authentication.principal.profile.name}"></span> </p>
-
+                    <h3 class="text-center"> <span th:text="${#authentication.principal.profile.firstName}"></span> </h3>
                 </div>
             </div>
         </div>
         <br />
-        <div class="col-md-6">
-            <div class="card">
-                <div class="card-body">
-                    <!--<h5 class="card-title">Card title</h5>-->
-                    <h4 class="text-left">Your name:</h4>
-                    <h4 class="text-center"> <span th:text="${#authentication.principal.profile.firstName}"></span> </h4>
-                    <h4 class="text-center"> <span th:text="${#authentication.principal.profile.lastName}"></span> </h4>
-                    <h4 class="text-left">Your email:</h4>
-                    <h4 class="text-center"> <span th:text="${#authentication.principal.profile.email}"></span></h4>
-                    <h4 class="text-left">You live in:</h4>
-                    <h4 class="text-center"><span th:text="${#authentication.principal.profile.userState}"></span></h4>
-                    <!--<h1 class="text-center"> <span th:text="${#authentication.principal.profile.firstName}"></span> </h1>-->
-                    <h4 class="text-left">About you:</h4>
-                    <p class="card-text text-center"> <span th:text="${#authentication.principal.profile.name}"></span> </p>
-                </div>
-                <button class="btn btn-sm"><a th:href="@{/editprofile}"> Edit Profile</a> </button>
-            </div>
-        </div>
 
-        <!--news tab for user's state-->
-
-        <div class="col-md-6">
-            <div class="card">
-                <div class="card-body">
-                    <ul id="statenews" th:data-state-name="${#authentication.principal.profile.userState}"></ul>
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal">View more News</button>
-                </div>
-            </div>
-        </div>
-
-        <!--state and rating tab-->
-
-        <div class="col-md-6">
+        <div class="col-md-6" style="margin-bottom: 1rem">
             <div class="card">
                 <h4 class="card-title" style="text-align: center">Your State and Rating</h4>
                 <div class="card-body">
@@ -118,11 +87,41 @@
             </div>
         </div>
 
-        <div class="col-md-6 mt-5">
+        <!--news tab for user's state-->
+        <div class="col-md-6" style="margin-bottom: 1rem">
+
+            <div class="card">
+                <div class="card-body">
+                    <!--<h5 class="card-title">Card title</h5>-->
+                    <h4 class="text-left">Your name:</h4>
+                    <h4 class="text-center"> <span th:text="${#authentication.principal.profile.firstName} + ' ' + ${#authentication.principal.profile.lastName}"></span> </h4>
+                    <br />
+                    <h4 class="text-left">Your email:</h4>
+                    <h4 class="text-center"> <span th:text="${#authentication.principal.profile.email}"></span></h4>
+                    <br />
+                    <h4 class="text-left">You live in:</h4>
+                    <h4 class="text-center"><span th:text="${#authentication.principal.profile.userState}"></span></h4>
+                    <br />
+                    <p class="card-text text-center"> <span th:text="${#authentication.principal.profile.name}"></span> </p>
+                </div>
+                <button class="btn btn-sm"><a th:href="@{/editprofile}"> Edit Profile</a> </button>
+            </div>
+        </div>
+
+        <!--state and rating tab-->
+        <div class="col-md-6" style="margin-bottom: 1rem">
+            <div class="card">
+                <div class="card-body">
+                    <ul id="statenews" th:data-state-name="${#authentication.principal.profile.userState}"></ul>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal">View more News</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-12 mt-5" style="margin-bottom: 1rem">
             <div class="card">
                 <div class="card-body">
                     <h3 class="mb-3">Messages</h3>
-
                     <table class="table table-hover">
                         <thead>
                         <tr>
