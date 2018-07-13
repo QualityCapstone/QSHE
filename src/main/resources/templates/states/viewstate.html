@@ -113,23 +113,12 @@
                     </div>
                 </div>
             </div>
+
             <div class="col-md-8">
                 <div id="radar-chart"></div>
             </div>
         </div>
-        <form th:action="@{~/posts/all/}+ ${state.id}" method="get">
-            <div class="">
 
-                <input type="hidden" name="recipient-id" th:value="${state.id}">
-
-                <!--<input type="text"  class="form-control mb-5" id="message" name="message"/>-->
-                <div class="">
-                    <button type="submit" class="btn btn-outline-primary">Blog</button>
-                </div>
-
-            </div>
-
-        </form>
 
             <div class="row  page   row-full-screen row-dark">
 
