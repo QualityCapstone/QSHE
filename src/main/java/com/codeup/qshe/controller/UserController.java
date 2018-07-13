@@ -57,7 +57,6 @@ public class UserController {
 
     }
 
-
     @GetMapping("/sign-up")
         public String showSignupForm(Model model) throws FlickrException {
 
