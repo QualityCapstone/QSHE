@@ -5,6 +5,8 @@
 // You must include at least one q, source, or domain
 
     let query = $('#statenews').attr("data-state-name") + ' female';
+
+    // functions to pull current date
     let today = new Date();
     let dd = today.getDate();
     let mm = today.getMonth()+1; //January is 0!
