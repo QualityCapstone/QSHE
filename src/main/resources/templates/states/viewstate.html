@@ -79,12 +79,8 @@
                 <button class="state-btn btn btn-primary mr-2" th:data-current-abbr="${state.abbr}" data-selected-abbr="">Compare with Current</button>
                 <button class="state-btn btn btn-primary" data-selected-abbr="">Go To</button>
             </div>
-
         </div>
     </div>
-
-
-    <hr>
 
         <div class=" page one row row-full-screen ">
             <div class="col-md-4">
@@ -106,7 +102,7 @@
                         <ul>
                             <li class="text-truncate" th:each="p : ${topPosts}" th:text="${p.title}"></li>
                         </ul>
-                        <a th:href="@{~/posts/all/}+ ${state.id}" class="btn btn-primary">View More</a>
+                        <a th:href="@{~/posts/state/}+ ${state.abbr}" class="btn btn-primary">View More</a>
                     </div>
                 </div>
             </div>
@@ -116,19 +112,7 @@
             </div>
         </div>
 
-        <form th:action="@{~/posts/all/}+ ${state.id}" method="get">
-            <div class="">
-
-                <input type="hidden" name="recipient-id" th:value="${state.id}">
-
-                <!--<input type="text"  class="form-control mb-5" id="message" name="message"/>-->
-
-
-            </div>
-
-
-
-            <div class="row  page two  row-full-screen row-dark">
+        <div class="row page two row-full-screen">
 
                 <div class="col-md-4 text-center">
                     <h2><i class="far fa-smile"></i>Safety</h2>
@@ -137,27 +121,28 @@
                     <div class="row pt-4">
 
                         <div class="description-text">
-                            <p>This chart displays the number of female graduates in the state of <span th:text="${state.name}"></span>
-                                from 2013 to 2015. The number of graduates has increased by <span class="bold">1.2%</span> in the last 3 years.</p>
+                            <p>This chart displays the breakdown of crimes in <span th:text="${state.name}"></span>
+                                for the past 5 years. Overall crime has increased by <span class="bold">1.2%</span> since 2010. Violent crime
+                                has decreaed by <span>3.2%</span> in the same time period.</p>
                         </div>
 
                     </div>
 
                     <div  class="row pt-4">
                         <div class="metric col-md-6">
-                            <div class="number">6.7</div>
+                            <div class="number">8.7</div>
                             <div class="name">User Rating</div>
                         </div>
 
                         <div class="metric col-md-6">
-                            <div class="number">4.2</div>
+                            <div class="number">6.2</div>
                             <div class="name">True Sense</div>
                         </div>
 
                         <div class="col-md-3"></div>
                         <div class="metric col-md-6">
-                            <div class="number text-center">917,179</div>
-                            <div class="name text-center">FEMALE GRADUATES SINCE 2013</div>
+                            <div class="number text-center">20th</div>
+                            <div class="name text-center">RANKING VS OTHER STATES</div>
                         </div>
                         <div class="col-md-3"></div>
 
@@ -167,12 +152,12 @@
                     <div class="row pt-4">
 
                         <div class="description-text">
-                            <p>The state ranks <span class="bold">45th</span> overall when compared against graduates totals
-                                from all other States. It ranks <span class="bold">32nd</span> when compared as a increase of
-                                graduates over the past 3 years.
-                        </div>
+                            <p>The state ranks <span class="bold">20th</span> overall when compared against graduates totals
+                                from all other States.
 
                     </div>
+                </div>
+
                 </div>
 
                 <div class="col-md-8">
@@ -187,52 +172,9 @@
 
 
 
-        <div class="row   page three row-full-screen">
-
-            <div class="col-md-4 text-center">
-                <h2><i class="far fa-chart-bar"></i>Growth</h2>
+        <div class="row page three row-full-screen">
 
 
-                <div class="row pt-4">
-
-                    <div class="description-text">
-                        <p>This chart displays the number of female graduates in the state of <span th:text="${state.name}"></span>
-                            from 2013 to 2015. The number of graduates has increased by <span class="bold">1.2%</span> in the last 3 years.</p>
-                    </div>
-
-                </div>
-
-                <div  class="row pt-4">
-                    <div class="metric col-md-6">
-                        <div class="number">6.7</div>
-                        <div class="name">User Rating</div>
-                    </div>
-
-                    <div class="metric col-md-6">
-                        <div class="number">4.2</div>
-                        <div class="name">True Sense</div>
-                    </div>
-
-                    <div class="col-md-3"></div>
-                    <div class="metric col-md-6">
-                        <div class="number text-center">917,179</div>
-                        <div class="name text-center">FEMALE GRADUATES SINCE 2013</div>
-                    </div>
-                    <div class="col-md-3"></div>
-
-
-                </div>
-
-                <div class="row pt-4">
-
-                    <div class="description-text">
-                        <p>The state ranks <span class="bold">45th</span> overall when compared against graduates totals
-                            from all other States. It ranks <span class="bold">32nd</span> when compared as a increase of
-                            graduates over the past 3 years.
-                    </div>
-
-                </div>
-            </div>
 
             <div class="col-md-8">
                 <div class="card">
@@ -242,13 +184,54 @@
                 </div>
             </div>
 
+
+            <div class="col-md-4 text-center">
+                <h2><i class="far fa-chart-bar"></i>Growth</h2>
+
+
+                <div class="row pt-4">
+                    <div class="description-text">
+                        <p>This chart displays population growth in <span th:text="${state.name}"></span>
+                            from 2010 to 2016. The state population has increased by <span class="bold">4%</span> in the last 6 years.</p>
+                    </div>
+
+                </div>
+
+                <div  class="row pt-4">
+                    <div class="metric col-md-6">
+                        <div class="number">3.7</div>
+                        <div class="name">User Rating</div>
+                    </div>
+
+                    <div class="metric col-md-6">
+                        <div class="number">7.2</div>
+                        <div class="name">True Sense</div>
+                    </div>
+
+                    <div class="col-md-3"></div>
+                    <div class="metric col-md-6">
+                        <div class="number text-center">4%</div>
+                        <div class="name text-center">YEAR OVER YEAR POPULATION GROWTH</div>
+                    </div>
+                    <div class="col-md-3"></div>
+
+                </div>
+
+                <div class="row pt-4">
+                    <div class="description-text">
+                        <p>The state ranks <span class="bold">15th</span> overall when compared against
+                            all other States.
+                    </div>
+                </div>
+            </div>
+
+
         </div>
 
-        <div class="row  page four row-full-screen">
+        <div class="row page four row-full-screen">
 
         <div class="col-md-4 text-center">
             <h2><i class="fas fa-chalkboard"></i> Education</h2>
-
 
             <div class="row pt-4">
 
@@ -301,38 +284,35 @@
 
     </div>
 
-
-
-        <div class="row  page five   row-full-screen">
+        <div class="row page five row-full-screen">
 
             <div class="col-md-4 text-center">
                 <h2><i class="fas fa-user-md"></i> Health</h2>
 
-
                 <div class="row pt-4">
 
                     <div class="description-text">
-                        <p>This chart displays the number of female graduates in the state of <span th:text="${state.name}"></span>
-                            from 2013 to 2015. The number of graduates has increased by <span class="bold">1.2%</span> in the last 3 years.</p>
+                        <p>This chart displays Health options for  <span th:text="${state.name}"></span>
+                            from 2013 to 2015.
                     </div>
 
                 </div>
 
                 <div  class="row pt-4">
                     <div class="metric col-md-6">
-                        <div class="number">6.7</div>
+                        <div class="number">8.2</div>
                         <div class="name">User Rating</div>
                     </div>
 
                     <div class="metric col-md-6">
-                        <div class="number">4.2</div>
+                        <div class="number">9.2</div>
                         <div class="name">True Sense</div>
                     </div>
 
                     <div class="col-md-3"></div>
                     <div class="metric col-md-6">
-                        <div class="number text-center">917,179</div>
-                        <div class="name text-center">FEMALE GRADUATES SINCE 2013</div>
+                        <div class="number text-center">101,011</div>
+                        <div class="name text-center">NEW HEALTH CARE FACILITIES PER YEAR</div>
                     </div>
                     <div class="col-md-3"></div>
 
@@ -342,9 +322,7 @@
                 <div class="row pt-4">
 
                     <div class="description-text">
-                        <p>The state ranks <span class="bold">45th</span> overall when compared against graduates totals
-                            from all other States. It ranks <span class="bold">32nd</span> when compared as a increase of
-                            graduates over the past 3 years.
+                        <p>The state ranks <span class="bold">15th</span> overall when compared against other states.
                     </div>
 
                 </div>
@@ -358,6 +336,8 @@
                 </div>
             </div>
         </div>
+
+
     </div>
 <div th:replace="partials/layout :: footer" />
 <script th:src="@{~/built/state.js}"> </script>
