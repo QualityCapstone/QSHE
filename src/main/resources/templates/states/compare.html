@@ -4,6 +4,7 @@
 <head th:replace="partials/layout :: header">
     <meta charset="UTF-8" />
     <title>Index page</title>
+
 </head>
 <body>
 
@@ -54,24 +55,62 @@
 
 
 
+<div class="state-nav row">
+    <div class="col-md-6 text-nowrap state-half-border">
+        <div class="state state-tiny" id="state-tiny" th:data-state-abbr="${stateA.abbr}">
+            <svg th:class="@{icon icon-state-} + ${stateA.abbr}">
+                <use th:xlink:href="@{#icon-state-} + ${stateA.abbr}"></use>
+            </svg>
+        </div>
+        <h1>
+            <a th:href="@{~/state/} + ${stateA.abbr}" th:text="${stateA.name}"></a></h1>
+    </div>
+    <div class="col-md-6 text-nowrap">
+        <div class="state state-tiny" id="state-tiny" th:data-state-abbr="${stateB.abbr}">
+            <svg th:class="@{icon icon-state-} + ${stateB.abbr}">
+                <use th:xlink:href="@{#icon-state-} + ${stateB.abbr}"></use>
+            </svg>
+        </div>
+        <h1>
+            <a th:href="@{~/state/} + ${stateB.abbr}" th:text="${stateB.name}"></a></h1>
+    </div>
+
+</div>
 
 
-<div class="row  page one row-full-screen">
+
+
+
+<div class="page one">
+
+    <div class="left-state"></div>
+
+    <div class="right-state"></div>
 
 </div>
 
 
 <div class="row  page two row-full-screen">
+    <div class="left-state"></div>
+
+    <div class="right-state"></div>
 
 </div>
 
 
 <div class="row  page three row-full-screen">
+    <div class="left-state"></div>
+
+    <div class="right-state"></div>
 
 </div>
 
 
 <div class="row  page four row-full-screen">
+
+    <div class="left-state"></div>
+
+    <div class="right-state"></div>
 
 </div>
 

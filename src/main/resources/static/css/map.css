@@ -41,6 +41,7 @@
 .state {
     color: #5a6aff;
     transition: 500ms color;
+    padding-left: 15px;
 }
 
 
@@ -49,6 +50,25 @@
     height: 50px;
     float: left;
     color: black;
+}
+
+.col-md-6 {
+    width: 50vw;
+    margin: 0;
+    padding: 0;
+    padding-top: 10px;
+}
+
+
+.main-state-nav {
+    padding-top: 10px;
+}
+
+
+.state-half-border {
+    border-right: 1px dotted #d7d7d7;
+    padding-right: 0;
+    margin-right: 0
 }
 
 
@@ -72,7 +92,20 @@
 }
 
 .page {
+    padding: 0;
+}
+
+.view-state .page {
     padding: 20px;
+}
+
+.left-state, right-state {
+ width: 50%;
+    height: calc(100vh - 50px);
+}
+
+.left-state {
+    border-right: 1px dotted #d7d7d7;
 }
 
 
@@ -117,7 +150,7 @@ h2 {
 
 .bold {
     font-weight: bold;
-    font-weight: bold;
+
 }
 
 .state-header-name {
@@ -133,7 +166,7 @@ h2 {
     position: -webkit-sticky;
     top: 0; /* required */
     z-index: 100;
-    padding-top: 10px;
+
     background-color: rgba(255,255,255,1);
     border-bottom: 2px solid pink;
 }
@@ -150,7 +183,7 @@ h2 {
 
 
 .state-header-half {
-    width: 50vw;
+    width: 50%;
     height: calc(100vh - 50px);
     -webkit-background-size: cover;
     background-size: cover;
