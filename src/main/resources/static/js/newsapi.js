@@ -1,7 +1,6 @@
 import css from '../css/map.css';
-const $ = require('jquery');
-    const NewsAPI = require('newsapi');
-    const newsapi = new NewsAPI('b8cc911c5a604eadac02a424f0945ae8');
+ const NewsAPI = require('newsapi');
+ const newsapi = new NewsAPI('b8cc911c5a604eadac02a424f0945ae8');
 
     // To query /v2/everything
 // You must include at least one q, source, or domain
