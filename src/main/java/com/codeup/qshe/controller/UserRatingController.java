@@ -46,7 +46,8 @@ public class UserRatingController {
     public String saveUserRate(@RequestParam HashMap<String, String> formData) {
 
         User user = userDao.getLoggedInUser();
-        State state = ratingDao.getStates().findByName(user.getProfile().getUserState());
+        String userstate = user.getProfile().getUserState();
+        State state = stateDao.getStates().findByName(userstate);
 
         ratingDao.getUserRatings().deleteByStateAndUser(state, user);
 
