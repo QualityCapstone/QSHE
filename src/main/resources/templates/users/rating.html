@@ -32,50 +32,54 @@
     </div>
 </nav>
 <div class="container wrapper mx-auto" sec:authorize="isAuthenticated()">
-    <!--<div class="text-left col-12">-->
-        <!--<ol class="breadcrumb">-->
-            <!--<li class="breadcrumb-item"><a th:href="@{~/profile}">Home</a></li>-->
-            <!--<li class="breadcrumb-item"><a  th:href="@{~/dashboard}">-->
-                <!--<span th:text="${#authentication?.principal?.profile?.name}"></span>-->
-            <!--</a></li>-->
-            <!--<li class="breadcrumb-item active">Profile</li>-->
-        <!--</ol>-->
-    <!--</div>-->
     <div class="container">
             <!-- TO RATE -->
             <h2 class="text-center mb-5">My Rating</h2>
             <div class="row">
                 <div class="col-sm-6">
                     <div class="card">
-                        <div class="card-body">
-                            <h3 class="col-10 mb-3 text-center">Rate each element of your State</h3>
+                        <div class="col-12">
+                            <h3 class="m-5 text-center">Rate each element of your State</h3>
                             <form class=" bg-faded m-3 p-3" th:action="@{/users/rating}" method="post" th:object="${stateUserRating}">
                                 <div class="form-group">
                                     <h5 class="m-b-1 text-center">From 1 as Good to 10 as Bad:</h5>
                                 </div>
-                                <div class="form-group m-0 mb-2">
-                                    <label class="text-left" for="violenceRate">How safe do you feel where you live?</label>
+                                <div class="form-group m-5 mb-2">
+                                    <label class="text-left" for="violenceRate">How safe do you feel where you live?
+                                    <img src="/img/icon-info.png" id="q-violence"/></label><br/>
+                                    <small class="text-left m-2" id="info-crime">Do you feel safe when you go out in your city? Have you experienced any type of crime?</small>
                                     <input type="range" min="1" max="10" value="1" class="slider float-left" id="violenceRate" style="background-color: #DC6F68" />
                                     <input type="hidden" id="hdrating" name="hdrating">
                                     <p class="text-center float-right" id="rating"><span class="slider-val"></span></p>
                                 </div>
-                                <div class="form-group m-0">
-                                    <label class="text-left" for="employmentRate">How would you rank the employment rate in your state?</label>
+                                <div class="form-group m-5">
+                                    <label class="text-left" for="employmentRate">How would you rank the employment rate in your state?
+                                    <img src="/img/icon-info.png" id="q-employment"/></label><br/>
+                                    <small class="text-left m-2" id="info-employment">How hard is to get a job in your city? Are the salaries good?</small>
                                     <input type="range" min="1" max="10" value="1" class="slider float-left" id="employmentRate" style="background-color: #DC6F68"/>
                                     <p class="text-center float-right"><span class="slider-val"></span></p>
                                 </div>
-                                <div class="form-group m-0">
-                                    <label class="text-left" for="educationRate">How would you rank the education system in your state?</label>
+                                <div class="form-group m-5">
+                                    <label class="text-left" for="educationRate">How would you rank the education system in your state?
+                                        <img src="/img/icon-info.png" id="q-education"/></label><br>
+                                    <small class="text-left" id="info-education">Are there good schools/universities in your city?
+                                    What's the education level of your friends, family or people you know?</small>
                                     <input type="range" min="1" max="10" value="1" class="slider float-left" id="educationRate" style="background-color: #DC6F68"/>
                                     <p class="text-center float-right"><span class="slider-val"></span></p>
                                 </div>
-                                <div class="form-group m-0">
-                                    <label class="left-text" for="healthRate">How would you rank the health care system in your state?</label>
+                                <div class="form-group m-5">
+                                    <label class="left-text" for="healthRate">How would you rank the health care system in your state?
+                                        <img src="/img/icon-info.png" id="q-health"/></label><br/>
+                                    <small class="text-left" id="info-health">How expensive are the healthcare services in your city?
+                                    Do you consider are enough medical services, health programs, hospitals?</small>
                                     <input type="range" min="1" max="10" value="1" class="slider float-left" id="healthRate" style="background-color: #DC6F68"/>
                                     <p class="text-center float-right"><span class="slider-val"</span></p>
                                 </div>
-                                <div class="form-group m-0">
-                                    <label class="text-left" for="growthRate">How would you rate the general growth in your state?</label>
+                                <div class="form-group m-5">
+                                    <label class="text-left" for="growthRate">How would you rate the general growth in your state?
+                                        <img src="/img/icon-info.png" id="q-growth"/></label><br/>
+                                    <small class="text-left" id="info-growth">Is your city increasing in infrastructure, business, economy
+                                    development?</small>
                                     <input type="range" min="1" max="10"value="1" class="slider float-left" id="growthRate" style="background-color: #DC6F68"/>
                                     <p class="text-center float-right"><span class="slider-val"></span></p>
                                 </div>
@@ -196,6 +200,24 @@
         }
 
     }
+
+    $("#q-violence").click(function(){
+        $("#info-crime").toggle();
+    });
+    $("#q-employment").click(function(){
+        $("#info-employment").toggle();
+    });
+    $("#q-education").click(function(){
+        $("#info-education").toggle();
+    });
+    $("#q-health").click(function(){
+        $("#info-health").toggle();
+    });
+    $("#q-growth").click(function(){
+        $("#info-growth").toggle();
+    });
+
+
     // commemnt
 </script>
 </body>

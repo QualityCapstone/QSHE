@@ -92,3 +92,8 @@ body {
     -moz-border-radius: 15px;
     border-radius: 15px;
 }
+
+#info-crime, #info-employment, #info-education,
+#info-health, #info-growth{
+    display: none;
+}
