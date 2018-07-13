@@ -80,7 +80,7 @@ public class UserController {
 
 
 
-    @GetMapping("/profile")
+    @GetMapping("/editprofile")
     public String loadProfile(Model model) {
         User user = userDao.getLoggedInUser();
         model.addAttribute("conversations",
@@ -90,7 +90,7 @@ public class UserController {
         model.addAttribute("state", state);
         model.addAttribute("user", user);
 
-        return "users/profile";
+        return "users/editprofile";
     }
 
 

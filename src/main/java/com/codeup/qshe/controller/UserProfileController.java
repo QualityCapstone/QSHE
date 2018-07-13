@@ -30,8 +30,6 @@ public class UserProfileController {
     public String displayProfile(Model model) {
         User user = userDao.getLoggedInUser();
         String userstate = user.getProfile().getUserState();
-        System.out.println(userstate);
-        System.out.println("hello world");
         model.addAttribute("state", userstate);
         model.addAttribute("user", user);
 
