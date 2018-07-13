@@ -179,6 +179,7 @@ ul {
 
 .state-bg-photo {
 background-size: cover;
+    min-height: 346px;
 }
 
 
@@ -187,7 +188,12 @@ background-size: cover;
 }
 
 #state-profile .card-body {
-    background: rgba(255,255,255,0.4)
+    background: rgba(255,255,255,0.4);
+    height: 100%;
+}
+
+#state-profile .state {
+    height: 100%;;
 }
 
 #state-profile h3 {
