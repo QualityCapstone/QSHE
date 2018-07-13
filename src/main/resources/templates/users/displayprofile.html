@@ -103,7 +103,6 @@
                     <h4 class="text-left">You live in:</h4>
                     <h4 class="text-center"><span th:text="${#authentication.principal.profile.userState}"></span></h4>
                     <br />
-                    <p class="card-text text-center"> <span th:text="${#authentication.principal.profile.name}"></span> </p>
                 </div>
                 <button class="btn btn-sm"><a th:href="@{/editprofile}"> Edit Profile</a> </button>
             </div>
@@ -294,6 +293,13 @@
         // var star = parseFloat(Average.toFixed(2)) * 20;
         // $('.avg-ovral-rtng .rating-stars').css("width", star + "%");
     }
+
+    // modal scroll disable
+    $("#myModal").on("show", function () {
+        $('body').css('height', '100vh').css('overflow-y', 'hidden');
+    }).on("hidden", function () {
+        jQuery('body').css('height', '').css('overflow-y', '');
+    });
 </script>
 <script th:src="@{~/built/news.js}"></script>
 

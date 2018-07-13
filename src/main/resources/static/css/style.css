@@ -97,3 +97,9 @@ body {
 #info-health, #info-growth{
     display: none;
 }
+
+body .modal-open{
+    position: relative;
+    overflow: hidden;
+    height: 100%;
+}

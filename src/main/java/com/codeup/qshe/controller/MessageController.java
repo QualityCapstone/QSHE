@@ -56,10 +56,4 @@ public class MessageController {
 
          return "redirect:/messages/view/" + sentToId;
    }
-
-
-
-
-
-
 }
