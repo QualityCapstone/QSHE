@@ -9,7 +9,7 @@
 <div th:replace="partials/layout :: navbar" />
 <!--<div class="col-12">-->
     <nav class="navbar navbar-expand-lg navbar-light bg-light m-auto">
-        <a class="navbar-brand" href="#">PROFILE</a>
+        <a class="navbar-brand" href="/users/displayprofile">PROFILE</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -102,11 +102,39 @@
 
         </div>
 
-        <div class="col-md-6">
+        <div class="col-md-6 mt-5">
             <div class="card">
                 <div class="card-body">
-                    <ul id="statenews" th:data-state-name="${#authentication.principal.profile.userState}"></ul>
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal">View more News</button>
+                    <h3 class="mb-3">Messages</h3>
+
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th>UserName</th>
+                            <th class="d-none d-sm-table-cell sticky-header">Message</th>
+                            <th class="sticky-top">Status</th>
+
+                        </tr>
+                        </thead>
+                        <tbody id="transaction-list">
+
+                        <th:block th:each="c : ${conversations}">
+                            <tr class="conversation"  th:data-id="${c.id}">
+                                <td>
+                                    <a th:href="@{~/messages/view/} + ${c.recipient.id}" th:text="${c.recipient.username}"></a>
+                                </td>
+                                <td>
+                                    <span class="text-muted" th:text="${c.message} ">Since 05/01/2012</span>
+                                </td>
+                                <td><span>Unread</span>
+                                </td>
+
+                            </tr>
+
+                        </th:block>
+
+                        </tbody>
+                    </table>
                 </div>
             </div>
 
@@ -201,7 +229,7 @@
         </div>
     </div>
 </div><!-- THIS IS THE END OF THE RATING TAB -->
-<div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+<!--<div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">-->
     <h3 class="mb-3">Messages</h3>
 
     <table class="table table-hover">
@@ -232,7 +260,7 @@
 
         </tbody>
     </table>
-</div>
+<!--</div>-->
 
 <div th:replace="partials/layout :: footer" />
 
