@@ -15,10 +15,10 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
-            <ul class="navbar-nav m-auto">
-                <li class="nav-item active d-inline">
+            <ul class="navbar-nav m-auto" id="navprofile">
+                <li class="nav-item d-inline">
                     <!--<img src="/img/4391 - Around the Globe.png"/>-->
-                    <a class="nav-link" href="/us">Map<img src="/img/icon-map.png" class="ml-1"/><span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="/us">Map<img src="/img/icon-map.png" class="ml-1"/></a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/users/rating">Your rating<img src="/img/icon-user-rating.png" class="ml-1"/></a>
@@ -57,9 +57,9 @@
 <div class="container mt-4">
     <div class="userProfile row">
         <div class="col-md-6" style="margin-bottom: 1rem">
-            <div class="card">
+            <div class="card card-border">
                 <br />
-                <h3 class="card-title" style="text-align: center">Welcome to your Profile!</h3>
+                <h3 class="card-title title-card" style="text-align: center">Welcome to your Profile!</h3>
                 <div style="margin: 0 auto; height: 200px; width: 200px">
                     <div style="text-align: center">
                         <img th:if="${user.profile.uploadPath == null}" style="height: 150px; width: 150px; margin: 0 auto" th:src="@{/img/defaultavatar.png}" alt="none" />
@@ -75,7 +75,7 @@
 
         <div class="col-md-6" style="margin-bottom: 1rem">
             <div class="card">
-                <h4 class="card-title" style="text-align: center">Your State and Rating</h4>
+                <h3 class="card-title mt-3 title-card" style="text-align: center">Your State and Rating</h3>
                 <div class="card-body">
                     <div class="state pt-4">
                         <svg th:class="@{icon icon-state-} + ${state.abbr}">
@@ -93,18 +93,18 @@
             <div class="card">
                 <div class="card-body">
                     <!--<h5 class="card-title">Card title</h5>-->
-                    <h4 class="text-left">Your name:</h4>
+                    <h4 class="text-left title-card">Your name:</h4>
                     <h4 class="text-center"> <span th:text="${#authentication.principal.profile.firstName} + ' ' + ${#authentication.principal.profile.lastName}"></span> </h4>
                     <br />
-                    <h4 class="text-left">Your email:</h4>
+                    <h4 class="text-left title-card">Your email:</h4>
                     <h4 class="text-center"> <span th:text="${#authentication.principal.profile.email}"></span></h4>
                     <br />
-                    <h4 class="text-left">You live in:</h4>
+                    <h4 class="text-left title-card">You live in:</h4>
                     <h4 class="text-center"><span th:text="${#authentication.principal.profile.userState}"></span></h4>
                     <br />
                     <p class="card-text text-center"> <span th:text="${#authentication.principal.profile.name}"></span> </p>
                 </div>
-                <button class="btn btn-sm"><a th:href="@{/editprofile}"> Edit Profile</a> </button>
+                <button class="btn btn-sm float-right"><a class="float-right" th:href="@{/editprofile}"> Edit Profile</a> </button>
             </div>
         </div>
 
@@ -179,37 +179,37 @@
         </div>
     </div>
 </div><!-- end of tab-pane-fade -->
-<div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
-<h3 class="mb-3">Messages</h3>
+<!--<div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">-->
+<!--<h3 class="mb-3">Messages</h3>-->
 
-    <table class="table table-hover">
-        <thead>
-        <tr>
-            <th>UserName</th>
-            <th class="d-none d-sm-table-cell sticky-header">Message</th>
-            <th class="sticky-top">Status</th>
+    <!--<table class="table table-hover">-->
+        <!--<thead>-->
+        <!--<tr>-->
+            <!--<th>UserName</th>-->
+            <!--<th class="d-none d-sm-table-cell sticky-header">Message</th>-->
+            <!--<th class="sticky-top">Status</th>-->
 
-        </tr>
-        </thead>
-        <tbody id="transaction-list">
+        <!--</tr>-->
+        <!--</thead>-->
+        <!--<tbody id="transaction-list">-->
 
-        <th:block th:each="c : ${conversations}">
-            <tr class="conversation"  th:data-id="${c.id}">
-                <td>
-                    <a th:href="@{~/messages/view/} + ${c.recipient.id}" th:text="${c.recipient.username}"></a>
-                </td>
-                <td>
-                    <span class="text-muted" th:text="${c.message} ">Since 05/01/2012</span>
-                </td>
-                <td><span>Unread</span>
-                </td>
+        <!--<th:block th:each="c : ${conversations}">-->
+            <!--<tr class="conversation"  th:data-id="${c.id}">-->
+                <!--<td>-->
+                    <!--<a th:href="@{~/messages/view/} + ${c.recipient.id}" th:text="${c.recipient.username}"></a>-->
+                <!--</td>-->
+                <!--<td>-->
+                    <!--<span class="text-muted" th:text="${c.message} ">Since 05/01/2012</span>-->
+                <!--</td>-->
+                <!--<td><span>Unread</span>-->
+                <!--</td>-->
 
-            </tr>
+            <!--</tr>-->
 
-        </th:block>
+        <!--</th:block>-->
 
-        </tbody>
-    </table>
+        <!--</tbody>-->
+    <!--</table>-->
 <!--</div>-->
 =======
 </div>
@@ -217,83 +217,83 @@
 
 <div th:replace="partials/layout :: footer" />
 
-<script type="text/javascript">
-    // USER RATE VALUE FOR VIOLENCE
-    var sliderOne = document.getElementById("violenceRate");
-    var outputOne = document.getElementById("demoViolence");
-    outputOne.innerHTML =sliderOne.value;
+<!--<script type="text/javascript">-->
+    <!--// USER RATE VALUE FOR VIOLENCE-->
+    <!--var sliderOne = document.getElementById("violenceRate");-->
+    <!--var outputOne = document.getElementById("demoViolence");-->
+    <!--outputOne.innerHTML =sliderOne.value;-->
 
-    sliderOne.oninput = function(){
-        outputOne.innerHTML = this.value;
-    };
+    <!--sliderOne.oninput = function(){-->
+        <!--outputOne.innerHTML = this.value;-->
+    <!--};-->
 
-    // // USER RATE VALUE FOR EMPLOYMENT
-    var sliderTwo = document.getElementById("employmentRate");
-    var outputTwo = document.getElementById("demoEmployment");
-    outputTwo.innerHTML = sliderTwo.value;
+    <!--// // USER RATE VALUE FOR EMPLOYMENT-->
+    <!--var sliderTwo = document.getElementById("employmentRate");-->
+    <!--var outputTwo = document.getElementById("demoEmployment");-->
+    <!--outputTwo.innerHTML = sliderTwo.value;-->
 
-    sliderTwo.oninput = function (){
-        outputTwo.innerHTML = this.value;
-    };
-    //
-    // //USER RATE VALUE FOR EDUCATION
-    var sliderThree = document.getElementById("educationRate");
-    var outputThree = document.getElementById("demoEducation");
-    outputThree.innerHTML = sliderThree.value;
+    <!--sliderTwo.oninput = function (){-->
+        <!--outputTwo.innerHTML = this.value;-->
+    <!--};-->
+    <!--//-->
+    <!--// //USER RATE VALUE FOR EDUCATION-->
+    <!--var sliderThree = document.getElementById("educationRate");-->
+    <!--var outputThree = document.getElementById("demoEducation");-->
+    <!--outputThree.innerHTML = sliderThree.value;-->
 
-    sliderThree.oninput = function (){
-        outputThree.innerHTML = this.value;
-    };
+    <!--sliderThree.oninput = function (){-->
+        <!--outputThree.innerHTML = this.value;-->
+    <!--};-->
 
-    // // USER RATE VALUE FOR HEALTH
-    var sliderFour = document.getElementById("healthRate");
-    var outputFour = document.getElementById("demoHealth");
-    outputFour.innerHTML = sliderFour.value;
+    <!--// // USER RATE VALUE FOR HEALTH-->
+    <!--var sliderFour = document.getElementById("healthRate");-->
+    <!--var outputFour = document.getElementById("demoHealth");-->
+    <!--outputFour.innerHTML = sliderFour.value;-->
 
-    sliderFour.oninput = function () {
-        outputFour.innerHTML = sliderFour.value;
-    };
+    <!--sliderFour.oninput = function () {-->
+        <!--outputFour.innerHTML = sliderFour.value;-->
+    <!--};-->
 
-    // USER RATE VALUE FOR GROWTH
-    var slider = document.getElementById("growthRate");
-    var output = document.getElementById("demoGrowth");
-    output.innerHTML = slider.value; // Display the default slider value
+    <!--// USER RATE VALUE FOR GROWTH-->
+    <!--var slider = document.getElementById("growthRate");-->
+    <!--var output = document.getElementById("demoGrowth");-->
+    <!--output.innerHTML = slider.value; // Display the default slider value-->
 
-    // Update the current slider value (each time you drag the slider handle)
-    slider.oninput = function() {
-        output.innerHTML = this.value;
-    };
+    <!--// Update the current slider value (each time you drag the slider handle)-->
+    <!--slider.oninput = function() {-->
+        <!--output.innerHTML = this.value;-->
+    <!--};-->
 
 
-    // ---------------- OVERALL RATING FROM THE SLIDERS -------------------------------
+    <!--// &#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45; OVERALL RATING FROM THE SLIDERS -&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;-->
 
-    $('.slider').each(function() {
+    <!--$('.slider').each(function() {-->
 
-        $(this).on('change', function() {
-            calcavg();
-        })
-    });
-    function calcavg() {
-        var total = 0;
-        var avg = 0;
+        <!--$(this).on('change', function() {-->
+            <!--calcavg();-->
+        <!--})-->
+    <!--});-->
+    <!--function calcavg() {-->
+        <!--var total = 0;-->
+        <!--var avg = 0;-->
 
-        $('.slider').each(function() {
-            if (!isNaN(this.value) && this.value.lenght !=0) {
-                total +=parseFloat(this.value);
-                // alert(total);
-            }
-        });
-        if (!isNaN(total) && total !=0) {
-            // var txtboxes = $('.cal-rating').length;
-            var txtboxes = 5;
-            Average = parseFloat(total) / 5;
-        }
-        $('#totalMarks').html(Average);
-        // Show Average upto 2 decimal places using .toFixed() method.
-        // var star = parseFloat(Average.toFixed(2)) * 20;
-        // $('.avg-ovral-rtng .rating-stars').css("width", star + "%");
-    }
-</script>
+        <!--$('.slider').each(function() {-->
+            <!--if (!isNaN(this.value) && this.value.lenght !=0) {-->
+                <!--total +=parseFloat(this.value);-->
+                <!--// alert(total);-->
+            <!--}-->
+        <!--});-->
+        <!--if (!isNaN(total) && total !=0) {-->
+            <!--// var txtboxes = $('.cal-rating').length;-->
+            <!--var txtboxes = 5;-->
+            <!--Average = parseFloat(total) / 5;-->
+        <!--}-->
+        <!--$('#totalMarks').html(Average);-->
+        <!--// Show Average upto 2 decimal places using .toFixed() method.-->
+        <!--// var star = parseFloat(Average.toFixed(2)) * 20;-->
+        <!--// $('.avg-ovral-rtng .rating-stars').css("width", star + "%");-->
+    <!--}-->
+<!--</script>-->
 <script th:src="@{~/built/news.js}"></script>
 
 </body>
