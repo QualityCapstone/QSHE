@@ -183,8 +183,7 @@ background-size: cover;
 
 
 #state-profile .title-card {
-    background: #000;
-    opacity: 0.5;
+    background: rgba(0,0,0,0.5);
 }
 
 #state-profile .card-body {

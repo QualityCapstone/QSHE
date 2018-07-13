@@ -69,6 +69,7 @@
                             <img th:if="${user.profile.uploadPath}" style="height: 150px; width: 150px; margin: 0 auto" th:src="@{/uploads/} + ${user.profile.uploadPath}"  alt="didn't work" />
                         </div>
                     </div>
+                    <button class="btn btn-sm float-right"><a class="float-right" th:href="@{/editprofile}"><i class="fas fa-edit"></i> </a> </button>
                 </div>
             </div>
         </div>
