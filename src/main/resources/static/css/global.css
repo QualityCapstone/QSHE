@@ -176,3 +176,21 @@ ul {
 
 }
 
+
+.state-bg-photo {
+background-size: cover;
+}
+
+
+#state-profile .title-card {
+    background: #000;
+    opacity: 0.5;
+}
+
+#state-profile .card-body {
+    background: rgba(255,255,255,0.4)
+}
+
+#state-profile h3 {
+    margin-bottom: 0;
+}

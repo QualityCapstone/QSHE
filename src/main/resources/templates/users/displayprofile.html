@@ -74,17 +74,18 @@
         </div>
         <br />
 
-        <div class="col-md-6 ">
-            <div class="card m-4">
-                <h3 class="card-title m-2 title-card text-center">Your State and Rating</h3>
+        <div class="col-md-6" id="state-profile">
+            <div class="card state-bg-photo m-4" th:style="@{background-image: url(} + ${photo.large1600Url}+ @{);}">
+                <h3 class="card-title p-2 title-card text-center" th:text="${state.name}"></h3>
 
                 <div class="card-body">
-                    <div class="state pt-4">
+                    <div class="state">
                         <svg th:class="@{icon icon-state-} + ${state.abbr}">
                             <use th:xlink:href="@{#icon-state-} + ${state.abbr}"></use>
                         </svg>
                     </div>
                     <button type="button" class="btn btn-primary"><a th:href="@{/state/} + ${state.abbr}" style="color: white">View your State</a></button>
+                    <button type="button" class="btn btn-primary"><a th:href="@{/posts/state/} + ${state.abbr}" style="color: white">Discussion Topics</a></button>
                 </div>
             </div>
         </div>
