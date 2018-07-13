@@ -24,8 +24,6 @@ window.onload = function () {
 
         console.log("map found");
 
-
-
         // exists.
         var R = Raphael("map", "100%", "100%"),
             attr = {
@@ -121,9 +119,6 @@ window.onload = function () {
                 console.log(key + selectedMetrics[key]);
 
             }
-
-            console.log(selectedMetrics);
-
 
         }
 

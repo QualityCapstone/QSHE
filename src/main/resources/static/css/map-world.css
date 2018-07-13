@@ -1,3 +1,10 @@
+body {
+    background-image: url("../img/map.jpg");
+    -webkit-background-size: cover;
+    background-size: cover;
+}
+
+
 .navbar {
     z-index: 100;
     background-color: transparent;

@@ -2,6 +2,8 @@
 -
 Codeup Capstone Project
 
+A Web app that allows registered users to rate States based on crime, employment opportunity, education, healthcare, and growth. Users can compare their own ratings and experiences with other users through messaging and blogging.
+
 #Features
 --
 

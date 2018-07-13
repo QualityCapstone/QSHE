@@ -5,10 +5,10 @@ const api = require('../../lib/local');
 
 am4core.useTheme(am4themes_animated);
 
-
+let abbr = $('#state-name').attr('data-abbr');
 let currentData = [];
 
-api.getData("state/crime/TX").then(function(stateData) {
+api.getData("state/crime/" + abbr).then(function(stateData) {
 
     console.log(stateData);
     let crimeData = stateData;
@@ -135,11 +135,6 @@ chart.data = [ {
 ];
 
 
-
-
-
-
-
 // Create axes
 var categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
 categoryAxis.dataFields.category = "name";
@@ -148,7 +143,6 @@ categoryAxis.title.text = "Crime Category";
 
 var  valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
 valueAxis.title.text = "Incidents";
-valueAxis.min = 500000;
 
 // Create series
 var series = chart.series.push(new am4charts.ColumnSeries());
@@ -168,6 +162,7 @@ series.tooltipText = "{name}: [bold]{valueY}[/]";
 
 // Add cursor
 chart.cursor = new am4charts.XYCursor();
+    chart.scrollbarX = new am4core.Scrollbar();
 
 // // Add legend
 // chart.legend = new am4charts.Legend();

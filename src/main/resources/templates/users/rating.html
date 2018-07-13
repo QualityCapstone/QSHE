@@ -5,6 +5,7 @@
     <title>Home</title>
 </head>
 <body>
+<div th:replace="states/svg :: states-svg" />
 <div th:replace="partials/layout :: navbar" />
 <span class="overlay"></span>
 
@@ -34,15 +35,13 @@
 <div class="container wrapper mx-auto" sec:authorize="isAuthenticated()">
     <div class="container">
             <!-- TO RATE -->
-            <h2 class="text-center mb-5">My Rating</h2>
+            <h2 class="text-center mb-5">Please rate each element of your state!</h2>
             <div class="row">
                 <div class="col-sm-6">
                     <div class="card">
-                        <div class="col-12">
-                            <h3 class="m-5 text-center">Rate each element of your State</h3>
                             <form class=" bg-faded m-3 p-3" th:action="@{/users/rating}" method="post" th:object="${stateUserRating}">
                                 <div class="form-group">
-                                    <h5 class="m-b-1 text-center">From 1 as Good to 10 as Bad:</h5>
+                                    <h5 class="m-b-1 text-center">1:Bad | 10: Good:</h5>
                                 </div>
                                 <div class="form-group m-5 mb-2">
                                     <label class="text-left" for="violenceRate">How safe do you feel where you live?
@@ -83,7 +82,7 @@
                                     <input type="range" min="1" max="10"value="1" class="slider float-left" id="growthRate" style="background-color: #DC6F68"/>
                                     <p class="text-center float-right"><span class="slider-val"></span></p>
                                 </div>
-                                <input type="submit" value="save" class="btn btn-secondary m-5">
+                                <input type="submit" value="Save Ratings" class="btn btn-secondary m-5">
                                 <!--<input type="submit" id="overallRating" th:field="*{userRating}" name="submit" class="submit form-control btn btn-secondary" value="Save" />-->
                             </form>
                         </div>
@@ -93,6 +92,14 @@
                     <div class="card m-3">
                         <div class="card-body text-center">
                             <h3 class="m-3">The state where you are living</h3>
+
+                            <!--TODO: fix state icon, will move outside of div when the screen is changing sizes.-->
+                                <div class="state pt-4">
+                                    <svg th:class="@{icon icon-state-} + ${state.abbr}">
+                                        <use th:xlink:href="@{#icon-state-} + ${state.abbr}"></use>
+                                    </svg>
+                                </div>
+
                             <a href="/us"><button type="button" class="btn btn-secondary text-center">Go to your state</button></a>
                         </div>
                     </div>

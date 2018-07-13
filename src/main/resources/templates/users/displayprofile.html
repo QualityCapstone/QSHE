@@ -6,6 +6,7 @@
     <title>Edit Profile</title>
 </head>
 <body>
+<div th:replace="states/svg :: states-svg" />
 <div th:replace="partials/layout :: navbar" />
 <!--<div class="col-12">-->
     <nav class="navbar navbar-expand-lg navbar-light bg-light m-auto">
@@ -70,6 +71,7 @@
                 </div>
             </div>
         </div>
+        <br />
         <div class="col-md-6">
             <div class="card">
                 <div class="card-body">
@@ -85,10 +87,9 @@
                     <h4 class="text-left">About you:</h4>
                     <p class="card-text text-center"> <span th:text="${#authentication.principal.profile.name}"></span> </p>
                 </div>
-                <button class="btn btn-sm"><a th:href="@{/profile}"> Edit Profile</a> </button>
+                <button class="btn btn-sm"><a th:href="@{/editprofile}"> Edit Profile</a> </button>
             </div>
         </div>
-
 
         <!--news tab for user's state-->
 
@@ -99,7 +100,22 @@
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal">View more News</button>
                 </div>
             </div>
+        </div>
 
+        <!--state and rating tab-->
+
+        <div class="col-md-6">
+            <div class="card">
+                <h4 class="card-title" style="text-align: center">Your State and Rating</h4>
+                <div class="card-body">
+                    <div class="state pt-4">
+                        <svg th:class="@{icon icon-state-} + ${state.abbr}">
+                            <use th:xlink:href="@{#icon-state-} + ${state.abbr}"></use>
+                        </svg>
+                    </div>
+                    <button type="button" class="btn btn-primary"><a th:href="@{/state/} + ${state.abbr}" style="color: aliceblue">View your State</a></button>
+                </div>
+            </div>
         </div>
 
         <div class="col-md-6 mt-5">
@@ -164,73 +180,8 @@
         </div>
     </div>
 </div><!-- end of tab-pane-fade -->
-
-<!-- RATING-->
-<div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-    <!-- TO RATE -->
-    <h2>My Rating</h2>
-    <div class="row">
-        <div class="col-md-6">
-            <div class="card">
-                <div class="card-body">
-                    <h3 class="mb-3">Rate each element of your State</h3>
-                    <form class="card card-block bg-faded m-3 p-3 login-card" th:action="@{/profile/rating}" method="POST" th:object="${userRating}">
-                        <h2 class="m-b-1 text-xs-center">Rate your state based on your own experiences</h2>
-                        <small class="form-text">From 1 as Good to 10 as bad:</small>
-                        <div class="form-group m-0">
-                            <label class="text-left" for="violenceRate">How safe do you feel where you live?</label>
-                            <input type="range" min="1" max="10" value="1" class="slider float-left" id="violenceRate" />
-                            <p class="text-center float-right"><span id="demoViolence"></span></p>
-                        </div>
-                        <div class="form-group m-0">
-                            <label class="text-left" for="employmentRate">How would you rank the employment rate in your state?</label>
-                            <input type="range" min="1" max="10" value="1" class="slider float-left" id="employmentRate" />
-                            <p class="text-center float-right"><span id="demoEmployment"></span></p>
-                        </div>
-                        <div class="form-group m-0">
-                            <label class="text-left" for="educationRate">How would you rank the education system in your state?</label>
-                            <input type="range" min="1" max="10" value="1" class="slider float-left" id="educationRate" />
-                            <p class="text-center float-right"><span id="demoEducation"></span></p>
-                        </div>
-                        <div class="form-group m-0">
-                            <label class="left-text" for="healthRate">How would you rank the health care system in your state?</label>
-                            <input type="range" min="1" max="10" value="1" class="slider float-left" id="healthRate"/>
-                            <p class="text-center float-right"><span id="demoHealth"></span></p>
-                        </div>
-                        <div class="form-group m-0">
-                            <label class="text-left" for="growthRate">How would you rate the general growth in your state?</label>
-                            <input type="range" min="1" max="10"value="1" class="slider float-left" id="growthRate" />
-                            <p class="text-center float-right"><span id="demoGrowth"></span></p>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-6 float-right">
-            <div class="card m-3">
-                <div class="card-body">
-                    <h3 class="m-3">The state where you are living</h3>
-                    <!--<img class="img-fluid m-5" src="/img/stateMaps/TX.png" style="width: 100px">-->
-                </div>
-            </div>
-            <div class="card m-3"><!-- FOR THE OVERALL RATING -->
-                <div class="card-body">
-                    <h3 class="mb-3">This is the overall rating you're giving to the State you live in</h3>
-                    <h1 class="text-center m-5" id="totalMarks"></h1>
-                    <form class="form-controll">
-                        <!--<input type="hidden" name="userId" th:value="${user.id}">-->
-                        <!--<input type="hidden" name="userRate" th:value="${userRating.id}">-->
-                        <!--<input type="hidden" name="stateId" th:value="${userRating.stateId}"-->
-                        <!--<input type="submit" id="overallRating" name="submit" class="submit form-control btn btn-secondary" th:field="*{userRating.id}"  value="Save" />-->
-                        <input type="submit" id="overallRating" name="submit" class="submit form-control btn btn-secondary" value="Save" />
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-</div><!-- THIS IS THE END OF THE RATING TAB -->
-<!--<div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">-->
-    <h3 class="mb-3">Messages</h3>
+<div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+<h3 class="mb-3">Messages</h3>
 
     <table class="table table-hover">
         <thead>
@@ -261,6 +212,9 @@
         </tbody>
     </table>
 <!--</div>-->
+=======
+</div>
+<!-- end of tab-pane-fade -->
 
 <div th:replace="partials/layout :: footer" />
 
@@ -341,7 +295,7 @@
         // $('.avg-ovral-rtng .rating-stars').css("width", star + "%");
     }
 </script>
-<script th:src="@{~/built/state.js}"></script>
 <script th:src="@{~/built/news.js}"></script>
+
 </body>
 </html>

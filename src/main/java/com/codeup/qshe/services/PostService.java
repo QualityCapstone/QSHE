@@ -1,19 +1,22 @@
 package com.codeup.qshe.services;
 import com.codeup.qshe.models.user.Post;
 import com.codeup.qshe.models.user.User;
-import com.codeup.qshe.repositories.PostRepository;
+import com.codeup.qshe.repositories.Posts;
 import com.codeup.qshe.repositories.Users;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+
 @Service
 public class PostService {
-   private PostRepository postDao;
+   private Posts postDao;
    private Users userDao;
 
-    public PostService(PostRepository postDao, Users userDao){
+    @Autowired
+    public PostService(Posts postDao, Users userDao){
 
         this.postDao = postDao;
         this.userDao = userDao;
@@ -24,17 +27,19 @@ public class PostService {
     return post;
     }
 
+
     public List<Post> findAll() {
         Iterable<Post> posts = getPosts().findAll();
         return (List<Post>) posts;
     }
+
 
     public List<Post> findAllByStateId(long id) {
         Iterable<Post> posts = getPosts().findAllByStateId(id);
         return (List<Post>) posts;
     }
 
-    public PostRepository getPosts(){return postDao;}
+    public Posts getPosts(){return postDao;}
 
 
 

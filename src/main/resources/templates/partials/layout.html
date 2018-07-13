@@ -37,55 +37,49 @@
     <div class="d-flex flex-row">
 
         <div class="btn-group header-button text-right ">
-            <button class="btn btn-secondary" type="button">
 
-                <div sec:authorize="isAuthenticated()">
-                    <a th:href="@{~/profile}" th:text="${#authentication?.principal?.profile?.username}">
+            <div sec:authorize="!isAuthenticated()">
+                <a class="btn " th:href="@{/login}">
+                    Login
+                </a>
+            </div>
+
+            <div sec:authorize="isAuthenticated()">
+            <button class="btn btn-secondary" type="button">
+                    <a th:href="@{~/users/displayprofile}" th:text="${#authentication?.principal?.profile?.username}">
+
                    </a>
                     <th:block th:if="${currentUserConnection == null}" >
 
                     </th:block>
 
                     <th:block th:unless="${currentUserConnection == null}" >
-
-
                         <a th:if="${currentUserConnection.providerId == 'facebook'}" class="ml btn btn-social-icon btn-sm btn-facebook">   <i class="fa fa-facebook"></i></a>
                         <a th:if="${currentUserConnection.providerId == 'google'}"   class="ml btn btn-social-icon btn-sm btn-google-plus"><i class="fa fa-google-plus"></i></a>
-
                         <a th:href="${currentUserConnection.profileUrl}" class="navbar-link"><span th:text="${currentUserDisplayName}"/></a>
                         <img th:src="${currentUserConnection.imageUrl}" width="32" height="32" />
                     </th:block>
-
-
-                </div>
-
-                <div sec:authorize="!isAuthenticated()">
-                    <a th:href="@{/login}">
-                        Login
-                    </a>
-                </div>
 
             </button>
             <button type="button" class="btn btn-secondary header-button dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <span class="sr-only">Toggle Dropdown</span>
             </button>
-            <div class="dropdown-menu dropdown-menu-right">
-                <a class="dropdown-item" th:href="@{~/users/displayprofile}">Profile</a>
-               
-                <a class="dropdown-item" th:href="@{~/us}">Country</a>
+                <div class="dropdown-menu dropdown-menu-right">
+                    <a class="dropdown-item" th:href="@{~/users/displayprofile}">Profile</a>
+                    <a class="dropdown-item" th:href="@{~/users/rating}">My rating</a>
+                    <a class="dropdown-item" th:href="@{~/state/mine}">My state</a>
+                    <a class="dropdown-item" th:href="@{~/us}">USA</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" th:href="@{~/state/compare}">Compare States</a>
 
-                <a class="dropdown-item" th:href="@{~/users/rating}">My rating</a>
+                    <a class="dropdown-item" th:href="@{~/users}">Users</a>
+                    <a class="dropdown-item" th:href="@{~/about/}">About</a>
 
-                <a class="dropdown-item" th:href="@{~/state/compare}">Compare States</a>
-
-                <a class="dropdown-item" th:href="@{~/users}">Users</a>
-
-                <a class="dropdown-item" th:href="@{~/widget/all}">Forum</a>
-
-                <a class="dropdown-item" th:href="@{~/about/}">About</a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" th:href="@{~/logout}">Logout</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" th:href="@{~/logout}">Logout</a>
+                </div>
             </div>
+
         </div>
     </div>
 
@@ -99,7 +93,7 @@
 
     <nav class="navbar navbar-dark bg-dark navbar-footer">
         <div class="mx-auto text-center">
-            <a class="hvr-underline-reveal mr-2" th:href="@{~/profile}">Home</a>
+            <a class="hvr-underline-reveal mr-2" th:href="@{~/users/displayprofile}">Home</a>
 
             <a class="hvr-underline-reveal mr-2" th:href="@{~/us}">USA</a>
 
