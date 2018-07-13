@@ -13,8 +13,6 @@ api.getData("state/population/" + abbr).then(function(stateData) {
     let popData = stateData;
 
 
-
-
 var chart = am4core.create("growth-chart", am4charts.XYChart);
 chart.paddingRight = 20;
 

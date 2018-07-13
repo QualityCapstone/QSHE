@@ -27,15 +27,11 @@ body {
 }
 
 
-#radar-chart {
-    min-height: 400px;
-}
-
 #education-chart {
     height: calc(100vh - 200px);
 }
 
-#growth-chart, #health-chart {
+#growth-chart, #health-chart, #radar-chart, #crime-chart {
     height: calc(100vh - 200px);
 }
 
@@ -82,4 +78,48 @@ body {
 
 .page {
     padding: 20px;
+}
+
+
+/*.one {*/
+    /*background-color: rgba(41, 17, 18, 0.8);*/
+/*}*/
+
+.two {
+    background-color: rgba(111, 102, 102, 0.8);
+}
+.three {
+    background-color: rgba(156, 143, 143, 0.8);
+}
+
+.four {
+    background-color: rgba(185, 170, 170, 0.8);
+}
+
+.five {
+    background-color: rgba(208, 191, 191, 0.8);
+}
+
+h2 {
+    font-size: 5.2vw;
+}
+
+
+.metric {
+
+}
+
+.metric .name {
+    text-transform: uppercase;
+    font-size: 1.0vw;
+    text-align: center;
+}
+
+.metric .number {
+    font-size: 3.0vw;
+    text-align: center;
+}
+
+.bold {
+    font-weight: bold;
 }
