@@ -39,7 +39,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle" th:text="${state}"></h5>
+                <h3 class="modal-title" style="margin-left: 125px" id="exampleModalLongTitle" th:text="Latest + ' ' + ${state.name} + ' ' + News"></h3>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -75,14 +75,15 @@
 
         <div class="col-md-6" style="margin-bottom: 1rem">
             <div class="card">
-                <h4 class="card-title" style="text-align: center">Your State and Rating</h4>
+                <br />
+                <h3 class="card-title" style="text-align: center">Your State and Rating</h3>
                 <div class="card-body">
                     <div class="state pt-4">
                         <svg th:class="@{icon icon-state-} + ${state.abbr}">
                             <use th:xlink:href="@{#icon-state-} + ${state.abbr}"></use>
                         </svg>
                     </div>
-                    <button type="button" class="btn btn-primary"><a th:href="@{/state/} + ${state.abbr}" style="color: aliceblue">View your State</a></button>
+                    <button type="button" class="btn btn-primary"><a th:href="@{/state/} + ${state.abbr}" style="color: white">View your State</a></button>
                 </div>
             </div>
         </div>
