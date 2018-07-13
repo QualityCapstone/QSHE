@@ -8,7 +8,6 @@
 <div th:replace="states/svg :: states-svg" />
 <div th:replace="partials/layout :: navbar" />
 <span class="overlay"></span>
-
 <nav class="navbar navbar-expand-lg navbar-light bg-light m-auto">
     <a class="navbar-brand" href="/users/displayprofile">PROFILE</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -16,9 +15,9 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
         <ul class="navbar-nav m-auto">
-            <li class="nav-item active d-inline">
+            <li class="nav-item d-inline">
                 <!--<img src="/img/4391 - Around the Globe.png"/>-->
-                <a class="nav-link" href="/us">Map<img src="/img/icon-map.png" class="ml-1"/><span class="sr-only">(current)</span></a>
+                <a class="nav-link" id="navbar-profile" href="/us">Map<img src="/img/icon-map.png" class="ml-1"/></a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="/users/rating">Your rating<img src="/img/icon-user-rating.png" class="ml-1"/></a>
@@ -34,158 +33,130 @@
 </nav>
 <div class="container wrapper mx-auto" sec:authorize="isAuthenticated()">
     <div class="container">
-            <!-- TO RATE -->
-            <h2 class="text-center mb-5">Please rate each element of your state!</h2>
-            <div class="row">
-                <div class="col-sm-6">
-                    <div class="card">
-                            <form class=" bg-faded m-3 p-3" th:action="@{/users/rating}" method="post" th:object="${stateUserRating}">
-                                <div class="form-group">
-                                    <h5 class="m-b-1 text-center">1:Bad | 10: Good:</h5>
-                                </div>
-                                <div class="form-group m-5 mb-2">
-                                    <label class="text-left" for="violenceRate">How safe do you feel where you live?
-                                    <img src="/img/icon-info.png" id="q-violence"/></label><br/>
-                                    <small class="text-left m-2" id="info-crime">Do you feel safe when you go out in your city? Have you experienced any type of crime?</small>
-                                    <input type="range" min="1" max="10" value="1" class="slider float-left" id="violenceRate" style="background-color: #DC6F68" />
-                                    <input type="hidden" id="hdrating" name="hdrating">
-                                    <p class="text-center float-right" id="rating"><span class="slider-val"></span></p>
-                                </div>
-                                <div class="form-group m-5">
-                                    <label class="text-left" for="employmentRate">How would you rank the employment rate in your state?
-                                    <img src="/img/icon-info.png" id="q-employment"/></label><br/>
-                                    <small class="text-left m-2" id="info-employment">How hard is to get a job in your city? Are the salaries good?</small>
-                                    <input type="range" min="1" max="10" value="1" class="slider float-left" id="employmentRate" style="background-color: #DC6F68"/>
-                                    <p class="text-center float-right"><span class="slider-val"></span></p>
-                                </div>
-                                <div class="form-group m-5">
-                                    <label class="text-left" for="educationRate">How would you rank the education system in your state?
-                                        <img src="/img/icon-info.png" id="q-education"/></label><br>
-                                    <small class="text-left" id="info-education">Are there good schools/universities in your city?
-                                    What's the education level of your friends, family or people you know?</small>
-                                    <input type="range" min="1" max="10" value="1" class="slider float-left" id="educationRate" style="background-color: #DC6F68"/>
-                                    <p class="text-center float-right"><span class="slider-val"></span></p>
-                                </div>
-                                <div class="form-group m-5">
-                                    <label class="left-text" for="healthRate">How would you rank the health care system in your state?
-                                        <img src="/img/icon-info.png" id="q-health"/></label><br/>
-                                    <small class="text-left" id="info-health">How expensive are the healthcare services in your city?
-                                    Do you consider are enough medical services, health programs, hospitals?</small>
-                                    <input type="range" min="1" max="10" value="1" class="slider float-left" id="healthRate" style="background-color: #DC6F68"/>
-                                    <p class="text-center float-right"><span class="slider-val"</span></p>
-                                </div>
-                                <div class="form-group m-5">
-                                    <label class="text-left" for="growthRate">How would you rate the general growth in your state?
-                                        <img src="/img/icon-info.png" id="q-growth"/></label><br/>
-                                    <small class="text-left" id="info-growth">Is your city increasing in infrastructure, business, economy
-                                    development?</small>
-                                    <input type="range" min="1" max="10"value="1" class="slider float-left" id="growthRate" style="background-color: #DC6F68"/>
-                                    <p class="text-center float-right"><span class="slider-val"></span></p>
-                                </div>
-                                <input type="submit" value="Save Ratings" class="btn btn-secondary m-5">
-                                <!--<input type="submit" id="overallRating" th:field="*{userRating}" name="submit" class="submit form-control btn btn-secondary" value="Save" />-->
-                            </form>
+        <!-- TO RATE -->
+        <h2 class="text-center mb-5">Please rate each element of your state!</h2>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="card">
+                    <form class=" bg-faded m-3 p-3" th:action="@{/users/rating}" method="post" th:object="${stateUserRating}">
+                        <div class="form-group">
+                            <h5 class="m-b-1 text-center">1:Bad | 10: Good:</h5>
                         </div>
-                    </div>
-                </div>
-                <div class="col-sm-6 float-right">
-                    <div class="card m-3">
-                        <div class="card-body text-center">
-                            <h3 class="m-3">The state where you are living</h3>
-
-                            <!--TODO: fix state icon, will move outside of div when the screen is changing sizes.-->
-                                <div class="state pt-4">
-                                    <svg th:class="@{icon icon-state-} + ${state.abbr}">
-                                        <use th:xlink:href="@{#icon-state-} + ${state.abbr}"></use>
-                                    </svg>
-                                </div>
-
-                            <a href="/us"><button type="button" class="btn btn-secondary text-center">Go to your state</button></a>
+                        <div class="form-group m-5 mb-2">
+                            <label class="text-left" for="violenceRate">How safe do you feel where you live?
+                                <img src="/img/icon-info.png" id="q-violence"/></label><br/>
+                            <small class="text-left m-2" id="info-crime">Do you feel safe when you go out in your city? Have you experienced any type of crime?</small>
+                            <input type="range" min="1" max="10" value="1" class="slider float-left" id="violenceRate" style="background-color: #DC6F68" />
+                            <input type="hidden" id="hdrating" name="hdrating">
+                            <p class="text-center float-right" id="rating"><span class="slider-val"></span></p>
                         </div>
-                    </div>
-                    <!--<div class="card m-3">-->
-                        <div class="card-body">
-                            <h3 class="mb-3">This is the overall rating you're giving to the State you live in</h3>
-                            <h1 class="text-center m-5 title-slider" id="totalMarks"></h1>
-                            <form class="form-control" th:action="@{/users/rating}" method="post" th:object="${userRate}">
-
-                                <input type="hidden" name="crime" id="crime">
-                                <input type="hidden" name="education" id="education">
-                                <input type="hidden" name="employment" id="employment">
-                                <input type="hidden" name="health" id="health">
-                                <input type="hidden" name="growth" id="growth">
-
-                                <input type="hidden"  id="userRate"  name="userRate" th:value="${userRate}"/>
-
-                                <input type="submit" id="overallRating"  class="submit form-control btn btn-secondary" />
-                            </form>
+                        <div class="form-group m-5">
+                            <label class="text-left" for="employmentRate">How would you rank the employment rate in your state?
+                                <img src="/img/icon-info.png" id="q-employment"/></label><br/>
+                            <small class="text-left m-2" id="info-employment">How hard is to get a job in your city? Are the salaries good?</small>
+                            <input type="range" min="1" max="10" value="1" class="slider float-left" id="employmentRate" style="background-color: #DC6F68"/>
+                            <p class="text-center float-right"><span class="slider-val"></span></p>
                         </div>
-                        <div class="col-sm-6 m-auto">
-                            <a href="/users/displayprofile"><button type="button" class="btn btn-secondary btn-lg">Go back to your profile</button></a>
+                        <div class="form-group m-5">
+                            <label class="text-left" for="educationRate">How would you rank the education system in your state?
+                                <img src="/img/icon-info.png" id="q-education"/></label><br>
+                            <small class="text-left" id="info-education">Are there good schools/universities in your city?
+                                What's the education level of your friends, family or people you know?</small>
+                            <input type="range" min="1" max="10" value="1" class="slider float-left" id="educationRate" style="background-color: #DC6F68"/>
+                            <p class="text-center float-right"><span class="slider-val"></span></p>
                         </div>
-                    </div>
-                </div>
-                <div class="col-sm-6 float-right">
-                    <div class="p-5 m-2 create-form text-dark border border-dark rounded" th:each="stateUserRating: ${stateUserRatings}" th:height="auto">
-                        <ul class="list-unstyled">
-                            <li class="media">
-                                <img class="mr-3" src="http://via.placeholder.com/150x150" alt="Generic placeholder image" />
-                                <div class="media-body p-2">
-                                    <p class="text-center" th:text="${stateUserRating.user.state}"></p>
-                                    <p class="text-justify" th:text="${stateUserRating.userRating}"></p>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
+                        <div class="form-group m-5">
+                            <label class="left-text" for="healthRate">How would you rank the health care system in your state?
+                                <img src="/img/icon-info.png" id="q-health"/></label><br/>
+                            <small class="text-left" id="info-health">How expensive are the healthcare services in your city?
+                                Do you consider are enough medical services, health programs, hospitals?</small>
+                            <input type="range" min="1" max="10" value="1" class="slider float-left" id="healthRate" style="background-color: #DC6F68"/>
+                            <p class="text-center float-right"><span class="slider-val"</span></p>
+                        </div>
+                        <div class="form-group m-5">
+                            <label class="text-left" for="growthRate">How would you rate the general growth in your state?
+                                <img src="/img/icon-info.png" id="q-growth"/></label><br/>
+                            <small class="text-left" id="info-growth">Is your city increasing in infrastructure, business, economy
+                                development?</small>
+                            <input type="range" min="1" max="10"value="1" class="slider float-left" id="growthRate" style="background-color: #DC6F68"/>
+                            <p class="text-center float-right"><span class="slider-val"></span></p>
+                        </div>
+                        <input type="submit" value="Save Ratings" class="btn btn-secondary m-5">
+                        <!--<input type="submit" id="overallRating" th:field="*{userRating}" name="submit" class="submit form-control btn btn-secondary" value="Save" />-->
+                    </form>
                 </div>
             </div>
-    </div>
+            <div class="col-sm-6 float-right">
+                <div class="card m-3">
+                    <div class="card-body text-center">
+                        <h3 class="m-3">The state where you are living</h3>
+                        <!--TODO: fix state icon, will move outside of div when the screen is changing sizes.-->
+                        <div class="state pt-4">
+                            <svg th:class="@{icon icon-state-} + ${state.abbr}">
+                                <use th:xlink:href="@{#icon-state-} + ${state.abbr}"></use>
+                            </svg>
+                        </div>
+                        <a href="/us"><button type="button" class="btn btn-secondary text-center">Go to your state</button></a>
+                    </div>
+                </div>
+                <!--<div class="card m-3">-->
+                <div class="card-body">
+                    <h3 class="mb-3">This is the overall rating you're giving to the State you live in</h3>
+                    <h1 class="text-center m-5 title-slider" id="totalMarks"></h1>
+                    <form class="form-control" th:action="@{/users/rating}" method="post" th:object="${userRate}">
+                        <input type="hidden" name="crime" id="crime">
+                        <input type="hidden" name="education" id="education">
+                        <input type="hidden" name="employment" id="employment">
+                        <input type="hidden" name="health" id="health">
+                        <input type="hidden" name="growth" id="growth">
+                        <input type="hidden"  id="userRate"  name="userRate" th:value="${userRate}"/>
+                        <input type="submit" id="overallRating"  class="submit form-control btn btn-secondary" />
+                    </form>
+                </div>
             </div>
+            <div class="col-sm-6 float-right">
+                <div class="p-5 m-2 create-form text-dark border border-dark rounded" th:each="stateUserRating: ${stateUserRatings}" th:height="auto">
+                    <ul class="list-unstyled">
+                        <li class="media">
+                            <img class="mr-3" src="http://via.placeholder.com/150x150" alt="Generic placeholder image" />
+                            <div class="media-body p-2">
+                                <p class="text-center" th:text="${stateUserRating.user.state}"></p>
+                                <p class="text-justify" th:text="${stateUserRating.userRating}"></p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
             </div>
-
+        </div>
     </div>
 </div>
 <div th:replace="partials/layout :: footer" />
 <script type="text/javascript">
-
-
     // ---------------- OVERALL RATING FROM THE SLIDERS -------------------------------
-
     $('.slider').each(function() {
-            $(this).on('change', function() {
-
-                $(this).parent().find('span').text($(this).val());
-                valueUpdate($(this).attr('id'),  $(this).val());
-                calcavg();
-            })
+        $(this).on('change', function() {
+            $(this).parent().find('span').text($(this).val());
+            valueUpdate($(this).attr('id'),  $(this).val());
+            calcavg();
+        })
     });
-
     function calcavg() {
         var total = 0;
         var avg = 0;
-
         $('.slider').each(function() {
             if (!isNaN(this.value) && this.value.length !=0) {
                 total +=parseFloat(this.value);
             }
         });
-
         if (!isNaN(total) && total !=0) {
-
             var txtboxes = 5;
             Average = parseFloat(total) / 5;
-
         }
-
         $('#totalMarks').html(Average);
         $('#currentRate').valueOf().html;
         $('#userRate').val(Average)
-
     }
-
     function valueUpdate(slider, value) {
-
-
         switch(slider) {
             case "violenceRate":
                 $('#crime').val(value);
@@ -203,11 +174,8 @@
                 $('#growth').val(value);
                 break;
             default:
-
         }
-
     }
-
     $("#q-violence").click(function(){
         $("#info-crime").toggle();
     });
@@ -223,8 +191,6 @@
     $("#q-growth").click(function(){
         $("#info-growth").toggle();
     });
-
-
     // commemnt
 </script>
 </body>
