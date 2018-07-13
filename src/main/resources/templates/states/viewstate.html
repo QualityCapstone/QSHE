@@ -106,7 +106,7 @@
                         <ul>
                             <li class="text-truncate" th:each="p : ${topPosts}" th:text="${p.title}"></li>
                         </ul>
-                        <a th:href="@{~/posts/all/}+ ${state.id}" class="btn btn-primary">View More</a>
+                        <a th:href="@{~/posts/state/}+ ${state.abbr}" class="btn btn-primary">View More</a>
                     </div>
                 </div>
             </div>
@@ -121,7 +121,7 @@
 
                 <input type="hidden" name="recipient-id" th:value="${state.id}">
 
-                <!--<input type="text"  class="form-control mb-5" id="message" name="message"/>-->
+
 
 
             </div>

@@ -59,7 +59,7 @@ import java.util.List;
       FlickrService f = new FlickrService(apiKey, sharedSecret);
 
 
-        model.addAttribute("topPosts", postDao.getPosts().findTop3ByStateId(state.getId()));
+        model.addAttribute("topPosts", postDao.getPosts().findTop3ByState(state));
 
         model.addAttribute("states", stateDao.getStates().findAll());
         model.addAttribute("state", state);

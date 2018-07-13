@@ -9,7 +9,7 @@
 <span class="overlay"></span>
 <div >
     <div class="row p-2">
-        <div id="top-post">
+        <div id="top-postTopic">
             <div class="spacer"></div>
 
         </div>
@@ -20,33 +20,34 @@
 
 <div class="container bg-white text-center border border-dark rounded mt-5" sec:authorize="isAuthenticated()">
 
-<div class="p-5 m-2 text-dark " th:each="post: ${posts}" th:height="auto">
+<div class="p-5 m-2 text-dark " th:each="postTopic: ${posts}" th:height="auto">
     <ul class="list-unstyled pagination" >
         <li class="media">
             <div class="media-body p-2">
-                <p class="text-left" th:text="'Posted by: ' + ${post.user.username}"></p>
-                <p class="text-left" th:text="'From: ' + ${post.user.profile.userState}"></p>
-                <p class="text-left" th:text="'State: '+${post.stateId}"></p>
-                <p class="text-left" th:text="'About: '+${post.title}"></p>
-                <p class="text-left" th:text="${post.body}"></p>
+                <p class="text-left" th:text="'Posted by: ' + ${postTopic.user.username}"></p>
+                <p class="text-left" th:text="'From: ' + ${postTopic.user.profile.userState}"></p>
+                <p class="text-left" th:text="'State: '+${postTopic.state.id}"></p>
+                <p class="text-left" th:text="'About: '+${postTopic.title}"></p>
+                <button class="btn btn-primary">Go To Topic</button>
                 <hr class="create-form" style="height: 10px"/>
             </div>
 
             <div class="col-3" sec:authorize="isAuthenticated()">
-                <form class="form-group" th:action="@{/posts/{id}/delete(id=${post.id})}" method="post">
+                <form class="form-group" th:action="@{/posts/{id}/delete(id=${postTopic.id})}" method="post">
                     <button type="submit" class="btn create-form" id="delete" name="delete">Delete</button>
-                    <input type="hidden" name="state_id" th:value="${post.stateId}" />
+                    <input type="hidden" name="state_id" th:value="${postTopic.state.id}" />
                 </form>
             </div>
         </li>
     </ul>
 </div>
     <div class="col-3" sec:authorize="isAuthenticated()">
-    <h1>Submit a new post</h1>
-    <form class="form-group" th:action="@{/posts/} + ${id}+ @{/all}" method="post"  th:object="${post}">
+    <h1>Submit a new postTopic</h1>
+    <form class="form-group" th:action="@{/posts/topic/add}" method="post">
         <!--<input type="hidden" id="stateid" name="stateid" />-->
-        <input type="hidden" id="title" name="title" placeholder="title"/>
-        <input type="textarea" id="blogpost" name="blogpost" class="form-control mb-5"  />
+
+        <input type="text" id="title" name="title">
+        <input type="hidden" id="state-abbr" name="state-abbr" th:value="${state.abbr}">
 
         <br />
         <input type="submit" class="btn btn-dark text-light" />

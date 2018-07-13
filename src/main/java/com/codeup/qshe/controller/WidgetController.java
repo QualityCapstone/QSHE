@@ -1,12 +1,8 @@
 package com.codeup.qshe.controller;
 
-import com.codeup.qshe.models.user.Post;
 import com.codeup.qshe.services.PostService;
-import com.codeup.qshe.models.user.User;
 import com.codeup.qshe.repositories.Users;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class WidgetController {
