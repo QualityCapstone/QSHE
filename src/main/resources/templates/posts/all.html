@@ -7,7 +7,15 @@
 </head>
 <div th:replace="partials/layout :: navbar" />
 <span class="overlay"></span>
+<div >
+    <div class="row p-2">
+        <div id="top-post">
+            <div class="spacer"></div>
 
+        </div>
+        </div>
+    </div>
+</div>
 <h1 class="text-center m-3 p-3">Share your comments with other users about your state!</h1>
 
 <div class="container bg-white text-center border border-dark rounded mt-5" sec:authorize="isAuthenticated()">
@@ -22,7 +30,6 @@
                 <p class="text-left" th:text="'About: '+${post.title}"></p>
                 <p class="text-left" th:text="${post.body}"></p>
                 <hr class="create-form" style="height: 10px"/>
-                <!--<p th:text="${message.sender_id}"></p>-->
             </div>
 
             <div class="col-3" sec:authorize="isAuthenticated()">

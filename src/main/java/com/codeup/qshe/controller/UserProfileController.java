@@ -1,7 +1,9 @@
 package com.codeup.qshe.controller;
 
+import com.codeup.qshe.models.State;
 import com.codeup.qshe.models.user.User;
 import com.codeup.qshe.repositories.UserProfiles;
+import com.codeup.qshe.services.StateService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.codeup.qshe.services.user.UserDetailsLoader;
@@ -17,20 +19,23 @@ public class UserProfileController {
     private UserService userDao;
     private UserDetailsLoader userDetailsLoader;
     private UserProfiles userProfiles;
+    private StateService stateDao;
 
 @Autowired
-    public UserProfileController(UserDetailsLoader userDetailsLoader, UserService userDao, UserProfiles userProfiles) {
+    public UserProfileController(UserDetailsLoader userDetailsLoader, UserService userDao, UserProfiles userProfiles, StateService stateDao) {
         this.userDetailsLoader = userDetailsLoader;
         this.userProfiles = userProfiles;
         this.userDao =userDao;
+        this.stateDao = stateDao;
     }
 
     @GetMapping("/users/displayprofile")
-    public String displayProfile(Model view){
-
-    User current = userDao.getLoggedInUser();
-    
-    view.addAttribute(current);
+    public String displayProfile(Model model) {
+        User user = userDao.getLoggedInUser();
+        String userstate = user.getProfile().getUserState();
+        State state = stateDao.getStates().findByName(userstate);
+        model.addAttribute("state", state);
+        model.addAttribute("user", user);
 
     return "users/displayprofile";
     }

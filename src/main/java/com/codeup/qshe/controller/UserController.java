@@ -1,13 +1,16 @@
 package com.codeup.qshe.controller;
 
+import com.codeup.qshe.models.State;
 import com.codeup.qshe.models.user.User;
 import com.codeup.qshe.models.user.UserProfile;
 import com.codeup.qshe.models.user.UserWithRoles;
 import com.codeup.qshe.repositories.Roles;
 import com.codeup.qshe.repositories.UserProfiles;
+import com.codeup.qshe.services.StateService;
 import com.codeup.qshe.services.messages.MessagesService;
 import com.codeup.qshe.services.user.UserDetailsLoader;
 import com.codeup.qshe.services.user.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
@@ -31,13 +34,17 @@ public class UserController {
     private Roles roles;
     private UserProfiles userProfiles;
     private MessagesService messageDao;
+    private StateService stateDao;
 
+
+    @Autowired
     public UserController(UserService userDao, PasswordEncoder passwordEncoder, Roles roles,
-                          MessagesService messageDao) {
+                          MessagesService messageDao, StateService stateDao) {
         this.userDao = userDao;
         this.passwordEncoder = passwordEncoder;
         this.roles = roles;
         this.messageDao = messageDao;
+        this.stateDao  = stateDao;
 
     }
 
@@ -67,21 +74,23 @@ public class UserController {
         userDao.getUsers().addDefaultRole(user.getId());
 
         authenticate(user);
-        return "redirect:/profile";
+
+        return "redirect:/users/rating";
     }
 
 
 
-    @GetMapping("/profile")
+    @GetMapping("/editprofile")
     public String loadProfile(Model model) {
         User user = userDao.getLoggedInUser();
-
         model.addAttribute("conversations",
                 messageDao.getMessages().findDistinctBySenderOrRecipientOrderByIdAsc(user, user));
-
+        user = userDao.getUsers().findByUsername(user.getUsername());
+        State state = stateDao.getStates().findByName(user.getProfile().getUserState());
+        model.addAttribute("state", state);
         model.addAttribute("user", user);
 
-        return "users/profile";
+        return "users/editprofile";
     }
 
 

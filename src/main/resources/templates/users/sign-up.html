@@ -11,17 +11,11 @@
     <!-- STEP ONE -->
         <div class="row">
         <div class="col-12 col-lg-6 col-md-10 m-auto">
-        <h1 class="text-center">Create an account</h1>
+        <h1 class="text-center">Register</h1>
             <!-- USERNAME, EMAIL AND PASSWORD -->
         <div id="signupUser">
-        <!--<ul id="progressbar">-->
-            <!--<li class="active">Account Setup</li>-->
-            <!--<li>State You live</li>-->
-            <!--<li>Rating</li>-->
-        <!--</ul>-->
         <form name="register" class="card card-block bg-faded m-3 p-3 login-card" th:action="@{/sign-up}" method="post" th:object="${user}" th:required="required">
             <h2 class="fs-title">Create your account</h2>
-            <h3 class="fs-subtitle">This is step 1</h3>
             <!--<h2 class="m-b-1 text-xs-center">Step one</h2>-->
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
@@ -120,112 +114,6 @@
             <!--<input type="button" name="next" class="next action-button" value="Next" />-->
             <input type="submit" name="submit" class="submit action-button bt btn-secondary" value="Submit" />
 
-        </form>
-            <!-- STATE WHERE YOU LIVE -->
-
-        <!--<form class="card card-block bg-faded m-3 p-3 login-card" th:action="@{/sign-up}" method="POST" th:object="${user}">-->
-            <!--<h2 class="fs-title m-b-1 text-xs-center">State where you live</h2>-->
-            <!--&lt;!&ndash;<h2 class="fs-title">Social Pr</h2>&ndash;&gt;-->
-            <!--<h3 class="fs-subtitle">This is step 2</h3>-->
-            <!--<div class="input-group mb-3">-->
-                <!--<div class="input-group-prepend">-->
-                    <!--<medium id="stateHelpBlock" class="form-text text-dark mx-sm-3">-->
-                        <!--What state do you live in?-->
-                    <!--</medium>-->
-                    <!--<select id="inputState" class="form-control">-->
-                        <!--<option selected>Choose...</option>-->
-                        <!--<option>Alabama</option>-->
-                        <!--<option>Alaska</option>-->
-                        <!--<option>Arizona</option>-->
-                        <!--<option>Arkansas</option>-->
-                        <!--<option>California</option>-->
-                        <!--<option>Colorado</option>-->
-                        <!--<option>Connecticut</option>-->
-                        <!--<option>Delaware</option>-->
-                        <!--<option>Florida</option>-->
-                        <!--<option>Georgia</option>-->
-                        <!--<option>Hawaii</option>-->
-                        <!--<option>Idaho</option>-->
-                        <!--<option>Illinois</option>-->
-                        <!--<option>Indiana</option>-->
-                        <!--<option>Iowa</option>-->
-                        <!--<option>Kansas</option>-->
-                        <!--<option>Kentucky</option>-->
-                        <!--<option>Louisiana</option>-->
-                        <!--<option>Maine</option>-->
-                        <!--<option>Maryland</option>-->
-                        <!--<option>Massachusetts</option>-->
-                        <!--<option>Michigan</option>-->
-                        <!--<option>Minnesota</option>-->
-                        <!--<option>Mississippi</option>-->
-                        <!--<option>Missouri</option>-->
-                        <!--<option>Montana</option>-->
-                        <!--<option>Nebraska</option>-->
-                        <!--<option>Nevada</option>-->
-                        <!--<option>New Hampshire</option>-->
-                        <!--<option>New Jersey</option>-->
-                        <!--<option>New Mexico</option>-->
-                        <!--<option>New York</option>-->
-                        <!--<option>North Carolina</option>-->
-                        <!--<option>North Dakota</option>-->
-                        <!--<option>Ohio</option>-->
-                        <!--<option>Oklahoma</option>-->
-                        <!--<option>Oregon</option>-->
-                        <!--<option>Pennsylvania</option>-->
-                        <!--<option>Rhode Island</option>-->
-                        <!--<option>South Carolina</option>-->
-                        <!--<option>South Dakota</option>-->
-                        <!--<option>Tennessee</option>-->
-                        <!--<option>Texas</option>-->
-                        <!--<option>Utah</option>-->
-                        <!--<option>Vermont</option>-->
-                        <!--<option>Virginia</option>-->
-                        <!--<option>Washington</option>-->
-                        <!--<option>West Virginia</option>-->
-                        <!--<option>Wisconsin</option>-->
-                        <!--<option>Wyoming</option>-->
-                    <!--</select>-->
-                <!--</div>-->
-            <!--</div>-->
-            <!--<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>-->
-            <!--<input type="button" name="previous" class="previous action-button btn btn-secondary" value="Previous" />-->
-            <!--<input type="button" name="next" class="next action-button btn btn-secondary" value="Next" />-->
-        <!--</form>-->
-
-            <!--&lt;!&ndash; TO RATE &ndash;&gt;-->
-        <!--<form class="card card-block bg-faded m-3 p-3 login-card" th:action="@{/sign-up}" method="POST">-->
-            <!--<h2 class="m-b-1 text-xs-center">Step 3</h2>-->
-            <!--<small class="form-text">You can rate your state now or later:</small>-->
-            <!--<div class="form-group">-->
-            <!--<h5 class="m-b-1 text-center">1 = Good  10 = Bad</h5>-->
-            <!--</div>-->
-            <!--<div class="form-group m-0">-->
-                <!--<label class="text-left" for="violenceRate">How safe do you feel where you live?</label>-->
-                <!--<input type="range" min="1" max="10" value="1" class="slider float-left" id="violenceRate" />-->
-                <!--<p class="text-center float-right"><span id="demoViolence"></span></p>-->
-            <!--</div>-->
-            <!--<div class="form-group m-0">-->
-                <!--<label class="text-left" for="employmentRate">How would you rank the employment rate in your state?</label>-->
-                <!--<input type="range" min="1" max="10" value="1" class="slider float-left" id="employmentRate" />-->
-                <!--<p class="text-center float-right"><span id="demoEmployment"></span></p>-->
-            <!--</div>-->
-            <!--<div class="form-group m-0">-->
-                <!--<label class="text-left" for="educationRate">How would you rank the education system in your state?</label>-->
-                <!--<input type="range" min="1" max="10" value="1" class="slider float-left" id="educationRate" />-->
-                <!--<p class="text-center float-right"><span id="demoEducation"></span></p>-->
-            <!--</div>-->
-            <!--<div class="form-group m-0">-->
-                <!--<label class="left-text" for="healthRate">How would you rank the health care system in your state?</label>-->
-                <!--<input type="range" min="1" max="10" value="1" class="slider float-left" id="healthRate"/>-->
-                <!--<p class="text-center float-right"><span id="demoHealth"></span></p>-->
-            <!--</div>-->
-            <!--<div class="form-group m-0">-->
-                <!--<label class="text-left" for="growthRate">How would you rate the general growth in your state?</label>-->
-                <!--<input type="range" min="1" max="10"value="1" class="slider float-left" id="growthRate" />-->
-                <!--<p class="text-center float-right"><span id="demoGrowth"></span></p>-->
-            <!--</div>-->
-            <!--<input type="button" name="previous" class="previous action-button" value="Previous" />-->
-            <!--<input type="submit" name="submit" class="submit action-button bt btn-secondary" value="Submit" />-->
         </form>
         </div><!-- end of div signupUser -->
         </div>

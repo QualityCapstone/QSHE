@@ -5,6 +5,7 @@ import com.codeup.qshe.models.State;
 import com.codeup.qshe.models.user.StateMetric;
 import com.codeup.qshe.models.user.StateUserRating;
 import com.codeup.qshe.models.user.User;
+import com.codeup.qshe.services.StateService;
 import com.codeup.qshe.services.StateUserRatingService;
 import com.codeup.qshe.services.user.UserService;
 import org.springframework.stereotype.Controller;
@@ -19,15 +20,21 @@ import java.util.Map;
 public class UserRatingController {
     private final StateUserRatingService ratingDao;
     private final UserService userDao;
+    private StateService stateDao;
 
-    public UserRatingController(StateUserRatingService ratingDao, UserService userDao) {
+    public UserRatingController(StateUserRatingService ratingDao, UserService userDao, StateService stateDao) {
         this.ratingDao = ratingDao;
         this.userDao = userDao;
+        this.stateDao = stateDao;
     }
 
 
     @GetMapping("/users/rating")
     public String viewUserRating(Model view) {
+        User user = userDao.getLoggedInUser();
+        user = userDao.getUsers().findByUsername(user.getUsername());
+        State state = stateDao.getStates().findByName(user.getProfile().getUserState());
+        view.addAttribute("state", state);
         view.addAttribute("userRatings", ratingDao.getUserRatings().findAll());
         view.addAttribute("newRating", new StateUserRating());
 
@@ -39,13 +46,14 @@ public class UserRatingController {
     public String saveUserRate(@RequestParam HashMap<String, String> formData) {
 
         User user = userDao.getLoggedInUser();
-        State state = ratingDao.getStates().findByName(user.getProfile().getUserState());
+        String userstate = user.getProfile().getUserState();
+        State state = stateDao.getStates().findByName(userstate);
 
         ratingDao.getUserRatings().deleteByStateAndUser(state, user);
 
         for (Map.Entry<String, String> entry : formData.entrySet()) {
 
-            String key = entry.getKey().toString();
+            String key = entry.getKey();
             String cap = key.substring(0, 1).toUpperCase() + key.substring(1);
 
             String value = entry.getValue();
@@ -62,7 +70,7 @@ public class UserRatingController {
         }
 
 
-        return "/users/rating";
+        return "/users/displayprofile";
 
     }
 
