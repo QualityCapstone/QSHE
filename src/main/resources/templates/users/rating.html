@@ -120,10 +120,9 @@
                                 <input type="submit" id="overallRating"  class="submit form-control btn btn-secondary" />
                             </form>
                         </div>
-                        <div class="col-sm-6 m-auto">
-                            <a href="/users/displayprofile"><button type="button" class="btn btn-secondary btn-lg">Go back to your profile</button></a>
-                        </div>
-                    </div>
+                </div>
+                <div class="col-sm-6 m-auto">
+                    <a href="/users/displayprofile"><button type="button" class="btn btn-secondary btn-lg">Go back to your profile</button></a>
                 </div>
                 <div class="col-sm-6 float-right">
                     <div class="p-5 m-2 create-form text-dark border border-dark rounded" th:each="stateUserRating: ${stateUserRatings}" th:height="auto">
@@ -140,10 +139,9 @@
                 </div>
             </div>
     </div>
-            </div>
-            </div>
 
-    </div>
+
+
 </div>
 <div th:replace="partials/layout :: footer" />
 <script type="text/javascript">

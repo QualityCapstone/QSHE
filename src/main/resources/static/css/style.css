@@ -97,3 +97,7 @@ body {
 #info-health, #info-growth{
     display: none;
 }
+
+li a:hover {
+    color: #DC6F68;
+}
