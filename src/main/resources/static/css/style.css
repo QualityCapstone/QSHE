@@ -98,6 +98,30 @@ body {
     display: none;
 }
 
-li a:hover {
+li.navbar-item a:hover {
     color: #DC6F68;
+}
+
+#nav-profile a:hover {
+ background-color: #DC6F68;
+}
+
+ul li:hover{
+    color: #DC6F68;
+}
+
+.nav > li > a:hover{
+    color: #DC6F68;
+}
+
+.title-card {
+    color: #DC6F68;
+}
+
+.card {
+    -webkit-box-shadow: 1px 5px 5px #aeaeae;
+    -moz-box-shadow: 1px 5px 5px #aeaeae;
+    -o-box-shadow: 1px 5px 5px #aeaeae;
+    -ms-box-shadow: 1px 5px 5px #aeaeae;
+    box-shadow: 1px 5px 5px #aeaeae;
 }
