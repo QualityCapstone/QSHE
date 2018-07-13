@@ -98,24 +98,6 @@
                     <button type="submit" class="btn btn-primary m-5">save changes</button>
                 </form>
             </div>
-            <!--<div class="row mt-5 mb-5">-->
-            <!--<h3>Your notifications</h3>-->
-            <!--<div class="col-12 text-left">-->
-            <!--<button type="button" class="btn btn-primary notification-profile">-->
-            <!--Email <span class="badge badge-light">4</span>-->
-            <!--</button>-->
-            <!--<button type="button" class="btn btn-primary notification-profile">-->
-            <!--Text Message <span class="badge badge-light">4</span>-->
-            <!--</button>-->
-            <!--</div>-->
-            <!--</div>-->
-            <!--<div class="row mb-5">-->
-            <!--<h3>Social media</h3>-->
-            <!--<div class="col-12">-->
-            <!--<img class="fluid-img m-2" th:height="50" src="/img/Facebook.png">-->
-            <!--<img class="fluid-img m-2" th:height="50" src="/img/Google%20Plus.png">-->
-            <!--</div>-->
-            <!--</div>-->
         </div>
         <!-- THIS IS THE RATING AREA -->
         <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
@@ -184,36 +166,10 @@
                 </div>
             </div>
         </div>
-        <!-- HERE ARE THE MESSAGES -->
-        <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
-            <h3 class="mb-3">Messages</h3>
-            <table class="table table-hover">
-                <thead>
-                <tr>
-                    <th>UserName</th>
-                    <th class="d-none d-sm-table-cell sticky-header">Message</th>
-                    <th class="sticky-top">Status</th>
-                </tr>
-                </thead>
-                <tbody id="transaction-list">
-                <th:block th:each="c : ${conversations}">
-                    <tr class="conversation"  th:data-id="${c.id}">
-                        <td>
-                            <a th:href="@{~/messages/view/} + ${c.recipient.id}" th:text="${c.recipient.username}"></a>
-                        </td>
-                        <td>
-                            <span class="text-muted" th:text="${c.message} ">Since 05/01/2012</span>
-                        </td>
-                        <td><span>Unread</span>
-                        </td>
-                    </tr>
-                </th:block>
-                </tbody>
-            </table>
-        </div>
     </div><!-- THIS IS THE END OF THE TAB-CONTENT -->
 </div><!-- THIS IS THE END OF THE DIV COL-12 -->
-</div><!-- THIS IS THE END OF MAIN WRAPPER OF THE CONTENT -->
+
+
 <div th:replace="partials/layout :: footer" />
 <script type="text/javascript">
     // USER RATE VALUE FOR VIOLENCE

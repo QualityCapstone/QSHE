@@ -38,7 +38,6 @@
 
         <div class="btn-group header-button text-right ">
 
-
             <div sec:authorize="!isAuthenticated()">
                 <a class="btn " th:href="@{/login}">
                     Login
@@ -47,7 +46,8 @@
 
             <div sec:authorize="isAuthenticated()">
             <button class="btn btn-secondary" type="button">
-                    <a th:href="@{~/profile}" th:text="${#authentication?.principal?.profile?.username}">
+                    <a th:href="@{~/users/displayprofile}" th:text="${#authentication?.principal?.profile?.username}">
+
                    </a>
                     <th:block th:if="${currentUserConnection == null}" >
 
@@ -93,7 +93,7 @@
 
     <nav class="navbar navbar-dark bg-dark navbar-footer">
         <div class="mx-auto text-center">
-            <a class="hvr-underline-reveal mr-2" th:href="@{~/profile}">Home</a>
+            <a class="hvr-underline-reveal mr-2" th:href="@{~/users/displayprofile}">Home</a>
 
             <a class="hvr-underline-reveal mr-2" th:href="@{~/us}">USA</a>
 

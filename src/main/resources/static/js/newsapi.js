@@ -6,14 +6,33 @@
 
     let query = $('#statenews').attr("data-state-name") + ' female';
 
+    // functions to pull current date
+    let today = new Date();
+    let dd = today.getDate();
+    let mm = today.getMonth()+1; //January is 0!
+    let mm1 = today.getMonth();
+    let yyyy = today.getFullYear();
+    let monthago;
+
+    if(dd<10) {
+        dd = '0'+dd
+    }
+
+    if(mm<10) {
+        mm = '0'+mm
+    }
+
+    today = yyyy + '-' + mm + '-' + dd;
+    monthago = yyyy + '-' + mm1 + '-' + dd;
+
 
     newsapi.v2.everything({
 
         q: query, //need help changing state name for each state.
 
         sources: 'bbc-news,the-verge,abc-news,cbs-news,cnbc,cnn,fox-news',
-        from: '2018-06-18',
-        to: '2018-07-17',
+        from: today,
+        to: monthago,
         language: 'en',
         sortBy: 'relevancy'
     }).then(response => {
