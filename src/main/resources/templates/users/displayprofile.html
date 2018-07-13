@@ -106,7 +106,7 @@
                     <h4 class="text-center"><span th:text="${#authentication.principal.profile.userState}"></span></h4>
                     <br />
                 </div>
-                <button class="btn btn-sm float-right"><a class="float-right" th:href="@{/editprofile}"><i class="fas fa-edit"></i>git </a> </button>
+                <button class="btn btn-sm float-right"><a class="float-right" th:href="@{/editprofile}"><i class="fas fa-edit"></i> </a> </button>
             </div>
         </div>
 
@@ -127,8 +127,8 @@
                     <table class="table table-hover">
                         <thead>
                         <tr>
-                            <th>UserName</th>
-                            <th class="d-none d-sm-table-cell sticky-header">Message</th>
+                            <th class="sticky-top">Username</th>
+                            <th class="d-none d-sm-table-cell sticky-top">Message</th>
                             <th class="sticky-top">Status</th>
 
                         </tr>
@@ -159,20 +159,9 @@
 
         <!--notifications area-->
 
-        <div class="row m-5 m-auto">
-            <div class="col-6 text-center">
-                <h3 style="margin-top: 1em">Your notifications</h3>
-                <div class="col-12 m-3 d-inline">
-                    <button type="button" class="btn btn-primary notification-profile m-2">
-                        Email <span class="badge badge-light">4</span>
-                    </button>
-                    <button type="button" class="btn btn-primary notification-profile m-2">
-                        Text Message <span class="badge badge-light">4</span>
-                    </button>
-                </div>
-            </div>
-            <div class="col-6 text-center">
-                <h3 style="margin-top: 1em">Social media</h3>
+        <div class="row m-5 m-auto p-3">
+            <div class="col-12 text-center">
+                <h3>Share us on social media!</h3>
                 <div class="col-12 m-4 d-inline">
                     <img class="fluid-img m-2" th:height="50" src="/img/Facebook.png">
                     <img class="fluid-img m-2" th:height="50" src="/img/Google%20Plus.png">
@@ -182,41 +171,6 @@
     </div>
 </div>
 
-
-<!-- end of tab-pane-fade -->
-<!--<div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">-->
-<!--<h3 class="mb-3">Messages</h3>-->
-
-    <!--<table class="table table-hover">-->
-        <!--<thead>-->
-        <!--<tr>-->
-            <!--<th>UserName</th>-->
-            <!--<th class="d-none d-sm-table-cell sticky-header">Message</th>-->
-            <!--<th class="sticky-top">Status</th>-->
-
-        <!--</tr>-->
-        <!--</thead>-->
-        <!--<tbody id="transaction-list">-->
-
-        <!--<th:block th:each="c : ${conversations}">-->
-            <!--<tr class="conversation"  th:data-id="${c.id}">-->
-                <!--<td>-->
-                    <!--<a th:href="@{~/messages/view/} + ${c.recipient.id}" th:text="${c.recipient.username}"></a>-->
-                <!--</td>-->
-                <!--<td>-->
-                    <!--<span class="text-muted" th:text="${c.message} ">Since 05/01/2012</span>-->
-                <!--</td>-->
-                <!--<td><span>Unread</span>-->
-                <!--</td>-->
-
-            <!--</tr>-->
-
-        <!--</th:block>-->
-
-        <!--</tbody>-->
-    <!--</table>-->
-<!--</div>-->
-<!-- end of tab-pane-fade -->
 
 <div th:replace="partials/layout :: footer" />
 <script th:src="@{~/built/news.js}"></script>
