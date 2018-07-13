@@ -1,8 +1,11 @@
 package com.codeup.qshe.controller;
 
 import com.codeup.qshe.models.user.User;
+import com.codeup.qshe.services.FlickrService;
 import com.codeup.qshe.services.user.SocialControllerService;
+import com.flickr4java.flickr.FlickrException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -18,14 +21,25 @@ import java.security.Principal;
 public class AuthenticationController {
     private SocialControllerService util;
 
+
+    @Value("${flickr-key}")
+    private String apiKey;
+    @Value("${flickr-secret}")
+    private String sharedSecret;
+
     @Autowired
     public AuthenticationController(SocialControllerService util) {
         this.util = util;
     }
 
+
     @GetMapping("/login")
-    public String showLoginForm(HttpServletRequest request, Principal currentUser, Model model) {
+    public String showLoginForm(HttpServletRequest request, Principal currentUser, Model model) throws FlickrException {
         User user = new User();
+
+        FlickrService f = new FlickrService(apiKey, sharedSecret);
+
+        model.addAttribute("photo", f.getPhoto("Texas"));
 
         util.setModel(request, currentUser, model);
 
