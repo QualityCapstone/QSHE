@@ -8,7 +8,31 @@
 <body>
 <div th:replace="states/svg :: states-svg" />
 <div th:replace="partials/layout :: navbar" />
-
+<!--<div class="col-12">-->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light m-auto">
+        <a class="navbar-brand" href="/users/displayprofile">PROFILE</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav m-auto">
+                <li class="nav-item active d-inline">
+                    <!--<img src="/img/4391 - Around the Globe.png"/>-->
+                    <a class="nav-link" href="/us">Map<img src="/img/icon-map.png" class="ml-1"/><span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/users/rating">Your rating<img src="/img/icon-user-rating.png" class="ml-1"/></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/users">Friends<img src="/img/icon-user-network.png" class="ml-1"/></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Messages<img src="/img/icon-messages.png" class="ml-1"/></a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+<!--</div>-->
 <!--state news modal-->
 <!--body continues to scroll while user is scrolling through modal-->
 <div class="modal fade" id="modal" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
@@ -94,6 +118,44 @@
             </div>
         </div>
 
+        <div class="col-md-6 mt-5">
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="mb-3">Messages</h3>
+
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th>UserName</th>
+                            <th class="d-none d-sm-table-cell sticky-header">Message</th>
+                            <th class="sticky-top">Status</th>
+
+                        </tr>
+                        </thead>
+                        <tbody id="transaction-list">
+
+                        <th:block th:each="c : ${conversations}">
+                            <tr class="conversation"  th:data-id="${c.id}">
+                                <td>
+                                    <a th:href="@{~/messages/view/} + ${c.recipient.id}" th:text="${c.recipient.username}"></a>
+                                </td>
+                                <td>
+                                    <span class="text-muted" th:text="${c.message} ">Since 05/01/2012</span>
+                                </td>
+                                <td><span>Unread</span>
+                                </td>
+
+                            </tr>
+
+                        </th:block>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+
         <!--notifications area-->
 
         <div class="row m-5 m-auto">
@@ -117,6 +179,40 @@
             </div>
         </div>
     </div>
+</div><!-- end of tab-pane-fade -->
+<div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+<h3 class="mb-3">Messages</h3>
+
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th>UserName</th>
+            <th class="d-none d-sm-table-cell sticky-header">Message</th>
+            <th class="sticky-top">Status</th>
+
+        </tr>
+        </thead>
+        <tbody id="transaction-list">
+
+        <th:block th:each="c : ${conversations}">
+            <tr class="conversation"  th:data-id="${c.id}">
+                <td>
+                    <a th:href="@{~/messages/view/} + ${c.recipient.id}" th:text="${c.recipient.username}"></a>
+                </td>
+                <td>
+                    <span class="text-muted" th:text="${c.message} ">Since 05/01/2012</span>
+                </td>
+                <td><span>Unread</span>
+                </td>
+
+            </tr>
+
+        </th:block>
+
+        </tbody>
+    </table>
+<!--</div>-->
+=======
 </div>
 <!-- end of tab-pane-fade -->
 
