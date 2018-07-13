@@ -6,6 +6,7 @@
     <title>Edit Profile</title>
 </head>
 <body>
+<div th:replace="states/svg :: states-svg" />
 <div th:replace="partials/layout :: navbar" />
 
 <!--state news modal-->
@@ -46,6 +47,7 @@
                 </div>
             </div>
         </div>
+        <br />
         <div class="col-md-6">
             <div class="card">
                 <div class="card-body">
@@ -65,7 +67,6 @@
             </div>
         </div>
 
-
         <!--news tab for user's state-->
 
         <div class="col-md-6">
@@ -75,7 +76,21 @@
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal">View more News</button>
                 </div>
             </div>
+        </div>
 
+        <!--state and rating tab-->
+
+        <div class="col-md-6">
+            <div class="card">
+                <h4 class="card-title" style="text-align: center">Your State and Rating</h4>
+                <div class="card-body">
+                    <div class="state pt-4">
+                        <svg th:class="@{icon icon-state-} + ${state.abbr}">
+                            <use th:xlink:href="@{#icon-state-} + ${state.abbr}"></use>
+                        </svg>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <!--notifications area-->
@@ -101,7 +116,8 @@
             </div>
         </div>
     </div>
-</div><!-- end of tab-pane-fade -->
+</div>
+<!-- end of tab-pane-fade -->
 
 <div th:replace="partials/layout :: footer" />
 
