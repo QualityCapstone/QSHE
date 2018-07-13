@@ -11,7 +11,6 @@ import java.util.List;
 public interface Crimes extends CrudRepository<StateCrime, Long>{
  //second test
 
-
     List<StateCrime> findAllByState(State state);
 
 }
