@@ -33,6 +33,7 @@
 </nav>
 <div class="container wrapper mx-auto" sec:authorize="isAuthenticated()">
     <div class="container">
+
         <!-- TO RATE -->
         <h2 class="text-center mb-5">Please rate each element of your state!</h2>
         <div class="row">
@@ -81,8 +82,7 @@
                                 <input type="range" min="1" max="10"value="1" class="slider float-left" id="growthRate" style="background-color: #DC6F68"/>
                                 <p class="text-center float-right"><span class="slider-val"></span></p>
                             </div>
-                            <input type="submit" value="Save Ratings" class="btn btn-secondary m-5">
-                            <!--<input type="submit" id="overallRating" th:field="*{userRating}" name="submit" class="submit form-control btn btn-secondary" value="Save" />-->
+
                         </form>
                 </div>
             </div>
@@ -105,7 +105,7 @@
                     <div class="card-body">
                         <h3 class="mb-3">This is the overall rating you're giving to the State you live in</h3>
                         <h1 class="text-center m-5 title-slider" id="totalMarks"></h1>
-                        <form class="form-control" th:action="@{/users/rating}" method="post" th:object="${userRate}">
+                        <form class="form-control" th:action="@{/users/rating}" method="post" th:object="${userRate}" onsubmit="return checkForm(this)">
 
                             <input type="hidden" name="crime" id="crime">
                             <input type="hidden" name="education" id="education">
@@ -115,7 +115,7 @@
 
                             <input type="hidden"  id="userRate"  name="userRate" th:value="${userRate}"/>
 
-                            <input type="submit" id="overallRating"  class="submit form-control btn btn-secondary" />
+                            <input name="submit" type="submit" id="overallRating"  class="submit form-control btn btn-secondary" value="Submit Rating" />
                         </form>
                     </div>
             </div>
@@ -145,6 +145,7 @@
             calcavg();
         })
     });
+    // comment
     function calcavg() {
         var total = 0;
         var avg = 0;
@@ -196,7 +197,11 @@
     $("#q-growth").click(function(){
         $("#info-growth").toggle();
     });
-    // commemnt
+    function checkForm(form) {
+        form.submit.value = "Please Wait...";
+        form.submit.disabled = true;
+        return true;
+    }
 </script>
 </body>
 </html>

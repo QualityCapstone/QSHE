@@ -32,9 +32,9 @@ public class UserRatingController {
     @GetMapping("/users/rating")
     public String viewUserRating(Model view) {
         User user = userDao.getLoggedInUser();
-        user = userDao.getUsers().findByUsername(user.getUsername());
         State state = stateDao.getStates().findByName(user.getProfile().getUserState());
         view.addAttribute("state", state);
+
         view.addAttribute("userRatings", ratingDao.getUserRatings().findAll());
         view.addAttribute("newRating", new StateUserRating());
 
@@ -70,7 +70,7 @@ public class UserRatingController {
         }
 
 
-        return "/users/displayprofile";
+        return "redirect:/users/displayprofile";
 
     }
 
