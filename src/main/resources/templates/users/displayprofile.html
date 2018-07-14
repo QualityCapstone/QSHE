@@ -9,30 +9,8 @@
 <div th:replace="states/svg :: states-svg" />
 <div th:replace="partials/layout :: navbar" />
 <!--<div class="col-12">-->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light m-auto">
-        <a class="navbar-brand" href="/users/displayprofile">PROFILE</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNavDropdown">
-            <ul class="navbar-nav m-auto" id="navprofile">
-                <li class="nav-item d-inline">
-                    <!--<img src="/img/4391 - Around the Globe.png"/>-->
-                    <a class="nav-link" href="/us">Map<img src="/img/icon-map.png" class="ml-1"/></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/users/rating">Your rating<img src="/img/icon-user-rating.png" class="ml-1"/></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/users">Friends<img src="/img/icon-user-network.png" class="ml-1"/></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Messages<img src="/img/icon-messages.png" class="ml-1"/></a>
-                </li>
-            </ul>
-        </div>
-    </nav>
 
+<div th:replace="partials/layout :: navbar-profile" />
 <!--</div>-->
 <!--state news modal-->
 <!--body continues to scroll while user is scrolling through modal-->
@@ -58,25 +36,55 @@
 <div class="container ">
     <div class="userProfile row">
         <div class="col-md-6  col-sm-12">
-            <div class="card card-border m-4">
-                <br />
-                <div class="card-title text-center"><h3>Welcome <span th:text="${#authentication.principal.profile.firstName}"></span>!</h3>
+            <div id="profile-user" class="card card-border m-3">
+
+                <div class="card-title text-left pt-3">
+                    <a class="pr-2 float-right" th:href="@{/editprofile}"><i class="fas fa-edit"></i> </a>
+                    <h3>Welcome <span th:text="${#authentication.principal.profile.firstName}"></span>!</h3>
+
+                    <hr>
                 </div>
                 <div class="card-body">
-                    <div style="margin: 0 auto; height: 200px; width: 200px">
-                        <div style="text-align: center">
-                            <img th:if="${user.profile.uploadPath == null}" style="height: 150px; width: 150px; margin: 0 auto" th:src="@{/img/defaultavatar.png}" alt="none" />
-                            <img th:if="${user.profile.uploadPath}" style="height: 150px; width: 150px; margin: 0 auto" th:src="@{/uploads/} + ${user.profile.uploadPath}"  alt="didn't work" />
+                    <div>
+                        <div>
+                            <img th:if="${user.profile.uploadPath == null}" th:src="@{/img/defaultavatar.png}" alt="none" class="avatar-img" />
+                            <img th:if="${user.profile.uploadPath}"  th:src="@{/uploads/} + ${user.profile.uploadPath}"  class="avatar-img" />
                         </div>
                     </div>
-                    <button class="btn btn-sm float-right"><a class="float-right" th:href="@{/editprofile}"><i class="fas fa-edit"></i> </a> </button>
+
+                    <div class="profile-data">
+                        <p>Have a wonderful Day!</p>
+                        <div class="row">
+                            <div class="profile-item">Your username:</div>
+                            <div class="profile-value"><span th:text="${#authentication.principal.username}"></span></div>
+                        </div>
+                        <div class="row">
+                            <div class="profile-item">Your name:</div>
+                            <div class="profile-value"><span th:text="${#authentication.principal.profile.firstName} + ' ' + ${#authentication.principal.profile.lastName}"></span></div>
+                        </div>
+
+                        <div class="row">
+                            <div class="profile-item">Your email:</div>
+                            <div class="profile-value"> <span th:text="${#authentication.principal.profile.email}"></span></div>
+                        </div>
+
+                        <div class="row">
+                            <div class="profile-item">Your state:</div>
+                            <div class="profile-value"><span th:text="${#authentication.principal.profile.userState}"></span></div>
+                        </div>
+
+                    </div>
+
+
+
+
                 </div>
             </div>
         </div>
         <br />
 
         <div class="col-md-6  col-sm-12" id="state-profile">
-            <div class="card state-bg-photo m-4" th:style="@{background-image: url(} + ${photo.large1600Url}+ @{);}">
+            <div class="card state-bg-photo m-3" th:style="@{background-image: url(} + ${photo.large1600Url}+ @{);}">
                 <h3 class="card-title p-2 title-card text-center" th:text="${state.name}"></h3>
 
                 <div class="card-body  d-flex flex-column align-items-center justify-content-between">
@@ -87,8 +95,15 @@
                     </div>
 
                     <div class="state-btn-list d-flex flex-row justify-content-between align-items-center">
-                    <button type="button" class="btn btn-primary mr-1"><a th:href="@{/state/} + ${state.abbr}" style="color: white">View your State</a></button>
-                    <button type="button" class="btn btn-primary ml-1"><a th:href="@{/posts/state/} + ${state.abbr}" style="color: white">Discussion Topics</a></button>
+                        <a class="btn btn-primary" th:href="@{/state/} + ${state.abbr}" style="color: white">View your State</a>
+
+
+                        <div class="state-ranking">
+
+                            <span class="state-user-rank" th:text="${#numbers.formatDecimal(overallRating, 0, 'COMMA', 2, 'POINT')}">10.00</span>
+                            <a th:href="@{/users/rating}" class="state-ranking-link">Update Rating</a>
+                        </div>
+
                     </div>
                 </div>
             </div>
@@ -97,26 +112,24 @@
         <!--news tab for user's state-->
         <div class="col-md-6  col-sm-12">
 
-            <div class="card m-4">
+            <div class="card m-3">
+                <div class="card-header">
+                    Recent <span th:text="${state.name}"></span> Discussions
+                </div>
                 <div class="card-body">
                     <!--<h5 class="card-title">Card title</h5>-->
-                    <h4 class="text-left title-card">Your name:</h4>
-                    <h4 class="text-center"> <span th:text="${#authentication.principal.profile.firstName} + ' ' + ${#authentication.principal.profile.lastName}"></span> </h4>
-                    <br />
-                    <h4 class="text-left title-card">Your email:</h4>
-                    <h4 class="text-center"> <span th:text="${#authentication.principal.profile.email}"></span></h4>
-                    <br />
-                    <h4 class="text-left title-card">You live in:</h4>
-                    <h4 class="text-center"><span th:text="${#authentication.principal.profile.userState}"></span></h4>
-                    <br />
+                    <ul id="" th:data-state-name="${#authentication.principal.profile.userState}"></ul>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal">View all discussions</button>
                 </div>
-                <button class="btn btn-sm float-right"><a class="float-right" th:href="@{/editprofile}"><i class="fas fa-edit"></i> </a> </button>
             </div>
         </div>
 
         <!--state and rating tab-->
         <div class="col-md-6 col-sm-12">
-            <div class="card m-4">
+            <div class="card m-3">
+                <div class="card-header">
+                    <span th:text="${state.name}"></span> News
+                </div>
                 <div class="card-body">
                     <ul id="statenews" th:data-state-name="${#authentication.principal.profile.userState}"></ul>
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal">View more News</button>
@@ -127,14 +140,13 @@
         <div class="col-md-12 mt-5">
             <div class="card">
                 <div class="card-body">
-                    <h3 class="mb-3">Messages</h3>
+                    <h3 class="mb-3" id="messages">Messages</h3>
                     <table class="table table-hover">
                         <thead>
                         <tr>
                             <th class="sticky-top">Username</th>
                             <th class="d-none d-sm-table-cell sticky-top">Message</th>
                             <th class="sticky-top">Status</th>
-
                         </tr>
                         </thead>
                         <tbody id="transaction-list">
