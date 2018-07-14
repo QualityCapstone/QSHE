@@ -205,7 +205,7 @@ public class DataLoader implements ApplicationRunner {
         metrics.add(new StateMetric("Growth"));
 
         // Add State to DB
-        // Add State to DB
+
         this.ratingDao.getMetrics().deleteAll();
         this.ratingDao.getMetrics().saveAll(metrics);
 
@@ -594,8 +594,6 @@ public class DataLoader implements ApplicationRunner {
         List<Message> messages = new ArrayList<>();
 
         for(User sender : users ) {
-
-
 
             for(int j = 0; j < maxConvosPerUser; j++) {
 
