@@ -58,7 +58,7 @@
 <div class="container ">
     <div class="userProfile row">
         <div class="col-md-6  col-sm-12">
-            <div id="profile-user" class="card card-border m-2">
+            <div id="profile-user" class="card card-border m-3">
 
                 <div class="card-title text-left pt-3">
                     <a class="pr-2 float-right" th:href="@{/editprofile}"><i class="fas fa-edit"></i> </a>
@@ -106,7 +106,7 @@
         <br />
 
         <div class="col-md-6  col-sm-12" id="state-profile">
-            <div class="card state-bg-photo m-2" th:style="@{background-image: url(} + ${photo.large1600Url}+ @{);}">
+            <div class="card state-bg-photo m-3" th:style="@{background-image: url(} + ${photo.large1600Url}+ @{);}">
                 <h3 class="card-title p-2 title-card text-center" th:text="${state.name}"></h3>
 
                 <div class="card-body  d-flex flex-column align-items-center justify-content-between">
@@ -133,7 +133,7 @@
         <!--news tab for user's state-->
         <div class="col-md-6  col-sm-12">
 
-            <div class="card m-2">
+            <div class="card m-3">
                 <div class="card-header">
                     Recent <span th:text="${state.name}"></span> Discussions
                 </div>
@@ -146,7 +146,7 @@
 
         <!--state and rating tab-->
         <div class="col-md-6 col-sm-12">
-            <div class="card m-4">
+            <div class="card m-3">
                 <div class="card-header">
                     <span th:text="${state.name}"></span> News
                 </div>
