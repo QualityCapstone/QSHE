@@ -13,11 +13,23 @@
 
 <div th:replace="partials/layout :: navbar" />
 
+<div sec:authorize="isAuthenticated()">
+
+    <th:block th:switch="${state.name}">
+    <div th:case="${#authentication.principal.profile.userState}">
+    <div class="corner-ribbon top-left sticky red shadow">Welcome Home</div>
+    </div>
+    </th:block>
+
+</div>
+
 <div class="scroller">
 
 <th:block th:each="p : ${photos}">
     <!--<img th:src="${p.medium800Url}">-->
-    <div  class=" page d-flex flex-column justify-content-center align-items-center state-header" th:style="@{background-image: url(} + ${p.large1600Url}+ @{);}">
+    <div  class=" d-flex flex-column justify-content-center align-items-center state-header" th:style="@{background-image: url(} + ${p.large1600Url}+ @{);}">
+
+
 
 
         <div class="state-header-icon">
