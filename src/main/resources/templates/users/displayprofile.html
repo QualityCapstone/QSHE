@@ -99,7 +99,8 @@
 
 
                       <div class="state-ranking">
-                          <span class="state-user-rank">7.25</span>
+
+                              <span class="state-user-rank" th:text="${#numbers.formatDecimal(overallRating, 0, 'COMMA', 2, 'POINT')}">10.00</span>
                        <a th:href="@{/users/rating}" class="state-ranking-link">Update Rating</a>
                       </div>
 
@@ -146,7 +147,6 @@
                             <th class="sticky-top">Username</th>
                             <th class="d-none d-sm-table-cell sticky-top">Message</th>
                             <th class="sticky-top">Status</th>
-
                         </tr>
                         </thead>
                         <tbody id="transaction-list">

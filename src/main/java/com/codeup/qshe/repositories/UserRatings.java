@@ -32,4 +32,7 @@ public interface UserRatings extends CrudRepository<StateUserRating, Long> {
     @Query("select avg(u.rating) from StateUserRating u where u.state = ?1 and u.metric = ?2")
     Float avgRatingByStateAndMetric(State state, StateMetric metric);
 
+    @Query("select avg(u.rating) from StateUserRating u where u.state = ?1 and u.user = ?2")
+    Float avgUserRatingByState(State state, User user);
+
 }

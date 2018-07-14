@@ -3,6 +3,7 @@ package com.codeup.qshe.controller;
 import com.codeup.qshe.models.State;
 import com.codeup.qshe.models.user.User;
 import com.codeup.qshe.repositories.UserProfiles;
+import com.codeup.qshe.repositories.UserRatings;
 import com.codeup.qshe.services.FlickrService;
 import com.codeup.qshe.services.StateService;
 import com.codeup.qshe.services.messages.MessagesService;
@@ -25,6 +26,7 @@ public class UserProfileController {
     private UserProfiles userProfiles;
     private StateService stateDao;
     private MessagesService messageDao;
+    private UserRatings ratings;
 
 
     @Value("${flickr-key}")
@@ -35,22 +37,23 @@ public class UserProfileController {
 @Autowired
     public UserProfileController(UserDetailsLoader userDetailsLoader,
                                  MessagesService messageDao,
-                                 UserService userDao, UserProfiles userProfiles, StateService stateDao) {
+                                 UserService userDao, UserProfiles userProfiles,
+                                 StateService stateDao,
+                                 UserRatings ratings
+) {
         this.userDetailsLoader = userDetailsLoader;
         this.userProfiles = userProfiles;
         this.userDao =userDao;
         this.stateDao = stateDao;
         this.messageDao = messageDao;
+        this.ratings = ratings;
     }
 
     @GetMapping("/users/displayprofile")
     public String displayProfile(Model model) throws FlickrException {
         User user = userDao.getLoggedInUser();
 
-        model.addAttribute("conversations",
-                messageDao.getMessages().findDistinctBySenderOrRecipientOrderByIdAsc(user, user));
-
-
+        model.addAttribute("conversations", messageDao.getMessages().findDistinctBySenderOrRecipientOrderByIdAsc(user, user));
 
         String userstate = user.getProfile().getUserState();
         State state = stateDao.getStates().findByName(userstate);
@@ -59,6 +62,7 @@ public class UserProfileController {
 
         model.addAttribute("photo", f.getPhoto(state.getName()));
 
+        model.addAttribute("overallRating", ratings.avgUserRatingByState(state, user) );
         model.addAttribute("state", state);
         model.addAttribute("user", user);
 

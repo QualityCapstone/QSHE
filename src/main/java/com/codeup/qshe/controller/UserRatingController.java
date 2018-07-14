@@ -28,7 +28,6 @@ public class UserRatingController {
         this.stateDao = stateDao;
     }
 
-
     @GetMapping("/users/rating")
     public String viewUserRating(Model view) {
         User user = userDao.getLoggedInUser();
