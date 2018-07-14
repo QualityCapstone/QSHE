@@ -215,6 +215,14 @@ background-size: cover;
     top: -121px;
     left: -54px;
 }
+.message-avatar {
+    border: 2px solid pink;
+    width: 25px;
+    height: 25px;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+}
 
 #profile-user{
     min-height: 346px;

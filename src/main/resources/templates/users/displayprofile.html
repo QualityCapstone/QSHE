@@ -144,6 +144,7 @@
                     <table class="table table-hover">
                         <thead>
                         <tr>
+                            <th> </th>
                             <th class="sticky-top">Username</th>
                             <th class="d-none d-sm-table-cell sticky-top">Message</th>
                             <th class="sticky-top">Status</th>
@@ -153,6 +154,9 @@
 
                         <th:block th:each="c : ${conversations}">
                             <tr class="conversation"  th:data-id="${c.id}">
+                                <td>
+                                 <img class="message-avatar" th:src="@{~/uploads/} + ${c.recipient.profile.uploadPath}">
+                                </td>
                                 <td>
                                     <a th:href="@{~/messages/view/} + ${c.recipient.id}" th:text="${c.recipient.username}"></a>
                                 </td>
