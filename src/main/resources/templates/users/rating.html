@@ -106,7 +106,7 @@
                     <div class="card-body">
                         <h3 class="mb-3">This is the overall rating you're giving to the State you live in</h3>
                         <h1 class="text-center m-5 title-slider" id="totalMarks"></h1>
-                        <form class="form-control" th:action="@{/users/rating}" method="post" th:object="${userRate}">
+                        <form class="form-control" th:action="@{/users/rating}" method="post" th:object="${userRate}" onsubmit="return checkForm(this)">
 
                             <input type="hidden" name="crime" id="crime">
                             <input type="hidden" name="education" id="education">
@@ -116,10 +116,9 @@
 
                             <input type="hidden"  id="userRate"  name="userRate" th:value="${userRate}"/>
 
-                            <input type="submit" id="overallRating"  class="submit form-control btn btn-secondary" />
+                            <input name="submit" type="submit" id="overallRating"  class="submit form-control btn btn-secondary" value="Submit Rating" />
                         </form>
                     </div>
-
             </div>
             <div class="col-sm-6 float-right">
                 <div class="p-5 m-2 create-form text-dark border border-dark rounded" th:each="stateUserRating: ${stateUserRatings}" th:height="auto">
@@ -198,7 +197,11 @@
     $("#q-growth").click(function(){
         $("#info-growth").toggle();
     });
-    // commemnt
+    function checkForm(form) {
+        form.submit.value = "Please Wait...";
+        form.submit.disabled = true;
+        return true;
+    }
 </script>
 </body>
 </html>

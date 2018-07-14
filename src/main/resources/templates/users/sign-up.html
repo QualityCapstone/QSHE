@@ -13,7 +13,7 @@
 
 
             <div >
-                <form name="register" id="signupUser" class="card card-block bg-faded m-3 p-3 login-card" th:action="@{/sign-up}" method="post" th:object="${user}" th:required="required">
+                <form name="register" id="signupUser" class="card card-block bg-faded m-3 p-3 login-card" th:action="@{/sign-up}" method="post" th:object="${user}" th:required="required" onsubmit="return checkForm(this)">
                     <h4>Register</h4>
                     <hr>
                     <div class="input-group mb-3">
@@ -142,5 +142,12 @@
 
 <div th:replace="partials/layout :: footer" />
 <script th:src="@{~/built/signup.js}"></script>
+<script type="text/javascript">
+    function checkForm(form) {
+        form.submit.value = "Please wait...";
+        form.submit.disabled = true;
+        return true;
+    }
+</script>
 </body>
 </html>
