@@ -28,14 +28,16 @@
                 <p class="text-left" th:text="'From: ' + ${postTopic.user.profile.userState}"></p>
                 <p class="text-left" th:text="'State: '+${postTopic.state.id}"></p>
                 <p class="text-left" th:text="'About: '+${postTopic.title}"></p>
-                <button class="btn btn-primary">Go To Topic</button>
+                <!--<input type="hidden" name="topic_id" th:value="${postTopic.id}">-->
+
+                <a th:href="@{~/topic/state/}+ ${postTopic.id}" class="btn btn-primary">View More</a>
                 <hr class="create-form" style="height: 10px"/>
             </div>
 
             <div class="col-3" sec:authorize="isAuthenticated()">
-                <form class="form-group" th:action="@{/posts/{id}/delete(id=${postTopic.id})}" method="post">
-                    <button type="submit" class="btn create-form" id="delete" name="delete">Delete</button>
-                    <input type="hidden" name="state_id" th:value="${postTopic.state.id}" />
+                <form class="form-group" th:action="@{~/topic/state/}+${postTopic.id}" method="get">
+                    <button type="submit" class="btn create-form" id="topicId" name="topicId">View more Here Now</button>
+                    <!--<input type="hidden" name="state_id" th:value="${postTopic.state.id}" />-->
                 </form>
             </div>
         </li>
@@ -47,6 +49,7 @@
         <!--<input type="hidden" id="stateid" name="stateid" />-->
 
         <input type="text" id="title" name="title">
+        <input type="text" id="topicstring" name="topicstring">
         <input type="hidden" id="state-abbr" name="state-abbr" th:value="${state.abbr}">
 
         <br />

@@ -15,7 +15,7 @@ public class PostTopic {
 
     @Id
     @GeneratedValue
-    private Long id;
+    private long id;
 
     @ManyToOne
     @JoinColumn (name = "user_id")
@@ -35,6 +35,14 @@ public class PostTopic {
     private State state;
 
     public PostTopic() {
+
+    }
+
+    public PostTopic(User user, String title, State state, String topic) {
+        this.user = user;
+        this.title = title;
+        this.state = state;
+        this.topic = topic;
 
     }
 

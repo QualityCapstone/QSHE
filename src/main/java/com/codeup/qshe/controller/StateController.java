@@ -1,10 +1,9 @@
 package com.codeup.qshe.controller;
 
 import com.codeup.qshe.models.State;
-import com.codeup.qshe.models.user.StateMetric;
 import com.codeup.qshe.models.user.User;
 import com.codeup.qshe.services.FlickrService;
-import com.codeup.qshe.services.PostService;
+import com.codeup.qshe.services.PostTopicService;
 import com.codeup.qshe.services.StateMetricService;
 import com.codeup.qshe.services.StateService;
 import com.codeup.qshe.services.user.UserService;
@@ -16,14 +15,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-import java.util.List;
-
 
 @Controller
  class StateController {
   private final StateService stateDao;
   private final StateMetricService metricDao;
-  private final PostService postDao;
+  private final PostTopicService postDao;
   private final UserService userDao;
 
     @Value("${flickr-key}")
@@ -35,7 +32,7 @@ import java.util.List;
   public StateController(StateService stateDao,
                          StateMetricService metricDao,
                          UserService userDao,
-                         PostService postDao){
+                         PostTopicService postDao){
 
       this.stateDao = stateDao;
       this.metricDao = metricDao;

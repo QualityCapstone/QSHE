@@ -12,7 +12,7 @@ public class Post {
     private Long id;
 
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     private PostTopic topic;
 
     @ManyToOne
