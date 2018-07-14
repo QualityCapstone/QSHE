@@ -176,7 +176,6 @@ ul {
 
 }
 
-
 .state-bg-photo {
 background-size: cover;
     min-height: 346px;
@@ -203,7 +202,6 @@ background-size: cover;
     margin-bottom: 0;
 }
 
-
 .avatar-img {
     width: 125px;
     height: 125px;
@@ -219,6 +217,15 @@ background-size: cover;
     border: 2px solid pink;
     width: 25px;
     height: 25px;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+}
+
+.message-md-avatar {
+    border: 2px solid pink;
+    width: 50px;
+    height: 50px;
     -webkit-border-radius: 50%;
     -moz-border-radius: 50%;
     border-radius: 50%;
@@ -300,10 +307,7 @@ background-size: cover;
         right: -111px;
     }
 
-
-
 }
-
 
 
 .state-user-rank {
@@ -333,4 +337,32 @@ background-size: cover;
 
     background-color: rgba(255,255,255,1);
     border-bottom: 2px solid pink;
+}
+
+.profile-footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: black;
+    color: white;
+    text-align: center;
+    z-index: 20;
+}
+
+.message-conversation {
+    height: calc(100vh - 250px);
+    width: 80%;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    border-left: 1px solid #f6bfbe;
+    border-right: 1px solid #f6bfbe;
+}
+
+.message-header {
+    width: 80%;
+    border-left: 1px solid #f6bfbe;
+    border-right: 1px solid #f6bfbe;
+    border-bottom: 1px solid #f6bfbe;
+
 }

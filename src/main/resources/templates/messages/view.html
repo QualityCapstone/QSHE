@@ -5,72 +5,23 @@
     <meta charset="UTF-8" />
     <title>Home</title>
 </head>
-<body>
+<body sec:authorize="isAuthenticated()" class="message-body">
 <div th:replace="partials/layout :: navbar" />
-<span class="overlay"></span>
-<nav class="navbar navbar-expand-lg navbar-light bg-light m-auto">
-    <a class="navbar-brand" href="/users/displayprofile">PROFILE</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNavDropdown">
-        <ul class="navbar-nav m-auto">
-            <li class="nav-item active d-inline">
-                <!--<img src="/img/4391 - Around the Globe.png"/>-->
-                <a class="nav-link" href="/us">Map<img src="/img/icon-map.png" class="ml-1"/><span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/users/rating">Your rating<img src="/img/icon-user-rating.png" class="ml-1"/></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/users">Friends<img src="/img/icon-user-network.png" class="ml-1"/></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Messages<img src="/img/icon-messages.png" class="ml-1"/></a>
-            </li>
-        </ul>
-    </div>
-</nav>
+<div th:replace="partials/layout :: navbar-profile" />
 
 
-<div class="container bg-white text-center border border-dark rounded mt-5" sec:authorize="isAuthenticated()">
+<div class="bg-white m-auto text-center rounded message-header">
+    <h1><img class="message-md-avatar" th:src="@{~/uploads/} + ${recipient.profile.uploadPath}"> <span th:text="${recipient.profile.firstName}"></span>  </h1>
 
-    <div sec:authorize="isAuthenticated()">
-        <h1 class="mb-5" th:height="200"> These are all your messages</h1>
 
-        <div class=" col-6 bg-white m-auto text-center rounded mt-5">
-            <h1>New Message <i class="fas fa-comment" ></i></h1>
-            <div class="" tabindex="-1" role="dialog" aria-labelledby="exampleModal" aria-hidden="true">
-                <div class="" role="document">
-                    <div class="col-12 mb-4">
-                        <div class="">
-                            <h5 class="" id="exampleModalLabel">Send <span></span> New Message to <span th:text="${recipient.username}"></span></h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <!--<span aria-hidden="true">&times;</span>-->
-                            </button>
-                            <form th:action="@{~/messages/create}" method="post">
-                                <div class="col-6">
-                                    <input type="hidden" name="recipient-id" th:value="${recipient.id}">
-                                </div>
-                                <div class="col-10">
-                                    <input type="text"  class="form-control mb-5" id="message" name="message"/>
-                                </div>
 
-                                <div class="col-10">
-                                    <button type="submit" class="btn btn-outline-primary">Send</button>
-                                </div>
+</div>
 
-                            </form>
-                        </div>
+    <div class="message-conversation text-center mx-auto">
 
-                    </div>
 
-                </div>
-            </div>
-        </div>
-    </div><!-- END OF THE DIV SEC:AUTHENTICATION -->
-<!------------------------- TO DISPLAY THE MESSAGES ------------------------------------------>
 
+        <!--Message Center -->
     <div class="p-5 m-2 text-dark" th:each="message: ${messages}" th:height="auto">
         <ul class="list-unstyled">
             <li class="media">
@@ -92,6 +43,24 @@
     </div>
 
 </div>
+
+
+<!--Response Center -->
+<div class="profile-footer mx-auto">
+    <form th:action="@{~/messages/create}" method="post">
+        <div class="form-row text-center">
+            <div class="form-group col-md-6">
+              <input type="text"  class="message-send" id="message" name="message" th:placeholder="'Message ' + ${recipient.profile.firstName}"/>
+             </div>
+            <div class="form-group">
+               <input type="hidden"  name="recipient-id" th:value="${recipient.id}">
+               <button type="submit" class="btn btn-primary">Send</button>
+           </div>
+
+        </div>
+    </form>
+</div>
+
 
 <div th:replace="partials/layout :: footer" />
 
