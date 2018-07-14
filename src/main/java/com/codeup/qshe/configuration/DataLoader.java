@@ -8,6 +8,7 @@ import com.codeup.qshe.models.StatePopulation;
 import com.codeup.qshe.models.user.*;
 import com.codeup.qshe.repositories.SiteSettings;
 import com.codeup.qshe.services.CrimeService;
+import com.codeup.qshe.services.PostService;
 import com.codeup.qshe.services.StateService;
 import com.codeup.qshe.services.StateUserRatingService;
 import com.codeup.qshe.services.messages.MessagesService;
@@ -46,6 +47,7 @@ public class DataLoader implements ApplicationRunner {
     private StateUserRatingService ratingDao;
     private PasswordEncoder passwordEncoder;
     private MessagesService messageDao;
+    private PostService postDao;
 
 
     @Value("${file-upload-path}")
@@ -71,7 +73,8 @@ public class DataLoader implements ApplicationRunner {
                       StateService stateDao,
                       PasswordEncoder passwordEncoder,
                       StateUserRatingService ratingDao,
-                      MessagesService messageDao
+                      MessagesService messageDao,
+                      PostService postaDao
 
 
     ) {
@@ -80,6 +83,7 @@ public class DataLoader implements ApplicationRunner {
         this.passwordEncoder = passwordEncoder;
         this.ratingDao = ratingDao;
         this.userDao = userDao;
+        this.postDao = postaDao;
         this.messageDao = messageDao;
     }
 
@@ -97,6 +101,11 @@ public class DataLoader implements ApplicationRunner {
             Integer maxConvosPerUser = 10;
             // Fake conversation length
             Integer convoMessages = 20;
+
+            // State Post Topics
+            Integer postTopicsPerState = 10;
+            // State Response Per Topic
+            Integer postResponsesPerTopic = 11;
 
             // Test Data for fake accounts
             String testUserName = "test";
@@ -143,6 +152,7 @@ public class DataLoader implements ApplicationRunner {
 
 
                     generateFakeConversations(maxConvosPerUser, convoMessages);
+                    generateFakeTopicsAndResponses(postTopicsPerState,postResponsesPerTopic);
 
                 }
 
@@ -181,6 +191,9 @@ public class DataLoader implements ApplicationRunner {
         stateDao.getEducations().deleteAll();
         stateDao.getPoverties().deleteAll();
         stateDao.getCrimes().deleteAll();
+
+        postDao.getPosts().deleteAll();
+        postDao.getTopics().deleteAll();
 
         messageDao.getMessages().deleteAll();
         ratingDao.getUserRatings().deleteAll();
@@ -490,7 +503,6 @@ public class DataLoader implements ApplicationRunner {
 
     }
 
-    //TODO: fix to correctly identify states
     private void stateCrimesByYear(String url) throws IOException {
         URL json = new URL(url);
         ObjectMapper mapper = new ObjectMapper();
@@ -612,6 +624,44 @@ public class DataLoader implements ApplicationRunner {
         }
 
         messageDao.getMessages().saveAll(messages);
+
+    }
+
+    private void generateFakeTopicsAndResponses(Integer topicPerState, Integer responsesPerTopic) {
+
+        List<PostTopic> topics = new ArrayList<>();
+        List<State> states = stateDao.getStates().findAll();
+        List<User> users = userDao.getUsers().findAll();
+
+        List<Post> posts = new ArrayList<>();
+
+        for(State state  : states) {
+            // Creates Topics
+            for (int i = 0; i < topicPerState; i++) {
+                User user = users.get(rand.nextInt(users.size()));
+                PostTopic topic = new PostTopic(user, faker.book().title(), state, faker.book().title());
+                topics.add(topic);
+            }
+        }
+
+        postDao.getTopics().saveAll(topics);
+
+            // Create follow up posts
+            for(PostTopic topic : postDao.getTopics().findAll()) {
+                // Creates Topics
+
+                for(int i = 0; i < responsesPerTopic; i++) {
+                    User user = users.get(rand.nextInt(users.size()));
+                    Post post = new Post(topic,user,faker.shakespeare().romeoAndJulietQuote());
+
+
+                    posts.add(post);
+                }
+
+            }
+
+            postDao.getPosts().saveAll(posts);
+
 
     }
 
