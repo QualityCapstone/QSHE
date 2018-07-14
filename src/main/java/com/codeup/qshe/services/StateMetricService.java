@@ -106,9 +106,9 @@ public class StateMetricService {
         }
 
         return rank;
-
-
     }
+
+
 
 
 
