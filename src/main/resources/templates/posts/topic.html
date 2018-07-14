@@ -27,9 +27,13 @@
                     <p class="text-left" th:text="'Posted by: ' + ${post.user.username}"></p>
                     <p class="text-left" th:text="'From: ' + ${post.user.profile.userState}"></p>
 
-                    <p class="text-left" th:text="'About: '+${post.topic}"></p>
+                    <p class="text-left" th:text="'About: '+${post.topic.id}"></p>
                     <p class="text-left" th:text="'About: '+${post.message}"></p>
-                    <button class="btn btn-primary">Go To Topic</button>
+                    <form class="" th:action="@{/topic/state/}+${id}" method="post" th:object="${post}">
+                        <input type="text" id="message" name="message" />
+
+                    <button class="btn btn-primary">Respond</button>
+                </form>
                     <hr class="create-form" style="height: 10px"/>
                 </div>
 
