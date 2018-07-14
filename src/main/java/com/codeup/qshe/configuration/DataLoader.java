@@ -17,23 +17,25 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.type.TypeFactory;
 import com.github.javafaker.Faker;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.net.URISyntaxException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.sql.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 @Component
 public class DataLoader implements ApplicationRunner {
@@ -46,6 +48,12 @@ public class DataLoader implements ApplicationRunner {
     private MessagesService messageDao;
 
 
+    @Value("${file-upload-path}")
+    private String uploadPath;
+
+    @Value("${avatar-img-location}")
+    private String avatarPath;
+
     // will delete data and refresh test data
     // probably can move to app props or something...
 
@@ -56,7 +64,7 @@ public class DataLoader implements ApplicationRunner {
 
     private Faker faker = new Faker();
     private Random rand = new Random();
-
+    private List<String> avatars = new ArrayList<>();
 
     @Autowired
     public DataLoader(UserService userDao, SiteSettings site,
@@ -77,6 +85,7 @@ public class DataLoader implements ApplicationRunner {
 
 
     public void run(ApplicationArguments args) throws IOException, URISyntaxException, SQLException {
+
         if(FRESHSTART) {
             Random r = new Random();
 
@@ -108,6 +117,9 @@ public class DataLoader implements ApplicationRunner {
                 if(site.getFirst().getRefreshAppData() || !site.getFirst().getPopulated()) {
                     System.out.println("------- REFRESH APP DATA -----");
                     // STATE DATA, POPULATION DATA
+
+                    avatars = uploadTestAvatars();
+
                     generateStaticData();
 
                     List<State> states = stateDao.getStates().findAll();
@@ -324,20 +336,6 @@ public class DataLoader implements ApplicationRunner {
 
         String stateDataURL = "https://api.datausa.io/attrs/geo/?sumlevel=040";
 
-        // ALL STATE Data
-        // "headers": [
-        //    "url_name",
-        //    "display_name",
-        //    "name",
-        //    "image_link",
-        //    "sumlevel",
-        //    "image_meta",
-        //    "image_author",
-        //    "keywords",
-        //    "id",
-        //    "name_long"
-        //  ]
-
 
         URL jsonURL = new URL(stateDataURL);
         ObjectMapper mapper = new ObjectMapper();
@@ -527,6 +525,8 @@ public class DataLoader implements ApplicationRunner {
 
     private User createUser(String username, String password) {
 
+        String avatar =  avatars.get(rand.nextInt(avatars.size()));
+
         User user = new User(username, password, LocalDateTime.now(), LocalDateTime.now());
         String hash = passwordEncoder.encode(password);
         user.setPassword(hash);
@@ -535,10 +535,43 @@ public class DataLoader implements ApplicationRunner {
         user.setProfile(new UserProfile(faker.name().fullName(),  faker.name().firstName(),
                 faker.name().lastName(),  faker.internet().emailAddress(),  username,  faker.address().state()));
 
+        user.getProfile().setUploadPath(avatar);
+
         user = userDao.getUsers().save(user);
         userDao.getUsers().addDefaultRole(user.getId());
 
         return user;
+    }
+
+
+    private List<String> uploadTestAvatars() throws IOException {
+
+        List<String> data = new ArrayList<>();
+
+        for (int i = 1; i <= 13; i++) {
+
+            try {
+
+                System.out.println( i + " :  moving avatars");
+                File file = new File(avatarPath + "/" + i + ".png");
+
+
+            String filename = UUID.randomUUID().toString() + ".png";
+            String filepath = Paths.get(uploadPath, filename).toString();
+
+            Files.copy(file.toPath(), (new File(uploadPath + "/" + file.getName())).toPath(),
+                    StandardCopyOption.REPLACE_EXISTING);
+
+            data.add(file.getName());
+
+            } catch (NullPointerException e) {
+                e.printStackTrace();
+            }
+
+
+
+        }
+        return data;
     }
 
 
