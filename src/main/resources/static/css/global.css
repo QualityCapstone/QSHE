@@ -183,7 +183,9 @@ background-size: cover;
     max-height: 346px;
 }
 
-
+#state-profile .card {
+    border: 1px solid #4c3e40;
+}
 #state-profile .title-card {
     background: rgba(0,0,0,0.5);
 }
@@ -260,8 +262,6 @@ background-size: cover;
     bottom: 29px;
     right: -127px;
 }
-
-
 
 
 @media only screen and (max-width : 1199px) {
