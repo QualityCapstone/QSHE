@@ -1,17 +1,17 @@
 package com.codeup.qshe.controller;
 
-import com.codeup.qshe.services.PostService;
+import com.codeup.qshe.services.PostTopicService;
 import com.codeup.qshe.repositories.Users;
 import org.springframework.stereotype.Controller;
 
 @Controller
 public class WidgetController {
-    private PostService postService;
+    private PostTopicService postService;
     private Users userDao;
 
-    public WidgetController(Users userDao, PostService postService){
+    public WidgetController(Users userDao, PostTopicService postTopicService){
         this.userDao = userDao;
-        this.postService= postService;
+        this.postService= postTopicService;
     }
 
 //    @DeleteMapping("/posts/{id}/delete")

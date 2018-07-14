@@ -23,7 +23,8 @@ public class MessageController {
 
      // Conversation between two users
     @GetMapping("/messages/view/{id}")
-     private String viewConversation(@PathVariable Long id, Model model) {
+     private String viewConversation(@PathVariable long id, Model model) {
+        System.out.println("MessageController... Activate!!");
 
          User user = userDao.getLoggedInUser();
          User recipient = userDao.getUsers().findById(id).get();
@@ -47,6 +48,8 @@ public class MessageController {
    @PostMapping("/messages/create")
     public String create(@RequestParam(name = "recipient-id") String sentToId,
                          @RequestParam(name = "message") String userInput, Model model){
+
+       System.out.println("messageCreate...Activate!!");
 
          User user = userDao.getLoggedInUser();
          User recipient = userDao.getUsers().findById(Long.parseLong(sentToId)).get();

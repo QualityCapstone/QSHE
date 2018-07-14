@@ -1,95 +1,61 @@
 package com.codeup.qshe.controller;
 
-import com.codeup.qshe.models.State;
+import com.codeup.qshe.models.user.Post;
 import com.codeup.qshe.models.user.PostTopic;
-import com.codeup.qshe.models.user.User;
-import com.codeup.qshe.repositories.Staterepository;
+import com.codeup.qshe.repositories.Posts;
+import com.codeup.qshe.repositories.States;
+import com.codeup.qshe.repositories.Users;
 import com.codeup.qshe.services.PostService;
-
+import com.codeup.qshe.services.PostTopicService;
 import com.codeup.qshe.services.StateService;
 import com.codeup.qshe.services.user.UserService;
-
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.web.PageableDefault;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
-import java.time.LocalDateTime;
 
 @Controller
-@RequestMapping("posts/")
 public class PostController {
+
     private final PostService postDao;
-    private final UserService userDao;
     private final StateService stateDao;
+    private final Posts posts;
+    private final UserService userDao;
+    private final PostTopicService topicDao;
 
-
-    public PostController(PostService postDao, UserService userDao, StateService stateDao) {
+    public PostController(PostService postDao,StateService stateDao,
+                          Posts posts,UserService userDao,PostTopicService topicDao){
         this.postDao = postDao;
-        this.userDao = userDao;
         this.stateDao = stateDao;
+        this.posts = posts;
+        this.userDao = userDao;
+        this.topicDao = topicDao;
+    }
+
+    @GetMapping("/topic/state/{id}")
+    public String viewDiscussion(@PathVariable Long id, Model model) {
+        System.out.println("view discussion message");
+        System.out.println(id);
+        Post test =posts.findById(2l);
+        System.out.println(test.getMessage());
+        System.out.println(test.getUser().getProfile().getFirstName());
+        System.out.println(test.getUser().getProfile().getUserState());
+
+
+        PostTopic topic = topicDao.findById(id);
+        model.addAttribute("posts",posts.findAllByTopic(topic));
+//        PostTopic topic = topicDao.findAllByTopic(id);
+//        model.addAttribute("posts", postDao.getPosts().findByTopic(topic));
+        System.out.println(topic.getTitle());
+        System.out.println(topic.getState().getName());
+        System.out.println(topic.getId());
+        System.out.println(topic.getUser().getUsername());
+
+
+        return "/topic/state/{id}";
     }
 
 
-    @GetMapping("state/{abbr}")
-    private String getStatePosts(@PathVariable String abbr, Model model, @PageableDefault(value = 10) Pageable pageable) {
-
-        State state = stateDao.getStates().findByAbbr(abbr);
-        model.addAttribute("state", state);
-        model.addAttribute("posts", postDao.getPosts().findAllByState(state, pageable));
-
-        return "posts/all";
-    }
-
-
-
-    @PostMapping("topic/add")
-    public String createTopic(@RequestParam(name = "title") String title,
-                              @RequestParam(name = "state-abbr") String abbr) {
-
-        User user = userDao.getLoggedInUser();
-        State state = stateDao.getStates().findByAbbr(abbr);
-
-        PostTopic topic = new PostTopic(user,title,state);
-
-        postDao.save(topic);
-
-        return "redirect:/posts/state/" + state.getAbbr();
-    }
-
-
-//
-//    @PostMapping("/posts/{id}/all")
-//    public String createPost (@PathVariable long id,
-//                              @RequestParam(name= "blogpost") String blogpost,
-//                               Model model){
-//        System.out.println("hello posts");
-//        User user = userDao.getLoggedInUser();
-//        State state = stateDao.findById(id).get();
-//
-//        PostTopic postTopic = new PostTopic();
-//        model.addAttribute("blogpost", postTopic);
-//        postTopic.setBody(blogpost);
-//        postTopic.setCreatedAt(LocalDateTime.now());
-//
-//        postTopic.setTitle(state.getName());
-//        postTopic.setStateId(state.getId());
-//        postTopic.setUser(user);
-//
-//
-//        postDao.save(postTopic);
-//        return "redirect:/posts/all/{id}";
-//    }
-//
-
-
-    @DeleteMapping("/topic/{id}/delete")
-    public String deletePost(@PathVariable long id) {
-        PostTopic topic = postDao.getPosts().findById(id).get();
-        postDao.deletePost(id);
-        return "redirect: /state/" + topic.getState().getAbbr();
-    }
 
 }

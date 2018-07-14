@@ -1,52 +1,42 @@
 package com.codeup.qshe.services;
+
+import com.codeup.qshe.models.user.Post;
 import com.codeup.qshe.models.user.PostTopic;
-import com.codeup.qshe.models.user.User;
-import com.codeup.qshe.repositories.PostTopics;
+import com.codeup.qshe.repositories.Posts;
 import com.codeup.qshe.repositories.Users;
+import com.codeup.qshe.services.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-
 @Service
 public class PostService {
-   private PostTopics postDao;
-   private Users userDao;
 
-    @Autowired
-    public PostService(PostTopics postDao, Users userDao){
+    private Posts posts;
+    private UserService userDao;
 
-        this.postDao = postDao;
-        this.userDao = userDao;
+
+    public PostService(UserService userDao, Posts posts){
+        this.posts = posts;
+        this.userDao =userDao;
+
     }
 
-    public List<PostTopic> findAll() {
-        Iterable<PostTopic> posts = getPosts().findAll();
-        return (List<PostTopic>) posts;
+    public Post findOne(long id){
+        Post post = posts.findById(id);
+
+        return post;
     }
 
-    public PostTopics getPosts(){return postDao;}
-
-
-
-    public PostTopic save(PostTopic postTopic){
-
-        User sessionUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        postTopic.setUser(sessionUser);
-        postDao.save(postTopic);
-
-        return postTopic;
+    public Post findByTopic(PostTopic topic){
+        Post post = posts.findByTopic(topic);
+        return post;
     }
 
-    public PostTopic deletePost(long id){
-        PostTopic postTopic = postDao.findById(id).get();
-        postDao.delete(postTopic);
-        return postTopic;
+    public Posts getPosts(){
+        return posts;
     }
 
-    public void delete(long id){
-        postDao.delete(deletePost(id));
-    }
+
 }
