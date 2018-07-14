@@ -2,6 +2,7 @@ package com.codeup.qshe.services;
 
 import com.codeup.qshe.models.user.Post;
 import com.codeup.qshe.models.user.PostTopic;
+import com.codeup.qshe.repositories.PostTopics;
 import com.codeup.qshe.repositories.Posts;
 import com.codeup.qshe.repositories.Users;
 import com.codeup.qshe.services.user.UserService;
@@ -15,10 +16,11 @@ public class PostService {
 
     private Posts posts;
     private UserService userDao;
+    private PostTopics topics;
 
-
-    public PostService(UserService userDao, Posts posts){
+    public PostService(UserService userDao, Posts posts, PostTopics topics){
         this.posts = posts;
+        this.topics = topics;
         this.userDao =userDao;
 
     }
@@ -37,6 +39,8 @@ public class PostService {
     public Posts getPosts(){
         return posts;
     }
-
+    public PostTopics getTopics(){
+        return topics;
+    }
 
 }

@@ -4,6 +4,7 @@ import com.codeup.qshe.models.State;
 import com.codeup.qshe.models.user.Post;
 import com.codeup.qshe.models.user.PostTopic;
 import com.codeup.qshe.models.user.User;
+import com.codeup.qshe.services.PostService;
 import com.codeup.qshe.services.PostTopicService;
 import com.codeup.qshe.repositories.Posts;
 import com.codeup.qshe.services.StateService;
@@ -19,17 +20,16 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 @RequestMapping("posts/")
 public class PostTopicController {
-    private final Posts posts;
-    private final PostTopicService postDao;
+    private final PostService postDao;
     private final UserService userDao;
     private final StateService stateDao;
 
 
-    public PostTopicController(PostTopicService postDao, UserService userDao, StateService stateDao, Posts posts) {
+    public PostTopicController(PostService postDao, UserService userDao, StateService stateDao) {
         this.postDao = postDao;
         this.userDao = userDao;
         this.stateDao = stateDao;
-        this.posts = posts;
+
     }
 
 
@@ -38,7 +38,7 @@ public class PostTopicController {
 
         State state = stateDao.getStates().findByAbbr(abbr);
         model.addAttribute("state", state);
-        model.addAttribute("posts", postDao.getPosts().findAllByState(state, pageable));
+        model.addAttribute("posts", postDao.getTopics().findAllByState(state, pageable));
 
         return "posts/all";
     }
@@ -51,8 +51,12 @@ public class PostTopicController {
         State state = stateDao.getStates().findByAbbr(abbr);
 
         PostTopic topic = new PostTopic(user,title,state);
+        Post post = new Post(topic,user,title);
 
-        postDao.save(topic);
+        postDao.getPosts().save(post);
+
+
+
 
         return "redirect:/posts/state/" + state.getAbbr();
     }
@@ -95,8 +99,8 @@ public class PostTopicController {
 //
     @DeleteMapping("/topic/{id}/delete")
     public String deletePost(@PathVariable long id) {
-        PostTopic topic = postDao.getPosts().findById(id);
-        postDao.deletePost(id);
+        PostTopic topic = postDao.getTopics().findById(id);
+        postDao.getTopics().delete(topic);
         return "redirect: /state/" + topic.getState().getAbbr();
     }
 

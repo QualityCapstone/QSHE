@@ -34,9 +34,9 @@
                 </div>
 
                 <div class="col-3" sec:authorize="isAuthenticated()">
-                    <form class="form-group" th:action="@{/posts/{id}/delete(id=${postTopic.id})}" method="post">
+                    <form class="form-group" th:action="@{/posts/{id}/delete(id=${post.topic.id})}" method="post">
                         <button type="submit" class="btn create-form" id="delete" name="delete">Delete</button>
-                        <input type="hidden" name="state_id" th:value="${postTopic.state.id}" />
+                        <input type="hidden" name="state_id" th:value="${post.topic.state.id}" />
                     </form>
                 </div>
             </li>

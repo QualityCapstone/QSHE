@@ -35,25 +35,11 @@ public class PostController {
 
     @GetMapping("/topic/state/{id}")
     public String viewDiscussion(@PathVariable Long id, Model model) {
-        System.out.println("view discussion message");
-        System.out.println(id);
-        Post test =posts.findById(2l);
-        System.out.println(test.getMessage());
-        System.out.println(test.getUser().getProfile().getFirstName());
-        System.out.println(test.getUser().getProfile().getUserState());
-
 
         PostTopic topic = topicDao.findById(id);
         model.addAttribute("posts",posts.findAllByTopic(topic));
-//        PostTopic topic = topicDao.findAllByTopic(id);
-//        model.addAttribute("posts", postDao.getPosts().findByTopic(topic));
-        System.out.println(topic.getTitle());
-        System.out.println(topic.getState().getName());
-        System.out.println(topic.getId());
-        System.out.println(topic.getUser().getUsername());
 
-
-        return "/topic/state/{id}";
+        return "/posts/topic";
     }
 
 
