@@ -30,7 +30,7 @@
                 <p class="text-left" th:text="'About: '+${postTopic.title}"></p>
                 <!--<input type="hidden" name="topic_id" th:value="${postTopic.id}">-->
 
-                <a th:href="@{~/topic/state/}+ ${postTopic.id}" class="btn btn-primary">View More</a>
+                <a th:href="@{~/topic/state/}+ ${postTopic.id}" class="btn btn-primary">View This Topic</a>
                 <hr class="create-form" style="height: 10px"/>
             </div>
 
@@ -44,12 +44,12 @@
     </ul>
 </div>
     <div class="col-3" sec:authorize="isAuthenticated()">
-    <h1>Submit a new postTopic</h1>
+    <h1>Submit a new Topic</h1>
     <form class="form-group" th:action="@{/posts/topic/add}" method="post">
         <!--<input type="hidden" id="stateid" name="stateid" />-->
 
         <input type="text" id="title" name="title">
-        <input type="text" id="topicstring" name="topicstring">
+        <!--<input type="text" id="topicstring" name="topicstring">-->
         <input type="hidden" id="state-abbr" name="state-abbr" th:value="${state.abbr}">
 
         <br />
