@@ -140,3 +140,9 @@ body {
     -ms-box-shadow: 1px 5px 5px #aeaeae;
     box-shadow: 1px 5px 5px #aeaeae;
 }
+
+.rating-card {
+    opacity: .7;
+    background-color: dimgray;
+}
+
