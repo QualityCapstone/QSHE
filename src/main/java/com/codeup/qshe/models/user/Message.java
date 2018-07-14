@@ -2,8 +2,9 @@ package com.codeup.qshe.models.user;
 
 import javax.persistence.*;
 import javax.persistence.GeneratedValue;
+import java.time.LocalDateTime;
 
-    @Entity
+@Entity
     @Table
     public class Message {
 
@@ -17,6 +18,9 @@ import javax.persistence.GeneratedValue;
     @ManyToOne
     private User recipient;
 
+    @Column
+    LocalDateTime createdAt = LocalDateTime.now();
+
     @Column(name = "message", columnDefinition = "TEXT")
     private String message;
 
@@ -29,7 +33,6 @@ import javax.persistence.GeneratedValue;
         this.recipient = recipient;
         this.message = message;
     }
-
 
 
         public Long getId() {
@@ -63,4 +66,12 @@ import javax.persistence.GeneratedValue;
         public void setMessage(String message) {
             this.message = message;
         }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
     }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+}

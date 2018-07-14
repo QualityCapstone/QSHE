@@ -19,8 +19,7 @@ public interface Messages extends CrudRepository <Message, Long>{
     @Query(nativeQuery = true, value="SELECT * FROM message WHERE senderId=? AND recipientId=?")
     Message getRelated(Long senderId, Long recipientId );
 
-
-
+    @Query("Select  m from Message m where (m.recipient = ?1 AND m.sender = ?2) OR (m.recipient = ?2 AND m.sender = ?1) order by m.createdAt")
     List<Message> findAllByRecipientAndSender(User r, User s);
 
     List<Message> findAllBySender(User sender);
