@@ -344,19 +344,20 @@ background-size: cover;
     left: 0;
     bottom: 0;
     width: 100%;
-    background-color: black;
+    background-color: #d29292;
     color: white;
     text-align: center;
     z-index: 20;
 }
 
 .message-conversation {
-    height: calc(100vh - 250px);
+    height: calc(100vh - 252px);
     width: 80%;
     overflow-x: hidden;
     overflow-y: scroll;
     border-left: 1px solid #f6bfbe;
     border-right: 1px solid #f6bfbe;
+    padding-bottom: 20px;
 }
 
 .message-header {
@@ -365,4 +366,71 @@ background-size: cover;
     border-right: 1px solid #f6bfbe;
     border-bottom: 1px solid #f6bfbe;
 
+}
+
+
+.speech-bubble-right {
+    position: relative;
+    background: #e10071;
+    border-radius: .4em;
+    width: calc(49% - 125px);
+    min-height: 60px;
+    padding: 10px;
+    margin-top: 20px;
+    margin-right: 20px;
+    float: right;
+}
+
+.speech-bubble-right:after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 50%;
+    width: 0;
+    height: 0;
+    border: 20px solid transparent;
+    border-left-color: #e10071;
+    border-right: 0;
+    border-top: 0;
+    margin-top: -10px;
+    margin-right: -20px;
+}
+
+.speech-bubble-left {
+    position: relative;
+    background: #ff80c0;
+    border-radius: .4em;
+    width: calc(47% - 125px);
+    min-height: 60px;
+    padding: 10px;
+    margin-top: 20px;
+    margin-left: 20px;
+    float: left;
+}
+
+.speech-bubble-left:after {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 0;
+    height: 0;
+    border: 20px solid transparent;
+    border-right-color: #ff80c0;
+    border-left: 0;
+    border-top: 0;
+    margin-top: -10px;
+    margin-left: -20px;
+}
+
+.profile-footer-container {
+    width: 80%;
+    border-left: 1px solid #f6bfbe;
+    border-right: 1px solid #f6bfbe;
+}
+
+.message-send {
+    width: 100%;
+    height: 46px;
+    padding-left: 20px;
 }

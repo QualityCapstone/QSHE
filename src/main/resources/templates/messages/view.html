@@ -20,45 +20,38 @@
     <div class="message-conversation text-center mx-auto">
 
 
+        <div class="p-5 m-2 text-dark" th:each="message: ${messages}">
+            <div th:switch="${message.sender.username}">
 
-        <!--Message Center -->
-    <div class="p-5 m-2 text-dark" th:each="message: ${messages}" th:height="auto">
-        <ul class="list-unstyled">
-            <li class="media">
-            <div class=" col-12">
-                <div class=" d-flex flex-wrap p-2">
-                    <div class="col-3 float-left">
-                    <p class="float-left m-5">From: <span  class="text-justify " th:text="${message.sender.username}"></span></p>
-                    <p class="float-left m-5">To: <span class="text-justify " th:text="${message.recipient.username}"></span></p>
-                    </div>
-                    <div class="col-6 float-right bubble-message">
-                    <p class="text-justify" th:text="${message.message}"></p>
-                    <div class="mediumBubble"></div>
-                    <div class="smallBubble"></div>
-                    </div>
+
+                <div th:case="${#authentication.principal.username}">
+                    <img class="message-md-avatar float-right" th:src="@{~/uploads/} + ${#authentication.principal.profile.uploadPath}">
+                    <div class="speech-bubble-right" th:text="${message.message}"></div>
+
+
                 </div>
+                <div th:case="*">
+                    <img class="message-md-avatar float-left" th:src="@{~/uploads/} + ${recipient.profile.uploadPath}">
+                    <div class="speech-bubble-left" th:text="${message.message}"></div>
+                </div>
+
             </div>
-            </li>
-        </ul>
-    </div>
+        </div>
 
 </div>
 
 
 <!--Response Center -->
 <div class="profile-footer mx-auto">
+    <div class="profile-footer-container mx-auto">
     <form th:action="@{~/messages/create}" method="post">
-        <div class="form-row text-center">
-            <div class="form-group col-md-6">
+            <div class="col-12">
               <input type="text"  class="message-send" id="message" name="message" th:placeholder="'Message ' + ${recipient.profile.firstName}"/>
+                <input type="hidden"  name="recipient-id" th:value="${recipient.id}">
+                <!--<button type="submit" class="btn btn-primary">Send</button>-->
              </div>
-            <div class="form-group">
-               <input type="hidden"  name="recipient-id" th:value="${recipient.id}">
-               <button type="submit" class="btn btn-primary">Send</button>
-           </div>
-
-        </div>
     </form>
+    </div>
 </div>
 
 
