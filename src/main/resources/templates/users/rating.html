@@ -17,7 +17,7 @@
         <h2 class="text-center mb-5">Please rate each element of your state!</h2>
         <div class="row">
             <div class="col-sm-6">
-                <div class="card">
+                <div class="card rating-card">
                         <form class=" bg-faded m-3 p-3" th:action="@{/users/rating}" method="post" th:object="${stateUserRating}">
                             <div class="form-group">
                                 <h5 class="m-b-1 text-center">1:Bad | 10: Good:</h5>
@@ -26,40 +26,40 @@
                                 <label class="text-left" for="violenceRate">How safe do you feel where you live?
                                 <img src="/img/icon-info.png" id="q-violence"/></label><br/>
                                 <small class="text-left m-2" id="info-crime">Do you feel safe when you go out in your city? Have you experienced any type of crime?</small>
-                                <input type="range" min="1" max="10" value="1" class="slider float-left" id="violenceRate" style="background-color: #DC6F68" />
+                                <input type="range" min="1" max="10" value="1" class="slider float-left" id="violenceRate"/>
                                 <input type="hidden" id="hdrating" name="hdrating">
-                                <p class="text-center float-right" id="rating"><span class="slider-val"></span></p>
+                                <h4 class="text-center float-right" id="rating"><span class="slider-val"></span></h4>
                             </div>
                             <div class="form-group m-5">
                                 <label class="text-left" for="employmentRate">How would you rank the employment rate in your state?
                                 <img src="/img/icon-info.png" id="q-employment"/></label><br/>
                                 <small class="text-left m-2" id="info-employment">How hard is to get a job in your city? Are the salaries good?</small>
-                                <input type="range" min="1" max="10" value="1" class="slider float-left" id="employmentRate" style="background-color: #DC6F68"/>
-                                <p class="text-center float-right"><span class="slider-val"></span></p>
+                                <input type="range" min="1" max="10" value="1" class="slider float-left" id="employmentRate"/>
+                                <h4 class="text-center float-right"><span class="slider-val"></span></h4>
                             </div>
                             <div class="form-group m-5">
                                 <label class="text-left" for="educationRate">How would you rank the education system in your state?
                                     <img src="/img/icon-info.png" id="q-education"/></label><br>
                                 <small class="text-left" id="info-education">Are there good schools/universities in your city?
                                 What's the education level of your friends, family or people you know?</small>
-                                <input type="range" min="1" max="10" value="1" class="slider float-left" id="educationRate" style="background-color: #DC6F68"/>
-                                <p class="text-center float-right"><span class="slider-val"></span></p>
+                                <input type="range" min="1" max="10" value="1" class="slider float-left" id="educationRate"/>
+                                <h4 class="text-center float-right"><span class="slider-val"></span></h4>
                             </div>
                             <div class="form-group m-5">
-                                <label class="left-text" for="healthRate">How would you rank the health care system in your state?
+                                <label class="text-left" for="healthRate">How would you rank the health care system in your state?
                                     <img src="/img/icon-info.png" id="q-health"/></label><br/>
                                 <small class="text-left" id="info-health">How expensive are the healthcare services in your city?
                                 Do you consider are enough medical services, health programs, hospitals?</small>
-                                <input type="range" min="1" max="10" value="1" class="slider float-left" id="healthRate" style="background-color: #DC6F68"/>
-                                <p class="text-center float-right"><span class="slider-val"</span></p>
+                                <input type="range" min="1" max="10" value="1" class="slider float-left" id="healthRate"/>
+                                <h4 class="text-center float-right"><span class="slider-val"></span></h4>
                             </div>
                             <div class="form-group m-5">
                                 <label class="text-left" for="growthRate">How would you rate the general growth in your state?
                                     <img src="/img/icon-info.png" id="q-growth"/></label><br/>
-                                <small class="text-left" id="info-growth">Is your city increasing in infrastructure, business, economy
+                                <small class="text-left" id="info-growth">Is your city increasing in infrastructure, business and/or economy
                                 development?</small>
-                                <input type="range" min="1" max="10"value="1" class="slider float-left" id="growthRate" style="background-color: #DC6F68"/>
-                                <p class="text-center float-right"><span class="slider-val"></span></p>
+                                <input type="range" min="1" max="10"value="1" class="slider float-left" id="growthRate"/>
+                                <h4 class="text-center float-right ml-3"><span class="slider-val"></span></h4>
                             </div>
 
                         </form>
@@ -99,13 +99,13 @@
                     </div>
             </div>
             <div class="col-sm-6 float-right">
-                <div class="p-5 m-2 create-form text-dark border border-dark rounded" th:each="stateUserRating: ${stateUserRatings}" th:height="auto">
+                <div class="p-5 m-2 create-form text-dark border border-dark rounded" th:each="stateUserRating: ${stateUserRatings}">
                     <ul class="list-unstyled">
                         <li class="media">
                             <img class="mr-3" src="http://via.placeholder.com/150x150" alt="Generic placeholder image" />
                             <div class="media-body p-2">
                                 <p class="text-center" th:text="${stateUserRating.user.state}"></p>
-                                <p class="text-justify" th:text="${stateUserRating.userRating}"></p>
+                                <p class="text-justify" th:text="${stateUserRating.stateUserRating}"></p>
                             </div>
                         </li>
                     </ul>

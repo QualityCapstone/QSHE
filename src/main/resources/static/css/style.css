@@ -1,6 +1,40 @@
 body {
 }
 
+
+/* THIS IS FOR THE SLIDER*/
+.slider {
+    -webkit-appearance: none;
+    width: 90%;
+    height: 15px;
+    border-radius: 5px;
+    background: #d3d3d3;
+    outline: none;
+    opacity: 0.7;
+    -webkit-transition: .2s;
+    transition: opacity .2s;
+}
+
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background: #0f0f0f;
+    cursor: pointer;
+}
+
+.slider::-moz-range-thumb {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background: #0f0f0f;
+    cursor: pointer;
+}
+
+/* THIS IS FOR CONTAINER*/
+
 .wrapper {
     width: 90%;
     height: auto;
@@ -98,6 +132,7 @@ body {
     display: none;
 }
 
+<<<<<<< HEAD
 body .modal-open {
     position: relative;
     overflow: hidden;
@@ -123,6 +158,8 @@ ul li:hover{
 .title-card {
     color: #DC6F68;
 }
+=======
+>>>>>>> continue-myrating
 
 .card {
     -webkit-box-shadow: 1px 5px 5px #aeaeae;
@@ -132,6 +169,7 @@ ul li:hover{
     box-shadow: 1px 5px 5px #aeaeae;
 }
 
+<<<<<<< HEAD
 
 .slider {
     -webkit-appearance: none;
@@ -160,3 +198,10 @@ ul li:hover{
     background: #0f0f0f;
     cursor: pointer;
 }
+=======
+.rating-card {
+    opacity: .7;
+    background-color: dimgray;
+}
+
+>>>>>>> continue-myrating
