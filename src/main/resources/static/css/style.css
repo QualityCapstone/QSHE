@@ -177,9 +177,9 @@ body .modal-open {
     cursor: pointer;
 }
 
-.rating-card {
-    opacity: .7;
-    background-color: dimgray;
+
+.slider{
+    background-color: #DC6F68;
 }
 
 
