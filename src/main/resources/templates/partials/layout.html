@@ -70,7 +70,7 @@
                     <a class="dropdown-item" th:href="@{~/state/mine}">My state</a>
                     <a class="dropdown-item" th:href="@{~/us}">USA</a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" th:href="@{~/state/compare}">Compare States</a>
+                    <a class="dropdown-item" th:href="@{~/users/displayprofile#messages}">Messages</a>
 
                     <a class="dropdown-item" th:href="@{~/users}">Users</a>
                     <a class="dropdown-item" th:href="@{~/about/}">About</a>
@@ -121,17 +121,29 @@
 
     <nav class="navbar navbar-dark bg-dark navbar-footer">
         <div class="mx-auto text-center">
-            <a class="hvr-underline-reveal mr-2" th:href="@{~/users/displayprofile}">Home</a>
+            <a class="hvr-underline-reveal mr-2" th:href="@{~/}">Home</a>
 
             <a class="hvr-underline-reveal mr-2" th:href="@{~/us}">USA</a>
 
-            <a class="hvr-underline-reveal mr-2" th:href="@{~/state/compare}">Compare States</a>
+            <th:block sec:authorize="isAuthenticated()">
 
-            <a class="hvr-underline-reveal mr-2" th:href="@{~/about/}">About</a>
+            <a class="hvr-underline-reveal mr-2" th:href="@{~/users/displayprofile}">Profile </a>
 
-            <a class="" th:href="@{~/users/rating}">Rate My State</a>
 
-            <a class="hvr-underline-reveal mr-2" th:href="@{~/users/rating}">Login</a>
+                <a class="hvr-underline-reveal mr-2" th:href="@{~/state/mine}">My State </a>
+
+                <a class="" th:href="@{~/users/rating}">Rate My State</a>
+
+            </th:block>
+
+
+            <a class="hvr-underline-reveal mr-2" th:href="@{~/about/}" > About</a>
+
+            <th:block sec:authorize="!isAuthenticated()">
+
+            <a class="hvr-underline-reveal mr-2" th:href="@{~/login}">Login</a>
+
+            </th:block>
 
         </div>
 
