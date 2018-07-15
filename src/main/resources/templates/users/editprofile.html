@@ -52,7 +52,7 @@
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="giveScroll()">Cancel</button>
                 </div>
             </div>
         </div>
@@ -70,7 +70,7 @@
                 </div>
             </div>
             <br />
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" style="margin-bottom: 1.5rem">
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" style="margin-bottom: 1.5rem" onclick="stopScroll()">
                 Change your profile picture!
             </button>
             <div class="col-md-8 m-auto">
@@ -156,5 +156,13 @@
 
 
 <div th:replace="partials/layout :: footer" />
+<script type="text/javascript">
+    function stopScroll() {
+        $("html").css("overflow", "hidden");
+    }
+    function giveScroll() {
+        $("html").css("overflow", "visible");
+    }
+</script>
 </body>
 </html>

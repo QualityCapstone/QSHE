@@ -66,7 +66,9 @@ public class UserProfileController {
         model.addAttribute("photo", f.getPhoto(state.getName()));
 
 
-        model.addAttribute("topics", postDao.getTopics().findTop3ByState(state) );
+        model.addAttribute("unreadCount", messageDao.getMessages().getUnreadCount(user));
+
+        model.addAttribute("topics", postDao.getTopics().findTop4ByState(state) );
 
         model.addAttribute("overallRating", ratings.avgUserRatingByState(state, user) );
         model.addAttribute("state", state);

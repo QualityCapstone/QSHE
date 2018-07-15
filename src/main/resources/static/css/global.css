@@ -30,7 +30,7 @@ html {
     right:0;
     bottom:0;
     background-color: #262626; /* change if the mask should have another color then white */
-    z-index:99999; /* makes sure it stays on top */
+    z-index:99999999999; /* makes sure it stays on top */
 }
 
 #status {
@@ -43,6 +43,7 @@ html {
     background-repeat:no-repeat;
     background-position:center;
     margin:-100px 0 0 -100px; /* is width and height divided by two */
+    z-index:99999999999;
 }
 
 .splash-container {
@@ -329,12 +330,18 @@ background-size: cover;
 }
 
 
+
+nav .btn-secondary {
+    background-color: transparent;
+    border: none;
+}
+
+
 .profile-nav {
     position: sticky;
     position: -webkit-sticky;
     top: 0; /* required */
-    z-index: 100;
-
+    z-index: 1;
     background-color: rgba(255,255,255,1);
     border-bottom: 2px solid pink;
 }
@@ -438,3 +445,21 @@ background-size: cover;
 /*wrapper for ribboin*/
 
 
+.unread-badge {
+    position:relative;
+}
+.unread-badge[data-badge]:after {
+    content:attr(data-badge);
+    position:absolute;
+    top: 7px;
+    right: 2px;
+    font-size:.65em;
+    background:#d04d4d;
+    color:white;
+    width:20px;height:20px;
+    text-align:center;
+    line-height:18px;
+    border-radius:50%;
+
+    /*box-shadow:0 0 1px #333;*/
+}

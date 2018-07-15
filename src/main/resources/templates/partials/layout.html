@@ -9,7 +9,13 @@
     <meta name="_csrf" th:content="${_csrf.token}"/>
     <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
 
-    <title>Q-SHE</title>
+    <th:block th:if="${page}">
+    <title th:text="@{Q-SHE } + ' - ' + ${page}">Q-SHE</title>
+    </th:block>
+    <th:block th:if="!${page}">
+        <title>Q-SHE</title>
+    </th:block>
+
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" th:href="@{~/css/resources/bootstrap.min.css}">
@@ -45,10 +51,11 @@
             </div>
 
             <div sec:authorize="isAuthenticated()">
-            <button class="btn btn-secondary" type="button">
-                    <a th:href="@{~/users/displayprofile}" th:text="${#authentication?.principal?.profile?.username}">
 
-                   </a>
+
+                <img class="message-avatar mr-1" th:src="@{~/uploads/} + ${#authentication?.principal?.profile?.uploadPath}">
+
+                    <a th:href="@{~/users/displayprofile}" th:text="${#authentication?.principal?.profile?.firstName}" class="mr-1"></a>
                     <th:block th:if="${currentUserConnection == null}" >
 
                     </th:block>
@@ -60,7 +67,7 @@
                         <img th:src="${currentUserConnection.imageUrl}" width="32" height="32" />
                     </th:block>
 
-            </button>
+
             <button type="button" class="btn btn-secondary header-button dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <span class="sr-only">Toggle Dropdown</span>
             </button>
@@ -87,8 +94,7 @@
 </nav>
 
 
-
-<nav th:fragment="navbar-profile" class="navbar navbar-expand-lg navbar-light bg-light m-auto profile-nav">
+<nav th:fragment="navbar-profile" class="navbar navbar-expand-lg navbar-light bg-light m-auto" id="profile-nav">
     <a class="navbar-brand" href="/users/displayprofile">PROFILE</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -106,7 +112,7 @@
                 <a class="nav-link" href="/users">Friends<img src="/img/icon-user-network.png" class="ml-1"/></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" th:href="@{~/users/displayprofile#messages}">Messages<img src="/img/icon-messages.png" class="ml-1"/></a>
+                <a class="nav-link unread-badge" th:data-badge="${unread}" th:href="@{~/users/displayprofile#messages}">Messages<img src="/img/icon-messages.png" class="ml-1"/></a>
             </li>
         </ul>
     </div>

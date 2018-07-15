@@ -1,14 +1,17 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
-<head th:replace="partials/layout :: header">
+<head th:replace="partials/layout :: header (page='Profile')">
     <meta charset="UTF-8">
     <title>Your Profile</title>
 </head>
 <body>
 <div th:replace="states/svg :: states-svg" />
 <div th:replace="partials/layout :: navbar" />
-<div th:replace="partials/layout :: navbar-profile" />
+<!--<div class="col-12">-->
+
+<div th:replace="partials/layout :: navbar-profile (unread=${unreadCount})" />
+
 <!--</div>-->
 <!--state news modal-->
 <!--body continues to scroll while user is scrolling through modal-->
@@ -17,7 +20,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h3 class="modal-title" style="margin-left: 125px" id="exampleModalLongTitle" th:text="Latest + ' ' + ${state.name} + ' ' + News"></h3>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="giveScroll()">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -25,7 +28,7 @@
                 <ul id="morenews"></ul>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="giveScroll()">Close</button>
             </div>
         </div>
     </div>
@@ -111,18 +114,23 @@
         <div class="col-md-6  col-sm-12">
 
             <div class="card m-3">
-                <div class="card-header">
+                <div class="card-header font-weight-bold">
                     Recent <span th:text="${state.name}"></span> Discussions
                 </div>
                 <div class="card-body">
-                    <ul>
-                        <li th:each="topic : ${topics}">
-                            <a th:href="@{/topic/state/} + ${topic.id} " th:text="${topic.title}"></a>
+                    <ul class="list-group-flush pb-3">
+                        <li class="list-group-item" th:each="topic : ${topics}">
+                            <i class="far fa-comments"></i>
+                            <a class="pl-2" th:href="@{/topic/state/} + ${topic.id} " th:text="${topic.title}"></a>
+                            <div class="float-right">
+                            <span th:text="${topic.user.profile.firstName}"></span>
+                            <img class="message-avatar" th:src="@{~/uploads/} + ${topic.user.profile.uploadPath}">
+                            </div>
+
                         </li>
                     </ul>
 
-
-                    <ul id="" th:data-state-name="${#authentication.principal.profile.userState}"></ul>
+                    <!--<ul id="" th:data-state-name="${#authentication.principal.profile.userState}"></ul>-->
                     <a  class="btn btn-primary" th:href="@{~/posts/state/} + ${state.abbr}">View all discussions</a>
                 </div>
             </div>
@@ -131,12 +139,12 @@
         <!--state and rating tab-->
         <div class="col-md-6 col-sm-12">
             <div class="card m-3">
-                <div class="card-header">
+                <div class="card-header font-weight-bold">
                     <span th:text="${state.name}"></span> News
                 </div>
                 <div class="card-body">
                     <ul id="statenews" th:data-state-name="${#authentication.principal.profile.userState}"></ul>
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal">View more News</button>
+                    <button type="button" id="modal" class="btn btn-primary" data-toggle="modal" data-target="#modal" onclick="stopScroll()">View more News</button>
                 </div>
             </div>
         </div>
@@ -151,7 +159,6 @@
                             <th> </th>
                             <th class="sticky-top">Username</th>
                             <th class="d-none d-sm-table-cell sticky-top">Message</th>
-                            <th class="sticky-top">Status</th>
                         </tr>
                         </thead>
                         <tbody id="transaction-list">
@@ -167,8 +174,7 @@
                                 <td>
                                     <span class="text-muted" th:text="${c.message} ">Since 05/01/2012</span>
                                 </td>
-                                <td><span>Unread</span>
-                                </td>
+
 
                             </tr>
 
@@ -198,6 +204,14 @@
 
 <div th:replace="partials/layout :: footer" />
 <script th:src="@{~/built/news.js}"></script>
-
+<script th:src="@{~/built/user.js}"></script>
+<script type="text/javascript">
+    function stopScroll() {
+        $("html").css("overflow", "hidden");
+    }
+    function giveScroll() {
+        $("html").css("overflow", "visible");
+    }
+</script>
 </body>
 </html>
