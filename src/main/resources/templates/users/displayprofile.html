@@ -56,10 +56,6 @@
                     <div class="profile-data">
                         <p>Have a wonderful Day!</p>
                         <div class="row">
-                            <div class="profile-item">Your username:</div>
-                            <div class="profile-value"><span th:text="${#authentication.principal.username}"></span></div>
-                        </div>
-                        <div class="row">
                             <div class="profile-item">Your name:</div>
                             <div class="profile-value"><span th:text="${#authentication.principal.profile.firstName} + ' ' + ${#authentication.principal.profile.lastName}"></span></div>
                         </div>
@@ -85,7 +81,7 @@
         <br />
 
         <div class="col-md-6  col-sm-12" id="state-profile">
-            <div class="card state-bg-photo m-3" th:style="@{background-image: url(} + ${photo.large1600Url}+ @{);}">
+            <div class="card border-0 state-bg-photo m-3" th:style="@{background-image: url(} + ${photo.large1600Url}+ @{);}">
                 <h3 class="card-title p-2 title-card text-center" th:text="${state.name}"></h3>
 
                 <div class="card-body  d-flex flex-column align-items-center justify-content-between">
