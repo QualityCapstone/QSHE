@@ -45,7 +45,7 @@
 
             <img th:if="${post.user.profile.uploadPath == null}" th:src="@{/img/defaultavatar.png}" alt="none" class="message-md-avatar" />
             <img th:if="${post.user.profile.uploadPath}"  th:src="@{/uploads/} + ${post.user.profile.uploadPath}"  class="message-md-avatar" />
-                    <p class="text-left" th:text="'Posted by: ' + ${post.user.username}"></p>
+                    <p class="text-left" th:text="'Posted by: ' + ${post.user.profile.firstName}"></p>
                     <!--<p class="text-left" th:text="'Topic: '+${post.topic.title}"></p>-->
                     <p class="text-left" th:text="'From: ' + ${post.user.profile.userState}"></p>
                     <p class="text-left" th:text="'Message: '+${post.message}"></p>
