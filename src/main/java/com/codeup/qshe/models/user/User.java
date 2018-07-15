@@ -25,10 +25,10 @@ public class User {
     private String password;
 
     @Column
-    private LocalDateTime createdAt;
+    private LocalDateTime createdAt = LocalDateTime.now();
 
     @Column
-    private LocalDateTime lastLoginDate;
+    private LocalDateTime lastLoginDate = LocalDateTime.now();
 
     @Column
     @Value("${file-upload-path}")
@@ -46,6 +46,12 @@ public class User {
         createdAt = copy.createdAt;
         lastLoginDate = copy.lastLoginDate;
         profile = copy.profile;
+    }
+
+
+    public User(String username, String password) {
+        this.username = username;
+        this.password = password;
     }
 
     public User(String username, String password, LocalDateTime createdAt, LocalDateTime lastLoginDate) {

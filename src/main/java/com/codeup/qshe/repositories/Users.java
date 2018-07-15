@@ -56,8 +56,7 @@ public interface Users extends JpaRepository<User, Long> {
     @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
     @Query(value = "INSERT into user_profile(email, first_name, last_name, name, username)" +
             "VALUES(?1,?2,?3,?4,?5)", nativeQuery = true)
-
-    void addProfile(String email, String firstName, String lastName, String name, String username, String userState);
+    UserProfile addProfile(String email, String firstName, String lastName, String name, String username, String userState);
 
 
     @Modifying

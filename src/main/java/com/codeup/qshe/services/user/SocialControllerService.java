@@ -6,16 +6,23 @@ import com.codeup.qshe.models.user.UserProfile;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.web.WebAttributes;
 import org.springframework.stereotype.Component;
 import org.springframework.ui.Model;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.security.Principal;
 import java.util.Enumeration;
 import java.util.Map;
 import java.util.Set;
+import java.util.UUID;
 
 
 @Component
@@ -25,6 +32,12 @@ public class SocialControllerService {
 
     private static final String USER_CONNECTION = "user_connection";
     private static final String USER_PROFILE = "user_profile";
+
+    @Value("${file-upload-path}")
+    private String uploadPath;
+
+
+
 
     @Autowired
     private UserService usersDao;
@@ -89,6 +102,10 @@ public class SocialControllerService {
             connection = usersDao.getUsers().getUserConnection(username);
             session.setAttribute(USER_CONNECTION, connection);
         }
+
+
+
+
         return connection;
     }
 
@@ -114,6 +131,8 @@ public class SocialControllerService {
 
             // Get the current UserConnection from the http session
             connection = getUserConnection(session, data.getUsername());
+
+
 
             // Get the current UserProfile from the http session
             profile = getUserProfile(session, data.getId());
