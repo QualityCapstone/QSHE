@@ -109,8 +109,10 @@ window.onload = function () {
             $('#state-name').text(selectedState.name);
             $('#state-abbr').text(selectedState.abbr);
 
-
+            let avg = 0;
             for(let key in  selectedMetrics) {
+
+                avg += selectedMetrics[key];
 
                 let percent = selectedMetrics[key] * 10;
 
@@ -119,6 +121,11 @@ window.onload = function () {
                 console.log(key + selectedMetrics[key]);
 
             }
+
+            avg = avg/5;
+
+            $('#rating-overall').text(avg.toFixed(2));
+
 
         }
 
