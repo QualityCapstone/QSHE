@@ -13020,7 +13020,10 @@ window.onload = function () {
                 $('#state-name').text(selectedState.name);
                 $('#state-abbr').text(selectedState.abbr);
 
+                var avg = 0;
                 for (var key in selectedMetrics) {
+
+                    avg += selectedMetrics[key];
 
                     var percent = selectedMetrics[key] * 10;
 
@@ -13028,6 +13031,10 @@ window.onload = function () {
 
                     console.log(key + selectedMetrics[key]);
                 }
+
+                avg = avg / 5;
+
+                $('#rating-overall').text(avg.toFixed(2));
             };
 
             __webpack_require__(192);

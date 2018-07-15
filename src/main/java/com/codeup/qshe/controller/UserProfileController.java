@@ -1,6 +1,7 @@
 package com.codeup.qshe.controller;
 
 import com.codeup.qshe.models.State;
+import com.codeup.qshe.models.user.ExtendedSocialUser;
 import com.codeup.qshe.models.user.User;
 import com.codeup.qshe.models.user.UserConnection;
 import com.codeup.qshe.repositories.UserProfiles;
@@ -70,25 +71,22 @@ public class UserProfileController {
     public String displayProfile(Model model) throws FlickrException {
         User user = userDao.getLoggedInUser();
 
-        if (user.getProfile().getUploadPath() == null)
+        UserConnection connection = userDao.getConnections().findByUserId(user.getUsername());
+
+        if (user.getProfile().getUploadPath() == null && connection != null)
         {
-            UserConnection connection = userDao.getConnections().findByUserId(user.getUsername());
-
             String filename = UUID.randomUUID().toString();
-            System.out.println(connection.getImageUrl());
 
-        try(InputStream in = new URL(connection.getImageUrl()).openStream()) {
-            Files.copy(in, Paths.get(uploadPath + "/" + filename));
-            user.getProfile().setUploadPath(filename);
-            userDao.getUsers().save(user);
+            try(InputStream in = new URL(connection.getImageUrl()).openStream()) {
+                Files.copy(in, Paths.get(uploadPath + "/" + filename));
+                user.getProfile().setUploadPath(filename);
+                userDao.getUsers().save(user);
 
-        } catch (IOException e) {
-            e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
         }
-
-        }
-
-
 
 
         model.addAttribute("conversations", messageDao.getMessages().findDistinctBySenderOrRecipientOrderByIdAsc(user, user));
