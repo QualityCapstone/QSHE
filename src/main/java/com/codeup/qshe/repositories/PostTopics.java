@@ -17,6 +17,7 @@ public interface PostTopics extends CrudRepository <PostTopic, Long> {
 
     List<PostTopic> findAllByState(State state, Pageable pageable);
 
+    List<PostTopic> findTop4ByState(State state);
     List<PostTopic> findTop3ByState(State state);
 
     List<PostTopic> findAllByTitle(String title);

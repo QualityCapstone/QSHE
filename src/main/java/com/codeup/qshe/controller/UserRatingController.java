@@ -5,9 +5,12 @@ import com.codeup.qshe.models.State;
 import com.codeup.qshe.models.user.StateMetric;
 import com.codeup.qshe.models.user.StateUserRating;
 import com.codeup.qshe.models.user.User;
+import com.codeup.qshe.services.FlickrService;
 import com.codeup.qshe.services.StateService;
 import com.codeup.qshe.services.StateUserRatingService;
 import com.codeup.qshe.services.user.UserService;
+import com.flickr4java.flickr.FlickrException;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -22,6 +25,13 @@ public class UserRatingController {
     private final UserService userDao;
     private StateService stateDao;
 
+
+    @Value("${flickr-key}")
+    private String apiKey;
+    @Value("${flickr-secret}")
+    private String sharedSecret;
+
+
     public UserRatingController(StateUserRatingService ratingDao, UserService userDao, StateService stateDao) {
         this.ratingDao = ratingDao;
         this.userDao = userDao;
@@ -29,12 +39,18 @@ public class UserRatingController {
     }
 
     @GetMapping("/users/rating")
-    public String viewUserRating(Model view) {
+    public String viewUserRating(Model view) throws FlickrException {
         User user = userDao.getLoggedInUser();
         State state = stateDao.getStates().findByName(user.getProfile().getUserState());
         view.addAttribute("state", state);
 
-        view.addAttribute("userRatings", ratingDao.getUserRatings().findAll());
+        //view.addAttribute("userRatings", ratingDao.getUserRatings().findAll());
+        FlickrService f = new FlickrService(apiKey, sharedSecret);
+        view.addAttribute("photo", f.getPhoto(state.getName()));
+
+        view.addAttribute("currentRating",
+                ratingDao.getUserRatings().findAllByStateAndUser(state, user));
+
         view.addAttribute("newRating", new StateUserRating());
 
         return "/users/rating";

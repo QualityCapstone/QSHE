@@ -27,6 +27,9 @@ public interface UserRatings extends CrudRepository<StateUserRating, Long> {
     void createMetric(String name);
 
 
+
+    List<StateUserRating> findAllByStateAndUser(State state, User user);
+
     List<StateUserRating> findAllByState(State state);
 
     @Query("select avg(u.rating) from StateUserRating u where u.state = ?1 and u.metric = ?2")

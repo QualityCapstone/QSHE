@@ -35,10 +35,10 @@
             </div>
 
             <div class="col-3" sec:authorize="isAuthenticated()">
-                <form class="form-group" th:action="@{~/topic/state/}+${postTopic.id}" method="get">
-                    <button type="submit" class="btn create-form" id="topicId" name="topicId">View more Here Now</button>
-                    <!--<input type="hidden" name="state_id" th:value="${postTopic.state.id}" />-->
-                </form>
+                <!--<form class="form-group" th:action="@{~/topic/state/}+${postTopic.id}" method="get">-->
+                    <!--<button type="submit" class="btn create-form" id="topicId" name="topicId">View more Here Now</button>-->
+                    <!--&lt;!&ndash;<input type="hidden" name="state_id" th:value="${postTopic.state.id}" />&ndash;&gt;-->
+                <!--</form>-->
             </div>
         </li>
     </ul>

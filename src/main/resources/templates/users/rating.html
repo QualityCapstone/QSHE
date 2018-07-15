@@ -10,17 +10,17 @@
 <div th:replace="partials/layout :: navbar-profile" />
 
 
-<div class="container wrapper mx-auto" sec:authorize="isAuthenticated()">
+<div class="container mx-auto" sec:authorize="isAuthenticated()">
     <div class="container">
 
         <!-- TO RATE -->
-        <h2 class="text-center mb-5">Please rate each element of your state!</h2>
+        <h3 class="text-center mb-4">Please rate each element of your state!</h3>
         <div class="row">
             <div class="col-sm-6">
-                <div class="card rating-card">
-                        <form class=" bg-faded m-3 p-3" th:action="@{/users/rating}" method="post" th:object="${stateUserRating}">
+                <div class="card rating-card m-3">
+                        <form class=" bg-faded m-3 p-3" th:action="@{/users/rating}" method="post">
                             <div class="form-group">
-                                <h5 class="m-b-1 text-center">1:Bad | 10: Good:</h5>
+                                <h5 class="m-b-1 text-center">1:Bad | 10: Good</h5>
                             </div>
                             <div class="form-group m-5 mb-2">
                                 <label class="text-left" for="violenceRate">How safe do you feel where you live?
@@ -65,24 +65,26 @@
                         </form>
                 </div>
             </div>
-            <div class="col-sm-6 float-right">
-                <div class="card m-3">
-                    <div class="card-body text-center">
-                        <h3 class="m-3">The state where you are living</h3>
+            <div class="col-sm-6 float-right"  id="state-profile">
+                <div class="card state-bg-photo m-3" th:style="@{background-image: url(} + ${photo.large1600Url}+ @{);}">
+                    <h3 class="card-title p-2 title-card text-center" th:text="${state.name}"></h3>
 
-                        <!--TODO: fix state icon, will move outside of div when the screen is changing sizes.-->
-                            <div class="state pt-4">
-                                <svg th:class="@{icon icon-state-} + ${state.abbr}">
-                                    <use th:xlink:href="@{#icon-state-} + ${state.abbr}"></use>
-                                </svg>
-                            </div>
+                    <div class="card-body  d-flex flex-column align-items-center justify-content-between">
+                        <div class="state">
+                            <svg th:class="@{icon icon-state-} + ${state.abbr}" style="height: 200px;">
+                                <use th:xlink:href="@{#icon-state-} + ${state.abbr}"></use>
+                            </svg>
+                        </div>
 
-                        <a href="/us"><button type="button" class="btn btn-secondary text-center">Go to your state</button></a>
+                        <div class="state-btn-list d-flex flex-row justify-content-between align-items-center">
+                            <a class="btn btn-primary" th:href="@{/state/} + ${state.abbr}" style="color: white">View your State</a>
+
+                        </div>
                     </div>
                 </div>
                 <!--<div class="card m-3">-->
                     <div class="card-body">
-                        <h3 class="mb-3">This is the overall rating you're giving to the State you live in</h3>
+                        <h3 class="mb-3 text-center">This is the overall rating you're giving to the State you live in</h3>
                         <h1 class="text-center m-5 title-slider" id="totalMarks"></h1>
                         <form class="form-control" th:action="@{/users/rating}" method="post" th:object="${userRate}" onsubmit="return checkForm(this)">
 
@@ -91,6 +93,14 @@
                             <input type="hidden" name="employment" id="employment">
                             <input type="hidden" name="health" id="health">
                             <input type="hidden" name="growth" id="growth">
+
+
+                            <th:block th:each="rating : ${currentRating}">
+
+                                <input type="hidden" th:name="@{old_} + ${rating?.metric?.name}" th:id="@{old_} + ${rating?.metric?.name}"  th:value="${rating?.rating}">
+
+                            </th:block>
+
 
                             <input type="hidden"  id="userRate"  name="userRate" th:value="${userRate}"/>
 
@@ -117,6 +127,27 @@
 <div th:replace="partials/layout :: footer" />
 <script type="text/javascript">
     // ---------------- OVERALL RATING FROM THE SLIDERS -------------------------------
+
+
+
+    $('#violenceRate').val($('#old_Crime').val());
+    // $('#violenceRate').parent().find('span').text($('#old_Crime').val());
+    $('#employmentRate').val($('#old_Employment').val());
+    $('#healthRate').val($('#old_Health').val());
+    $('#growthRate').val($('#old_Growth').val());
+    $('#educationRate').val($('#old_Education').val());
+
+
+    $('#education').val($('#educationRate').val());
+    $('#growth').val($('#growthRate').val());
+    $('#health').val($('#healthRate').val());
+    $('#crime').val($('#violenceRate').val());
+    $('#employment').val($('#employmentRate').val());
+
+
+    calcavg();
+
+
     $('.slider').each(function() {
         $(this).on('change', function() {
             $(this).parent().find('span').text($(this).val());
@@ -126,6 +157,8 @@
     });
     // comment
     function calcavg() {
+
+
         var total = 0;
         var avg = 0;
         $('.slider').each(function() {
@@ -182,5 +215,6 @@
         return true;
     }
 </script>
+<script th:src="@{~/built/news.js}"></script>
 </body>
 </html>
