@@ -45,6 +45,8 @@ public class UserRatingController {
         view.addAttribute("state", state);
 
         //view.addAttribute("userRatings", ratingDao.getUserRatings().findAll());
+
+
         FlickrService f = new FlickrService(apiKey, sharedSecret);
         view.addAttribute("photo", f.getPhoto(state.getName()));
 
@@ -81,9 +83,7 @@ public class UserRatingController {
             if(metric != null) {
                 ratingDao.getUserRatings().save(new StateUserRating(state, user, metric, Float.parseFloat(value)));
             }
-
         }
-
 
         return "redirect:/users/displayprofile";
 

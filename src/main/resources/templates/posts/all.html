@@ -16,7 +16,7 @@
         </div>
     </div>
 </div>
-<h1 class="text-center m-3 p-3">Share your comments with other users about your state!</h1>
+<h1 class="text-center m-3 p-3">Share your comments with other users about this state</h1>
 
 <div class="container bg-white text-center border border-dark rounded mt-5" sec:authorize="isAuthenticated()">
 
@@ -24,6 +24,9 @@
     <ul class="list-unstyled pagination" >
         <li class="media">
             <div class="media-body p-2">
+                <img th:if="${postTopic.user.profile.uploadPath == null}" th:src="@{/img/defaultavatar.png}" alt="none" class="message-md-avatar" />
+                <img th:if="${postTopic.user.profile.uploadPath}"  th:src="@{/uploads/} + ${postTopic.user.profile.uploadPath}"  class="message-md-avatar" />
+
                 <p class="text-left" th:text="'Posted by: ' + ${postTopic.user.username}"></p>
                 <p class="text-left" th:text="'From: ' + ${postTopic.user.profile.userState}"></p>
                 <p class="text-left" th:text="'State: '+${postTopic.state.id}"></p>
