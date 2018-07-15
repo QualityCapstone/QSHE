@@ -27,10 +27,14 @@ public class MessageController {
         System.out.println("MessageController... Activate!!");
 
          User user = userDao.getLoggedInUser();
-         User recipient = userDao.getUsers().findById(id).get();
+         User sender = userDao.getUsers().findById(id).get();
 
-       model.addAttribute("messages", messageDao.getMessages().findAllByRecipientAndSender(recipient, user));
-       model.addAttribute("recipient", recipient);
+         // Sets messages as read
+         messageDao.getMessages().updateReadStatus(user.getId(), sender.getId());
+
+
+       model.addAttribute("messages", messageDao.getMessages().findAllByRecipientAndSender(sender, user));
+       model.addAttribute("recipient", sender);
 
          return "/messages/view";
      }

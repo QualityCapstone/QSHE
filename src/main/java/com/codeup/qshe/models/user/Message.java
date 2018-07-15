@@ -18,6 +18,8 @@ import java.time.LocalDateTime;
     @ManyToOne
     private User recipient;
 
+    @Column boolean isRead = false;
+
     @Column
     LocalDateTime createdAt = LocalDateTime.now();
 
@@ -26,7 +28,6 @@ import java.time.LocalDateTime;
 
 
     public Message(){}
-
 
     public Message(User sender, User recipient, String message) {
         this.sender = sender;
@@ -73,5 +74,13 @@ import java.time.LocalDateTime;
 
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public boolean isRead() {
+        return isRead;
+    }
+
+    public void setRead(boolean read) {
+        isRead = read;
     }
 }

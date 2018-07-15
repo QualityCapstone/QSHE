@@ -9,7 +9,13 @@
     <meta name="_csrf" th:content="${_csrf.token}"/>
     <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
 
-    <title>Q-SHE</title>
+    <th:block th:if="${page}">
+    <title th:text="@{Q-SHE } + ' - ' + ${page}">Q-SHE</title>
+    </th:block>
+    <th:block th:if="!${page}">
+        <title>Q-SHE</title>
+    </th:block>
+
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" th:href="@{~/css/resources/bootstrap.min.css}">
@@ -106,7 +112,7 @@
                 <a class="nav-link" href="/users">Friends<img src="/img/icon-user-network.png" class="ml-1"/></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" th:href="@{~/users/displayprofile#messages}">Messages<img src="/img/icon-messages.png" class="ml-1"/></a>
+                <a class="nav-link unread-badge" data-badge="25" th:href="@{~/users/displayprofile#messages}">Messages<img src="/img/icon-messages.png" class="ml-1"/></a>
             </li>
         </ul>
     </div>

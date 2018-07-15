@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
-<head th:replace="partials/layout :: header">
+<head th:replace="partials/layout :: header (page='Profile')">
     <meta charset="UTF-8">
     <title>Your Profile</title>
 </head>
@@ -174,7 +174,10 @@
                                 <td>
                                     <span class="text-muted" th:text="${c.message} ">Since 05/01/2012</span>
                                 </td>
-                                <td><span>Unread</span>
+                                <td><span th:switch="${c.read}">
+                                    <span th:case="false">Unread</span>
+                                    <span th:case="true">Read</span>
+                                    </span>
                                 </td>
 
                             </tr>
