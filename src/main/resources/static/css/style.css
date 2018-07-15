@@ -132,34 +132,12 @@ body {
     display: none;
 }
 
-<<<<<<< HEAD
 body .modal-open {
     position: relative;
     overflow: hidden;
     height: 100%;
 }
 
-li.navbar-item a:hover {
-    color: #DC6F68;
-}
-
-#nav-profile a:hover {
- background-color: #DC6F68;
-}
-
-ul li:hover{
-    color: #DC6F68;
-}
-
-.nav > li > a:hover{
-    color: #DC6F68;
-}
-
-.title-card {
-    color: #DC6F68;
-}
-=======
->>>>>>> continue-myrating
 
 .card {
     -webkit-box-shadow: 1px 5px 5px #aeaeae;
@@ -169,7 +147,7 @@ ul li:hover{
     box-shadow: 1px 5px 5px #aeaeae;
 }
 
-<<<<<<< HEAD
+
 
 .slider {
     -webkit-appearance: none;
@@ -198,10 +176,10 @@ ul li:hover{
     background: #0f0f0f;
     cursor: pointer;
 }
-=======
-.rating-card {
-    opacity: .7;
-    background-color: dimgray;
+
+
+.slider{
+    background-color: #DC6F68;
 }
 
->>>>>>> continue-myrating
+
