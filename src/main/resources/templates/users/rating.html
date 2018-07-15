@@ -14,10 +14,10 @@
     <div class="container">
 
         <!-- TO RATE -->
-        <h2 class="text-center mb-5">Please rate each element of your state!</h2>
+        <h3 class="text-center mb-4">Please rate each element of your state!</h3>
         <div class="row">
             <div class="col-sm-6">
-                <div class="card rating-card">
+                <div class="card rating-card m-3">
                         <form class=" bg-faded m-3 p-3" th:action="@{/users/rating}" method="post">
                             <div class="form-group">
                                 <h5 class="m-b-1 text-center">1:Bad | 10: Good</h5>
@@ -65,7 +65,7 @@
                         </form>
                 </div>
             </div>
-            <div class="col-sm-6 float-right">
+            <div class="col-sm-6 float-right"  id="state-profile">
                 <div class="card state-bg-photo m-3" th:style="@{background-image: url(} + ${photo.large1600Url}+ @{);}">
                     <h3 class="card-title p-2 title-card text-center" th:text="${state.name}"></h3>
 
@@ -84,7 +84,7 @@
                 </div>
                 <!--<div class="card m-3">-->
                     <div class="card-body">
-                        <h3 class="mb-3">This is the overall rating you're giving to the State you live in</h3>
+                        <h3 class="mb-3 text-center">This is the overall rating you're giving to the State you live in</h3>
                         <h1 class="text-center m-5 title-slider" id="totalMarks"></h1>
                         <form class="form-control" th:action="@{/users/rating}" method="post" th:object="${userRate}" onsubmit="return checkForm(this)">
 
@@ -215,5 +215,6 @@
         return true;
     }
 </script>
+<script th:src="@{~/built/news.js}"></script>
 </body>
 </html>

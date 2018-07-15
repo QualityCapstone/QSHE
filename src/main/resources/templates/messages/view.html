@@ -17,7 +17,7 @@
 
 </div>
 
-    <div class="message-conversation text-center mx-auto">
+    <div class="message-conversation text-center mx-auto" id="message-center">
 
 
         <div class="p-5 m-2 text-dark" th:each="message: ${messages}">
@@ -56,6 +56,12 @@
 
 
 <div th:replace="partials/layout :: footer" />
+<script>
+    window.onload=function () {
+        var objDiv = document.getElementById("message-center");
+        objDiv.scrollTop = objDiv.scrollHeight;
+    }
 
+</script>
 </body>
 </html>
