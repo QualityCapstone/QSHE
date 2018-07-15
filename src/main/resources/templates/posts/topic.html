@@ -16,10 +16,11 @@
     <!--</div>-->
 <!--</div>-->
 </div>
-<h1 class="text-center m-3 p-3">Share your comments with other users about your state!</h1>
+<h1 class="text-center m-3 p-3">Share your comments with other users about your state</h1>
 
 <div class="container bg-white text-center border border-dark rounded mt-5" sec:authorize="isAuthenticated()">
-<div>
+<div ></div>
+    <div>
     <form class="" th:action="@{/topic/state/}+${id}" method="post" th:object="${post}">
         <input type="text" id="message" name="message" />
 
@@ -30,13 +31,15 @@
         <ul class="list-unstyled pagination" >
             <li class="media">
                 <div class="media-body p-2">
+
+                    <p class="text-left" th:text="'Topic: '+${post.topic.title}"></p>
                     <p class="text-left" th:text="'Posted by: ' + ${post.user.username}"></p>
                     <p class="text-left" th:text="'From: ' + ${post.user.profile.userState}"></p>
 
-                    <p class="text-left" th:text="'About: '+${post.topic.id}"></p>
-                    <p class="text-left" th:text="'About: '+${post.message}"></p>
-                    <form class="" th:action="@{/topic/state/}+${id}" method="post" th:object="${post}">
+                    <p class="text-left" th:text="'Message: '+${post.message}"></p>
+                    <form class="" th:action="@{/messages/create}" method="post" th:object="${post}">
                         <input type="text" id="message" name="message" />
+                        <input type="hidden" id="recipient-id" name="recipient-id" th:value="${post.user.id}" />
 
                     <button class="btn btn-primary">Respond</button>
                 </form>
