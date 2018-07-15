@@ -61,9 +61,9 @@ public interface Users extends JpaRepository<User, Long> {
 
     @Modifying
     @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
-    @Query(value = "UPDATE user_profile SET email =?, username = ?, first_name = ?, last_name = ?, name =? WHERE ID = ?", nativeQuery = true)
+    @Query(value = "UPDATE user_profile SET email =?, username = ?, first_name = ?, last_name = ?, name =?, user_state=? WHERE ID = ?", nativeQuery = true)
 
-    void updateProfile(String email, String username, String firstName, String lastName, String name, Long id);
+    void updateProfile(String email, String username, String firstName, String lastName, String name, String userState, Long id);
 
     @Modifying
     @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
