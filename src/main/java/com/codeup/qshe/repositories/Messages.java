@@ -35,7 +35,7 @@ public interface Messages extends CrudRepository <Message, Long>{
 
     @Modifying
     @Transactional
-    @Query(nativeQuery = true, value = "UPDATE message SET is_read = true where sender_id = ?1 and recipient_id = ?2")
+    @Query(nativeQuery = true, value = "UPDATE message SET is_read = true where sender_id = ?2 and recipient_id = ?1")
     void updateReadStatus(Long senderId, Long rId);
 
 

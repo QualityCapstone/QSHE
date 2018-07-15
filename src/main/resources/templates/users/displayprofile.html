@@ -10,7 +10,7 @@
 <div th:replace="partials/layout :: navbar" />
 <!--<div class="col-12">-->
 
-<div th:replace="partials/layout :: navbar-profile" />
+<div th:replace="partials/layout :: navbar-profile (unread=${unreadCount})" />
 <!--</div>-->
 <!--state news modal-->
 <!--body continues to scroll while user is scrolling through modal-->
@@ -158,7 +158,6 @@
                             <th> </th>
                             <th class="sticky-top">Username</th>
                             <th class="d-none d-sm-table-cell sticky-top">Message</th>
-                            <th class="sticky-top">Status</th>
                         </tr>
                         </thead>
                         <tbody id="transaction-list">
@@ -174,11 +173,7 @@
                                 <td>
                                     <span class="text-muted" th:text="${c.message} ">Since 05/01/2012</span>
                                 </td>
-                                <td><span th:switch="${c.read}">
-                                    <span th:case="false">Unread</span>
-                                    <span th:case="true">Read</span>
-                                    </span>
-                                </td>
+
 
                             </tr>
 

@@ -112,7 +112,7 @@
                 <a class="nav-link" href="/users">Friends<img src="/img/icon-user-network.png" class="ml-1"/></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link unread-badge" data-badge="25" th:href="@{~/users/displayprofile#messages}">Messages<img src="/img/icon-messages.png" class="ml-1"/></a>
+                <a class="nav-link unread-badge" th:data-badge="${unread}" th:href="@{~/users/displayprofile#messages}">Messages<img src="/img/icon-messages.png" class="ml-1"/></a>
             </li>
         </ul>
     </div>
