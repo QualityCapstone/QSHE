@@ -187,6 +187,7 @@ public class DataLoader implements ApplicationRunner {
     private void generateStaticData() {
 
         //Clean data
+        messageDao.getMessages().deleteAll();
         stateDao.getPopulations().deleteAll();
         stateDao.getEducations().deleteAll();
         stateDao.getPoverties().deleteAll();
@@ -195,7 +196,6 @@ public class DataLoader implements ApplicationRunner {
         postDao.getPosts().deleteAll();
         postDao.getTopics().deleteAll();
 
-        messageDao.getMessages().deleteAll();
         ratingDao.getUserRatings().deleteAll();
 
         userDao.getUsers().deleteAll();
