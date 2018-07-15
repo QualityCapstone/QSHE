@@ -46,7 +46,7 @@
                     <div>
                         <div>
                             <img th:if="${user.profile.uploadPath == null}" th:src="@{/img/defaultavatar.png}" alt="none" class="avatar-img" />
-                            <img th:if="${user.profile.uploadPath}"  th:src="@{/uploads/} + ${user.profile.uploadPath}"  class="avatar-img" />
+                            <img th:if="${user.profile.uploadPath}"  th:src="@{/img/avatars/} + ${user.profile.uploadPath}"  class="avatar-img" />
                         </div>
                     </div>
 
