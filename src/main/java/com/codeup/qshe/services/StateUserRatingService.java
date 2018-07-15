@@ -38,7 +38,7 @@ public class StateUserRatingService {
         return metrics;
     }
 
-
+    
 
 }
 

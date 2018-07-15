@@ -34,7 +34,11 @@ public class UserRatingController {
         State state = stateDao.getStates().findByName(user.getProfile().getUserState());
         view.addAttribute("state", state);
 
-        view.addAttribute("userRatings", ratingDao.getUserRatings().findAll());
+        //view.addAttribute("userRatings", ratingDao.getUserRatings().findAll());
+
+        view.addAttribute("currentRating",
+                ratingDao.getUserRatings().findAllByStateAndUser(state, user));
+
         view.addAttribute("newRating", new StateUserRating());
 
         return "/users/rating";

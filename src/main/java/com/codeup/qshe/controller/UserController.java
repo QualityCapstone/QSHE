@@ -75,7 +75,6 @@ public class UserController {
         if(validation.hasErrors()){
             model.addAttribute("errors", validation);
             model.addAttribute("user", user);
-            System.out.println(user.getUsername());
 
             return "redirect:/sign-up";
         }

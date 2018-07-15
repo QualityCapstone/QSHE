@@ -18,9 +18,9 @@
         <div class="row">
             <div class="col-sm-6">
                 <div class="card rating-card">
-                        <form class=" bg-faded m-3 p-3" th:action="@{/users/rating}" method="post" th:object="${stateUserRating}">
+                        <form class=" bg-faded m-3 p-3" th:action="@{/users/rating}" method="post">
                             <div class="form-group">
-                                <h5 class="m-b-1 text-center">1:Bad | 10: Good:</h5>
+                                <h5 class="m-b-1 text-center">1:Bad | 10: Good</h5>
                             </div>
                             <div class="form-group m-5 mb-2">
                                 <label class="text-left" for="violenceRate">How safe do you feel where you live?
@@ -92,6 +92,14 @@
                             <input type="hidden" name="health" id="health">
                             <input type="hidden" name="growth" id="growth">
 
+
+                            <th:block th:each="rating : ${currentRating}">
+
+                                <input type="hidden" th:name="@{old_} + ${rating?.metric?.name}" th:id="@{old_} + ${rating?.metric?.name}"  th:value="${rating?.rating}">
+
+                            </th:block>
+
+
                             <input type="hidden"  id="userRate"  name="userRate" th:value="${userRate}"/>
 
                             <input name="submit" type="submit" id="overallRating"  class="submit form-control btn btn-secondary" value="Submit Rating" />
@@ -117,6 +125,31 @@
 <div th:replace="partials/layout :: footer" />
 <script type="text/javascript">
     // ---------------- OVERALL RATING FROM THE SLIDERS -------------------------------
+
+
+
+
+
+
+    $('#violenceRate').val($('#old_Crime').val());
+    // $('#violenceRate').parent().find('span').text($('#old_Crime').val());
+    $('#employmentRate').val($('#old_Employment').val());
+    $('#healthRate').val($('#old_Health').val());
+    $('#growthRate').val($('#old_Growth').val());
+    $('#educationRate').val($('#old_Education').val());
+
+
+    $('#education').val($('#educationRate').val());
+    $('#growth').val($('#growthRate').val());
+    $('#health').val($('#healthRate').val());
+    $('#crime').val($('#violenceRate').val());
+    $('#employment').val($('#employmentRate').val());
+
+
+    calcavg();
+
+
+
     $('.slider').each(function() {
         $(this).on('change', function() {
             $(this).parent().find('span').text($(this).val());
@@ -126,6 +159,8 @@
     });
     // comment
     function calcavg() {
+
+
         var total = 0;
         var avg = 0;
         $('.slider').each(function() {
