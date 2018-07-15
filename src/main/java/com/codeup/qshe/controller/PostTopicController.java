@@ -23,12 +23,14 @@ public class PostTopicController {
     private final PostService postDao;
     private final UserService userDao;
     private final StateService stateDao;
+    private final PostTopicService topicDao;
 
 
-    public PostTopicController(PostService postDao, UserService userDao, StateService stateDao) {
+    public PostTopicController(PostService postDao, UserService userDao, StateService stateDao,PostTopicService topicDao) {
         this.postDao = postDao;
         this.userDao = userDao;
         this.stateDao = stateDao;
+        this.topicDao =topicDao;
 
     }
 
@@ -49,11 +51,12 @@ public class PostTopicController {
 
         User user = userDao.getLoggedInUser();
         State state = stateDao.getStates().findByAbbr(abbr);
+        System.out.println(abbr);
 
         PostTopic topic = new PostTopic(user,title,state);
         Post post = new Post(topic,user,title);
 
-        postDao.getPosts().save(post);
+        topicDao.save(topic);
 
 
 
