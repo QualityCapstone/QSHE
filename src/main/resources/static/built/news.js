@@ -65,7 +65,7 @@
 /************************************************************************/
 /******/ ({
 
-/***/ 19:
+/***/ 17:
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -10578,7 +10578,7 @@ newsapi.v2.everything({
         $('#morenews').append('<li>\n                    <a href="' + response.articles[_i].url + '">\n                        <h4 class="text-center">' + response.articles[_i].title + '</h4>\n                    </a>\n                </li>\n                <li>\n                    <span>' + response.articles[_i].description + '</span>\n                </li>\n                <br />');
     }
 });
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(19)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(17)))
 
 /***/ }),
 

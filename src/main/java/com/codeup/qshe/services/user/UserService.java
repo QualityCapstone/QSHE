@@ -27,8 +27,6 @@ public class UserService {
     private Users users;
     private UserConnections connections;
 
-    @Value("${file-upload-path}")
-    private String uploadPath;
 
 
 
@@ -40,6 +38,10 @@ public class UserService {
 
     public Users getUsers() {
         return users;
+    }
+
+    public UserConnections getConnections() {
+        return connections;
     }
 
     public void createUser(String username, UserProfile profile) throws IOException {

@@ -65,33 +65,7 @@
 /************************************************************************/
 /******/ ({
 
-/***/ 187:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function($) {
-
-// profile scrolling add class {
-$(window).scroll(function (event) {
-    var scroll = $(window).scrollTop();
-    // Do something
-
-    console.log(scroll);
-
-    if (scroll > 56) {
-        console.log("big");
-        $('#profile-nav').addClass("profile-nav");
-    }
-    if (scroll <= 56) {
-        console.log("smal");
-        $('#profile-nav').removeClass("profile-nav");
-    }
-});
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(19)))
-
-/***/ }),
-
-/***/ 19:
+/***/ 17:
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -10460,6 +10434,32 @@ if ( !noGlobal ) {
 return jQuery;
 } );
 
+
+/***/ }),
+
+/***/ 187:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function($) {
+
+// profile scrolling add class {
+$(window).scroll(function (event) {
+    var scroll = $(window).scrollTop();
+    // Do something
+
+    console.log(scroll);
+
+    if (scroll > 56) {
+        console.log("big");
+        $('#profile-nav').addClass("profile-nav");
+    }
+    if (scroll <= 56) {
+        console.log("smal");
+        $('#profile-nav').removeClass("profile-nav");
+    }
+});
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(17)))
 
 /***/ })
 
