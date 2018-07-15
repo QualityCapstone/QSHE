@@ -11,6 +11,7 @@
 <!--<div class="col-12">-->
 
 <div th:replace="partials/layout :: navbar-profile (unread=${unreadCount})" />
+
 <!--</div>-->
 <!--state news modal-->
 <!--body continues to scroll while user is scrolling through modal-->
@@ -19,7 +20,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h3 class="modal-title" style="margin-left: 125px" id="exampleModalLongTitle" th:text="Latest + ' ' + ${state.name} + ' ' + News"></h3>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="giveScroll()">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -27,7 +28,7 @@
                 <ul id="morenews"></ul>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="giveScroll()">Close</button>
             </div>
         </div>
     </div>
@@ -143,7 +144,7 @@
                 </div>
                 <div class="card-body">
                     <ul id="statenews" th:data-state-name="${#authentication.principal.profile.userState}"></ul>
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal">View more News</button>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal" onclick="stopScroll()">View more News</button>
                 </div>
             </div>
         </div>
@@ -204,5 +205,14 @@
 <div th:replace="partials/layout :: footer" />
 <script th:src="@{~/built/news.js}"></script>
 <script th:src="@{~/built/user.js}"></script>
+<script type="text/javascript">
+    function stopScroll() {
+        $("html").css("overflow", "hidden");
+    }
+    function giveScroll() {
+        $("html").css("overflow", "visible");
+    }
+</script>
+
 </body>
 </html>

@@ -2,6 +2,7 @@ package com.codeup.qshe.controller;
 
 import com.codeup.qshe.models.State;
 import com.codeup.qshe.models.user.User;
+import com.codeup.qshe.models.user.UserConnection;
 import com.codeup.qshe.repositories.UserProfiles;
 import com.codeup.qshe.repositories.UserRatings;
 import com.codeup.qshe.services.FlickrService;
@@ -18,6 +19,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.validation.Errors;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.UUID;
 
 
 @Controller
@@ -36,7 +44,12 @@ public class UserProfileController {
     @Value("${flickr-secret}")
     private String sharedSecret;
 
-@Autowired
+    @Value("${file-upload-path}")
+    private String uploadPath;
+
+
+
+    @Autowired
     public UserProfileController(UserDetailsLoader userDetailsLoader,
                                  MessagesService messageDao,
                                  UserService userDao, UserProfiles userProfiles,
@@ -57,6 +70,27 @@ public class UserProfileController {
     public String displayProfile(Model model) throws FlickrException {
         User user = userDao.getLoggedInUser();
 
+        if (user.getProfile().getUploadPath() == null)
+        {
+            UserConnection connection = userDao.getConnections().findByUserId(user.getUsername());
+
+            String filename = UUID.randomUUID().toString();
+            System.out.println(connection.getImageUrl());
+
+        try(InputStream in = new URL(connection.getImageUrl()).openStream()) {
+            Files.copy(in, Paths.get(uploadPath + "/" + filename));
+            user.getProfile().setUploadPath(filename);
+            userDao.getUsers().save(user);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        }
+
+
+
+
         model.addAttribute("conversations", messageDao.getMessages().findDistinctBySenderOrRecipientOrderByIdAsc(user, user));
 
         String userstate = user.getProfile().getUserState();
@@ -67,6 +101,7 @@ public class UserProfileController {
 
 
         model.addAttribute("unreadCount", messageDao.getMessages().getUnreadCount(user));
+
         model.addAttribute("topics", postDao.getTopics().findTop4ByState(state) );
 
         model.addAttribute("overallRating", ratings.avgUserRatingByState(state, user) );
@@ -92,9 +127,19 @@ public class UserProfileController {
         existingUser.getProfile().setFirstName(user.getProfile().getFirstName());
         existingUser.getProfile().setLastName(user.getProfile().getLastName());
         existingUser.getProfile().setName(user.getProfile().getName());
+        String userstate = user.getProfile().getUserState();
+        String selectedstate = existingUser.getProfile().getUserState();
+
+        if (!userstate.equals(selectedstate)) {
+            existingUser.getProfile().setUserState(user.getProfile().getUserState());
+            userDao.getUsers().updateProfile(existingUser.getProfile().getEmail(),existingUser.getUsername(),existingUser.getProfile().getFirstName(),existingUser.getProfile().getLastName(),existingUser.getProfile().getName(), existingUser.getProfile().getUserState(), existingUser.getId());
+            userDao.getUsers().updateUser(existingUser.getUsername(),existingUser.getId());
+            return "redirect:/users/rating";
+        }
 
 
-        userDao.getUsers().updateProfile(existingUser.getProfile().getEmail(),existingUser.getUsername(),existingUser.getProfile().getFirstName(),existingUser.getProfile().getLastName(),existingUser.getProfile().getName(),existingUser.getId());
+
+        userDao.getUsers().updateProfile(existingUser.getProfile().getEmail(),existingUser.getUsername(),existingUser.getProfile().getFirstName(),existingUser.getProfile().getLastName(),existingUser.getProfile().getName(), existingUser.getProfile().getUserState(), existingUser.getId());
         userDao.getUsers().updateUser(existingUser.getUsername(),existingUser.getId());
         return "redirect:/users/displayprofile";
     }

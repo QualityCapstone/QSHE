@@ -52,7 +52,7 @@
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="giveScroll()">Cancel</button>
                 </div>
             </div>
         </div>
@@ -70,11 +70,11 @@
                 </div>
             </div>
             <br />
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" style="margin-bottom: 1.5rem">
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" style="margin-bottom: 1.5rem" onclick="stopScroll()">
                 Change your profile picture!
             </button>
             <div class="col-md-8 m-auto">
-                <h2>User ID <span th:text="${#authentication.principal.id}" /></h2>
+                <!--<h2>User ID <span th:text="${#authentication.principal.id}" /></h2>-->
                 <form th:action="@{/user/} + ${#authentication.principal.id} + @{/edit}" th:method="post" th:object="${user}" >
                     <label for="username">Username</label>
                         <input type="text" class="form-control" id="username" th:placeholder="${#authentication.principal.username}" th:field="*{username}"/>
@@ -90,6 +90,63 @@
                     <br />
                     <label for="name">A Little About Me</label>
                         <input id="name" class="form-control" placeholder="About Me" type="text"  th:field="*{profile.name}" />
+                    <br />
+                    <p>Change your Home State</p>
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">State you live in</span>
+                        <select path="userState" id="inputState" class="form-control" th:field="*{profile.userState}" >
+                            <option value="Alabama">Alabama</option>
+                            <option value="Alaska">Alaska</option>
+                            <option value="Arizona">Arizona</option>
+                            <option value="Arkansas">Arkansas</option>
+                            <option value="California">California</option>
+                            <option value="Colorado">Colorado</option>
+                            <option value="Connecticut">Connecticut</option>
+                            <option value="Delaware">Delaware</option>
+                            <option value="Florida">Florida</option>
+                            <option value="Georgia">Georgia</option>
+                            <option value="Hawaii">Hawaii</option>
+                            <option value="Idaho">Idaho</option>
+                            <option value="Illinois">Illinois</option>
+                            <option value="Indiana">Indiana</option>
+                            <option value="Iowa">Iowa</option>
+                            <option value="Kansas">Kansas</option>
+                            <option value="Kentucky">Kentucky</option>
+                            <option value="Louisiana">Louisiana</option>
+                            <option value="Maine">Maine</option>
+                            <option value="Maryland">Maryland</option>
+                            <option value="Massachusetts">Massachusetts</option>
+                            <option value="Michigan">Michigan</option>
+                            <option value="Minnesota">Minnesota</option>
+                            <option value="Mississippi">Mississippi</option>
+                            <option value="Missouri">Missouri</option>
+                            <option value="Montana">Montana</option>
+                            <option value="Nebraska">Nebraska</option>
+                            <option value="Nevada">Nevada</option>
+                            <option value="New Hampshire">New Hampshire</option>
+                            <option value="New Jersey">New Jersey</option>
+                            <option value="New Mexico">New Mexico</option>
+                            <option value="New York">New York</option>
+                            <option value="North Carolina">North Carolina</option>
+                            <option value="North Dakota">North Dakota</option>
+                            <option value="Ohio">Ohio</option>
+                            <option value="Oklahoma">Oklahoma</option>
+                            <option value="Oregon">Oregon</option>
+                            <option value="Pennsylvania">Pennsylvania</option>
+                            <option value="Rhode Island">Rhode Island</option>
+                            <option value="South Carolina">South Carolina</option>
+                            <option value="South Dakota">South Dakota</option>
+                            <option value="Tennessee">Tennessee</option>
+                            <option value="Texas">Texas</option>
+                            <option value="Utah">Utah</option>
+                            <option value="Vermont">Vermont</option>
+                            <option value="Virginia">Virginia</option>
+                            <option value="Washington">Washington</option>
+                            <option value="West Virginia">West Virginia</option>
+                            <option value="Wisconsin">Wisconsin</option>
+                            <option value="Wyoming">Wyoming</option>
+                        </select>
+                    </div>
                     <button type="submit" class="btn btn-primary m-5">save changes</button>
                 </form>
             </div>
@@ -99,5 +156,13 @@
 
 
 <div th:replace="partials/layout :: footer" />
+<script type="text/javascript">
+    function stopScroll() {
+        $("html").css("overflow", "hidden");
+    }
+    function giveScroll() {
+        $("html").css("overflow", "visible");
+    }
+</script>
 </body>
 </html>

@@ -7,4 +7,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface UserConnections extends CrudRepository<UserConnection, Long> {
 
+
+    UserConnection findByUserId(String username);
+
 }

@@ -4,6 +4,7 @@ import com.codeup.qshe.models.user.Message;
 import com.codeup.qshe.models.user.User;
 import com.codeup.qshe.repositories.Messages;
 import com.codeup.qshe.repositories.Users;
+import com.codeup.qshe.services.user.UserService;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
@@ -13,11 +14,13 @@ import java.util.List;
 public class MessagesService {
     private Messages messages;
     private Users users;
+    private UserService userDao;
 
 
-    public MessagesService(Messages messages, Users users){
+    public MessagesService(Messages messages, Users users, UserService userDao){
         this.messages = messages;
         this.users = users;
+        this.userDao = userDao;
     }
 
     public List<Message> findAll() {
@@ -26,8 +29,7 @@ public class MessagesService {
     }
 
     public Message save(Message message) {
-        User sessionUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        User user = users.findById(sessionUser.getId()).get();
+        User user = userDao.getLoggedInUser();
         message.setSender(user);
         messages.save(message);
         return message;

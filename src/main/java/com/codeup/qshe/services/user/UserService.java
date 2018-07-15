@@ -1,42 +1,63 @@
 package com.codeup.qshe.services.user;
 
-import com.codeup.qshe.models.user.ExtendedSocialUser;
-import com.codeup.qshe.models.user.Message;
-import com.codeup.qshe.models.user.User;
-import com.codeup.qshe.models.user.UserProfile;
+import com.codeup.qshe.models.user.*;
+import com.codeup.qshe.repositories.UserConnections;
 import com.codeup.qshe.repositories.Users;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Repository;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
+
 
 @Repository
 public class UserService {
     private Users users;
+    private UserConnections connections;
+
+
+
 
     @Autowired
-    public UserService(Users users) {
+    public UserService(Users users, UserConnections  connections) {
         this.users = users;
+        this.connections = connections;
     }
 
     public Users getUsers() {
         return users;
     }
 
-    public void createUser(String username, UserProfile profile) {
-        users.addUser(username, RandomStringUtils.randomAlphanumeric(8));
-        // get user ID
-        User user = users.findByUsername(username);
+    public UserConnections getConnections() {
+        return connections;
+    }
+
+    public void createUser(String username, UserProfile profile) throws IOException {
+
+        User user = new User(username, RandomStringUtils.randomAlphanumeric(8));
+
+        //TODO: Change reigster process to get state data.
+        profile.setUserState("Texas");
+        profile.setEmail("update@me.now");
+
+
+        user.setProfile(profile);
+
         users.addDefaultRole(user.getId());
-        users.addProfile(profile.getEmail(),
-                profile.getFirstName(),
-                profile.getLastName(),
-                profile.getName(),
-                profile.getUsername(),
-                profile.getUserState());
+        users.save(user);
+
 
     }
 

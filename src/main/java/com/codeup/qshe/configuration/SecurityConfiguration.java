@@ -110,7 +110,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .rememberMe()
                 .and()
                 .apply(new SpringSocialConfigurer()
-                        .postLoginUrl("/profile")
+                        .postLoginUrl("/users/displayprofile")
                         .alwaysUsePostLoginUrl(true));
 
     }
