@@ -612,7 +612,7 @@ public class DataLoader implements ApplicationRunner {
                 User recipient = users.get(rand.nextInt(users.size()));
 
                 for(int i = 0; i < convoMessages; i++) {
-                    String message = faker.friends().quote();
+                    String message = faker.harryPotter().quote();
                     if(i%2 ==  0) {
                         messages.add(new Message(sender, recipient, message));
                     } else {
