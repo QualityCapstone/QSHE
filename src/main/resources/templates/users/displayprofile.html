@@ -157,7 +157,7 @@
                         <thead>
                         <tr>
                             <th> </th>
-                            <th class="sticky-top">Username</th>
+                            <th class="sticky-top">User</th>
                             <th class="d-none d-sm-table-cell sticky-top">Message</th>
                         </tr>
                         </thead>
@@ -169,7 +169,7 @@
                                  <img class="message-avatar" th:src="@{~/uploads/} + ${c.recipient.profile.uploadPath}">
                                 </td>
                                 <td>
-                                    <a th:href="@{~/messages/view/} + ${c.recipient.id}" th:text="${c.recipient.username}"></a>
+                                    <a th:href="@{~/messages/view/} + ${c.recipient.id}" th:text="${c.recipient.profile.name}"></a>
                                 </td>
                                 <td>
                                     <span class="text-muted" th:text="${c.message} ">Since 05/01/2012</span>
