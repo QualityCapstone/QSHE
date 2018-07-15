@@ -342,7 +342,7 @@ background-size: cover;
 
 
 #header-nav {
-    z-index: 2;
+    z-index: 11;
 }
 
 nav .btn-secondary {
