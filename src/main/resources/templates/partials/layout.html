@@ -45,10 +45,11 @@
             </div>
 
             <div sec:authorize="isAuthenticated()">
-            <button class="btn btn-secondary" type="button">
-                    <a th:href="@{~/users/displayprofile}" th:text="${#authentication?.principal?.profile?.username}">
 
-                   </a>
+
+                <img class="message-avatar mr-1" th:src="@{~/uploads/} + ${#authentication?.principal?.profile?.uploadPath}">
+
+                    <a th:href="@{~/users/displayprofile}" th:text="${#authentication?.principal?.profile?.firstName}" class="mr-1"></a>
                     <th:block th:if="${currentUserConnection == null}" >
 
                     </th:block>
@@ -60,7 +61,7 @@
                         <img th:src="${currentUserConnection.imageUrl}" width="32" height="32" />
                     </th:block>
 
-            </button>
+
             <button type="button" class="btn btn-secondary header-button dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <span class="sr-only">Toggle Dropdown</span>
             </button>
