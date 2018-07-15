@@ -3,6 +3,7 @@ package com.codeup.qshe.controller;
 import com.codeup.qshe.models.user.User;
 import com.codeup.qshe.services.FlickrService;
 import com.codeup.qshe.services.user.SocialControllerService;
+import com.codeup.qshe.services.user.UserService;
 import com.flickr4java.flickr.FlickrException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -20,6 +21,7 @@ import java.security.Principal;
 @Controller
 public class AuthenticationController {
     private SocialControllerService util;
+    private UserService userDao;
 
 
     @Value("${flickr-key}")
@@ -35,16 +37,22 @@ public class AuthenticationController {
 
     @GetMapping("/login")
     public String showLoginForm(HttpServletRequest request, Principal currentUser, Model model) throws FlickrException {
+        Authentication token = SecurityContextHolder.getContext().getAuthentication();
+        if (!(token instanceof AnonymousAuthenticationToken)) {
+            return "redirect:/users/displayprofile";
+        }
+
+
         User user = new User();
 
+
         FlickrService f = new FlickrService(apiKey, sharedSecret);
-
         model.addAttribute("photo", f.getPhoto("Texas"));
-
         util.setModel(request, currentUser, model);
-
         model.addAttribute("user",user);
-        Authentication token = SecurityContextHolder.getContext().getAuthentication();
+
+
+
 
         // not logged in
         if (token instanceof AnonymousAuthenticationToken) {

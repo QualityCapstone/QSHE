@@ -8,6 +8,8 @@
 <body>
 <div th:replace="states/svg :: states-svg" />
 <div th:replace="partials/layout :: navbar" />
+<!--<div class="col-12">-->
+
 <div th:replace="partials/layout :: navbar-profile" />
 <!--</div>-->
 <!--state news modal-->
@@ -111,18 +113,23 @@
         <div class="col-md-6  col-sm-12">
 
             <div class="card m-3">
-                <div class="card-header">
+                <div class="card-header font-weight-bold">
                     Recent <span th:text="${state.name}"></span> Discussions
                 </div>
                 <div class="card-body">
-                    <ul>
-                        <li th:each="topic : ${topics}">
-                            <a th:href="@{/topic/state/} + ${topic.id} " th:text="${topic.title}"></a>
+                    <ul class="list-group-flush pb-3">
+                        <li class="list-group-item" th:each="topic : ${topics}">
+                            <i class="far fa-comments"></i>
+                            <a class="pl-2" th:href="@{/topic/state/} + ${topic.id} " th:text="${topic.title}"></a>
+                            <div class="float-right">
+                            <span th:text="${topic.user.profile.firstName}"></span>
+                            <img class="message-avatar" th:src="@{~/uploads/} + ${topic.user.profile.uploadPath}">
+                            </div>
+
                         </li>
                     </ul>
 
-
-                    <ul id="" th:data-state-name="${#authentication.principal.profile.userState}"></ul>
+                    <!--<ul id="" th:data-state-name="${#authentication.principal.profile.userState}"></ul>-->
                     <a  class="btn btn-primary" th:href="@{~/posts/state/} + ${state.abbr}">View all discussions</a>
                 </div>
             </div>
@@ -131,7 +138,7 @@
         <!--state and rating tab-->
         <div class="col-md-6 col-sm-12">
             <div class="card m-3">
-                <div class="card-header">
+                <div class="card-header font-weight-bold">
                     <span th:text="${state.name}"></span> News
                 </div>
                 <div class="card-body">
@@ -198,6 +205,6 @@
 
 <div th:replace="partials/layout :: footer" />
 <script th:src="@{~/built/news.js}"></script>
-
+<script th:src="@{~/built/user.js}"></script>
 </body>
 </html>

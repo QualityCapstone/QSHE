@@ -30,7 +30,7 @@ html {
     right:0;
     bottom:0;
     background-color: #262626; /* change if the mask should have another color then white */
-    z-index:99999; /* makes sure it stays on top */
+    z-index:99999999999; /* makes sure it stays on top */
 }
 
 #status {
@@ -43,6 +43,7 @@ html {
     background-repeat:no-repeat;
     background-position:center;
     margin:-100px 0 0 -100px; /* is width and height divided by two */
+    z-index:99999999999;
 }
 
 .splash-container {
@@ -329,12 +330,18 @@ background-size: cover;
 }
 
 
+
+nav .btn-secondary {
+    background-color: transparent;
+    border: none;
+}
+
+
 .profile-nav {
     position: sticky;
     position: -webkit-sticky;
     top: 0; /* required */
-    z-index: 100;
-
+    z-index: 1;
     background-color: rgba(255,255,255,1);
     border-bottom: 2px solid pink;
 }
