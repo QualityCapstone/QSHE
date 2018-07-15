@@ -91,9 +91,19 @@ public class UserProfileController {
         existingUser.getProfile().setFirstName(user.getProfile().getFirstName());
         existingUser.getProfile().setLastName(user.getProfile().getLastName());
         existingUser.getProfile().setName(user.getProfile().getName());
+        String userstate = user.getProfile().getUserState();
+        String selectedstate = existingUser.getProfile().getUserState();
+
+        if (!userstate.equals(selectedstate)) {
+            existingUser.getProfile().setUserState(user.getProfile().getUserState());
+            userDao.getUsers().updateProfile(existingUser.getProfile().getEmail(),existingUser.getUsername(),existingUser.getProfile().getFirstName(),existingUser.getProfile().getLastName(),existingUser.getProfile().getName(), existingUser.getProfile().getUserState(), existingUser.getId());
+            userDao.getUsers().updateUser(existingUser.getUsername(),existingUser.getId());
+            return "redirect:/users/rating";
+        }
 
 
-        userDao.getUsers().updateProfile(existingUser.getProfile().getEmail(),existingUser.getUsername(),existingUser.getProfile().getFirstName(),existingUser.getProfile().getLastName(),existingUser.getProfile().getName(),existingUser.getId());
+
+        userDao.getUsers().updateProfile(existingUser.getProfile().getEmail(),existingUser.getUsername(),existingUser.getProfile().getFirstName(),existingUser.getProfile().getLastName(),existingUser.getProfile().getName(), existingUser.getProfile().getUserState(), existingUser.getId());
         userDao.getUsers().updateUser(existingUser.getUsername(),existingUser.getId());
         return "redirect:/users/displayprofile";
     }
