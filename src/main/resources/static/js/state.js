@@ -24,7 +24,7 @@ window.onload = function () {
 
             $('.state-btn').attr('data-selected-abbr',abbr);
 
-        })
+        });
 
 
         $('.state-btn').click(function() {

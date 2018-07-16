@@ -89131,6 +89131,7 @@ api.getData("state/population/" + abbr).then(function (stateData) {
     var series = chart.series.push(new am4charts.LineSeries());
     series.dataFields.dateX = "date";
     series.dataFields.openValueY = "open";
+    series.bullets.push(new am4charts.CircleBullet());
     series.dataFields.valueY = "close";
     series.tooltipText = "Population: {openValueY.value}";
     series.sequencedInterpolation = true;
