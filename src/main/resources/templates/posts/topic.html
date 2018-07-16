@@ -32,7 +32,7 @@
     </form>
 </div>
     <br/>
-    <div class="card-body p-5 m-2 text-dark " th:each="post: ${posts}" th:height="auto">
+    <th:block class="card-body p-5 m-2 text-dark " th:each="post: ${posts}" th:height="auto">
 <div class="card-body card-border m-3 col-md-6 col-sm12" id="profile-user" >
         <ul class="list-unstyled pagination" >
             <li class="media">
@@ -70,7 +70,7 @@
         </ul>
 </div>
         <hr>
-    </div>
+    </th:block>
     <!--<div class="col-3" sec:authorize="isAuthenticated()">-->
         <!--<h1>Submit a new postTopic</h1>-->
         <!--<form class="form-group" th:action="@{/posts/topic/add}" method="post">-->
