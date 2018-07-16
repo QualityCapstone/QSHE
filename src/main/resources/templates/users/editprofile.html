@@ -38,7 +38,7 @@
 <div class="container wrapper mx-auto" sec:authorize="isAuthenticated()">
 
     <!--file upload modal-->
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" onclick="giveScroll()">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -46,9 +46,9 @@
                 </div>
                 <div class="modal-body">
                     <form th:action="@{/fileupload}" method="post" enctype="multipart/form-data" th:object="${user}">
-                        <input id="file" name="file" type="file" />
+                        <input id="file" name="file" type="file" onclick="stopScroll()" />
                         <br />
-                        <input type="submit" value="upload" />
+                        <input type="submit" value="upload" onclick="stopScroll()" />
                     </form>
                 </div>
                 <div class="modal-footer">
