@@ -73,7 +73,7 @@ public class UserProfileController {
 
         UserConnection connection = userDao.getConnections().findByUserId(user.getUsername());
 
-        if (user.getProfile().getUploadPath() == null && connection != null)
+        if (connection != null)
         {
             String filename = UUID.randomUUID().toString();
 
