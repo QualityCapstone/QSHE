@@ -19,6 +19,7 @@ import com.fasterxml.jackson.databind.type.TypeFactory;
 import com.github.javafaker.Faker;
 import org.apache.tomcat.util.http.fileupload.FileUtils;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
+import org.aspectj.apache.bcel.util.ClassPath;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.ApplicationArguments;
@@ -568,7 +569,8 @@ public class DataLoader implements ApplicationRunner {
 
             try {
 
-                ClassPathResource classPathResource = new ClassPathResource("static/uploads/" + i +".png");
+                ClassPath classPath = new ClassPath("static/uploads");
+               // ClassPathResource classPathResource = new ClassPathResource("static/uploads/" + i +".png");
 //                File file= classPathResource.getFile();
 
                 System.out.println( i + " :  moving avatars"); //test
@@ -577,7 +579,8 @@ public class DataLoader implements ApplicationRunner {
                  // String filename = UUID.randomUUID().toString() + ".png";
                  //  String filepath = Paths.get(uploadPath, filename).toString();
 
-                Files.copy(file.toPath(), classPathResource.getFile().toPath());
+                Files.copy(file.toPath(), new File(classPath.toString() + "/" + file.getName()).toPath(),
+                  StandardCopyOption.REPLACE_EXISTING);
 
 //            Files.copy(file.toPath(), (new File(uploadPath + "/" + file.getName())).toPath(),
 //                    StandardCopyOption.REPLACE_EXISTING);
