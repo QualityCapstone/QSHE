@@ -13838,7 +13838,7 @@ exports = module.exports = __webpack_require__(20)(false);
 
 
 // module
-exports.push([module.i, "body {\n    background-image: url(" + escape(__webpack_require__(194)) + ");\n    -webkit-background-size: cover;\n    background-size: cover;\n}\n\n\n.navbar {\n    z-index: 100;\n    background-color: transparent;\n}\n\n.navbar-dark, .bg-primary {\n    background-color: transparent !important;\n\n}\n\n\n.btn-secondary {\n    background-color: transparent;\n    border: 0;\n}\n\n.btn-secondary:hover {\n    background-color: transparent;\n}", ""]);
+exports.push([module.i, "body {\n    background-image: url(" + escape(__webpack_require__(194)) + ");\n    -webkit-background-size: cover;\n    background-size: cover;\n}\n\nfooter {\n    display: none;\n}\n.navbar {\n    z-index: 100;\n    background-color: transparent;\n}\n\n.navbar-dark, .bg-primary {\n    background-color: transparent !important;\n\n}\n\n\n.btn-secondary {\n    background-color: transparent;\n    border: 0;\n}\n\n.btn-secondary:hover {\n    background-color: transparent;\n}", ""]);
 
 // exports
 
