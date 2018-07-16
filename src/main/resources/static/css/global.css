@@ -392,6 +392,7 @@ nav .btn-secondary {
 
 .speech-bubble-right {
     position: relative;
+    color:white;
     background: #e10071;
     border-radius: .4em;
     width: calc(49% - 125px);
@@ -413,6 +414,7 @@ nav .btn-secondary {
     border-left-color: #e10071;
     border-right: 0;
     border-top: 0;
+    color: #fff;
     margin-top: -10px;
     margin-right: -20px;
 }
@@ -425,6 +427,8 @@ nav .btn-secondary {
     min-height: 60px;
     padding: 10px;
     margin-top: 20px;
+    color: #fff;
+
     margin-left: 20px;
     float: left;
 }
@@ -441,6 +445,7 @@ nav .btn-secondary {
     border-left: 0;
     border-top: 0;
     margin-top: -10px;
+
     margin-left: -20px;
 }
 
@@ -469,7 +474,7 @@ nav .btn-secondary {
     right: 2px;
     font-size:.65em;
     background:#d04d4d;
-    color:white;
+
     width:20px;height:20px;
     text-align:center;
     line-height:18px;
