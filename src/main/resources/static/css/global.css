@@ -225,6 +225,16 @@ background-size: cover;
 
 }
 
+.about-img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+
+    border: 2px solid pink;
+
+}
+
+
 .message-avatar {
     border: 2px solid pink;
     width: 25px;
@@ -486,4 +496,9 @@ nav .btn-secondary {
 
 #state-profile h3 {
     color: #e65252;
+}
+
+.about-us {
+    min-height: calc(100vh - 200px);
+    min-width: 200px;
 }

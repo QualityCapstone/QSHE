@@ -8,61 +8,83 @@
 </head>
 <body>
 <div th:replace="partials/layout :: navbar" />
-<div class="container">
-    <div class="card border rounded mt-5 mb-5 about-us">
-        <h1 class="text-center">About us</h1>
+
+
+<h1 class="text-center">About us</h1>
+
+<div class="d-flex flex-row flex-wrap text-center">
+
+
+    <div class="col-12 col-sm-6 col-md-3">
+
+        <div class="card about-us m-2">
+
+            <div class="card-body">
+                <img class="  about-img mx-auto" src="/img/Brian.jpeg" alt="Card image cap" >
+                <h5 class="card-title text-center">Brian</h5>
+                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+            </div>
+            <div class="card-footer">
+                <a href="https://github.com/briantorluemke" target="_blank"><img class="img-fluid" src="/img/GitHub.png" style="height:25px"></a>
+                <a href="https://www.linkedin.com/in/brian-torluemke" target="_blank"> <img class="img-fluid" src="/img/LinkedIn.png" style="height:25px"></a>
+                <img class="img-fluid" src="/img/Email.png" style="height:25px">
+            </div>
+        </div>
+
     </div>
-<div class="row d-flex flex-wrap">
-    <div class="card about-us col-12 col-lg-3 col-sm-6 ">
-        <img class="card-img-top tipped tipper-attached" src="/img/Brian.jpeg" alt="Card image cap" >
-        <div class="card-body">
-            <h5 class="card-title text-center">Brian</h5>
-            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-        </div>
-        <div class="card-footer bg-transparent">
-            <a href="https://github.com/briantorluemke" target="_blank"><img class="img-fluid" src="/img/GitHub.png" style="height:25px"></a>
-            <a href="https://www.linkedin.com/in/brian-torluemke" target="_blank"> <img class="img-fluid" src="/img/LinkedIn.png" style="height:25px"></a>
-            <img class="img-fluid" src="/img/Email.png" style="height:25px">
-        </div>
-    </div>
-    <div class="card about-us col-12 col-lg-3 col-sm-6 float-right">
-        <img class="card-img-top" src="/img/Dane.jpeg" alt="Card image cap">
-        <div class="card-body">
-            <h5 class="card-title text-center">Dane</h5>
-            <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
-        </div>
-        <div class="card-footer bg-transparent">
-            <a href="https://github.com/unfaiyted" target="_blank"><img class="img-fluid" src="/img/GitHub.png" style="height:25px"></a>
-            <a href="https://www.linkedin.com/in/danelmiller" target="_blank"><img class="img-fluid" src="/img/LinkedIn.png" style="height:25px"></a>
-            <img class="img-fluid" src="/img/Email.png" style="height:25px">
-        </div>
-    </div>
-    <div class="card about-us col-12 col-lg-3 col-sm-6">
-        <img class="card-img-top" src="/img/Monica.jpeg" alt="Card image cap">
-        <div class="card-body">
-            <h5 class="card-title text-center">Monica</h5>
-            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
-        </div>
-        <div class="card-footer bg-transparent">
-            <a href="https://github.com/Monicacholico" target="_blank"><img class="img-fluid" src="/img/GitHub.png" style="height: 25px"></a>
-            <a href="https://www.linkedin.com/in/monicacholico" target="_blank"><img class="img-fluid" src="/img/LinkedIn.png" style="height: 25px"></a>
-            <img class="img-fluid" src="/img/Email.png" style="height: 25px">
-        </div>
-    </div>
-    <div class="card about-us col-12 col-lg-3 col-sm-6 float-right">
-        <img class="card-img-top" src="/img/Richard.jpeg" alt="Card image cap">
-        <div class="card-body">
-            <h5 class="card-title text-center">Richard</h5>
-            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
-        </div>
-        <div class="card-footer bg-transparent">
-            <a href="https://github.com/RichardCalata" target="_blank"><img class="img-fluid" src="/img/GitHub.png" style="height:25px"></a>
-            <a href="https://www.linkedin.com/in/richard-calata" target="_blank"><img class="img-fluid" src="/img/LinkedIn.png" style="height:25px"></a>
-            <img class="img-fluid" src="/img/Email.png" style="height:25px">
+
+
+    <div class="col-12  col-sm-6 col-md-3">
+        <div class="card about-us  m-2">
+
+            <div class="card-body">
+                <img class=" mx-auto about-img " src="/img/Dane.jpeg" alt="Card image cap">
+
+                <h5 class="card-title text-center">Dane</h5>
+                <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
+            </div>
+            <div class="card-footer">
+                <a href="https://github.com/unfaiyted" target="_blank"><img class="img-fluid" src="/img/GitHub.png" style="height:25px"></a>
+                <a href="https://www.linkedin.com/in/danelmiller" target="_blank"><img class="img-fluid" src="/img/LinkedIn.png" style="height:25px"></a>
+                <img class="img-fluid" src="/img/Email.png" style="height:25px">
+            </div>
         </div>
     </div>
+
+    <div class="col-12  col-sm-6 col-md-3">
+        <div class="card about-us   m-2">
+
+            <div class="card-body">
+                <img class=" mx-auto about-img " src="/img/Monica.jpeg" alt="Card image cap">
+                <h5 class="card-title text-center">Monica</h5>
+                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
+            </div>
+            <div class="card-footer">
+                <a href="https://github.com/Monicacholico" target="_blank"><img class="img-fluid" src="/img/GitHub.png" style="height: 25px"></a>
+                <a href="https://www.linkedin.com/in/monicacholico" target="_blank"><img class="img-fluid" src="/img/LinkedIn.png" style="height: 25px"></a>
+                <img class="img-fluid" src="/img/Email.png" style="height: 25px">
+            </div>
+        </div>
+    </div>
+
+    <div class="col-12  col-sm-6 col-md-3">
+        <div class="card about-us  m-2">
+
+            <div class="card-body">
+                <img class=" mx-auto about-img " src="/img/Richard.jpeg" alt="Card image cap">
+                <h5 class="card-title text-center">Richard</h5>
+                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
+            </div>
+            <div class="card-footer">
+                <a href="https://github.com/RichardCalata" target="_blank"><img class="img-fluid" src="/img/GitHub.png" style="height:25px"></a>
+                <a href="https://www.linkedin.com/in/richard-calata" target="_blank"><img class="img-fluid" src="/img/LinkedIn.png" style="height:25px"></a>
+                <img class="img-fluid" src="/img/Email.png" style="height:25px">
+            </div>
+        </div>
+    </div>
+
 </div>
-</div>
+
 <div th:replace="partials/layout :: footer" />
 </body>
 </html>
