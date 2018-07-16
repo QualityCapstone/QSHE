@@ -568,14 +568,14 @@ public class DataLoader implements ApplicationRunner {
 
             try {
 
-                ClassPathResource classPathResource = new ClassPathResource("static/img/avatars/" + i +".png");
-                File file= classPathResource.getFile();
+//                ClassPathResource classPathResource = new ClassPathResource("static/img/avatars/" + i +".png");
+//                File file= classPathResource.getFile();
 
                 System.out.println( i + " :  moving avatars"); //test
-                //     File file = new File(avatarPath + "/" + i + ".png");
+                 File file = new File(avatarPath + "/" + i + ".png");
 
-               // String filename = UUID.randomUUID().toString() + ".png";
-                //  String filepath = Paths.get(uploadPath, filename).toString();
+                 // String filename = UUID.randomUUID().toString() + ".png";
+                 //  String filepath = Paths.get(uploadPath, filename).toString();
 
             Files.copy(file.toPath(), (new File(uploadPath + "/" + file.getName())).toPath(),
                     StandardCopyOption.REPLACE_EXISTING);
