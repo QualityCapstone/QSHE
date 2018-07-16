@@ -4,7 +4,9 @@ body {
     background-size: cover;
 }
 
-
+footer {
+    display: none;
+}
 .navbar {
     z-index: 100;
     background-color: transparent;
