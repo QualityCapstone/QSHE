@@ -55,7 +55,7 @@ public class UserRatingController {
 
         view.addAttribute("newRating", new StateUserRating());
 
-        return "/users/rating";
+        return "users/rating";
     }
 
 
