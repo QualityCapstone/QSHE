@@ -567,30 +567,32 @@ public class DataLoader implements ApplicationRunner {
 
         for (int i = 1; i <= 13; i++) {
 
-            try {
+//            try {
+//
+//                ClassPath classPath = new ClassPath("static/uploads");
+//               // ClassPathResource classPathResource = new ClassPathResource("static/uploads/" + i +".png");
+////                File file= classPathResource.getFile();
+//
+//                System.out.println( i + " :  moving avatars"); //test
+//                 File file = new File(avatarPath + "/" + i + ".png");
+//
+//                 // String filename = UUID.randomUUID().toString() + ".png";
+//                 //  String filepath = Paths.get(uploadPath, filename).toString();
+//
+//                Files.copy(file.toPath(), new File(classPath.toString() + "/" + file.getName()).toPath(),
+//                  StandardCopyOption.REPLACE_EXISTING);
+//
+////            Files.copy(file.toPath(), (new File(uploadPath + "/" + file.getName())).toPath(),
+////                    StandardCopyOption.REPLACE_EXISTING);
+//
+//            data.add(file.getName());
+//
+//            } catch (NullPointerException e) {
+//                e.printStackTrace();
+//            }
 
-                ClassPath classPath = new ClassPath("static/uploads");
-               // ClassPathResource classPathResource = new ClassPathResource("static/uploads/" + i +".png");
-//                File file= classPathResource.getFile();
 
-                System.out.println( i + " :  moving avatars"); //test
-                 File file = new File(avatarPath + "/" + i + ".png");
-
-                 // String filename = UUID.randomUUID().toString() + ".png";
-                 //  String filepath = Paths.get(uploadPath, filename).toString();
-
-                Files.copy(file.toPath(), new File(classPath.toString() + "/" + file.getName()).toPath(),
-                  StandardCopyOption.REPLACE_EXISTING);
-
-//            Files.copy(file.toPath(), (new File(uploadPath + "/" + file.getName())).toPath(),
-//                    StandardCopyOption.REPLACE_EXISTING);
-
-            data.add(file.getName());
-
-            } catch (NullPointerException e) {
-                e.printStackTrace();
-            }
-
+            data.add(i + ".png");
 
 
         }
