@@ -7,6 +7,22 @@
 </head>
 <div th:replace="partials/layout :: navbar" />
 <span class="overlay"></span>
+<h1 class="text-center m-3 p-3">Share your comments with other users about this state</h1>
+
+<div class="" sec:authorize="isAuthenticated()">
+
+
+    <div class="col-3" sec:authorize="isAuthenticated()">
+        <h1>Submit a new Topic</h1>
+        <form class="form-group" th:action="@{/posts/topic/add}" method="post">
+
+            <input type="text" id="title" name="title">
+            <input type="hidden" id="state-abbr" name="state-abbr" th:value="${state.abbr}">
+            <input type="submit" class="btn btn-dark text-light" />
+        </form>
+    </div>
+</div>
+
 <table class="table table-hover">
 <thead>
 <tr>
@@ -55,50 +71,7 @@
         </div>
     </div>
 </div>
-<h1 class="text-center m-3 p-3">Share your comments with other users about this state</h1>
 
-<div class="container bg-white text-center border border-dark rounded mt-5" sec:authorize="isAuthenticated()">
-
-<!--<div class="p-5 m-2 text-dark " th:each="postTopic: ${posts}" th:height="auto">-->
-    <!--<ul class="list-unstyled pagination" >-->
-        <!--<li class="media">-->
-            <!--<div class="media-body p-2">-->
-                <!--<img th:if="${postTopic.user.profile.uploadPath == null}" th:src="@{/img/defaultavatar.png}" alt="none" class="message-md-avatar" />-->
-                <!--<img th:if="${postTopic.user.profile.uploadPath}"  th:src="@{/uploads/} + ${postTopic.user.profile.uploadPath}"  class="message-md-avatar" />-->
-
-                <!--<p class="text-left" th:text="'Posted by: ' + ${postTopic.user.profile.firstName}"></p>-->
-                <!--<p class="text-left" th:text="'From: ' + ${postTopic.user.profile.userState}"></p>-->
-                <!--<p class="text-left" th:text="'State: '+${postTopic.state.id}"></p>-->
-                <!--<p class="text-left" th:text="'About: '+${postTopic.title}"></p>-->
-                <!--&lt;!&ndash;<input type="hidden" name="topic_id" th:value="${postTopic.id}">&ndash;&gt;-->
-
-                <!--<a th:href="@{~/topic/state/}+ ${postTopic.id}" class="btn btn-primary">View This Topic</a>-->
-                <!--<hr class="create-form" style="height: 10px"/>-->
-            <!--</div>-->
-
-            <!--<div class="col-3" sec:authorize="isAuthenticated()">-->
-                <!--&lt;!&ndash;<form class="form-group" th:action="@{~/topic/state/}+${postTopic.id}" method="get">&ndash;&gt;-->
-                    <!--&lt;!&ndash;<button type="submit" class="btn create-form" id="topicId" name="topicId">View more Here Now</button>&ndash;&gt;-->
-                    <!--&lt;!&ndash;&lt;!&ndash;<input type="hidden" name="state_id" th:value="${postTopic.state.id}" />&ndash;&gt;&ndash;&gt;-->
-                <!--&lt;!&ndash;</form>&ndash;&gt;-->
-            <!--</div>-->
-        <!--</li>-->
-    <!--</ul>-->
-<!--</div>-->
-    <div class="col-3" sec:authorize="isAuthenticated()">
-    <h1>Submit a new Topic</h1>
-    <form class="form-group" th:action="@{/posts/topic/add}" method="post">
-        <!--<input type="hidden" id="stateid" name="stateid" />-->
-
-        <input type="text" id="title" name="title">
-        <!--<input type="text" id="topicstring" name="topicstring">-->
-        <input type="hidden" id="state-abbr" name="state-abbr" th:value="${state.abbr}">
-
-        <br />
-        <input type="submit" class="btn btn-dark text-light" />
-    </form>
-    </div>
-</div>
 <div th:replace="partials/layout :: footer" />
 
 </body>
