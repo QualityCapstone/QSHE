@@ -36,7 +36,7 @@ public class MessageController {
        model.addAttribute("messages", messageDao.getMessages().findAllByRecipientAndSender(sender, user));
        model.addAttribute("recipient", sender);
 
-         return "/messages/view";
+         return "messages/view";
      }
 
 
@@ -45,7 +45,7 @@ public class MessageController {
        messageDao.findOne(id);
        messageDao.deleteMessage(id);
 
-         return "redirect: /messages";
+         return "redirect:/messages";
    }
 
 

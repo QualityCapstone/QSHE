@@ -53,10 +53,7 @@ body {
     color: #DC6F68;
 }
 
-.about-us {
-    height: auto;
-    /*box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.4);*/
-}
+
 .card-footer {
     background-color: none;
 }

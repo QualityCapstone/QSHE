@@ -95,7 +95,7 @@ blockquote::after {
     font-size: 2.5em;
 }
  blockquote p::before {
-     top: -58px;
+     top: -74px;
      left: 3px;
      color: #fff;
      content: '“';
@@ -225,6 +225,16 @@ background-size: cover;
 
 }
 
+.about-img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+
+    border: 2px solid pink;
+
+}
+
+
 .message-avatar {
     border: 2px solid pink;
     width: 25px;
@@ -327,7 +337,7 @@ background-size: cover;
     color: #fff;
     font-weight: bold;
     position: relative;
-    right: -45px;
+    right: -37px;
     bottom: -38px;
 
 }
@@ -392,6 +402,7 @@ nav .btn-secondary {
 
 .speech-bubble-right {
     position: relative;
+    color:white;
     background: #e10071;
     border-radius: .4em;
     width: calc(49% - 125px);
@@ -413,6 +424,7 @@ nav .btn-secondary {
     border-left-color: #e10071;
     border-right: 0;
     border-top: 0;
+    color: #fff;
     margin-top: -10px;
     margin-right: -20px;
 }
@@ -425,6 +437,8 @@ nav .btn-secondary {
     min-height: 60px;
     padding: 10px;
     margin-top: 20px;
+    color: #fff;
+
     margin-left: 20px;
     float: left;
 }
@@ -441,6 +455,7 @@ nav .btn-secondary {
     border-left: 0;
     border-top: 0;
     margin-top: -10px;
+
     margin-left: -20px;
 }
 
@@ -469,7 +484,7 @@ nav .btn-secondary {
     right: 2px;
     font-size:.65em;
     background:#d04d4d;
-    color:white;
+
     width:20px;height:20px;
     text-align:center;
     line-height:18px;
@@ -481,4 +496,9 @@ nav .btn-secondary {
 
 #state-profile h3 {
     color: #e65252;
+}
+
+.about-us {
+    min-height: calc(100vh - 200px);
+    min-width: 200px;
 }
