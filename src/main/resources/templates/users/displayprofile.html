@@ -41,7 +41,7 @@
 
                 <div class="card-title text-left pt-3">
                     <a class="pr-2 float-right" th:href="@{/editprofile}"><i class="fas fa-edit"></i> </a>
-                    <h3>Welcome <span th:text="${#authentication.principal.profile.firstName}"></span>!</h3>
+                    <h3>Welcome <span th:text="${user.profile.firstName}"></span>!</h3>
 
                     <hr>
                 </div>
@@ -57,17 +57,17 @@
                         <p>Have a wonderful Day!</p>
                         <div class="row">
                             <div class="profile-item">Your name:</div>
-                            <div class="profile-value"><span th:text="${#authentication.principal.profile.firstName} + ' ' + ${#authentication.principal.profile.lastName}"></span></div>
+                            <div class="profile-value"><span th:text="${user.profile.firstName} + ' ' + ${user.profile.lastName}"></span></div>
                         </div>
 
                         <div class="row">
                             <div class="profile-item">Your email:</div>
-                            <div class="profile-value"> <span th:text="${#authentication.principal.profile.email}"></span></div>
+                            <div class="profile-value"> <span th:text="${user.profile.email}"></span></div>
                         </div>
 
                         <div class="row">
                             <div class="profile-item">Your state:</div>
-                            <div class="profile-value"><span th:text="${#authentication.principal.profile.userState}"></span></div>
+                            <div class="profile-value"><span th:text="${user.profile.userState}"></span></div>
                         </div>
 
                     </div>
