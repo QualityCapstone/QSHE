@@ -17,16 +17,20 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.type.TypeFactory;
 import com.github.javafaker.Faker;
+import org.apache.tomcat.util.http.fileupload.FileUtils;
+import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
@@ -564,12 +568,14 @@ public class DataLoader implements ApplicationRunner {
 
             try {
 
+                ClassPathResource classPathResource = new ClassPathResource("static/img/avatars/" + i +".png");
+                File file= classPathResource.getFile();
+
                 System.out.println( i + " :  moving avatars");
-                File file = new File(avatarPath + "/" + i + ".png");
+                //     File file = new File(avatarPath + "/" + i + ".png");
 
-
-            String filename = UUID.randomUUID().toString() + ".png";
-            String filepath = Paths.get(uploadPath, filename).toString();
+               // String filename = UUID.randomUUID().toString() + ".png";
+                //  String filepath = Paths.get(uploadPath, filename).toString();
 
             Files.copy(file.toPath(), (new File(uploadPath + "/" + file.getName())).toPath(),
                     StandardCopyOption.REPLACE_EXISTING);
