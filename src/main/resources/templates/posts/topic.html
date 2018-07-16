@@ -51,7 +51,7 @@
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
-                                <form th:action="@{/messages/create}" method="post">
+                                <form th:action="@{/messages/create}" method="post" th:object="${post}">
                                     <div class="modal-body">
 
                                         <div class="form-group">
