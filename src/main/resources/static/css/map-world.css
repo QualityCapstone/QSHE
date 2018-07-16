@@ -26,3 +26,8 @@ footer {
 .btn-secondary:hover {
     background-color: transparent;
 }
+
+
+#state-go {
+ cursor: pointer;
+}

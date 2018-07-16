@@ -15,12 +15,11 @@
 
     <div>
         <div class="input-group mb-3">
-            <select class="custom-select" id="inputGroupSelect02">
-                <option  th:each="state : ${states}" th:text="${state.name}"> state name </option>
+            <select id="inputState" class="form-control ml-auto mr-3">
+                <option disabled selected>Select State...</option>
+                <option  th:each="state : ${states}" th:text="${state.name}" th:value="${state.abbr}"> state name </option>
             </select>
-            <div class="input-group-append">
-                <label class="input-group-text" for="inputGroupSelect02">Go</label>
-            </div>
+           <button class="state-btn btn btn-primary" data-selected-abbr="">Go To</button>
         </div>
 
     </div>

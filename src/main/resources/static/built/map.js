@@ -13106,6 +13106,39 @@ window.onload = function () {
         })();
     } // end of full map
 
+
+    if ($('#inputState').length > 0) {
+
+        $('#inputState').on('change', function () {
+
+            var currentAbbr = $('#state-tiny').attr("data-state-abbr");
+            var abbr = this.value;
+
+            $('.state-btn').attr('data-selected-abbr', abbr);
+        });
+
+        $('.state-btn').click(function () {
+
+            var selected = $(this).attr('data-selected-abbr');
+            var current = $(this).attr('data-current-abbr');
+
+            console.log(selected);
+            console.log(current);
+
+            if (current === undefined) {
+                console.log("this is go to button");
+                window.location = "/state/" + selected.toUpperCase();
+            } else {
+
+                if (selected === undefined) {
+                    console.log("nothing is selected");
+                    return;
+                }
+
+                window.location = "/state/compare/" + current.toUpperCase() + "/" + selected.toUpperCase();
+            }
+        });
+    }
 };
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(17)))
 
@@ -13838,7 +13871,7 @@ exports = module.exports = __webpack_require__(20)(false);
 
 
 // module
-exports.push([module.i, "body {\n    background-image: url(" + escape(__webpack_require__(194)) + ");\n    -webkit-background-size: cover;\n    background-size: cover;\n}\n\nfooter {\n    display: none;\n}\n.navbar {\n    z-index: 100;\n    background-color: transparent;\n}\n\n.navbar-dark, .bg-primary {\n    background-color: transparent !important;\n\n}\n\n\n.btn-secondary {\n    background-color: transparent;\n    border: 0;\n}\n\n.btn-secondary:hover {\n    background-color: transparent;\n}", ""]);
+exports.push([module.i, "body {\n    background-image: url(" + escape(__webpack_require__(194)) + ");\n    -webkit-background-size: cover;\n    background-size: cover;\n}\n\nfooter {\n    display: none;\n}\n.navbar {\n    z-index: 100;\n    background-color: transparent;\n}\n\n.navbar-dark, .bg-primary {\n    background-color: transparent !important;\n\n}\n\n\n.btn-secondary {\n    background-color: transparent;\n    border: 0;\n}\n\n.btn-secondary:hover {\n    background-color: transparent;\n}\n\n\n#state-go {\n cursor: pointer;\n}", ""]);
 
 // exports
 
