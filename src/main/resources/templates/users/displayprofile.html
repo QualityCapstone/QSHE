@@ -162,10 +162,10 @@
                         <th:block th:each="c : ${conversations}">
                             <tr class="conversation"  th:data-id="${c.id}">
                                 <td>
-                                 <img class="message-avatar" th:src="@{~/uploads/} + ${c.recipient.profile.uploadPath}">
+                                 <img class="message-avatar" th:src="@{~/uploads/} + ${c.sender.profile.uploadPath}">
                                 </td>
                                 <td>
-                                    <a th:href="@{~/messages/view/} + ${c.recipient.id}" th:text="${c.recipient.profile.name}"></a>
+                                    <a th:href="@{~/messages/view/} + ${c.sender.id}" th:text="${c.sender.profile.name}"></a>
                                 </td>
                                 <td>
                                     <span class="text-muted" th:text="${c.message} ">Since 05/01/2012</span>
