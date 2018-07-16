@@ -76,9 +76,9 @@
             <div class="col-md-8 m-auto">
                 <!--<h2>User ID <span th:text="${#authentication.principal.id}" /></h2>-->
                 <form th:action="@{/user/} + ${#authentication.principal.id} + @{/edit}" th:method="post" th:object="${user}" >
-                    <label for="username">Username</label>
-                        <input type="text" class="form-control" id="username" th:placeholder="${#authentication.principal.username}" th:field="*{username}"/>
-                    <br />
+                    <!--<label for="username">Username</label>-->
+                        <!--<input type="text" class="form-control" id="username" th:placeholder="${#authentication.principal.username}" th:field="*{username}"/>-->
+                    <!--<br />-->
                     <label for="firstName">First Name</label>
                         <input id="firstName" class="form-control"  type="text" th:placeholder="${#authentication.principal.profile.firstName}" th:field="*{profile.firstName}">
                     <br />
