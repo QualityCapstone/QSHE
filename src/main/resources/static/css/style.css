@@ -182,4 +182,7 @@ body .modal-open {
     background-color: #DC6F68;
 }
 
+.picture {
+    border-radius: 50%;
+}
 
