@@ -25,7 +25,7 @@ public class UserRatingController {
     private final UserService userDao;
     private StateService stateDao;
 
-
+ //change
     @Value("${flickr-key}")
     private String apiKey;
     @Value("${flickr-secret}")
