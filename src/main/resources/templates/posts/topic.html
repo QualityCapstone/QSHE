@@ -8,81 +8,56 @@
 <div th:replace="partials/layout :: navbar" />
 <span class="overlay"></span>
 <div th:replace="partials/layout :: navbar-profile" />
-<!--<div >-->
-    <!--<div class="row p-2">-->
-        <!--<div id="top-postTopic">-->
-            <!--<div class="spacer"></div>-->
 
-        <!--</div>-->
-    <!--</div>-->
-<!--</div>-->
 </div>
-<h1 class="text-center m-3 p-3">Share your comments with other users about your state</h1>
+
 
 <div class="container bg-white text-center border border-dark rounded mt-5" sec:authorize="isAuthenticated()">
-<div class="card-body outer">
 
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th></th>
+                <th class="sticky-top" >User</th>
+                <th class="sticky-top">From</th>
+                <th class="d-none d-sm-table-cell sticky-top">Post</th>
+            </tr>
+        </thead>
+        <tbody>
+        <th:block th:each="post: ${posts}" th:height="auto" >
+            <tr class="posts" th:data-id="${post.id}">
+                <td>
+                    <img th:if="${post.user.profile.uploadPath}"  th:src="@{/uploads/} + ${post.user.profile.uploadPath}"  class="message-md-avatar" />
 
-</div>
-    <div class="card-body outer">
-    <form class="card" th:action="@{/topic/state/}+${id}" method="post" th:object="${post}">
-        <input type="text" id="message" name="message" />
+                </td>
+                <td>
+                    <span th:text="${post.user.profile.firstName}" ></span>
+                </td>
+                <td>
+                    <span th:text="${post.user.profile.userState}" ></span>
+                </td>
+                <td>
+                    <span th:text="${post.message}" ></span>
+                </td>
+            </tr>
+            <tr>
+                <td> <form class="input-group" th:action="@{/messages/create}" method="post" th:object="${post}">
 
-        <button class="btn btn-primary">New Post</button>
-    </form>
-</div>
-    <br/>
-    <th:block class="card-body p-5 m-2 text-dark " th:each="post: ${posts}" th:height="auto">
-<div class="card-body card-border m-3 col-md-6 col-sm12" id="profile-user" >
-        <ul class="list-unstyled pagination" >
-            <li class="media">
-                <div class="card-body media-body p-2">
-    <div class="card-title text-left pt-3">
-        <h4>Topic: <span th:text="${post.topic.title}"></span></h4>
-        <hr>
-    </div>
-    <div class="card-body">
-
-            <img th:if="${post.user.profile.uploadPath == null}" th:src="@{/img/defaultavatar.png}" alt="none" class="message-md-avatar" />
-            <img th:if="${post.user.profile.uploadPath}"  th:src="@{/uploads/} + ${post.user.profile.uploadPath}"  class="message-md-avatar" />
-                    <p class="text-left" th:text="'Posted by: ' + ${post.user.profile.firstName}"></p>
-                    <!--<p class="text-left" th:text="'Topic: '+${post.topic.title}"></p>-->
-                    <p class="text-left" th:text="'From: ' + ${post.user.profile.userState}"></p>
-                    <p class="text-left" th:text="'Message: '+${post.message}"></p>
-                        <div class="input-group">
-                    <form class="input-group" th:action="@{/messages/create}" method="post" th:object="${post}">
-
-                        <input type="text" id="message" name="message" />
-                        <input class="form-control" type="hidden" id="recipient-id" name="recipient-id" th:value="${post.user.id}" />
+                    <input type="text" id="message" name="message" />
+                    <input class="form-control" type="hidden" id="recipient-id" name="recipient-id" th:value="${post.user.id}" />
 
                     <div class="input-group-append">
-                    <button class="form-control btn btn-primary input-group-append">Message this User</button>
-                    </div>
-                    </form>
-                        </div>
-
+                        <button class="form-control btn btn-primary input-group-append">Message this User</button>
                     </div>
                 </form>
+                </td>
+            </tr>
 
-                </div>
+            </th:block>
+        </tbody>
+    </table>
 
-            </li>
-        </ul>
-</div>
-        <hr>
-    </th:block>
-    <!--<div class="col-3" sec:authorize="isAuthenticated()">-->
-        <!--<h1>Submit a new postTopic</h1>-->
-        <!--<form class="form-group" th:action="@{/posts/topic/add}" method="post">-->
-            <!--&lt;!&ndash;<input type="hidden" id="stateid" name="stateid" />&ndash;&gt;-->
 
-            <!--<input type="text" id="title" name="title">-->
-            <!--<input type="hidden" id="state-abbr" name="state-abbr" th:value="${state.abbr}">-->
-
-            <!--<br />-->
-            <!--<input type="submit" class="btn btn-dark text-light" />-->
-        <!--</form>-->
-    <!--</div>-->
 </div>
 <div th:replace="partials/layout :: footer" />
 
