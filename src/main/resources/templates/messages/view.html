@@ -26,13 +26,13 @@
 
                 <div th:case="${#authentication.principal.username}">
                     <img class="message-md-avatar float-right" th:src="@{~/uploads/} + ${#authentication.principal.profile.uploadPath}">
-                    <div class="speech-bubble-right" th:text="${message.message}"></div>
+                    <h4><div class="speech-bubble-right" th:text="${message.message}"></div></h4>
 
 
                 </div>
                 <div th:case="*">
                     <img class="message-md-avatar float-left" th:src="@{~/uploads/} + ${recipient.profile.uploadPath}">
-                    <div class="speech-bubble-left" th:text="${message.message}"></div>
+                    <h4><div class="speech-bubble-left" th:text="${message.message}"></div></h4>
                 </div>
 
             </div>
