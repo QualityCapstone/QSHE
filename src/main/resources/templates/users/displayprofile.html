@@ -165,7 +165,15 @@
                                  <img class="message-avatar" th:src="@{~/uploads/} + ${c.sender.profile.uploadPath}">
                                 </td>
                                 <td>
-                                    <a th:href="@{~/messages/view/} + ${c.sender.id}" th:text="${c.sender.profile.name}"></a>
+                                    <th:block th:switch="c.sender.username">
+                                        <th:block th:case="${#authentication.principal.username}">
+                                            <a th:href="@{~/messages/view/} + ${c.sender.id}" th:text="${c.sender.profile.name}"></a>
+                                        </th:block>
+                                        <th:block th:case="*">
+                                            <a th:href="@{~/messages/view/} + ${c.recipient.id}" th:text="${c.recipient.profile.name}"></a>
+                                        </th:block>
+                                    </th:block>
+
                                 </td>
                                 <td>
                                     <span class="text-muted" th:text="${c.message} ">Since 05/01/2012</span>
