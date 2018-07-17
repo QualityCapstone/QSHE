@@ -33,7 +33,7 @@
         </tr>
         </thead>
         <tbody id="">
-        <th:block th:each="postTopic: ${posts}" th:height="auto">
+        <th:block th:each="postTopic: ${#numbers.sequence(posts.size() -1,0, -1)}" th:with="postTopic=${posts[postTopic]}" th:height="auto">
             <tr class="postTopics" th:data-id="${postTopic.id}">
                 <td>
                     <img th:if="${postTopic.user.profile.uploadPath}"  th:src="@{/uploads/} + ${postTopic.user.profile.uploadPath}"  class="message-md-avatar" />

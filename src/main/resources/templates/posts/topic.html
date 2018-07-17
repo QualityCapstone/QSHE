@@ -123,6 +123,13 @@
             </th:block>
         </tbody>
     </table>
+    <div class="card-body outer">
+        <form class="card" th:action="@{/topic/state/}+${id}" method="post" th:object="${post}">
+            <input type="text" id="message" name="message" />
+
+            <button class="btn btn-primary">New Post</button>
+        </form>
+    </div>
 
 
 </div>
