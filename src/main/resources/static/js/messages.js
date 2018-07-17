@@ -45,3 +45,14 @@ $('#topic-new').click(function(e){
     $('#title').addClass('animated bounceInRight');
 
 });
+
+
+
+// MODAL
+
+    $('.message-modal-bnt').on('click', function (event) {
+        console.log($(this).attr("data-recipient-id"));
+        $('#recipient-name').text($(this).attr("data-recipient-name"));
+        $('#recipient-id').val($(this).attr("data-recipient-id"));
+    })
+
