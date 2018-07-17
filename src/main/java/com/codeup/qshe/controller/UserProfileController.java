@@ -89,14 +89,13 @@ public class UserProfileController {
         }
 
 
-        model.addAttribute("conversations", messageDao.getMessages().findDistinctBySenderOrRecipientOrderByIdAsc(user, user));
+        model.addAttribute("conversations", messageDao.getConversations(user));
 
         String userstate = user.getProfile().getUserState();
         State state = stateDao.getStates().findByName(userstate);
 
         FlickrService f = new FlickrService(apiKey, sharedSecret);
         model.addAttribute("photo", f.getPhoto(state.getName()));
-
 
         model.addAttribute("unreadCount", messageDao.getMessages().getUnreadCount(user));
 

@@ -159,16 +159,24 @@
 
                         <th:block th:each="c : ${conversations}">
                             <tr class="conversation"  th:data-id="${c.id}">
-                                <td>
-                                 <img class="message-avatar" th:src="@{~/uploads/} + ${c.sender.profile.uploadPath}">
-                                </td>
-                                <td>
-                                    <th:block th:switch="c.sender.username">
-                                        <th:block th:case="${#authentication.principal.username}">
-                                            <a th:href="@{~/messages/view/} + ${c.sender.id}" th:text="${c.sender.profile.name}"></a>
-                                        </th:block>
-                                        <th:block th:case="*">
-                                            <a th:href="@{~/messages/view/} + ${c.recipient.id}" th:text="${c.recipient.profile.name}"></a>
+
+                                <th:block th:switch="${c.sender.id}">
+
+                                    <!--THIS IS FROM ME I SENT IT -->
+                                    <th:block th:case="${user.id}">
+                                        <td>
+                                         <img class="message-avatar" th:src="@{~/uploads/} + ${c.recipient.profile.uploadPath}">
+                                        </td>
+                                        <td>
+                                            <a th:href="@{~/messages/view/} + ${c.recipient.id}" th:text="${c.recipient.profile.firstName}"></a>
+                                    </th:block>
+
+                                    <th:block th:case="*">
+                                        <td>
+                                            <img class="message-avatar" th:src="@{~/uploads/} + ${c.sender.profile.uploadPath}">
+                                        </td>
+                                        <td>
+                                            <a th:href="@{~/messages/view/} + ${c.sender.id}" th:text="${c.sender.profile.firstName}"></a>
                                         </th:block>
                                     </th:block>
 

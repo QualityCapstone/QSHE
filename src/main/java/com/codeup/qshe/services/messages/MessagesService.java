@@ -8,6 +8,8 @@ import com.codeup.qshe.services.user.UserService;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 @Service
@@ -40,6 +42,34 @@ public class MessagesService {
         return message;
     }
 
+
+    public List<Message> getConversations(User user) {
+
+        List<Message> messages = getMessages().findAllByRecipientOrSenderOrderByCreatedAtDesc(user, user);
+        HashMap<User, Message> convos = new HashMap<>();
+
+        for(Message message : messages) {
+                  // FROM ME TO YOU
+                if(message.getSender() == user) {
+                    convos.put(message.getRecipient(), message);
+                }
+
+                //FROM YOU to ME
+                if(message.getRecipient() == user) {
+                    convos.put(message.getSender(), message);
+                }
+
+            }
+
+
+            List<Message> convosList = new ArrayList<>();
+        for (Message value : convos.values()) {
+            convosList.add(value);
+        }
+
+        return convosList;
+
+    }
 
     public Messages getMessages() {
         return messages;

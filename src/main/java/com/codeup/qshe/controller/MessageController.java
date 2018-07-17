@@ -53,10 +53,11 @@ public class MessageController {
     public String create(@RequestParam(name = "recipient-id") String sentToId,
                          @RequestParam(name = "message") String userInput, Model model){
 
-
          User user = userDao.getLoggedInUser();
+         User copy = new User(user);
+
          User recipient = userDao.getUsers().findById(Long.parseLong(sentToId)).get();
-         Message message = new Message(user, recipient, userInput);
+         Message message = new Message(copy, recipient, userInput);
          messageDao.save(message);
          model.addAttribute("recipient", recipient);
 
