@@ -126,6 +126,21 @@
 
 </div>
 <div th:replace="partials/layout :: footer" />
+<script type="text/javascript">
+
+    $('#exampleModal').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget) // Button that triggered the modal
+
+        var modal = $(this);
+
+        console.log("yo");
+        console.log(button.attr("data-recipient-id"));
+
+        $('#recipient-name').text(button.attr("data-recipient-name"));
+        $('#recipient-id').val(button.attr("data-recipient-id"));
+    })
+
+</script>
 
 </body>
 </html>
