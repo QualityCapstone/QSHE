@@ -15,12 +15,12 @@
 <div class="container bg-white text-center border border-dark rounded mt-5" sec:authorize="isAuthenticated()">
 
     <table class="table table-hover">
-        <thead>
+        <thead><h4><span th:text="'Topic: ' +${topic.title}"></span></h4>
             <tr>
-                <th ><span th:text="${topic.title}"></span></th>
-                <th class="sticky-top" >User</th>
-                <th class="sticky-top">From</th>
-                <th class="d-none d-sm-table-cell sticky-top">Post</th>
+                <th ></th>
+                <th  >User</th>
+                <th >From</th>
+                <th class="d-none d-sm-table-cell ">Post</th>
             </tr>
         </thead>
         <th:block th:each="post: ${posts}" th:height="auto" >
