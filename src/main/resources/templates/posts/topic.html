@@ -32,7 +32,8 @@
                 </td>
                 <td>
                     <span th:text="${post.user.profile.firstName}" ></span>
-                    <button type="button" th:data-recipient-id="${post.user.id}" th:data-recipient-name="${post.user.username}" class="btn btn-secondary" data-toggle="modal" data-target="#exampleModal">Send message</button>
+
+                    <a type="button" th:data-recipient-id="${post.user.id}" th:data-recipient-name="${post.user.username}" class="btn btn-secondary" data-toggle="modal" data-target="#exampleModal"><i class="fas fa-envelope"></i></a>
                     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
