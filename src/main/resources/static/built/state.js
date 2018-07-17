@@ -5761,7 +5761,11 @@ var InterfaceColorSet = /** @class */ (function (_super) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__SpriteEvents__ = __webpack_require__(119);
 /* unused harmony reexport SpriteEventDispatcher */
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Base__ = __webpack_require__(14);
+<<<<<<< HEAD
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__utils_Adapter__ = __webpack_require__(18);
+=======
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__utils_Adapter__ = __webpack_require__(19);
+>>>>>>> 074bdb18a76694edec17a622dc16605aebb35ef1
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__utils_Dictionary__ = __webpack_require__(16);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__utils_List__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__utils_Disposer__ = __webpack_require__(11);
@@ -13508,7 +13512,11 @@ function copyAllProperties(from, to) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__utils_Dictionary__ = __webpack_require__(16);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__utils_Disposer__ = __webpack_require__(11);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__utils_EventDispatcher__ = __webpack_require__(30);
+<<<<<<< HEAD
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__utils_Adapter__ = __webpack_require__(18);
+=======
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__utils_Adapter__ = __webpack_require__(19);
+>>>>>>> 074bdb18a76694edec17a622dc16605aebb35ef1
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__utils_Color__ = __webpack_require__(15);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__utils_Percent__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__Registry__ = __webpack_require__(0);
@@ -26871,10 +26879,928 @@ module.exports = function (css) {
     throw new Error("fixUrls requires window.location");
   }
 
+<<<<<<< HEAD
+/***/ }),
+/* 18 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return GlobalAdapter; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return globalAdapter; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Adapter; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__SortedList__ = __webpack_require__(70);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Number__ = __webpack_require__(55);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Order__ = __webpack_require__(71);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__utils_Iterator__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__utils_Array__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__utils_Type__ = __webpack_require__(1);
+/**
+ * An Adapter can be used to apply chained synchronous transformations to any
+ * value at runtime.
+ *
+ * Each type class using Adapters must have `adapters` property and adapter
+ * interface defined.
+ *
+ * Adapters can be used to allow external code to apply transformations to any
+ * value at any time.
+ *
+ * For example we have a Weather class which has a method `now()` which returns
+ * current temperature.
+ *
+ * ```
+ * function now() {
+ *   // ... calculate temperature
+ *   let temp = "Temperature now is " + degrees + "F";
+ *   return temp;
+ * }
+ * ```
+ *
+ * Now, supposed we want to let other classes to modify the output of the
+ * `now()`? We just apply an adapter to the `temp` before it is returned:
+ *
+ * ```
+ * temp = this.adapters.apply("now", {
+ *   temp: temp,
+ *   degrees: degrees
+ * }).temp;
+ * ```
+ *
+ * Some other class might tap onto it by defining an Adapter that calculates
+ * the temperature in Celsius:
+ *
+ * weather.adapters.add("now", (arg) => {
+ *   arg.temp += "(" + farenheitToCelsius(arg.degrees) + "C)";
+ *   return arh;
+ * });
+ *
+ * Furthermore some time-related class could add time:
+ *
+ * weather.adapters.add("now", (arg) => {
+ *   arg.temp += "; the time now is " + (new Date().toLocaleString());
+ *   return arh;
+ * });
+ *
+ * So without adapters we would get output like this:
+ *
+ * ```
+ * Temperature now is 90F
+ * ```
+ *
+ * With adapters applied we now have:
+ *
+ * ```
+ * Temperature now is 90F (32C); the time now is 12/11/2012, 7:00:00 PM
+ * ```
+ */
+/**
+ * ============================================================================
+ * IMPORTS
+ * ============================================================================
+ * @hidden
+ */
+
+
+
+
+
+
+/**
+ * ============================================================================
+ * GLOBAL ADAPTER
+ * ============================================================================
+ * @hidden
+ */
+/**
+ * A global adapter is an adpater that is attached to a class type rather than
+ * specific object instance.
+ *
+ * @ignore Exclude from docs
+ */
+var GlobalAdapter = /** @class */ (function () {
+    function GlobalAdapter() {
+        /**
+         * Callback id iterator.
+         *
+         * @type {number}
+         */
+        this._callbackId = 0;
+        /**
+         * A list of if callbacks (adapters).
+         *
+         */
+        this._callbacks = new __WEBPACK_IMPORTED_MODULE_0__SortedList__["c" /* SortedList */](function (left, right) {
+            return __WEBPACK_IMPORTED_MODULE_2__Order__["a" /* or */](__WEBPACK_IMPORTED_MODULE_1__Number__["order"](left.priority, right.priority), __WEBPACK_IMPORTED_MODULE_1__Number__["order"](left.id, right.id));
+        });
+    }
+    /**
+     * Adds a global callback which is not specific to any particular object.
+     * Whenever an adapter in any object of the specific class type is invoked
+     * global adapters will kick in.
+     *
+     * @param {any}         type      Class type
+     * @param {any}         key       Adapter key
+     * @param {any}         callback  Callback function
+     * @param {number = 0}  priority  Priority (higher priority meaning adapter will be applied later)
+     * @param {any}         scope     Callback function scaope
+     */
+    GlobalAdapter.prototype.addAll = function (type, key, callback, priority, scope) {
+        if (priority === void 0) { priority = 0; }
+        this._callbacks.insert({
+            id: ++this._callbackId,
+            key: key,
+            callback: callback,
+            priority: priority,
+            scope: scope,
+            type: type
+        });
+    };
+    /**
+     * Returns if there are adapters for specific type available.
+     *
+     * @param  {Target}   type  Adapter type
+     * @param  {Key}      key   Adapter key
+     * @return {boolean}
+     */
+    GlobalAdapter.prototype.isEnabled = function (type, key) {
+        // TODO check the type and key
+        return this._callbacks.length > 0;
+    };
+    /**
+     * Applies global adapters for the object of the specific type.
+     *
+     * @param {any}  type   Class type
+     * @param {any}  key    Adapter key
+     * @param {any}  value  Value
+     */
+    GlobalAdapter.prototype.applyAll = function (type, key, value) {
+        // This is needed to improve the performance and reduce garbage collection
+        var callbacks = this._callbacks.values;
+        var length = callbacks.length;
+        // Cycle through all callbacks and find the ones we need to use
+        for (var i = 0; i < length; ++i) {
+            var item = callbacks[i];
+            if (item.key === key && type instanceof item.type) {
+                value = item.callback.call(item.scope, value, type, key);
+            }
+        }
+        return value;
+    };
+    return GlobalAdapter;
+}());
+
+/**
+ * A global Adapter for plugins that want to add specific
+ * functionality for any chart, not just specific instance.
+ *
+ * If you want to add an adapter which applies to all instances of the same
+ * object type, like, for instance all slices in PieSeries, you can use
+ * global adapter.
+ *
+ * Global adapter is a system-wide instance, accessible via `globalAdapter`.
+ *
+ * ```TypeScript
+ * am4core.globalAdapter.addAll<am4charts.IPieSeriesAdapters, am4charts.PieSeries, "fill">(am4charts.PieSeries, "fill", (value, target, key) => {
+ *   return am4core.color("#005500");
+ * });
+ * ```
+ * ```JavaScript
+ * am4core.globalAdapter.addAll(am4charts.PieSeries, "fill", (value, target, key) => {
+ *   return am4core.color("#005500");
+ * });
+ * ```
+ *
+ * @todo Description (improve)
+ */
+var globalAdapter = new GlobalAdapter();
+/**
+ * ============================================================================
+ * REGULAR ADAPTER
+ * ============================================================================
+ * @hidden
+ */
+/**
+ * Adapter allows adding ordered callback functions and associating them with a
+ * string-based key. An Adapter user can then easily invoke those callbacks to
+ * apply custom functions on its input, output or intermediate values.
+ *
+ * Custom code and plugins can add their own callbacks to modify and enhance
+ * core functionality.
+ *
+ * See the description of `add()` for an example.
+ *
+ * Almost any object in amCharts4 has own adapter, accessible with `adapter`
+ * property.
+ *
+ * Any adapters added to it will be applied to that object only.
+ *
+ * ### Global Adapters
+ *
+ * If you want to add an adapter which applies to all instances of the same
+ * object type, like, for instance all slices in PieSeries, you can use
+ * global adapter.
+ *
+ * Global adapter is a system-wide instance, accessible via `globalAdapter`.
+ *
+ * ```TypeScript
+ * am4core.globalAdapter.addAll<am4charts.IPieSeriesAdapters, am4charts.PieSeries, "fill">(am4charts.PieSeries. "fill", (value, target, key) => {
+ *   return am4core.color("#005500");
+ * });
+ * ```
+ * ```JavaScript
+ * am4core.globalAdapter.addAll(am4charts.PieSeries. "fill", (value, target, key) => {
+ *   return am4core.color("#005500");
+ * });
+ * ```
+ *
+ * {@link https://www.amcharts.com/docs/v4/reference/adapter_module/#globalAdapter_property More info}.
+ *
+ * @important
+ */
+var Adapter = /** @class */ (function () {
+    /**
+     * Constructor, sets the object referece this Adapter should be used for.
+     *
+     * @param {T} c Object
+     */
+    function Adapter(c) {
+        /**
+         * Internal counter for callback ids.
+         *
+         * @type {number}
+         */
+        this._callbackId = 0;
+        /**
+         * A list of adapter callbacks.
+         *
+         * @param {[type]} $number.order(left.priority, right.priority) [description]
+         * @param {[type]} $number.order(left.id,       right.id));	}  [description]
+         */
+        this._callbacks = new __WEBPACK_IMPORTED_MODULE_0__SortedList__["c" /* SortedList */](function (left, right) {
+            return __WEBPACK_IMPORTED_MODULE_2__Order__["a" /* or */](__WEBPACK_IMPORTED_MODULE_1__Number__["order"](left.priority, right.priority), __WEBPACK_IMPORTED_MODULE_1__Number__["order"](left.id, right.id));
+        });
+        this.object = c;
+        // TODO this exposes the internal events
+        this.events = this._callbacks.events;
+    }
+    /**
+     * Adds a callback for a specific key.
+     *
+     * ```TypeScript
+     * // Override fill color value and make all slices green
+     * chart.series.template.adapter.add("fill", (value, target, key) => {
+     *   return am4core.color("#005500");
+     * });
+     * ```
+     * ```JavaScript
+     * // Override fill color value and make all slices green
+     * chart.series.template.adapter.add("fill", function(value, target, key) {
+     *   return am4core.color("#005500");
+     * });
+     * ```
+     * ```JSON
+     * {
+     *   // ...
+     *   "series": [{
+     *     // ...
+     *     "adapter": {
+     *     	// Override fill color value and make all slices green
+     *     	"fill": function(value, target, key) {
+     *     	  return am4core.color("#005500");
+     *     	}
+     *     }
+     *   }]
+     * }
+     * ```
+     *
+     * The above will call user-defined function (adapter) whenever `fill` value
+     * is requested from the Pie series, allowing it to override the default
+     * using custom code and any fuzzy logic.
+     *
+     * There can be any number of adapters set on one property key.
+     *
+     * In this case adapters will be applied in daisy-chain fashion. The first
+     * adapter in queue will make its transformation. The next one will have
+     * the output of the first adapter as a starting value, etc.
+     *
+     * The order of the adapters are determined either by the order they were
+     * added in, or their `priority` value.
+     *
+     * The heigher the `priority`, the later in the game adapter will be applied.
+     *
+     * @param {string}         key       Key
+     * @param {any[]) => any}  callback  A callback function
+     * @param {number}         priority  The higher priority, the more chance the adapter will be applied last
+     * @param {any}            scope     Scope for the callback function
+     */
+    Adapter.prototype.add = function (key, callback, priority, scope) {
+        if (priority === void 0) { priority = 0; }
+        this._callbacks.insert({
+            id: ++this._callbackId,
+            key: key,
+            callback: callback,
+            priority: priority,
+            scope: scope
+        });
+    };
+    /**
+     * Checks whether specific adapter is already set.
+     *
+     * @param   {string}         key       Key
+     * @param   {any[]) => any}  callback  A callback function
+     * @param   {number}         priority  The higher priority, the more chance the adapter will be applied last
+     * @param   {any}            scope     Scope for the callback function
+     * @returns                            Adapter set?
+     */
+    Adapter.prototype.has = function (key, callback, priority, scope) {
+        if (priority === void 0) { priority = 0; }
+        // @todo Implement actual check
+        return false;
+    };
+    /**
+     * Removes adapter callbacks for the specific `key`.
+     *
+     * If `priority` is specified, only callbacks for that priority are removed.
+     *
+     * @param {string} key      Key
+     * @param {number} priority Priority
+     * @todo Implement
+     */
+    Adapter.prototype.remove = function (key, priority) {
+        var _this = this;
+        // It has to make a copy because it removes the elements while iterating
+        // TODO inefficient
+        __WEBPACK_IMPORTED_MODULE_4__utils_Array__["c" /* each */](__WEBPACK_IMPORTED_MODULE_3__utils_Iterator__["toArray"](this._callbacks.iterator()), function (item) {
+            // TODO test this
+            if (item.key === key && (!__WEBPACK_IMPORTED_MODULE_5__utils_Type__["isNumber"](priority) || priority === item.priority)) {
+                _this._callbacks.remove(item);
+            }
+        });
+    };
+    /**
+     * Returns if there are any adapters set for the specific `key`.
+     *
+     * @returns {boolean} Are there any adapters for the key?
+     */
+    Adapter.prototype.isEnabled = function (key) {
+        // TODO check the key
+        return this._callbacks.length > 0 || globalAdapter.isEnabled(this.object, key);
+    };
+    /**
+     * Passes the input value through all the callbacks for the defined `key`.
+     *
+     * @param  {string}  key      Key
+     * @param  {any}     value    Input value
+     * @param  {any[]}   ...rest  Rest of the parameters to be passed into callback
+     * @return {any}              Output value
+     */
+    Adapter.prototype.apply = function (key, value) {
+        // This is needed to improve the performance and reduce garbage collection
+        var callbacks = this._callbacks.values;
+        var length = callbacks.length;
+        for (var i = 0; i < length; ++i) {
+            var item = callbacks[i];
+            if (item.key === key) {
+                value = item.callback.call(item.scope, value, this.object, key);
+            }
+        }
+        // Apply global adapters
+        value = globalAdapter.applyAll(this.object, key, value);
+        return value;
+    };
+    /**
+     * Returns all adapter keys that are currently in effect.
+     *
+     * @return {string[]} Adapter keys
+     */
+    Adapter.prototype.keys = function () {
+        // TODO inefficient
+        return __WEBPACK_IMPORTED_MODULE_3__utils_Iterator__["toArray"](__WEBPACK_IMPORTED_MODULE_3__utils_Iterator__["map"](this._callbacks.iterator(), function (x) { return x.key; }));
+    };
+    /**
+     * Copies all the adapter callbacks from `source`.
+     *
+     * @param {Adapter<Target, T>}  source  An Adapter to copy items from
+     */
+    Adapter.prototype.copyFrom = function (source) {
+        var _this = this;
+        __WEBPACK_IMPORTED_MODULE_3__utils_Iterator__["each"](source._callbacks.iterator(), function (x) {
+            _this.add(x.key, x.callback, x.priority, x.scope);
+        });
+    };
+    return Adapter;
+}());
+
+//# sourceMappingURL=Adapter.js.map
+
+/***/ }),
+/* 19 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return SVGNS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return XMLNS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return XLINK; });
+/* harmony export (immutable) */ __webpack_exports__["g"] = addEventListener;
+/* harmony export (immutable) */ __webpack_exports__["m"] = getElement;
+/* harmony export (immutable) */ __webpack_exports__["f"] = addClass;
+/* harmony export (immutable) */ __webpack_exports__["q"] = removeClass;
+/* harmony export (immutable) */ __webpack_exports__["r"] = setStyle;
+/* harmony export (immutable) */ __webpack_exports__["h"] = blur;
+/* harmony export (immutable) */ __webpack_exports__["l"] = focus;
+/* harmony export (immutable) */ __webpack_exports__["o"] = outerHTML;
+/* harmony export (immutable) */ __webpack_exports__["n"] = isElement;
+/* harmony export (immutable) */ __webpack_exports__["i"] = contains;
+/* harmony export (immutable) */ __webpack_exports__["j"] = copyAttributes;
+/* harmony export (immutable) */ __webpack_exports__["k"] = fixPixelPerfect;
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return StyleRule; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return StyleClass; });
+/* harmony export (immutable) */ __webpack_exports__["p"] = ready;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Disposer__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__AsyncPending__ = __webpack_require__(41);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Object__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Array__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__Type__ = __webpack_require__(1);
+/**
+ * A collection of DOM-related functions.
+ */
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+/**
+ * ============================================================================
+ * IMPORTS
+ * ============================================================================
+ * @hidden
+ */
+
+
+
+
+
+/**
+ * SVG namespace.
+ *
+ * @ignore Exclude from docs
+ * @type {string}
+ */
+var SVGNS = "http://www.w3.org/2000/svg";
+/**
+ * XML namespace.
+ *
+ * @ignore Exclude from docs
+ * @type {string}
+ */
+var XMLNS = "http://www.w3.org/2000/xmlns/";
+/**
+ * XLINK namespace.
+ *
+ * @ignore Exclude from docs
+ * @type {string}
+ */
+var XLINK = "http://www.w3.org/1999/xlink";
+/**
+ * Function that adds a disposable event listener directly to a DOM element.
+ *
+ * @ignore Exclude from docs
+ * @param {EventTarget}   dom       A DOM element to add event to
+ * @param {string}        type      Event type
+ * @param {Function}      listener  Event listener
+ * @returns {IDisposer}             Disposable event
+ */
+function addEventListener(dom, type, listener, options) {
+    //@todo proper type check for options: EventListenerOptions | boolean (TS for some reason gives error on passive parameter)
+    //console.log(type, dom);
+    dom.addEventListener(type, listener, options || false);
+    return new __WEBPACK_IMPORTED_MODULE_0__Disposer__["b" /* Disposer */](function () {
+        dom.removeEventListener(type, listener, options || false);
+    });
+}
+/**
+ * Finds and returns an element reference using following logic:
+ * * If we pass in an element instance, we just return it back.
+ * * If we pass in a string, the function looks for an element with such id.
+ * * If no element with such id is found, we grab the first element with a tag name like this.
+ *
+ * @ignore Exclude from docs
+ * @param  {Optional<HTMLElement | string>}  el  Element definition (reference, or id, or tag name)
+ * @return {Optional<HTMLElement>}               Element reference
+ * @todo Review this function as it seems pretty fuzzy and hacky
+ */
+function getElement(el) {
+    if (__WEBPACK_IMPORTED_MODULE_4__Type__["isString"](el)) {
+        var e = document.getElementById(el);
+        if (e == null) {
+            e = document.getElementsByClassName(el)[0];
+        }
+        if (e instanceof HTMLElement) {
+            return e;
+        }
+    }
+    else if (el instanceof HTMLElement) {
+        return el;
+    }
+}
+/**
+ * Adds a class name to an HTML or SVG element.
+ *
+ * @ignore Exclude from docs
+ * @param {HTMLElement | SVGSVGElement}  element    Element
+ * @param {string}                       className  Class name to add
+ */
+function addClass(element, className) {
+    if (element.classList) {
+        element.classList.add(className);
+    }
+    else {
+        var currentClassName = element.getAttribute("class");
+        if (currentClassName) {
+            element.setAttribute("class", currentClassName.split(" ").filter(function (item) {
+                return item !== className;
+            }).join(" ") + " " + className);
+        }
+        else {
+            element.setAttribute("class", className);
+        }
+        //element.className = element.className.replace(new RegExp("^" + className + "| " + className), "") + " " + className;
+    }
+}
+/**
+ * Removes a class name from an HTML or SVG element.
+ *
+ * @ignore Exclude from docs
+ * @param {HTMLElement | SVGSVGElement}  element    Element
+ * @param {string}                       className  Class name to add
+ */
+function removeClass(element, className) {
+    if (element.classList) {
+        element.classList.remove(className);
+    }
+    else {
+        var currentClassName = element.getAttribute("class");
+        if (currentClassName) {
+            element.setAttribute("class", currentClassName.split(" ").filter(function (item) {
+                return item !== className;
+            }).join(" "));
+        }
+        //element.className = element.className.replace(new RegExp("^" + className + "| " + className), "");
+    }
+}
+/**
+ * Sets style property on DOM element.
+ *
+ * @ignore Exclude from docs
+ * @todo Still needed?
+ */
+function setStyle(element, property, value) {
+    element.style[property] = value;
+}
+/**
+ * Removes focus from any element by shifting focus to body.
+ *
+ * @ignore Exclude from docs
+ */
+function blur() {
+    var input = document.createElement("input");
+    input.style.position = "fixed";
+    input.style.top = "0px";
+    input.style.left = "-10000px";
+    document.body.appendChild(input);
+    input.focus();
+    input.blur();
+    document.body.removeChild(input);
+}
+/**
+ * Tries to focus the element.
+ *
+ * @ignore Exlude from docs
+ * @param {HTMLElement | SVGSVGElement}  element  Element to focus
+ */
+function focus(element) {
+    if (element instanceof HTMLElement) {
+        element.focus();
+    }
+    else {
+        var input = document.createElement("input");
+        var fo = document.createElementNS(SVGNS, "foreignObject");
+        fo.appendChild(input);
+        element.appendChild(fo);
+        input.focus();
+        input.disabled = true;
+        fo.remove();
+    }
+    /*if ((<any>element).focus != undefined) {
+        (<any>element).focus();
+    }
+    else if (element instanceof SVGSVGElement) {
+        // Not implemented
+        // @todo implement focus fallback
+    }*/
+}
+/**
+ * Returns markup for the element including the element tag itself.
+ * SVG elements do not support `outerHTML` so this functions applies of
+ * a workaround which creates a new temporary wrapper, clones element and uses
+ * wrapper's `innerHTML`.
+ *
+ * @ignore Exclude from docs
+ * @param  {HTMLElement | SVGSVGElement}  element  Element to get full markup for
+ * @return {string}                                Markup
+ * @deprecated Not in use anywhere
+ */
+function outerHTML(element) {
+    if (element.outerHTML) {
+        return element.outerHTML;
+    }
+    else {
+        var twrap = document.createElement("div");
+        var tnode = element.cloneNode(true);
+        twrap.appendChild(tnode);
+        var content = twrap.innerHTML;
+        return content;
+    }
+}
+/**
+ * Checks if element is a valid DOM node.
+ *
+ * @ignore Exclude from docs
+ * @param  {HTMLElement}  el  Element
+ * @return {boolean}          `true` if element is a valid DOM node
+ */
+function isElement(el) {
+    return el instanceof Object && el && el.nodeType === 1;
+}
+/**
+ * Checks of element `a` contains element `b`.
+ *
+ * @param  {HTMLElement | SVGSVGElement}  a  Aleged ascendant
+ * @param  {HTMLElement | SVGSVGElement}  b  Aleged descendant
+ * @return {boolean}                         Contains?
+ */
+function contains(a, b) {
+    return a !== b && (a.contains
+        ? a.contains(b)
+        : a.compareDocumentPosition
+            ? !!(a.compareDocumentPosition(b) & 16)
+            : true);
+}
+/**
+ * Copies attributes from one element to another.
+ *
+ * @ignore Exclude from docs
+ * @param {Element | HTMLElement |  SVGSVGElement}  source  Element to copy attributes from
+ * @param {HTMLElement | SVGSVGElement}          target  Element to copy attributes to
+ */
+function copyAttributes(source, target) {
+    for (var attr in source.attributes) {
+        var value = source.attributes[attr].nodeValue;
+        // TODO what if it's null ?
+        if (value != null) {
+            target.setAttribute(source.attributes[attr].nodeName, value);
+        }
+    }
+}
+/**
+ * [fixPixelPerfect description]
+ *
+ * @ignore Exclude from docs
+ * @todo Description
+ * @param {HTMLElement}  el  Element
+ */
+function fixPixelPerfect(el) {
+    Object(__WEBPACK_IMPORTED_MODULE_1__AsyncPending__["c" /* readFrame */])(function () {
+        // sometimes IE doesn't like this
+        // TODO figure out a way to remove this
+        try {
+            var rect = el.getBoundingClientRect();
+            var left_1 = rect.left - Math.round(rect.left);
+            var top_1 = rect.top - Math.round(rect.top);
+            if (left_1 !== 0) {
+                Object(__WEBPACK_IMPORTED_MODULE_1__AsyncPending__["f" /* writeFrame */])(function () {
+                    el.style.left = left_1 + "px";
+                });
+            }
+            if (top_1 !== 0) {
+                Object(__WEBPACK_IMPORTED_MODULE_1__AsyncPending__["f" /* writeFrame */])(function () {
+                    el.style.top = top_1 + "px";
+                });
+            }
+        }
+        catch (e) { }
+    });
+}
+/**
+ * [rootStylesheet description]
+ *
+ * @ignore Exclude from docs
+ * @todo Description
+ * @type {Optional<CSSStyleSheet>}
+ */
+var rootStylesheet;
+/**
+ * [getStylesheet description]
+ *
+ * @ignore Exclude from docs
+ * @todo Description
+ * @return {CSSStyleSheet} [description]
+ */
+function getStylesheet() {
+    if (!__WEBPACK_IMPORTED_MODULE_4__Type__["hasValue"](rootStylesheet)) {
+        // TODO use createElementNS ?
+        var e = document.createElement("style");
+        e.type = "text/css";
+        document.head.appendChild(e);
+        rootStylesheet = e.sheet;
+    }
+    return rootStylesheet;
+}
+/**
+ * [makeStylesheet description]
+ *
+ * @ignore Exclude from docs
+ * @todo Description
+ * @param  {string}        selector  [description]
+ * @return {CSSStyleRule}            [description]
+ */
+function makeStylesheet(selector) {
+    var root = getStylesheet();
+    var index = root.cssRules.length;
+    root.insertRule(selector + "{}", index);
+    return root.cssRules[index];
+}
+/**
+ * Defines a class for a CSS rule.
+ *
+ * Can be used to dynamically add CSS to the document.
+ */
+var StyleRule = /** @class */ (function (_super) {
+    __extends(StyleRule, _super);
+    /**
+     * Constructor.
+     *
+     * @param {string}  selector  CSS selector
+     * @param {object}  styles    An object of style attribute - value pairs
+     */
+    function StyleRule(selector, styles) {
+        var _this = 
+        // TODO test this
+        _super.call(this, function () {
+            var root = getStylesheet();
+            // TODO a bit hacky
+            var index = __WEBPACK_IMPORTED_MODULE_3__Array__["g" /* indexOf */](root.cssRules, _this._rule);
+            if (index === -1) {
+                throw new Error("Could not dispose StyleRule");
+            }
+            else {
+                root.deleteRule(index);
+            }
+        }) || this;
+        _this._rule = makeStylesheet(selector);
+        __WEBPACK_IMPORTED_MODULE_2__Object__["each"](styles, function (key, value) {
+            _this.setStyle(key, value);
+        });
+        return _this;
+    }
+    Object.defineProperty(StyleRule.prototype, "selector", {
+        /**
+         * @return {string} CSS selector
+         */
+        get: function () {
+            return this._rule.selectorText;
+        },
+        /**
+         * A CSS selector text.
+         *
+         * E.g.: `.myClass p`
+         *
+         * @param {string}  selector  CSS selector
+         */
+        set: function (selector) {
+            this._rule.selectorText = selector;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    /**
+     * Sets the same style properties with browser-speicifc prefixes.
+     *
+     * @param {string}  name   Attribute name
+     * @param {string}  value  Attribute value
+     */
+    StyleRule.prototype._setVendorPrefixName = function (name, value) {
+        var style = this._rule.style;
+        style.setProperty("-webkit-" + name, value, "");
+        style.setProperty("-moz-" + name, value, "");
+        style.setProperty("-ms-" + name, value, "");
+        style.setProperty("-o-" + name, value, "");
+        style.setProperty(name, value, "");
+    };
+    /**
+     * Sets a value for specific style attribute.
+     *
+     * @param {string}  name   Attribute
+     * @param {string}  value  Value
+     */
+    StyleRule.prototype.setStyle = function (name, value) {
+        if (name === "transition") {
+            this._setVendorPrefixName(name, value);
+        }
+        else {
+            this._rule.style.setProperty(name, value, "");
+        }
+    };
+    return StyleRule;
+}(__WEBPACK_IMPORTED_MODULE_0__Disposer__["b" /* Disposer */]));
+
+/**
+ * An internal counter for unique style ids.
+ *
+ * @ignore Exclude from docs
+ * @type {number}
+ */
+var styleId = 0;
+/**
+ * @ignore Exclude from docs
+ * @todo Description
+ */
+var StyleClass = /** @class */ (function (_super) {
+    __extends(StyleClass, _super);
+    /**
+     * Constructor.
+     *
+     * @param {object}  styles  An object of style attribute - value pairs
+     * @param {string}  name    Class name
+     */
+    function StyleClass(styles, name) {
+        var _this = this;
+        var className = (!__WEBPACK_IMPORTED_MODULE_4__Type__["hasValue"](name)
+            // TODO generate the classname randomly
+            ? "__style_" + (++styleId) + "__"
+            : name);
+        _this = _super.call(this, "." + className, styles) || this;
+        _this._className = className;
+        return _this;
+    }
+    Object.defineProperty(StyleClass.prototype, "className", {
+        /**
+         * @return {string} Class name
+         */
+        get: function () {
+            return this._className;
+        },
+        /**
+         * Class name.
+         *
+         * @param {string}  name  Class name
+         */
+        set: function (name) {
+            this._className = name;
+            this.selector = "." + name;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    /**
+     * Converts the whole class to
+     * @ignore Exclude from docs
+     */
+    StyleClass.prototype.toString = function () {
+        return this._className;
+    };
+    return StyleClass;
+}(StyleRule));
+
+function ready(f) {
+    if (document.readyState !== "loading") {
+        f();
+    }
+    else {
+        var listener_1 = function () {
+            if (document.readyState !== "loading") {
+                document.removeEventListener("readystatechange", listener_1);
+                f();
+            }
+        };
+        document.addEventListener("readystatechange", listener_1);
+    }
+}
+//# sourceMappingURL=DOM.js.map
+
+/***/ }),
+/* 20 */
+/***/ (function(module, exports) {
+=======
 	// blank or null?
 	if (!css || typeof css !== "string") {
 	  return css;
   }
+>>>>>>> 074bdb18a76694edec17a622dc16605aebb35ef1
 
   var baseUrl = location.protocol + "//" + location.host;
   var currentDir = baseUrl + location.pathname.replace(/\/[^\/]*$/, "/");
@@ -28692,7 +29618,11 @@ __WEBPACK_IMPORTED_MODULE_1__Registry__["b" /* registry */].registeredClasses["L
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__InteractionKeyboardObject__ = __webpack_require__(123);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__utils_Dictionary__ = __webpack_require__(16);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__Inertia__ = __webpack_require__(124);
+<<<<<<< HEAD
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__utils_DOM__ = __webpack_require__(19);
+=======
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__utils_DOM__ = __webpack_require__(21);
+>>>>>>> 074bdb18a76694edec17a622dc16605aebb35ef1
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__utils_Keyboard__ = __webpack_require__(39);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__utils_Ease__ = __webpack_require__(26);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__utils_Math__ = __webpack_require__(2);
@@ -32531,7 +33461,11 @@ var TargetedEventDispatcher = /** @class */ (function (_super) {
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Language; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Base__ = __webpack_require__(14);
+<<<<<<< HEAD
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Adapter__ = __webpack_require__(18);
+=======
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Adapter__ = __webpack_require__(19);
+>>>>>>> 074bdb18a76694edec17a622dc16605aebb35ef1
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Array__ = __webpack_require__(12);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Type__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__lang_en__ = __webpack_require__(204);
@@ -34321,8 +35255,13 @@ module.exports = {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__Options__ = __webpack_require__(44);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__rendering_Paper__ = __webpack_require__(103);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__utils_AsyncPending__ = __webpack_require__(41);
+<<<<<<< HEAD
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__utils_Animation__ = __webpack_require__(21);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__utils_DOM__ = __webpack_require__(19);
+=======
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__utils_Animation__ = __webpack_require__(23);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__utils_DOM__ = __webpack_require__(21);
+>>>>>>> 074bdb18a76694edec17a622dc16605aebb35ef1
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__utils_Array__ = __webpack_require__(12);
 /**
  * ============================================================================
@@ -35061,8 +36000,13 @@ var LinearGradient = /** @class */ (function (_super) {
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return DataItem; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Base__ = __webpack_require__(14);
+<<<<<<< HEAD
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__utils_Adapter__ = __webpack_require__(18);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__utils_Animation__ = __webpack_require__(21);
+=======
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__utils_Adapter__ = __webpack_require__(19);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__utils_Animation__ = __webpack_require__(23);
+>>>>>>> 074bdb18a76694edec17a622dc16605aebb35ef1
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__utils_Utils__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__utils_Array__ = __webpack_require__(12);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__utils_Object__ = __webpack_require__(13);
@@ -41298,8 +42242,13 @@ function order(a, b) {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return TextFormatter; });
 /* harmony export (immutable) */ __webpack_exports__["b"] = getTextFormatter;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Base__ = __webpack_require__(14);
+<<<<<<< HEAD
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__rendering_AMElement__ = __webpack_require__(73);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__utils_Adapter__ = __webpack_require__(18);
+=======
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__rendering_AMElement__ = __webpack_require__(74);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__utils_Adapter__ = __webpack_require__(19);
+>>>>>>> 074bdb18a76694edec17a622dc16605aebb35ef1
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__utils_Strings__ = __webpack_require__(35);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__utils_Type__ = __webpack_require__(1);
 /**
@@ -48447,7 +49396,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "LightenFilter", function() { return __WEBPACK_IMPORTED_MODULE_79__internal_core_rendering_filters_LightenFilter__["a"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_80__internal_core_responsive_Responsive__ = __webpack_require__(132);
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "Responsive", function() { return __WEBPACK_IMPORTED_MODULE_80__internal_core_responsive_Responsive__["a"]; });
+<<<<<<< HEAD
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_81__internal_core_utils_Adapter__ = __webpack_require__(18);
+=======
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_81__internal_core_utils_Adapter__ = __webpack_require__(19);
+>>>>>>> 074bdb18a76694edec17a622dc16605aebb35ef1
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "GlobalAdapter", function() { return __WEBPACK_IMPORTED_MODULE_81__internal_core_utils_Adapter__["b"]; });
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "globalAdapter", function() { return __WEBPACK_IMPORTED_MODULE_81__internal_core_utils_Adapter__["c"]; });
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "Adapter", function() { return __WEBPACK_IMPORTED_MODULE_81__internal_core_utils_Adapter__["a"]; });
@@ -48481,7 +49434,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "MultiDisposer", function() { return __WEBPACK_IMPORTED_MODULE_89__internal_core_utils_Disposer__["c"]; });
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "MutableValueDisposer", function() { return __WEBPACK_IMPORTED_MODULE_89__internal_core_utils_Disposer__["d"]; });
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "CounterDisposer", function() { return __WEBPACK_IMPORTED_MODULE_89__internal_core_utils_Disposer__["a"]; });
+<<<<<<< HEAD
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_90__internal_core_utils_DOM__ = __webpack_require__(19);
+=======
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_90__internal_core_utils_DOM__ = __webpack_require__(21);
+>>>>>>> 074bdb18a76694edec17a622dc16605aebb35ef1
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "StyleRule", function() { return __WEBPACK_IMPORTED_MODULE_90__internal_core_utils_DOM__["c"]; });
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "StyleClass", function() { return __WEBPACK_IMPORTED_MODULE_90__internal_core_utils_DOM__["b"]; });
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "getElement", function() { return __WEBPACK_IMPORTED_MODULE_90__internal_core_utils_DOM__["m"]; });
@@ -48813,7 +49770,11 @@ function repeat(string, amount) {
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return SpriteState; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Base__ = __webpack_require__(14);
+<<<<<<< HEAD
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__utils_Adapter__ = __webpack_require__(18);
+=======
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__utils_Adapter__ = __webpack_require__(19);
+>>>>>>> 074bdb18a76694edec17a622dc16605aebb35ef1
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__utils_List__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__rendering_filters_Filter__ = __webpack_require__(28);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__utils_Color__ = __webpack_require__(15);
@@ -50251,7 +51212,11 @@ var Pattern = /** @class */ (function (_super) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AMElement; });
+<<<<<<< HEAD
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils_DOM__ = __webpack_require__(19);
+=======
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils_DOM__ = __webpack_require__(21);
+>>>>>>> 074bdb18a76694edec17a622dc16605aebb35ef1
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__utils_Type__ = __webpack_require__(1);
 /**
  * [[AMElement]] represents any SVG element and related functionality.
@@ -56490,8 +57455,13 @@ var cache = new Cache();
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Popup; });
+<<<<<<< HEAD
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__PopupCSS__ = __webpack_require__(197);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__utils_Adapter__ = __webpack_require__(18);
+=======
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__PopupCSS__ = __webpack_require__(203);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__utils_Adapter__ = __webpack_require__(19);
+>>>>>>> 074bdb18a76694edec17a622dc16605aebb35ef1
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Base__ = __webpack_require__(14);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__interaction_Interaction__ = __webpack_require__(25);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__utils_Keyboard__ = __webpack_require__(39);
@@ -57322,8 +58292,13 @@ var Popup = /** @class */ (function (_super) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Modal; });
+<<<<<<< HEAD
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Popup__ = __webpack_require__(90);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__utils_Adapter__ = __webpack_require__(18);
+=======
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Popup__ = __webpack_require__(91);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__utils_Adapter__ = __webpack_require__(19);
+>>>>>>> 074bdb18a76694edec17a622dc16605aebb35ef1
 /**
  * Modal class is used to display information over chart area.
  */
@@ -57461,7 +58436,11 @@ var Validatable = /** @class */ (function (_super) {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return svgContainers; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return SVGContainer; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils_Utils__ = __webpack_require__(6);
+<<<<<<< HEAD
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__utils_DOM__ = __webpack_require__(19);
+=======
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__utils_DOM__ = __webpack_require__(21);
+>>>>>>> 074bdb18a76694edec17a622dc16605aebb35ef1
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__utils_Array__ = __webpack_require__(12);
 /**
  * This functionality is related to the HTML wrapper that houses `<svg>` tag.
@@ -58801,7 +59780,11 @@ var WavedRectangle = /** @class */ (function (_super) {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Paper; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__AMElement__ = __webpack_require__(74);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Group__ = __webpack_require__(137);
+<<<<<<< HEAD
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__utils_DOM__ = __webpack_require__(19);
+=======
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__utils_DOM__ = __webpack_require__(21);
+>>>>>>> 074bdb18a76694edec17a622dc16605aebb35ef1
 /**
  * Paper class just like the white sheet of pressed fiber it draws its name
  * inspiration from is used as a starting point to start a drawing.
@@ -67459,8 +68442,13 @@ var DurationFormatter = /** @class */ (function (_super) {
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Export; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__ExportMenu__ = __webpack_require__(128);
+<<<<<<< HEAD
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__utils_Adapter__ = __webpack_require__(18);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__elements_Modal__ = __webpack_require__(91);
+=======
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__utils_Adapter__ = __webpack_require__(19);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__elements_Modal__ = __webpack_require__(92);
+>>>>>>> 074bdb18a76694edec17a622dc16605aebb35ef1
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__utils_List__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__utils_Dictionary__ = __webpack_require__(16);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__formatters_DateFormatter__ = __webpack_require__(57);
@@ -67469,7 +68457,11 @@ var DurationFormatter = /** @class */ (function (_super) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__utils_Color__ = __webpack_require__(15);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__Registry__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__Options__ = __webpack_require__(44);
+<<<<<<< HEAD
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__utils_DOM__ = __webpack_require__(19);
+=======
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__utils_DOM__ = __webpack_require__(21);
+>>>>>>> 074bdb18a76694edec17a622dc16605aebb35ef1
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__utils_Object__ = __webpack_require__(13);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__utils_Net__ = __webpack_require__(129);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__utils_Type__ = __webpack_require__(1);
@@ -69930,8 +70922,13 @@ var Export = /** @class */ (function (_super) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ExportMenu; });
+<<<<<<< HEAD
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__ExportCSS__ = __webpack_require__(199);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__utils_Adapter__ = __webpack_require__(18);
+=======
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__ExportCSS__ = __webpack_require__(205);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__utils_Adapter__ = __webpack_require__(19);
+>>>>>>> 074bdb18a76694edec17a622dc16605aebb35ef1
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__utils_List__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__interaction_Interaction__ = __webpack_require__(25);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__utils_Disposer__ = __webpack_require__(11);
@@ -69940,7 +70937,11 @@ var Export = /** @class */ (function (_super) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__utils_Keyboard__ = __webpack_require__(39);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__utils_Utils__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__utils_Iterator__ = __webpack_require__(3);
+<<<<<<< HEAD
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__utils_DOM__ = __webpack_require__(19);
+=======
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__utils_DOM__ = __webpack_require__(21);
+>>>>>>> 074bdb18a76694edec17a622dc16605aebb35ef1
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__utils_Type__ = __webpack_require__(1);
 /**
  * ExportMenu provides functionality for building Export menu
@@ -71158,7 +72159,11 @@ function load(url, target, options) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__JSONParser__ = __webpack_require__(97);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__CSVParser__ = __webpack_require__(95);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Base__ = __webpack_require__(14);
+<<<<<<< HEAD
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__utils_Adapter__ = __webpack_require__(18);
+=======
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__utils_Adapter__ = __webpack_require__(19);
+>>>>>>> 074bdb18a76694edec17a622dc16605aebb35ef1
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__utils_Language__ = __webpack_require__(31);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__formatters_DateFormatter__ = __webpack_require__(57);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__Registry__ = __webpack_require__(0);
@@ -71613,9 +72618,15 @@ var DataSource = /** @class */ (function (_super) {
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return DataLoader; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return dataLoader; });
+<<<<<<< HEAD
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__CSVParser__ = __webpack_require__(94);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__JSONParser__ = __webpack_require__(96);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__utils_Adapter__ = __webpack_require__(18);
+=======
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__CSVParser__ = __webpack_require__(95);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__JSONParser__ = __webpack_require__(97);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__utils_Adapter__ = __webpack_require__(19);
+>>>>>>> 074bdb18a76694edec17a622dc16605aebb35ef1
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__utils_Net__ = __webpack_require__(129);
 /**
  * Data Loader is responsible for loading and parsing external data
@@ -71783,7 +72794,11 @@ var dataLoader = new DataLoader();
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Responsive; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Base__ = __webpack_require__(14);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__utils_List__ = __webpack_require__(5);
+<<<<<<< HEAD
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__utils_Adapter__ = __webpack_require__(18);
+=======
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__utils_Adapter__ = __webpack_require__(19);
+>>>>>>> 074bdb18a76694edec17a622dc16605aebb35ef1
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Registry__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__utils_Iterator__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__utils_Array__ = __webpack_require__(12);
@@ -76069,7 +77084,11 @@ function round(date, unit, count, firstDateOfWeek) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__Options__ = __webpack_require__(44);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__Array__ = __webpack_require__(12);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__Type__ = __webpack_require__(1);
+<<<<<<< HEAD
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__DOM__ = __webpack_require__(19);
+=======
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__DOM__ = __webpack_require__(21);
+>>>>>>> 074bdb18a76694edec17a622dc16605aebb35ef1
 /**
  * ============================================================================
  * IMPORTS
@@ -82796,6 +83815,8 @@ window.onload = function () {
     });
 };
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(17)))
+<<<<<<< HEAD
+=======
 
 /***/ }),
 /* 200 */
@@ -82860,6 +83881,7 @@ exports.push([module.i, "/*!\r\n * Bootstrap-select v1.13.1 (https://developer.s
 
 // exports
 
+>>>>>>> 074bdb18a76694edec17a622dc16605aebb35ef1
 
 /***/ }),
 /* 202 */
@@ -83051,7 +84073,11 @@ if ($('#health-chart').length > 0) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+<<<<<<< HEAD
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils_DOM__ = __webpack_require__(19);
+=======
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils_DOM__ = __webpack_require__(21);
+>>>>>>> 074bdb18a76694edec17a622dc16605aebb35ef1
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__utils_Dictionary__ = __webpack_require__(16);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__utils_Disposer__ = __webpack_require__(11);
 
@@ -83417,7 +84443,11 @@ var rules = new __WEBPACK_IMPORTED_MODULE_1__utils_Dictionary__["a" /* Dictionar
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+<<<<<<< HEAD
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils_DOM__ = __webpack_require__(19);
+=======
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils_DOM__ = __webpack_require__(21);
+>>>>>>> 074bdb18a76694edec17a622dc16605aebb35ef1
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__utils_InterfaceColorSet__ = __webpack_require__(9);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__utils_Dictionary__ = __webpack_require__(16);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__utils_Disposer__ = __webpack_require__(11);
@@ -83569,7 +84599,11 @@ var rules = new __WEBPACK_IMPORTED_MODULE_2__utils_Dictionary__["a" /* Dictionar
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Image; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Sprite__ = __webpack_require__(10);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Registry__ = __webpack_require__(0);
+<<<<<<< HEAD
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__utils_DOM__ = __webpack_require__(19);
+=======
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__utils_DOM__ = __webpack_require__(21);
+>>>>>>> 074bdb18a76694edec17a622dc16605aebb35ef1
 /**
  * Functionality for adding images in SVG tree.
  */

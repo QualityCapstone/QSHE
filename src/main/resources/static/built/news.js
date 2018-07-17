@@ -10604,8 +10604,15 @@ module.exports = function(list, options) {
 	// By default, add <style> tags to the <head> element
         if (!options.insertInto) options.insertInto = "head";
 
+<<<<<<< HEAD
+        $('#morenews').append('<li>\n                    <a href="' + response.articles[_i].url + '">\n                        <h4 class="text-center">' + response.articles[_i].title + '</h4>\n                    </a>\n                </li>\n                <li>\n                    <span>' + response.articles[_i].description + '</span>\n                </li>\n                <br />');
+    }
+});
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(17)))
+=======
 	// By default, add <style> tags to the bottom of the target
 	if (!options.insertAt) options.insertAt = "bottom";
+>>>>>>> 074bdb18a76694edec17a622dc16605aebb35ef1
 
 	var styles = listToStyles(list, options);
 
