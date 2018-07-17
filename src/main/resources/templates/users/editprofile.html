@@ -46,9 +46,19 @@
                 </div>
                 <div class="modal-body">
                     <form th:action="@{/fileupload}" method="post" enctype="multipart/form-data" th:object="${user}">
-                        <input id="file" name="file" type="file" onclick="stopScroll()" />
-                        <br />
-                        <input type="submit" value="upload" onclick="stopScroll()" />
+                        <!--<input class="btn btn-primary fileupload" id="file" name="file" type="file" onclick="stopScroll()" />-->
+                        <div style="height:0px;overflow:hidden">
+                            <input type="file" id="file" name="file" />
+                        </div>
+                        <div class="filediv">
+                            <button class="btn btn-primary fileupload" type="button" onclick="chooseFile(); showPreview()">Choose File</button>
+                        </div>
+                        <div class="filediv">
+                            <input class="btn btn-primary fileupload" type="submit" value="Update Profile Picture" onclick="stopScroll()" />
+                        </div>
+                        <div style="width: 100%">
+                            <img id="blah" src="#" alt="Profile Picture Preview" class="circleavi" style="display: none"/>
+                        </div>
                     </form>
                 </div>
                 <div class="modal-footer">
@@ -64,8 +74,8 @@
                 <h1 class="text-center">Edit your profile</h1>
                 <div class="row">
                     <div class="col-12">
-                        <img th:if="${user.profile.uploadPath == null}" style="height: 150px; width: 150px" th:src="@{/img/defaultavatar.png}" alt="none" />
-                        <img th:if="${user.profile.uploadPath}" style="height: 150px; width: 150px" th:src="@{/uploads/} + ${user.profile.uploadPath}"  alt="didn't work" />
+                        <img th:if="${user.profile.uploadPath == null}" style="height: 150px; width: 150px" th:src="@{/img/defaultavatar.png}" alt="none" class="circleavi" />
+                        <img th:if="${user.profile.uploadPath}" style="height: 150px; width: 150px" th:src="@{/uploads/} + ${user.profile.uploadPath}"  alt="Your picture ran away!" class="circleavi" />
                     </div>
                 </div>
             </div>
@@ -77,20 +87,20 @@
                 <!--<h2>User ID <span th:text="${#authentication.principal.id}" /></h2>-->
                 <form th:action="@{~/user/edit}" th:method="post" th:object="${user}" >
 
-                        <input type="hidden" class="form-control" id="username" th:placeholder="${user.username}" th:field="*{username}"/>
+                    <input type="hidden" class="form-control" id="username" th:placeholder="${user.username}" th:field="*{username}"/>
                     <input type="hidden" class="form-control" id="user-id" th:placeholder="${user.id}" th:field="*{id}"/>
                     <br />
                     <label for="firstName">First Name</label>
-                        <input id="firstName" class="form-control"  type="text" th:placeholder="${user.profile.firstName}" th:field="*{profile.firstName}">
+                    <input id="firstName" class="form-control"  type="text" th:placeholder="${user.profile.firstName}" th:field="*{profile.firstName}">
                     <br />
                     <label for="lastName">Last Name</label>
-                        <input id="lastName" class="form-control" placeholder="Last Name" type="text" th:field="*{profile.lastName}">
+                    <input id="lastName" class="form-control" placeholder="Last Name" type="text" th:field="*{profile.lastName}">
                     <br />
                     <label for="email">Email</label>
-                        <input type="email" class="form-control"  id="email" th:attr="placeholder=${user.profile.email}"  th:field="*{profile.email}"/>
+                    <input type="email" class="form-control"  id="email" th:attr="placeholder=${user.profile.email}"  th:field="*{profile.email}"/>
                     <br />
                     <label for="name">A Little About Me</label>
-                        <input id="name" class="form-control" placeholder="About Me" type="text"  th:field="*{profile.name}" />
+                    <input id="name" class="form-control" placeholder="About Me" type="text"  th:field="*{profile.name}" />
                     <br />
                     <p>Change your Home State</p>
                     <div class="input-group-prepend">
@@ -163,6 +173,28 @@
     }
     function giveScroll() {
         $("html").css("overflow", "visible");
+    }
+    function chooseFile() {
+        $("#file").click();
+    }
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            let reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#blah').attr('src', e.target.result);
+            };
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    $("#file").change(function(){
+        readURL(this);
+    });
+    function showPreview() {
+        $('#blah').css("display", "block");
+        $('#blah').css("margin", "0 auto");
     }
 </script>
 </body>
