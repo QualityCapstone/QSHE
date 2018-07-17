@@ -35,13 +35,17 @@
         </div>
     </div>
 
-
+        <div sec:authorize="isAnonymous()" >
         <div class="content-box">
 
             <div class="row">
                 <div class="col-12 mx-auto text-center">
                     <a th:href="@{~/sign-up}" class="btn btn-primary">Join Today</a>
                 </div>
+            </div>
+
+
+
             </div>
 
 </div>

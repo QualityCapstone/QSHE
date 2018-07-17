@@ -73,7 +73,7 @@ public class UserProfileController {
 
         UserConnection connection = userDao.getConnections().findByUserId(user.getUsername());
 
-        if (user.getProfile().getUploadPath() == null && connection != null)
+        if (connection != null)
         {
             String filename = UUID.randomUUID().toString();
 
@@ -89,14 +89,13 @@ public class UserProfileController {
         }
 
 
-        model.addAttribute("conversations", messageDao.getMessages().findDistinctBySenderOrRecipientOrderByIdAsc(user, user));
+        model.addAttribute("conversations", messageDao.getConversations(user));
 
         String userstate = user.getProfile().getUserState();
         State state = stateDao.getStates().findByName(userstate);
 
         FlickrService f = new FlickrService(apiKey, sharedSecret);
         model.addAttribute("photo", f.getPhoto(state.getName()));
-
 
         model.addAttribute("unreadCount", messageDao.getMessages().getUnreadCount(user));
 
@@ -111,34 +110,31 @@ public class UserProfileController {
 
 
 
-    @PostMapping("/user/{id}/edit")
-    public String update(Long id, @ModelAttribute User user){
-
+    @PostMapping("/user/edit")
+    public String update(@ModelAttribute User user){
         User existingUser = userDao.getLoggedInUser();
-//        User currentUser = users.getOne(id);
 
 
-        System.out.println(existingUser.toString());
+        String userstate = user.getProfile().getUserState();
+        String selectedstate = existingUser.getProfile().getUserState();
+
+
+
 
         existingUser.setUsername(user.getUsername());
         existingUser.getProfile().setEmail(user.getProfile().getEmail());
         existingUser.getProfile().setFirstName(user.getProfile().getFirstName());
         existingUser.getProfile().setLastName(user.getProfile().getLastName());
         existingUser.getProfile().setName(user.getProfile().getName());
-        String userstate = user.getProfile().getUserState();
-        String selectedstate = existingUser.getProfile().getUserState();
+        existingUser.getProfile().setUserState(user.getProfile().getUserState());
+
+        User updatedUser = new User(existingUser);
+        userDao.getUsers().save(updatedUser);
 
         if (!userstate.equals(selectedstate)) {
-            existingUser.getProfile().setUserState(user.getProfile().getUserState());
-            userDao.getUsers().updateProfile(existingUser.getProfile().getEmail(),existingUser.getUsername(),existingUser.getProfile().getFirstName(),existingUser.getProfile().getLastName(),existingUser.getProfile().getName(), existingUser.getProfile().getUserState(), existingUser.getId());
-            userDao.getUsers().updateUser(existingUser.getUsername(),existingUser.getId());
             return "redirect:/users/rating";
         }
 
-
-
-        userDao.getUsers().updateProfile(existingUser.getProfile().getEmail(),existingUser.getUsername(),existingUser.getProfile().getFirstName(),existingUser.getProfile().getLastName(),existingUser.getProfile().getName(), existingUser.getProfile().getUserState(), existingUser.getId());
-        userDao.getUsers().updateUser(existingUser.getUsername(),existingUser.getId());
         return "redirect:/users/displayprofile";
     }
 

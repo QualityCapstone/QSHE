@@ -24,7 +24,7 @@
             <img class="mx-auto avatar-img-other" th:if="${user.profile.uploadPath == null}" th:src="@{/img/defaultavatar.png}" alt="none" />
             <img class="mx-auto avatar-img-other" th:if="${user.profile.uploadPath}" th:src="@{/uploads/} + ${user.profile.uploadPath}"  alt="didn't work" />
                 <h5 class="text-center card-title" th:text="${user.profile.userState}"></h5>
-                <button type="button" th:data-recipient-id="${user.id}" th:data-recipient-name="${user.username}" class="btn btn-secondary" data-toggle="modal" data-target="#exampleModal">Send message</button>
+                <button type="button" th:data-recipient-id="${user.id}" th:data-recipient-name="${user.profile.firstName}" class="btn btn-secondary" data-toggle="modal" data-target="#exampleModal">Send message</button>
 
             </div>
         </div>
@@ -67,14 +67,16 @@
 
 <div th:replace="partials/layout :: footer" />
 <script type="text/javascript">
+
     $('#exampleModal').on('show.bs.modal', function (event) {
         var button = $(event.relatedTarget) // Button that triggered the modal
-        var recipient = button.data('whatever') // Extract info from data-* attributes
-        // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
-        // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
-        var modal = $(this);
 
-            $('#recipient-name').text(button.attr("data-recipient-name"));
+          var modal = $(this);
+
+        console.log("yo");
+        console.log(button.attr("data-recipient-id"));
+
+        $('#recipient-name').text(button.attr("data-recipient-name"));
             $('#recipient-id').val(button.attr("data-recipient-id"));
     })
 

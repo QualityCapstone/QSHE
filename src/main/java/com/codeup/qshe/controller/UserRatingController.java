@@ -25,7 +25,7 @@ public class UserRatingController {
     private final UserService userDao;
     private StateService stateDao;
 
-
+ //change
     @Value("${flickr-key}")
     private String apiKey;
     @Value("${flickr-secret}")
@@ -55,7 +55,7 @@ public class UserRatingController {
 
         view.addAttribute("newRating", new StateUserRating());
 
-        return "/users/rating";
+        return "users/rating";
     }
 
 

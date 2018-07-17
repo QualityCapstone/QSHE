@@ -36,11 +36,11 @@ public class PostTopicController {
 
 
     @GetMapping("state/{abbr}")
-    private String getStatePosts(@PathVariable String abbr, Model model, @PageableDefault(value = 10) Pageable pageable) {
+    private String getStatePosts(@PathVariable String abbr, Model model) {
 
         State state = stateDao.getStates().findByAbbr(abbr);
         model.addAttribute("state", state);
-        model.addAttribute("posts", postDao.getTopics().findAllByState(state, pageable));
+        model.addAttribute("posts", postDao.getTopicsReverse().findAllByState(state));
 
         return "posts/all";
     }
@@ -52,10 +52,10 @@ public class PostTopicController {
         User user = userDao.getLoggedInUser();
         State state = stateDao.getStates().findByAbbr(abbr);
 
-        PostTopic topic = new PostTopic(user,title,state);
+        PostTopic topic = new PostTopic(new User(user),title,state);
         Post post = new Post(topic,user,title);
 
-        topicDao.save(topic);
+        postDao.getTopics().save(topic);
 
 
 

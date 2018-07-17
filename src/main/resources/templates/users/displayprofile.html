@@ -15,7 +15,7 @@
 <!--</div>-->
 <!--state news modal-->
 <!--body continues to scroll while user is scrolling through modal-->
-<div class="modal fade" id="modal" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+<div class="modal fade" id="modal" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true" onclick="giveScroll()">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -34,14 +34,14 @@
     </div>
 </div>
 
-<div class="container ">
-    <div class="userProfile row">
-        <div class="col-md-6  col-sm-12">
+<div class="container">
+    <div class="userProfile row d-flex flex-wrap">
+        <div class="col-12 col-md-6 col-sm-12 ">
             <div id="profile-user" class="card card-border m-3">
 
                 <div class="card-title text-left pt-3">
                     <a class="pr-2 float-right" th:href="@{/editprofile}"><i class="fas fa-edit"></i> </a>
-                    <h3>Welcome <span th:text="${#authentication.principal.profile.firstName}"></span>!</h3>
+                    <h3>Welcome <span th:text="${user.profile.firstName}"></span>!</h3>
 
                     <hr>
                 </div>
@@ -56,22 +56,18 @@
                     <div class="profile-data">
                         <p>Have a wonderful Day!</p>
                         <div class="row">
-                            <div class="profile-item">Your username:</div>
-                            <div class="profile-value"><span th:text="${#authentication.principal.username}"></span></div>
-                        </div>
-                        <div class="row">
                             <div class="profile-item">Your name:</div>
-                            <div class="profile-value"><span th:text="${#authentication.principal.profile.firstName} + ' ' + ${#authentication.principal.profile.lastName}"></span></div>
+                            <div class="profile-value"><span th:text="${user.profile.firstName} + ' ' + ${user.profile.lastName}"></span></div>
                         </div>
 
                         <div class="row">
                             <div class="profile-item">Your email:</div>
-                            <div class="profile-value"> <span th:text="${#authentication.principal.profile.email}"></span></div>
+                            <div class="profile-value"> <span th:text="${user.profile.email}"></span></div>
                         </div>
 
                         <div class="row">
                             <div class="profile-item">Your state:</div>
-                            <div class="profile-value"><span th:text="${#authentication.principal.profile.userState}"></span></div>
+                            <div class="profile-value"><span th:text="${user.profile.userState}"></span></div>
                         </div>
 
                     </div>
@@ -84,9 +80,9 @@
         </div>
         <br />
 
-        <div class="col-md-6  col-sm-12" id="state-profile">
-            <div class="card state-bg-photo m-3" th:style="@{background-image: url(} + ${photo.large1600Url}+ @{);}">
-                <h3 class="card-title p-2 title-card text-center" th:text="${state.name}"></h3>
+        <div class="col-12 col-md-6 col-sm-12" id="state-profile">
+            <div class="card border-0 state-bg-photo m-3" th:style="@{background-image: url(} + ${photo.large1600Url}+ @{);}">
+                <h3 class="card-title p-2 title-card text-center staterounded" th:text="${state.name}"></h3>
 
                 <div class="card-body  d-flex flex-column align-items-center justify-content-between">
                     <div class="state">
@@ -98,9 +94,7 @@
                     <div class="state-btn-list d-flex flex-row justify-content-between align-items-center">
                     <a class="btn btn-primary" th:href="@{/state/} + ${state.abbr}" style="color: white">View your State</a>
 
-
                       <div class="state-ranking">
-
                               <span class="state-user-rank" th:text="${#numbers.formatDecimal(overallRating, 0, 'COMMA', 2, 'POINT')}">10.00</span>
                        <a th:href="@{/users/rating}" class="state-ranking-link">Update Rating</a>
                       </div>
@@ -111,19 +105,19 @@
         </div>
 
         <!--news tab for user's state-->
-        <div class="col-md-6  col-sm-12">
+        <div class="col-12 col-md-6  col-sm-12">
 
             <div class="card m-3">
                 <div class="card-header font-weight-bold">
                     Recent <span th:text="${state.name}"></span> Discussions
                 </div>
                 <div class="card-body">
-                    <ul class="list-group-flush pb-3">
-                        <li class="list-group-item" th:each="topic : ${topics}">
-                            <i class="far fa-comments"></i>
-                            <a class="pl-2" th:href="@{/topic/state/} + ${topic.id} " th:text="${topic.title}"></a>
+                    <ul class="list-group-flush text-truncate pb-3">
+                        <li class="list-group-item text-truncate" th:each="topic : ${topics}">
+                            <i class="far fa-comments "></i>
+                            <a class="pl-2 text-truncate" th:href="@{/topic/state/} + ${topic.id} " th:text="${topic.title}"></a>
                             <div class="float-right">
-                            <span th:text="${topic.user.profile.firstName}"></span>
+                            <span class="text-truncate" th:text="${topic.user.profile.firstName}"></span>
                             <img class="message-avatar" th:src="@{~/uploads/} + ${topic.user.profile.uploadPath}">
                             </div>
 
@@ -137,14 +131,14 @@
         </div>
 
         <!--state and rating tab-->
-        <div class="col-md-6 col-sm-12">
+        <div class="col-12 col-md-6 col-sm-12">
             <div class="card m-3">
                 <div class="card-header font-weight-bold">
                     <span th:text="${state.name}"></span> News
                 </div>
                 <div class="card-body">
                     <ul id="statenews" th:data-state-name="${#authentication.principal.profile.userState}"></ul>
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal" onclick="stopScroll()">View more News</button>
+                    <button type="button" id="modal" class="btn btn-primary" data-toggle="modal" data-target="#modal" onclick="stopScroll()">View more News</button>
                 </div>
             </div>
         </div>
@@ -165,11 +159,27 @@
 
                         <th:block th:each="c : ${conversations}">
                             <tr class="conversation"  th:data-id="${c.id}">
-                                <td>
-                                 <img class="message-avatar" th:src="@{~/uploads/} + ${c.recipient.profile.uploadPath}">
-                                </td>
-                                <td>
-                                    <a th:href="@{~/messages/view/} + ${c.recipient.id}" th:text="${c.recipient.profile.name}"></a>
+
+                                <th:block th:switch="${c.sender.id}">
+
+                                    <!--THIS IS FROM ME I SENT IT -->
+                                    <th:block th:case="${user.id}">
+                                        <td>
+                                         <img class="message-avatar" th:src="@{~/uploads/} + ${c.recipient.profile.uploadPath}">
+                                        </td>
+                                        <td>
+                                            <a th:href="@{~/messages/view/} + ${c.recipient.id}" th:text="${c.recipient.profile.firstName}"></a>
+                                    </th:block>
+
+                                    <th:block th:case="*">
+                                        <td>
+                                            <img class="message-avatar" th:src="@{~/uploads/} + ${c.sender.profile.uploadPath}">
+                                        </td>
+                                        <td>
+                                            <a th:href="@{~/messages/view/} + ${c.sender.id}" th:text="${c.sender.profile.firstName}"></a>
+                                        </th:block>
+                                    </th:block>
+
                                 </td>
                                 <td>
                                     <span class="text-muted" th:text="${c.message} ">Since 05/01/2012</span>
@@ -213,6 +223,5 @@
         $("html").css("overflow", "visible");
     }
 </script>
-
 </body>
 </html>

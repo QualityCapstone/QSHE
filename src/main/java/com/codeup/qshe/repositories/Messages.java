@@ -22,6 +22,10 @@ public interface Messages extends CrudRepository <Message, Long>{
     @Query("Select  m from Message m where (m.recipient = ?1 AND m.sender = ?2) OR (m.recipient = ?2 AND m.sender = ?1) order by m.createdAt")
     List<Message> findAllByRecipientAndSender(User r, User s);
 
+
+    List<Message> findAllByRecipientOrSenderOrderByCreatedAtDesc(User r, User s);
+
+
     List<Message> findAllBySender(User sender);
 
     @Query("Select distinct m from Message m where (m.recipient = ?1 OR m.sender = ?2) AND " +

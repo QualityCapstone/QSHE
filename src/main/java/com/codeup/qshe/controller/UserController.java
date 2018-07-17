@@ -95,10 +95,10 @@ public class UserController {
 
     @GetMapping("/editprofile")
     public String loadProfile(Model model) {
-        User user = userDao.getLoggedInUser();
 
-        user = userDao.getUsers().findByUsername(user.getUsername());
+        User user = userDao.getLoggedInUser();
         State state = stateDao.getStates().findByName(user.getProfile().getUserState());
+
         model.addAttribute("state", state);
         model.addAttribute("user", user);
 

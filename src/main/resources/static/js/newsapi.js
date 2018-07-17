@@ -45,7 +45,7 @@ import css from '../css/map.css';
                         ${response.articles[i].title}
                     </a>                 
                 </li>
-                <li class="text-truncate pb-4">
+                <li class="text-truncate pb-2">
                     <span class=""> ${response.articles[i].description}</span>
                 </li>`
             );

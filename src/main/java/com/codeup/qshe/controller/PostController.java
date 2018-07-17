@@ -42,7 +42,7 @@ public class PostController {
         PostTopic topic = topicDao.findById(id);
         model.addAttribute("posts",posts.findAllByTopic(topic));
 
-        return "/posts/topic";
+        return "posts/topic";
     }
 
     @PostMapping("/topic/state/{id}")

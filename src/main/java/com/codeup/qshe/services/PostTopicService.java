@@ -49,14 +49,6 @@ public class PostTopicService {
     }
 
 
-    public PostTopic save(PostTopic postTopic){
-
-        User sessionUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        postTopic.setUser(sessionUser);
-        postDao.save(postTopic);
-
-        return postTopic;
-    }
 
     public PostTopic deletePost(long id){
         PostTopic postTopic = postDao.findById(id);

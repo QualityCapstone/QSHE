@@ -42,5 +42,6 @@ public class PostService {
     public PostTopics getTopics(){
         return topics;
     }
+    public PostTopics getTopicsReverse() {return topics;}
 
 }

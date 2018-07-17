@@ -5,8 +5,75 @@
     <meta charset="UTF-8" />
     <title>Home</title>
 </head>
+<div th:replace="states/svg :: states-svg" />
 <div th:replace="partials/layout :: navbar" />
-<span class="overlay"></span>
+<div th:replace="partials/layout :: navbar-profile (unread=${unreadCount})" />
+<div th:replace="posts/message :: message-modal" />
+
+<div class="container ">
+
+    <div class="card mt-2">
+
+        <div class="card-header">
+            <div class="state-header">
+                <svg th:class="@{icon icon-state-} + ${state.abbr}">
+                    <use th:xlink:href="@{#icon-state-} + ${state.abbr}"></use>
+                </svg>
+            </div>
+
+            <h1><span th:text="${state.name}"></span> Discussion Topics</h1>
+        </div>
+
+        <div class="card-body">
+
+            <div  class="form-group form-inline col-12">
+                <form id="topic-form col-12"  th:action="@{/posts/topic/add}" method="post">
+                    <button class="btn-primary btn mr-2" id="topic-new"> <i class="fas fa-plus-square"></i> New Topic </button>
+                    <input class="form-control topic-add-input " type="text" id="title" name="title">
+                    <input type="hidden" id="state-abbr" name="state-abbr" th:value="${state.abbr}">
+                    <input type="submit" class="btn btn-primary text-light" id="topic-submit" />
+
+
+                </form>
+
+            </div>
+
+
+            <table class="table table-hover mt-2 table-striped">
+        <thead>
+        <tr>
+            <th></th>
+            <th>User</th>
+            <th class="">Topic</th>
+        </tr>
+        </thead>
+        <tbody id="">
+        <th:block th:each="postTopic: ${#numbers.sequence(posts.size() -1,0, -1)}" th:with="postTopic=${posts[postTopic]}" th:height="auto">
+            <tr class="postTopics" th:data-id="${postTopic.id}">
+                <td class="user">
+                    <img th:if="${postTopic.user.profile.uploadPath}"  th:src="@{/uploads/} + ${postTopic.user.profile.uploadPath}"  class="message-lg-avatar" />
+
+                </td>
+                <td class="align-middle">
+                    <span class="text-left font-weight-bold" th:text="${postTopic.user.profile.firstName}"></span><br/>
+                    <span th:text="${postTopic.user.profile.userState}"></span><br>
+                    <i class="far fa-envelope message-modal-bnt" data-toggle="modal" data-target="#exampleModal"  th:data-recipient-id="${postTopic.user.id}" th:data-recipient-name="${postTopic.user.profile.firstName}"></i>
+                </td>
+
+                <td class="align-middle">
+                    <a th:href="@{~/topic/state/}+${postTopic.id}"  th:text="${postTopic.title}" ></a>
+                </td>
+
+            </tr>
+        </th:block>
+        </tbody>
+    </table>
+
+
+</div>
+    </div>
+
+</div>
 <div >
     <div class="row p-2">
         <div id="top-postTopic">
@@ -16,51 +83,10 @@
         </div>
     </div>
 </div>
-<h1 class="text-center m-3 p-3">Share your comments with other users about this state</h1>
 
-<div class="container bg-white text-center border border-dark rounded mt-5" sec:authorize="isAuthenticated()">
-
-<div class="p-5 m-2 text-dark " th:each="postTopic: ${posts}" th:height="auto">
-    <ul class="list-unstyled pagination" >
-        <li class="media">
-            <div class="media-body p-2">
-                <img th:if="${postTopic.user.profile.uploadPath == null}" th:src="@{/img/defaultavatar.png}" alt="none" class="message-md-avatar" />
-                <img th:if="${postTopic.user.profile.uploadPath}"  th:src="@{/uploads/} + ${postTopic.user.profile.uploadPath}"  class="message-md-avatar" />
-
-                <p class="text-left" th:text="'Posted by: ' + ${postTopic.user.username}"></p>
-                <p class="text-left" th:text="'From: ' + ${postTopic.user.profile.userState}"></p>
-                <p class="text-left" th:text="'State: '+${postTopic.state.id}"></p>
-                <p class="text-left" th:text="'About: '+${postTopic.title}"></p>
-                <!--<input type="hidden" name="topic_id" th:value="${postTopic.id}">-->
-
-                <a th:href="@{~/topic/state/}+ ${postTopic.id}" class="btn btn-primary">View This Topic</a>
-                <hr class="create-form" style="height: 10px"/>
-            </div>
-
-            <div class="col-3" sec:authorize="isAuthenticated()">
-                <!--<form class="form-group" th:action="@{~/topic/state/}+${postTopic.id}" method="get">-->
-                    <!--<button type="submit" class="btn create-form" id="topicId" name="topicId">View more Here Now</button>-->
-                    <!--&lt;!&ndash;<input type="hidden" name="state_id" th:value="${postTopic.state.id}" />&ndash;&gt;-->
-                <!--</form>-->
-            </div>
-        </li>
-    </ul>
-</div>
-    <div class="col-3" sec:authorize="isAuthenticated()">
-    <h1>Submit a new Topic</h1>
-    <form class="form-group" th:action="@{/posts/topic/add}" method="post">
-        <!--<input type="hidden" id="stateid" name="stateid" />-->
-
-        <input type="text" id="title" name="title">
-        <!--<input type="text" id="topicstring" name="topicstring">-->
-        <input type="hidden" id="state-abbr" name="state-abbr" th:value="${state.abbr}">
-
-        <br />
-        <input type="submit" class="btn btn-dark text-light" />
-    </form>
-    </div>
-</div>
 <div th:replace="partials/layout :: footer" />
+
+<script th:src="@{~/built/messages.js}"></script>
 
 </body>
 </html>
