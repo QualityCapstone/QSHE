@@ -75,9 +75,10 @@
             </button>
             <div class="col-md-8 m-auto">
                 <!--<h2>User ID <span th:text="${#authentication.principal.id}" /></h2>-->
-                <form th:action="@{/user/} + ${user.id} + @{/edit}" th:method="post" th:object="${user}" >
+                <form th:action="@{~/user/edit}" th:method="post" th:object="${user}" >
 
                         <input type="hidden" class="form-control" id="username" th:placeholder="${user.username}" th:field="*{username}"/>
+                    <input type="hidden" class="form-control" id="user-id" th:placeholder="${user.id}" th:field="*{id}"/>
                     <br />
                     <label for="firstName">First Name</label>
                         <input id="firstName" class="form-control"  type="text" th:placeholder="${user.profile.firstName}" th:field="*{profile.firstName}">

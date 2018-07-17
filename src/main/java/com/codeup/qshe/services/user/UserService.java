@@ -1,6 +1,7 @@
 package com.codeup.qshe.services.user;
 
 import com.codeup.qshe.models.user.*;
+import com.codeup.qshe.repositories.Roles;
 import com.codeup.qshe.repositories.UserConnections;
 import com.codeup.qshe.repositories.Users;
 import org.apache.commons.lang3.RandomStringUtils;
@@ -26,14 +27,16 @@ import java.util.UUID;
 public class UserService {
     private Users users;
     private UserConnections connections;
+    private Roles roles;
 
 
 
 
     @Autowired
-    public UserService(Users users, UserConnections  connections) {
+    public UserService(Users users, UserConnections  connections, Roles roles) {
         this.users = users;
         this.connections = connections;
+        this.roles = roles;
     }
 
     public Users getUsers() {
