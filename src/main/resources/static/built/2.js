@@ -1,6 +1,6 @@
 webpackJsonp([2],{
 
-/***/ 244:
+/***/ 248:
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(Buffer) {/* build: `node build.js modules=ALL exclude=gestures,accessors requirejs minifier=uglifyjs` */
@@ -21,17 +21,17 @@ if (typeof document !== 'undefined' && typeof window !== 'undefined') {
 }
 else {
   // assume we're running under node.js when document/window are not present
-  fabric.document = __webpack_require__(255)
+  fabric.document = __webpack_require__(259)
     .jsdom(
       decodeURIComponent('%3C!DOCTYPE%20html%3E%3Chtml%3E%3Chead%3E%3C%2Fhead%3E%3Cbody%3E%3C%2Fbody%3E%3C%2Fhtml%3E'),
       { features: {
         FetchExternalResources: ['img']
       }
       });
-  fabric.jsdomImplForWrapper = __webpack_require__(256).implForWrapper;
-  fabric.nodeCanvas = __webpack_require__(257).Canvas;
+  fabric.jsdomImplForWrapper = __webpack_require__(260).implForWrapper;
+  fabric.nodeCanvas = __webpack_require__(261).Canvas;
   fabric.window = fabric.document.defaultView;
-  DOMParser = __webpack_require__(258).DOMParser;
+  DOMParser = __webpack_require__(262).DOMParser;
 }
 
 /**
@@ -28664,11 +28664,11 @@ fabric.util.object.extend(fabric.IText.prototype, /** @lends fabric.IText.protot
 })();
 
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(249).Buffer))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(253).Buffer))
 
 /***/ }),
 
-/***/ 249:
+/***/ 253:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -28682,9 +28682,9 @@ fabric.util.object.extend(fabric.IText.prototype, /** @lends fabric.IText.protot
 
 
 
-var base64 = __webpack_require__(250)
-var ieee754 = __webpack_require__(251)
-var isArray = __webpack_require__(252)
+var base64 = __webpack_require__(254)
+var ieee754 = __webpack_require__(255)
+var isArray = __webpack_require__(256)
 
 exports.Buffer = Buffer
 exports.SlowBuffer = SlowBuffer
@@ -30462,11 +30462,11 @@ function isnan (val) {
   return val !== val // eslint-disable-line no-self-compare
 }
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(28)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(26)))
 
 /***/ }),
 
-/***/ 250:
+/***/ 254:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -30625,7 +30625,7 @@ function fromByteArray (uint8) {
 
 /***/ }),
 
-/***/ 251:
+/***/ 255:
 /***/ (function(module, exports) {
 
 exports.read = function (buffer, offset, isLE, mLen, nBytes) {
@@ -30716,7 +30716,7 @@ exports.write = function (buffer, value, offset, isLE, mLen, nBytes) {
 
 /***/ }),
 
-/***/ 252:
+/***/ 256:
 /***/ (function(module, exports) {
 
 var toString = {}.toString;
@@ -30728,35 +30728,14 @@ module.exports = Array.isArray || function (arr) {
 
 /***/ }),
 
-/***/ 255:
+/***/ 259:
 /***/ (function(module, exports) {
 
 /* (ignored) */
 
 /***/ }),
 
-/***/ 256:
-/***/ (function(module, exports) {
-
-/* (ignored) */
-
-/***/ }),
-
-/***/ 257:
-/***/ (function(module, exports) {
-
-/* (ignored) */
-
-/***/ }),
-
-/***/ 258:
-/***/ (function(module, exports) {
-
-/* (ignored) */
-
-/***/ }),
-
-/***/ 28:
+/***/ 26:
 /***/ (function(module, exports) {
 
 var g;
@@ -30781,6 +30760,27 @@ try {
 
 module.exports = g;
 
+
+/***/ }),
+
+/***/ 260:
+/***/ (function(module, exports) {
+
+/* (ignored) */
+
+/***/ }),
+
+/***/ 261:
+/***/ (function(module, exports) {
+
+/* (ignored) */
+
+/***/ }),
+
+/***/ 262:
+/***/ (function(module, exports) {
+
+/* (ignored) */
 
 /***/ })
 
