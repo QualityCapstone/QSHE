@@ -10437,11 +10437,7 @@ return jQuery;
 
 /***/ }),
 
-<<<<<<< HEAD
-/***/ 187:
-=======
 /***/ 188:
->>>>>>> 074bdb18a76694edec17a622dc16605aebb35ef1
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
