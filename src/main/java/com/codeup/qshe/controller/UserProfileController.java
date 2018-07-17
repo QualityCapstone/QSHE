@@ -116,6 +116,11 @@ public class UserProfileController {
         User existingUser = userDao.getLoggedInUser();
 
 
+        String userstate = user.getProfile().getUserState();
+        String selectedstate = existingUser.getProfile().getUserState();
+
+
+
 
         existingUser.setUsername(user.getUsername());
         existingUser.getProfile().setEmail(user.getProfile().getEmail());
@@ -123,10 +128,6 @@ public class UserProfileController {
         existingUser.getProfile().setLastName(user.getProfile().getLastName());
         existingUser.getProfile().setName(user.getProfile().getName());
         existingUser.getProfile().setUserState(user.getProfile().getUserState());
-
-        String userstate = user.getProfile().getUserState();
-        String selectedstate = existingUser.getProfile().getUserState();
-
 
         User updatedUser = new User(existingUser);
         userDao.getUsers().save(updatedUser);
