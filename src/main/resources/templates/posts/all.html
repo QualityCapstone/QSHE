@@ -8,7 +8,7 @@
 <div th:replace="states/svg :: states-svg" />
 <div th:replace="partials/layout :: navbar" />
 <div th:replace="partials/layout :: navbar-profile (unread=${unreadCount})" />
-
+<div th:replace="posts/message :: message-modal" />
 
 <div class="container ">
 
@@ -56,7 +56,8 @@
                 </td>
                 <td class="align-middle">
                     <span class="text-left font-weight-bold" th:text="${postTopic.user.profile.firstName}"></span><br/>
-                    <span th:text="${postTopic.user.profile.userState}"></span>
+                    <span th:text="${postTopic.user.profile.userState}"></span><br>
+                    <i class="far fa-envelope message-modal-bnt" data-toggle="modal" data-target="#exampleModal"  th:data-recipient-id="${postTopic.user.id}" th:data-recipient-name="${postTopic.user.profile.firstName}"></i>
                 </td>
 
                 <td class="align-middle">

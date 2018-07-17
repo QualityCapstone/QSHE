@@ -138,7 +138,7 @@
                 </div>
                 <div class="card-body">
                     <ul id="statenews" th:data-state-name="${#authentication.principal.profile.userState}"></ul>
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal" onclick="stopScroll()">View more News</button>
+                    <button type="button" id="modal" class="btn btn-primary" data-toggle="modal" data-target="#modal" onclick="stopScroll()">View more News</button>
                 </div>
             </div>
         </div>

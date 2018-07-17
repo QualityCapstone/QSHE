@@ -196,3 +196,19 @@ body .modal-open {
 .state-ranking {
     border-bottom-right-radius: 5px;
 }
+
+.fileupload {
+    width: 100%;
+    margin-bottom: 1rem;
+}
+
+.filediv {
+    width: 100%;
+}
+.filecontainer {
+    width: 100%;
+}
+
+.circleavi {
+    border-radius: 50%;
+}
