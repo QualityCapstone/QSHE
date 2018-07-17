@@ -14,9 +14,9 @@
 
     <div class="col-3 text-center m-auto mb-5" sec:authorize="isAuthenticated()">
         <h1>Submit a new Topic</h1>
-        <form class="form-group" th:action="@{/posts/topic/add}" method="post">
+        <form class="form-group form-inline" th:action="@{/posts/topic/add}" method="post">
 
-            <input type="text" id="title" name="title">
+            <input class="form-control col-8" type="text" id="title" name="title">
             <input type="hidden" id="state-abbr" name="state-abbr" th:value="${state.abbr}">
             <input type="submit" class="btn btn-primary text-light" />
         </form>
