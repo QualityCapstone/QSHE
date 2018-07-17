@@ -27,13 +27,13 @@
         <th:block th:each="post: ${posts}" th:height="auto" >
             <tr class="posts" th:data-id="${post.id}">
                 <td>
-                    <a href=""></a>   <img th:if="${post.user.profile.uploadPath}"  th:src="@{/uploads/} + ${post.user.profile.uploadPath}"  class="message-md-avatar" />
+                    <a th:data-recipient-id="${post.user.id}" th:data-recipient-name="${post.user.username}" class="btn btn-secondary" data-toggle="modal" data-target="#exampleModal">   <img th:if="${post.user.profile.uploadPath}"  th:src="@{/uploads/} + ${post.user.profile.uploadPath}"  class="message-md-avatar" /></a>
 
                 </td>
                 <td>
                     <span th:text="${post.user.profile.firstName}" ></span>
 
-                    <a type="button" th:data-recipient-id="${post.user.id}" th:data-recipient-name="${post.user.username}" class="btn btn-secondary" data-toggle="modal" data-target="#exampleModal"><i class="fas fa-envelope"></i></a>
+                    <a th:data-recipient-id="${post.user.id}" th:data-recipient-name="${post.user.username}" class="btn btn-secondary" data-toggle="modal" data-target="#exampleModal"><i class="far fa-envelope"></i></a>
                     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
