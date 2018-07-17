@@ -174,15 +174,24 @@ body .modal-open {
     cursor: pointer;
 }
 
+.profiledata {
+    overflow: hidden;
+}
 
 .slider{
     background-color: #DC6F68;
+}
+
+
+.picture {
+    border-radius: 50%;
 }
 
 .staterounded {
     border-top-left-radius: 5px; !important;
     border-top-right-radius: 5px; !important;
 }
+
 
 .state-ranking {
     border-bottom-right-radius: 5px;

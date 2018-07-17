@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.w3.org/1999/xhtml" >
 
-<head th:replace="partials/layout :: header (page='View State')" >
+<head th:replace="partials/layout :: header" >
     <meta charset="UTF-8" />
     <title>State</title>
 </head>
@@ -78,7 +78,6 @@
                     <use th:xlink:href="@{#icon-state-} + ${state.abbr}"></use>
                 </svg>
             </div>
-
 
             <h1>
                 <span th:text="${state.name}"></span></h1></div>
