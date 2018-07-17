@@ -51,12 +51,14 @@
                             <input type="file" id="file" name="file" />
                         </div>
                         <div class="filediv">
-                            <button class="btn btn-primary fileupload" type="button" onclick="chooseFile();">choose file</button>
+                            <button class="btn btn-primary fileupload" type="button" onclick="chooseFile(); showPreview()">Choose File</button>
                         </div>
                         <div class="filediv">
-                            <input class="btn btn-primary fileupload" type="submit" value="Update profile picture" onclick="stopScroll()" />
+                            <input class="btn btn-primary fileupload" type="submit" value="Update Profile Picture" onclick="stopScroll()" />
                         </div>
-                        <img id="blah" src="#" alt="Profile Picture Preview" />
+                        <div style="width: 100%">
+                            <img id="blah" src="#" alt="Profile Picture Preview" class="circleavi" style="display: none"/>
+                        </div>
                     </form>
                 </div>
                 <div class="modal-footer">
@@ -72,8 +74,8 @@
                 <h1 class="text-center">Edit your profile</h1>
                 <div class="row">
                     <div class="col-12">
-                        <img th:if="${user.profile.uploadPath == null}" style="height: 150px; width: 150px" th:src="@{/img/defaultavatar.png}" alt="none" />
-                        <img th:if="${user.profile.uploadPath}" style="height: 150px; width: 150px" th:src="@{/uploads/} + ${user.profile.uploadPath}"  alt="Your picture ran away!" />
+                        <img th:if="${user.profile.uploadPath == null}" style="height: 150px; width: 150px" th:src="@{/img/defaultavatar.png}" alt="none" class="circleavi" />
+                        <img th:if="${user.profile.uploadPath}" style="height: 150px; width: 150px" th:src="@{/uploads/} + ${user.profile.uploadPath}"  alt="Your picture ran away!" class="circleavi" />
                     </div>
                 </div>
             </div>
@@ -190,6 +192,10 @@
     $("#file").change(function(){
         readURL(this);
     });
+    function showPreview() {
+        $('#blah').css("display", "block");
+        $('#blah').css("margin", "0 auto");
+    }
 </script>
 </body>
 </html>

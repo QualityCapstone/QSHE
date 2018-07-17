@@ -208,3 +208,7 @@ body .modal-open {
 .filecontainer {
     width: 100%;
 }
+
+.circleavi {
+    border-radius: 50%;
+}
