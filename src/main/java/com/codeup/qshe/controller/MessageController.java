@@ -53,7 +53,6 @@ public class MessageController {
     public String create(@RequestParam(name = "recipient-id") String sentToId,
                          @RequestParam(name = "message") String userInput, Model model){
 
-       System.out.println("messageCreate...Activate!!");
 
          User user = userDao.getLoggedInUser();
          User recipient = userDao.getUsers().findById(Long.parseLong(sentToId)).get();

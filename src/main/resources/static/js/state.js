@@ -1,4 +1,5 @@
 import css from '../css/map.css';
+import bscss from '../../../../../node_modules/bootstrap-select/dist/css/bootstrap-select.css';
 
 
 const api = require('./lib/local');
@@ -9,8 +10,10 @@ const horizontalBar = require('./module/charts/horizontal-bar');
 const growthChart = require('./module/charts/growth');
 const healthChart = require('./module/charts/waterfall');
 
-require('jquery-scrollify')($);
+// require('bootstrap');
 
+require('jquery-scrollify')($);
+// require('bootstrap-select/js/bootstrap-select');
 
 window.onload = function () {
 
@@ -56,6 +59,13 @@ window.onload = function () {
 
 
     }
+
+
+    // $('#inputState').selectpicker({
+    //     style: 'btn-info',
+    //     size: 1
+    // });
+
 
     $.scrollify({
         section : ".page",
