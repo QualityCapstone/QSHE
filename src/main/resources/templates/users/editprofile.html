@@ -46,9 +46,17 @@
                 </div>
                 <div class="modal-body">
                     <form th:action="@{/fileupload}" method="post" enctype="multipart/form-data" th:object="${user}">
-                        <input id="file" name="file" type="file" onclick="stopScroll()" />
-                        <br />
-                        <input type="submit" value="upload" onclick="stopScroll()" />
+                        <!--<input class="btn btn-primary fileupload" id="file" name="file" type="file" onclick="stopScroll()" />-->
+                        <div style="height:0px;overflow:hidden">
+                            <input type="file" id="file" name="file" />
+                        </div>
+                        <div class="filediv">
+                            <button class="btn btn-primary fileupload" type="button" onclick="chooseFile();">choose file</button>
+                        </div>
+                        <div class="filediv">
+                            <input class="btn btn-primary fileupload" type="submit" value="Update profile picture" onclick="stopScroll()" />
+                        </div>
+                        <img id="blah" src="#" alt="Profile Picture Preview" />
                     </form>
                 </div>
                 <div class="modal-footer">
@@ -65,7 +73,7 @@
                 <div class="row">
                     <div class="col-12">
                         <img th:if="${user.profile.uploadPath == null}" style="height: 150px; width: 150px" th:src="@{/img/defaultavatar.png}" alt="none" />
-                        <img th:if="${user.profile.uploadPath}" style="height: 150px; width: 150px" th:src="@{/uploads/} + ${user.profile.uploadPath}"  alt="didn't work" />
+                        <img th:if="${user.profile.uploadPath}" style="height: 150px; width: 150px" th:src="@{/uploads/} + ${user.profile.uploadPath}"  alt="Your picture ran away!" />
                     </div>
                 </div>
             </div>
@@ -164,6 +172,24 @@
     function giveScroll() {
         $("html").css("overflow", "visible");
     }
+    function chooseFile() {
+        $("#file").click();
+    }
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            let reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#blah').attr('src', e.target.result);
+            };
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    $("#file").change(function(){
+        readURL(this);
+    });
 </script>
 </body>
 </html>
