@@ -10958,7 +10958,7 @@ newsapi.v2.everything({
 }).then(function (response) {
 
     for (var i = 0; i <= 2; i++) {
-        $('#statenews').append('<li class=\'text-truncate\'>\n                    <a href="' + response.articles[i].url + '">\n                        ' + response.articles[i].title + '\n                    </a>                 \n                </li>\n                <li class="text-truncate pb-4">\n                    <span class=""> ' + response.articles[i].description + '</span>\n                </li>');
+        $('#statenews').append('<li class=\'text-truncate\'>\n                    <a href="' + response.articles[i].url + '">\n                        ' + response.articles[i].title + '\n                    </a>                 \n                </li>\n                <li class="text-truncate pb-2">\n                    <span class=""> ' + response.articles[i].description + '</span>\n                </li>');
     }
     for (var _i = 0; _i < response.articles.length; _i++) {
 
