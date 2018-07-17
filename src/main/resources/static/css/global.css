@@ -253,6 +253,15 @@ background-size: cover;
     border-radius: 50%;
 }
 
+.message-lg-avatar {
+    border: 2px solid pink;
+    width: 75px;
+    height: 75px;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+}
+
 #profile-user{
     min-height: 346px;
     max-height: 346px;
@@ -501,4 +510,22 @@ nav .btn-secondary {
 .about-us {
     min-height: calc(100vh - 200px);
     min-width: 200px;
+}
+
+.postTopics .user {
+    /*border-right: 1px solid rgba(249, 87, 87, 0.52);*/
+    /*border-left: 1px solid rgba(249, 87, 87, 0.52);*/
+    width: 120px;
+}
+
+.state-header svg {
+    width: 50px;
+    height: 50px;
+    float: left;
+    padding-right: 10px;
+}
+
+
+.topic-add-input {
+    width: 500px;
 }

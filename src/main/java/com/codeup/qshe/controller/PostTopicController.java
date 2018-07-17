@@ -52,10 +52,10 @@ public class PostTopicController {
         User user = userDao.getLoggedInUser();
         State state = stateDao.getStates().findByAbbr(abbr);
 
-        PostTopic topic = new PostTopic(user,title,state);
+        PostTopic topic = new PostTopic(new User(user),title,state);
         Post post = new Post(topic,user,title);
 
-        topicDao.save(topic);
+        postDao.getTopics().save(topic);
 
 
 
