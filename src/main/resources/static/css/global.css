@@ -95,7 +95,7 @@ blockquote::after {
     font-size: 2.5em;
 }
  blockquote p::before {
-     top: -58px;
+     top: -74px;
      left: 3px;
      color: #fff;
      content: '“';
@@ -214,6 +214,27 @@ background-size: cover;
     top: -121px;
     left: -54px;
 }
+
+.avatar-img-other {
+    width: 125px;
+    height: 125px;
+    -webkit-border-radius: 75px;
+    -moz-border-radius: 75px;
+    border-radius: 75px;
+    border: 2px solid pink;
+
+}
+
+.about-img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+
+    border: 2px solid pink;
+
+}
+
+
 .message-avatar {
     border: 2px solid pink;
     width: 25px;
@@ -227,6 +248,15 @@ background-size: cover;
     border: 2px solid pink;
     width: 50px;
     height: 50px;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+}
+
+.message-lg-avatar {
+    border: 2px solid pink;
+    width: 75px;
+    height: 75px;
     -webkit-border-radius: 50%;
     -moz-border-radius: 50%;
     border-radius: 50%;
@@ -316,7 +346,7 @@ background-size: cover;
     color: #fff;
     font-weight: bold;
     position: relative;
-    right: -45px;
+    right: -37px;
     bottom: -38px;
 
 }
@@ -330,6 +360,9 @@ background-size: cover;
 }
 
 
+#header-nav {
+    z-index: 11;
+}
 
 nav .btn-secondary {
     background-color: transparent;
@@ -378,6 +411,7 @@ nav .btn-secondary {
 
 .speech-bubble-right {
     position: relative;
+    color:white;
     background: #e10071;
     border-radius: .4em;
     width: calc(49% - 125px);
@@ -399,6 +433,7 @@ nav .btn-secondary {
     border-left-color: #e10071;
     border-right: 0;
     border-top: 0;
+    color: #fff;
     margin-top: -10px;
     margin-right: -20px;
 }
@@ -411,6 +446,8 @@ nav .btn-secondary {
     min-height: 60px;
     padding: 10px;
     margin-top: 20px;
+    color: #fff;
+
     margin-left: 20px;
     float: left;
 }
@@ -427,6 +464,7 @@ nav .btn-secondary {
     border-left: 0;
     border-top: 0;
     margin-top: -10px;
+
     margin-left: -20px;
 }
 
@@ -455,11 +493,39 @@ nav .btn-secondary {
     right: 2px;
     font-size:.65em;
     background:#d04d4d;
-    color:white;
+
     width:20px;height:20px;
     text-align:center;
     line-height:18px;
     border-radius:50%;
 
     /*box-shadow:0 0 1px #333;*/
+}
+
+
+#state-profile h3 {
+    color: #e65252;
+}
+
+.about-us {
+    min-height: calc(100vh - 200px);
+    min-width: 200px;
+}
+
+.postTopics .user {
+    /*border-right: 1px solid rgba(249, 87, 87, 0.52);*/
+    /*border-left: 1px solid rgba(249, 87, 87, 0.52);*/
+    width: 120px;
+}
+
+.state-header svg {
+    width: 50px;
+    height: 50px;
+    float: left;
+    padding-right: 10px;
+}
+
+
+.topic-add-input {
+    width: 500px;
 }

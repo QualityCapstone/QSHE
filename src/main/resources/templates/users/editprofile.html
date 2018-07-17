@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4" lang="en">
-<head th:replace="partials/layout :: header">
+<head th:replace="partials/layout :: header (page='Edit profile')">
     <meta charset="UTF-8" />
     <title>Home</title>
     <style>
@@ -38,7 +38,7 @@
 <div class="container wrapper mx-auto" sec:authorize="isAuthenticated()">
 
     <!--file upload modal-->
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" onclick="giveScroll()">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -46,9 +46,9 @@
                 </div>
                 <div class="modal-body">
                     <form th:action="@{/fileupload}" method="post" enctype="multipart/form-data" th:object="${user}">
-                        <input id="file" name="file" type="file" />
+                        <input id="file" name="file" type="file" onclick="stopScroll()" />
                         <br />
-                        <input type="submit" value="upload" />
+                        <input type="submit" value="upload" onclick="stopScroll()" />
                     </form>
                 </div>
                 <div class="modal-footer">
@@ -75,18 +75,19 @@
             </button>
             <div class="col-md-8 m-auto">
                 <!--<h2>User ID <span th:text="${#authentication.principal.id}" /></h2>-->
-                <form th:action="@{/user/} + ${#authentication.principal.id} + @{/edit}" th:method="post" th:object="${user}" >
-                    <label for="username">Username</label>
-                        <input type="text" class="form-control" id="username" th:placeholder="${#authentication.principal.username}" th:field="*{username}"/>
+                <form th:action="@{~/user/edit}" th:method="post" th:object="${user}" >
+
+                        <input type="hidden" class="form-control" id="username" th:placeholder="${user.username}" th:field="*{username}"/>
+                    <input type="hidden" class="form-control" id="user-id" th:placeholder="${user.id}" th:field="*{id}"/>
                     <br />
                     <label for="firstName">First Name</label>
-                        <input id="firstName" class="form-control"  type="text" th:placeholder="${#authentication.principal.profile.firstName}" th:field="*{profile.firstName}">
+                        <input id="firstName" class="form-control"  type="text" th:placeholder="${user.profile.firstName}" th:field="*{profile.firstName}">
                     <br />
                     <label for="lastName">Last Name</label>
                         <input id="lastName" class="form-control" placeholder="Last Name" type="text" th:field="*{profile.lastName}">
                     <br />
                     <label for="email">Email</label>
-                        <input type="email" class="form-control"  id="email" th:attr="placeholder=${#authentication.principal.profile.email}"  th:field="*{profile.email}"/>
+                        <input type="email" class="form-control"  id="email" th:attr="placeholder=${user.profile.email}"  th:field="*{profile.email}"/>
                     <br />
                     <label for="name">A Little About Me</label>
                         <input id="name" class="form-control" placeholder="About Me" type="text"  th:field="*{profile.name}" />

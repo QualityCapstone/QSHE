@@ -26,6 +26,8 @@ public interface PostTopics extends CrudRepository <PostTopic, Long> {
 
     PostTopic findById(long id);
 
+    List<PostTopic> findAllByTopicOrderByIdDesc(PostTopic topic);
+
 
 
 

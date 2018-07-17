@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.social.connect.Connection;
 import org.springframework.social.connect.ConnectionSignUp;
 
+import java.io.IOException;
 import java.util.UUID;
 
 public class AccountConnectionSignUpService implements ConnectionSignUp {
@@ -22,7 +23,11 @@ public class AccountConnectionSignUpService implements ConnectionSignUp {
         org.springframework.social.connect.UserProfile profile = connection.fetchUserProfile();
         String username = UUID.randomUUID().toString();
         LOG.debug("Created username: " + username);
-        usersDao.createUser(username, new UserProfile(profile));
+        try {
+            usersDao.createUser(username, new UserProfile(profile));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         return username;
     }
 }

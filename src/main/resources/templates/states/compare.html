@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
-<head th:replace="partials/layout :: header">
+<head th:replace="partials/layout :: header (page='Compare States')">
     <meta charset="UTF-8" />
     <title>Index page</title>
 
@@ -80,10 +80,50 @@
 
 
 
-
+<!--Page 1-->
 <div class="page one">
 
-    <div class="left-state"></div>
+    <!--Start Left -->
+    <div class="left-state">
+        <h2><i class="far fa-chart-bar"></i> Growth</h2>
+
+
+        <div class="row pt-4">
+            <div class="description-text">
+                <p>This chart displays population growth in <span th:text="${stateA.name}"></span>
+                    from 2010 to 2016. The state population has increased by <span class="bold">4%</span> in the last 6 years.</p>
+            </div>
+
+        </div>
+
+        <div  class="row pt-4">
+            <div class="metric col-md-6">
+                <div class="number">3.7</div>
+                <div class="name">User Rating</div>
+            </div>
+
+            <div class="metric col-md-6">
+                <div class="number">7.2</div>
+                <div class="name">True Sense</div>
+            </div>
+
+            <div class="col-md-3"></div>
+            <div class="metric col-md-6">
+                <div class="number text-center">4%</div>
+                <div class="name text-center">YEAR OVER YEAR POPULATION GROWTH</div>
+            </div>
+            <div class="col-md-3"></div>
+
+        </div>
+
+        <div class="row pt-4">
+            <div class="description-text">
+                <p>The state ranks <span class="bold">15th</span> overall when compared against
+                    all other States.
+            </div>
+        </div>
+    </div>
+    <!--End Left-->
 
     <div class="right-state"></div>
 

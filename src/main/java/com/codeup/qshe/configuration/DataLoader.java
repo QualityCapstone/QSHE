@@ -17,16 +17,21 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.type.TypeFactory;
 import com.github.javafaker.Faker;
+import org.apache.tomcat.util.http.fileupload.FileUtils;
+import org.apache.tomcat.util.http.fileupload.IOUtils;
+import org.aspectj.apache.bcel.util.ClassPath;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
@@ -562,24 +567,32 @@ public class DataLoader implements ApplicationRunner {
 
         for (int i = 1; i <= 13; i++) {
 
-            try {
+//            try {
+//
+//                ClassPath classPath = new ClassPath("static/uploads");
+//               // ClassPathResource classPathResource = new ClassPathResource("static/uploads/" + i +".png");
+////                File file= classPathResource.getFile();
+//
+//                System.out.println( i + " :  moving avatars"); //test
+//                 File file = new File(avatarPath + "/" + i + ".png");
+//
+//                 // String filename = UUID.randomUUID().toString() + ".png";
+//                 //  String filepath = Paths.get(uploadPath, filename).toString();
+//
+//                Files.copy(file.toPath(), new File(classPath.toString() + "/" + file.getName()).toPath(),
+//                  StandardCopyOption.REPLACE_EXISTING);
+//
+////            Files.copy(file.toPath(), (new File(uploadPath + "/" + file.getName())).toPath(),
+////                    StandardCopyOption.REPLACE_EXISTING);
+//
+//            data.add(file.getName());
+//
+//            } catch (NullPointerException e) {
+//                e.printStackTrace();
+//            }
 
-                System.out.println( i + " :  moving avatars");
-                File file = new File(avatarPath + "/" + i + ".png");
 
-
-            String filename = UUID.randomUUID().toString() + ".png";
-            String filepath = Paths.get(uploadPath, filename).toString();
-
-            Files.copy(file.toPath(), (new File(uploadPath + "/" + file.getName())).toPath(),
-                    StandardCopyOption.REPLACE_EXISTING);
-
-            data.add(file.getName());
-
-            } catch (NullPointerException e) {
-                e.printStackTrace();
-            }
-
+            data.add(i + ".png");
 
 
         }

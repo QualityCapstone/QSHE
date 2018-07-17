@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 187);
+/******/ 	return __webpack_require__(__webpack_require__.s = 188);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -10437,7 +10437,11 @@ return jQuery;
 
 /***/ }),
 
+<<<<<<< HEAD
 /***/ 187:
+=======
+/***/ 188:
+>>>>>>> 074bdb18a76694edec17a622dc16605aebb35ef1
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";

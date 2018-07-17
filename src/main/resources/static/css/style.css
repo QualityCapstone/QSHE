@@ -53,10 +53,7 @@ body {
     color: #DC6F68;
 }
 
-.about-us {
-    height: auto;
-    /*box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.4);*/
-}
+
 .card-footer {
     background-color: none;
 }
@@ -177,9 +174,25 @@ body .modal-open {
     cursor: pointer;
 }
 
+.profiledata {
+    overflow: hidden;
+}
 
 .slider{
     background-color: #DC6F68;
 }
 
 
+.picture {
+    border-radius: 50%;
+}
+
+.staterounded {
+    border-top-left-radius: 5px; !important;
+    border-top-right-radius: 5px; !important;
+}
+
+
+.state-ranking {
+    border-bottom-right-radius: 5px;
+}

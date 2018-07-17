@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4" lang="en">
-<head th:replace="partials/layout :: header">
+<head th:replace="partials/layout :: header (page='Rating')">
     <meta charset="UTF-8" />
     <title>Home</title>
 </head>
@@ -9,7 +9,7 @@
 <div th:replace="partials/layout :: navbar" />
 <div th:replace="partials/layout :: navbar-profile" />
 
-
+ <!--test-->
 <div class="container mx-auto" sec:authorize="isAuthenticated()">
     <div class="container">
 

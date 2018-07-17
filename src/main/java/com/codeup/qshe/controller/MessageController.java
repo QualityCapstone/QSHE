@@ -36,7 +36,7 @@ public class MessageController {
        model.addAttribute("messages", messageDao.getMessages().findAllByRecipientAndSender(sender, user));
        model.addAttribute("recipient", sender);
 
-         return "/messages/view";
+         return "messages/view";
      }
 
 
@@ -45,7 +45,7 @@ public class MessageController {
        messageDao.findOne(id);
        messageDao.deleteMessage(id);
 
-         return "redirect: /messages";
+         return "redirect:/messages";
    }
 
 
@@ -53,11 +53,11 @@ public class MessageController {
     public String create(@RequestParam(name = "recipient-id") String sentToId,
                          @RequestParam(name = "message") String userInput, Model model){
 
-       System.out.println("messageCreate...Activate!!");
-
          User user = userDao.getLoggedInUser();
+         User copy = new User(user);
+
          User recipient = userDao.getUsers().findById(Long.parseLong(sentToId)).get();
-         Message message = new Message(user, recipient, userInput);
+         Message message = new Message(copy, recipient, userInput);
          messageDao.save(message);
          model.addAttribute("recipient", recipient);
 

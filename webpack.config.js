@@ -10,6 +10,7 @@ module.exports = {
         main: ['promise-polyfill', 'whatwg-fetch', './src/main/resources/static/js/global.js'],
         user: './src/main/resources/static/js/user.js',
         map: './src/main/resources/static/js/map.js',
+        messages: './src/main/resources/static/js/messages.js',
         state: './src/main/resources/static/js/state.js',
         bubble: './src/main/resources/static/js/bubble.js',
         news: './src/main/resources/static/js/newsapi.js',

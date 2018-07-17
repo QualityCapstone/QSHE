@@ -2,66 +2,66 @@
 <html lang="en">
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
-<head th:replace="partials/layout :: header">
+<head th:replace="partials/layout :: header (page='About us')">
     <meta charset="UTF-8">
     <title>About us</title>
 </head>
 <body>
 <div th:replace="partials/layout :: navbar" />
 <div class="container">
-    <div class="card border rounded mt-5 mb-5 about-us">
-        <h1 class="text-center">About us</h1>
+        <!--<div class="card border rounded mt-5 mb-5 about-us">-->
+            <h1 class="text-center mt-2 mb-2">About us</h1>
+        <!--</div>-->
+    <div class="row d-flex flex-wrap p-3">
+        <div class="card about-us col-12 col-lg-3 col-sm-6">
+            <img class="mx-auto about-img mt-3" src="/img/Brian.jpeg" alt="Card image cap">
+            <div class="card-body">
+                <h5 class="card-title text-center">Brian</h5>
+                <p class="card-text">I am an extremely passionate developer, and love to absorb as much knowledge as I am able to. I am very easy to work with, and am capable of accomplishing tasks in a timely manner and to the expectations of my client/employer.</p>
+            </div>
+            <div class="card-footer bg-transparent">
+                <a href="https://github.com/briantorluemke" target="_blank"><img class="img-fluid" src="/img/GitHub.png" style="height:25px"></a>
+                <a href="https://www.linkedin.com/in/brian-torluemke" target="_blank"> <img class="img-fluid" src="/img/LinkedIn.png" style="height:25px"></a>
+                <img class="img-fluid" src="/img/Email.png" style="height:25px">
+            </div>
+        </div>
+        <div class="card about-us col-12 col-lg-3 col-sm-6 float-right">
+                <img class="mx-auto about-img mt-3" src="/img/DaneMiller.jpg" alt="Card image cap">
+            <div class="card-body">
+                <h5 class="card-title text-center">Dane</h5>
+                <p class="card-text">Creator of automated solutions to help reduce task complexity for those around us.. Passionately enthusiastic in looking for new ways to unravel the problems around us to make a more efficient everyday.</p>
+            </div>
+            <div class="card-footer bg-transparent">
+                <a href="https://github.com/unfaiyted" target="_blank"><img class="img-fluid" src="/img/GitHub.png" style="height:25px"></a>
+                <a href="https://www.linkedin.com/in/danelmiller" target="_blank"><img class="img-fluid" src="/img/LinkedIn.png" style="height:25px"></a>
+                <img class="img-fluid" src="/img/Email.png" style="height:25px">
+            </div>
+        </div>
+        <div class="card about-us col-12 col-lg-3 col-sm-6">
+            <img class="mx-auto about-img mt-3" src="/img/Monica.jpeg" alt="Card image cap">
+            <div class="card-body">
+                <h5 class="card-title text-center">Monica</h5>
+                <p class="card-text">I am a constant learner who transforms ideas into reality. I embrace the flow of change from fluid environments and putting my heart into everything I do is key! Add  code to that and imagine the results!</p>
+            </div>
+            <div class="card-footer bg-transparent">
+                <a href="https://github.com/Monicacholico" target="_blank"><img class="img-fluid" src="/img/GitHub.png" style="height: 25px"></a>
+                <a href="https://www.linkedin.com/in/monicacholico" target="_blank"><img class="img-fluid" src="/img/LinkedIn.png" style="height: 25px"></a>
+                <img class="img-fluid" src="/img/Email.png" style="height: 25px">
+            </div>
+        </div>
+        <div class="card about-us col-12 col-lg-3 col-sm-6 float-right">
+            <img class="mx-auto about-img mt-3" src="/img/Richard.jpeg" alt="Card image cap">
+            <div class="card-body">
+                <h5 class="card-title text-center">Richard</h5>
+                <p class="card-text">I am an extremely passionate developer, and love to absorb as much knowledge as I am able to. I am very easy to work with, and am capable of accomplishing tasks in a timely manner and to the expectations of my client/employer.</p>
+            </div>
+            <div class="card-footer bg-transparent">
+                <a href="https://github.com/RichardCalata" target="_blank"><img class="img-fluid" src="/img/GitHub.png" style="height:25px"></a>
+                <a href="https://www.linkedin.com/in/richard-calata" target="_blank"><img class="img-fluid" src="/img/LinkedIn.png" style="height:25px"></a>
+                <img class="img-fluid" src="/img/Email.png" style="height:25px">
+            </div>
+        </div>
     </div>
-<div class="row d-flex flex-wrap">
-    <div class="card about-us col-12 col-lg-3 col-sm-6 ">
-        <img class="card-img-top tipped tipper-attached" src="/img/User-12.png" alt="Card image cap" >
-        <div class="card-body">
-            <h5 class="card-title text-center">Brian</h5>
-            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-        </div>
-        <div class="card-footer bg-transparent">
-            <a href="https://github.com/briantorluemke" target="_blank"><img class="img-fluid" src="/img/GitHub.png" style="height:25px"></a>
-            <a href="https://www.linkedin.com/in/brian-torluemke" target="_blank"> <img class="img-fluid" src="/img/LinkedIn.png" style="height:25px"></a>
-            <img class="img-fluid" src="/img/Email.png" style="height:25px">
-        </div>
-    </div>
-    <div class="card about-us col-12 col-lg-3 col-sm-6 float-right">
-        <img class="card-img-top" src="/img/User-11.png" alt="Card image cap">
-        <div class="card-body">
-            <h5 class="card-title text-center">Dane</h5>
-            <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
-        </div>
-        <div class="card-footer bg-transparent">
-            <a href="https://github.com/unfaiyted" target="_blank"><img class="img-fluid" src="/img/GitHub.png" style="height:25px"></a>
-            <a href="https://www.linkedin.com/in/danelmiller" target="_blank"><img class="img-fluid" src="/img/LinkedIn.png" style="height:25px"></a>
-            <img class="img-fluid" src="/img/Email.png" style="height:25px">
-        </div>
-    </div>
-    <div class="card about-us col-12 col-lg-3 col-sm-6">
-        <img class="card-img-top" src="/img/User-8.png" alt="Card image cap">
-        <div class="card-body">
-            <h5 class="card-title text-center">Monica</h5>
-            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
-        </div>
-        <div class="card-footer bg-transparent">
-            <a href="https://github.com/Monicacholico" target="_blank"><img class="img-fluid" src="/img/GitHub.png" style="height: 25px"></a>
-            <a href="https://www.linkedin.com/in/monicacholico" target="_blank"><img class="img-fluid" src="/img/LinkedIn.png" style="height: 25px"></a>
-            <img class="img-fluid" src="/img/Email.png" style="height: 25px">
-        </div>
-    </div>
-    <div class="card about-us col-12 col-lg-3 col-sm-6 float-right">
-        <img class="card-img-top" src="/img/User-7.png" alt="Card image cap">
-        <div class="card-body">
-            <h5 class="card-title text-center">Richard</h5>
-            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
-        </div>
-        <div class="card-footer bg-transparent">
-            <a href="https://github.com/RichardCalata" target="_blank"><img class="img-fluid" src="/img/GitHub.png" style="height:25px"></a>
-            <a href="https://www.linkedin.com/in/richard-calata" target="_blank"><img class="img-fluid" src="/img/LinkedIn.png" style="height:25px"></a>
-            <img class="img-fluid" src="/img/Email.png" style="height:25px">
-        </div>
-    </div>
-</div>
 </div>
 <div th:replace="partials/layout :: footer" />
 </body>

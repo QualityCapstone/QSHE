@@ -2,8 +2,9 @@ package com.codeup.qshe.models.user;
 
 import javax.persistence.*;
 
-@Table(name="userconnection")
+
 @Entity
+@Table(name="UserConnection")
 public class UserConnection {
 
 
@@ -12,7 +13,7 @@ public class UserConnection {
       userId varchar(255) not null,
       providerId varchar(255) not null,
       providerUserId varchar(255),
-      rank int not null,
+      rank int not null,  //rank might be issue...
       displayName varchar(255),
       profileUrl varchar(512),
       imageUrl varchar(512),
@@ -27,7 +28,7 @@ public class UserConnection {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
+    private Long id;
 
     @Column(nullable = false, name="userid")
     private  String userId;
@@ -36,7 +37,7 @@ public class UserConnection {
     @Column(name="provideruserid")
     private  String providerUserId;
     @Column(nullable = false, name="rank")
-    private  int rank;
+    private int rank;
     @Column(name="displayname")
     private  String displayName;
     @Column(name="profileurl")
