@@ -179,4 +179,11 @@ body .modal-open {
     background-color: #DC6F68;
 }
 
+.staterounded {
+    border-top-left-radius: 5px; !important;
+    border-top-right-radius: 5px; !important;
+}
 
+.state-ranking {
+    border-bottom-right-radius: 5px;
+}
