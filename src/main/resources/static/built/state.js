@@ -69771,7 +69771,7 @@ var Export = /** @class */ (function (_super) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, __webpack_require__.e/* import() */(2).then(__webpack_require__.bind(null, 248))];
+                    case 0: return [4 /*yield*/, __webpack_require__.e/* import() */(2).then(__webpack_require__.bind(null, 247))];
                     case 1: return [2 /*return*/, _a.sent()];
                 }
             });
@@ -69806,8 +69806,8 @@ var Export = /** @class */ (function (_super) {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, Promise.all([
-                            __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 249)),
-                            __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 250))
+                            __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 248)),
+                            __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 249))
                         ])];
                     case 1:
                         a = _a.sent();
@@ -69846,7 +69846,7 @@ var Export = /** @class */ (function (_super) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, __webpack_require__.e/* import() */(1).then(__webpack_require__.bind(null, 251))];
+                    case 0: return [4 /*yield*/, __webpack_require__.e/* import() */(1).then(__webpack_require__.bind(null, 250))];
                     case 1: return [2 /*return*/, _a.sent()];
                 }
             });
@@ -72227,7 +72227,7 @@ var Responsive = /** @class */ (function (_super) {
      * @return {Promise<any>} Responsive rules
      */
     Responsive.prototype.loadDefaultRules = function () {
-        return __webpack_require__.e/* import() */(3).then(__webpack_require__.bind(null, 252));
+        return __webpack_require__.e/* import() */(3).then(__webpack_require__.bind(null, 251));
     };
     return Responsive;
 }(__WEBPACK_IMPORTED_MODULE_0__Base__["b" /* BaseObjectEvents */]));
@@ -82769,10 +82769,11 @@ window.onload = function () {
         });
     }
 
-    $('#inputState').selectpicker({
-        style: 'btn-info',
-        size: 1
-    });
+    // $('#inputState').selectpicker({
+    //     style: 'btn-info',
+    //     size: 1
+    // });
+
 
     $.scrollify({
         section: ".page",
