@@ -4,8 +4,11 @@ import com.codeup.qshe.models.State;
 import com.codeup.qshe.models.user.StateMetric;
 import com.codeup.qshe.models.user.StateUserRating;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.util.HashMap;
 import java.util.List;
+
 
 public class StateAverageRanking {
 

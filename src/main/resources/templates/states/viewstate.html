@@ -30,11 +30,9 @@
     <div  class=" d-flex flex-column justify-content-center align-items-center state-header" th:style="@{background-image: url(} + ${p.large1600Url}+ @{);}">
 
 
-
-
         <div class="state-header-icon">
             <div class="state pt-4">
-                <svg th:class="@{icon icon-state-} + ${state.abbr}">
+                <svg th:class="@{icon icon-state-} + ${state.abbr}" style="width: 400px; height: 400px;">
                     <use th:xlink:href="@{#icon-state-} + ${state.abbr}"></use>
                 </svg>
             </div>
