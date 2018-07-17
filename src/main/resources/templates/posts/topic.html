@@ -15,17 +15,18 @@
 <div class="container bg-white text-center border border-dark rounded mt-5" sec:authorize="isAuthenticated()">
 
     <table class="table table-hover">
+        <th:block th:each="post: ${posts}" th:height="auto" >
         <thead>
             <tr>
-                <th></th>
+                <th ><span th:text="'Topic: '+ ${post.topic.title}"></span></th>
                 <th class="sticky-top" >User</th>
                 <th class="sticky-top">From</th>
                 <th class="d-none d-sm-table-cell sticky-top">Post</th>
             </tr>
         </thead>
         <tbody>
-        <th:block th:each="post: ${posts}" th:height="auto" >
             <tr class="posts" th:data-id="${post.id}">
+
                 <td>
                     <a th:data-recipient-id="${post.user.id}" th:data-recipient-name="${post.user.username}" class="btn btn-secondary" data-toggle="modal" data-target="#exampleModal">   <img th:if="${post.user.profile.uploadPath}"  th:src="@{/uploads/} + ${post.user.profile.uploadPath}"  class="message-md-avatar" /></a>
 
@@ -77,39 +78,6 @@
                 </td>
 
                 <td>
-
-                    <!--td<button type="button" th:data-id="${postTopic.id}"  class="btn btn-secondary" data-toggle="modal" data-target="#exampleModal">New Post</button>-->
-
-                    <!--<div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel2" aria-hidden="true">-->
-                        <!--<div class="modal-dialog" role="document">-->
-                            <!--<div class="modal-content">-->
-                                <!--<div class="modal-header">-->
-                                    <!--<h5 class="modal-title" id="exampleModalLabel2">New message</h5>-->
-                                    <!--<button type="button" class="close" data-dismiss="modal" aria-label="Close">-->
-                                        <!--<span aria-hidden="true">&times;</span>-->
-                                    <!--</button>-->
-                                <!--</div>-->
-                                <!--<form class="card" th:action="@{/topic/state/}+${id}" method="post" th:object="${post}">-->
-                                    <!--<input type="text" id="message" name="message" />-->
-                                    <!--<div class="modal-body">-->
-
-                                    <!--<button class="btn btn-primary">New Post</button>-->
-                                        <!--<div class="form-group">-->
-                                            <!--<label for="message" class="col-form-label">Message:</label>-->
-                                            <!--<textarea class="form-control" id="message" name="message"></textarea>-->
-                                        <!--</div>-->
-                                    <!--</div>-->
-                                    <!--<div class="modal-footer">-->
-                                        <!--<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>-->
-                                        <!--<button type="submit" class="btn btn-primary">Post</button>-->
-                                        <!--<input type="hidden" name="postTopic" id="postTopic" th:value="${postTopic.id}"/>-->
-
-                                    <!--</div>-->
-
-                                <!--</form>-->
-                            <!--</div>-->
-                        <!--</div>-->
-                    <!--</div>-->
 
                 </td>
             </tr>
