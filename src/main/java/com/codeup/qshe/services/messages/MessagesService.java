@@ -48,21 +48,23 @@ public class MessagesService {
         List<Message> messages = getMessages().findAllByRecipientOrSenderOrderByCreatedAtDesc(user, user);
         HashMap<User, Message> convos = new HashMap<>();
 
-        for(Message message : messages) {
-                  // FROM ME TO YOU
-                if(message.getSender() == user) {
-                    convos.put(message.getRecipient(), message);
-                }
 
-                //FROM YOU to ME
-                if(message.getRecipient() == user) {
+
+        for(Message message : messages) {
+
+                  // FROM ME TO YOU
+                if(message.getSender().getUsername().equals(user.getUsername())) {
+                    convos.put(message.getRecipient(), message);
+                } else if(message.getRecipient().getUsername().equals(user.getUsername())) {
                     convos.put(message.getSender(), message);
+                } else {
+                    System.out.println(message.toString());
                 }
 
             }
 
-
             List<Message> convosList = new ArrayList<>();
+
         for (Message value : convos.values()) {
             convosList.add(value);
         }
