@@ -47,7 +47,7 @@
                 <td>
                     <img th:if="${post.user.profile.uploadPath}"    data-toggle="modal" data-target="#exampleModal"  th:src="@{/uploads/} + ${post.user.profile.uploadPath}"  class="message-lg-avatar" />
                 </td>
-                <td>git
+                <td>
                     <span class="font-weight-bold" th:text="${post.user.profile.firstName}" ></span><br/>
                     <span th:text="${post.user.profile.userState}" ></span><br/>
 
