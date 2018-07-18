@@ -83,4 +83,16 @@ import java.time.LocalDateTime;
     public void setRead(boolean read) {
         isRead = read;
     }
+
+    @Override
+    public String toString() {
+        return "Message{" +
+                "id=" + id +
+                ", sender=" + sender +
+                ", recipient=" + recipient +
+                ", isRead=" + isRead +
+                ", createdAt=" + createdAt +
+                ", message='" + message + '\'' +
+                '}';
+    }
 }

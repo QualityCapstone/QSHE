@@ -30,6 +30,68 @@
         </div>
     </div>
 
+
+<div class="d-flex flex-row p-4 text-center justify-content-center w-100">
+    <nav class="text-center mx-auto">
+        <ul class="pagination">
+            <li th:class="@{page-item} + ${users.isFirst()}? 'disabled' : ''">
+                <span class="page-link" th:if='${users.isFirst()}'>First</span>
+                <a  class="page-link" th:if='${not users.isFirst()}' th:href="'?page=0'">
+                    First
+                </a>
+            </li>
+            <li th:class="${users.hasPrevious()}? '' : 'disabled'">
+                <span class="page-link disabled" th:if='${not users.hasPrevious()}'>«</span>
+                <a class="page-link"
+                   th:if='${users.hasPrevious()}'
+                   th:href="'?page=' + ${users.getNumber() - 1}"
+                   title='Go to previous page'
+                >
+                    «
+                </a>
+            </li>
+            <li  class="page-item" th:each="i : ${#numbers.sequence(1, users.getTotalPages())}">
+                <span
+                        th:if='${(i - 1) == param.page}'
+                        th:text='${i}'>
+                    1
+                </span>
+                <a class="page-link"
+                   th:if='${not ((i - 1) == param.page)}'
+                   th:href="'?page=' + ${(i -1)}"
+                >
+                    <span th:text='${i}'>1</span>
+                </a>
+            </li>
+            <li th:class="${users.hasNext()} ? '' : 'disabled'">
+                <span class="page-link" th:if='${not users.hasNext()}'>»</span>
+                <a class="page-link"
+                   th:if='${users.hasNext()}'
+                   th:href="'?page=' + ${users.getNumber() + 1}"
+                   title='Go to next page'
+                >
+                    »
+                </a>
+            </li>
+            <li th:class="${users.isLast()}? 'disabled' : ''">
+                <span class="page-link disabled" th:if='${users.isLast()}'>Last</span>
+                <a  class="page-link"
+                    th:if='${not users.isLast()}'
+                    th:href="'?page=' + ${users.getTotalPages() - 1}"
+                >
+                    Last
+                </a>
+            </li>
+        </ul>
+    </nav>
+</div>
+
+
+
+
+
+
+
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -64,6 +126,9 @@
         </div>
     </div>
 </div>
+
+
+
 
 <div th:replace="partials/layout :: footer" />
 <script type="text/javascript">

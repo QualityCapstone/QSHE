@@ -89,6 +89,7 @@ public class UserProfileController {
         }
 
 
+
         model.addAttribute("conversations", messageDao.getConversations(user));
 
         String userstate = user.getProfile().getUserState();

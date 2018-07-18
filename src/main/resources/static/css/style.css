@@ -144,6 +144,9 @@ body .modal-open {
     box-shadow: 1px 5px 5px #aeaeae;
 }
 
+.about-us {
+    height: 600px;
+}
 
 
 .slider {
