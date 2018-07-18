@@ -40,6 +40,7 @@ public class PostController {
     public String viewDiscussion(@PathVariable Long id, Model model) {
 
         PostTopic topic = topicDao.findById(id);
+        model.addAttribute("topic" , topic);
         model.addAttribute("posts",posts.findAllByTopic(topic));
 
         return "posts/topic";

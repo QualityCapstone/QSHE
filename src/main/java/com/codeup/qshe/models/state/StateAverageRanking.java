@@ -4,8 +4,12 @@ import com.codeup.qshe.models.State;
 import com.codeup.qshe.models.user.StateMetric;
 import com.codeup.qshe.models.user.StateUserRating;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
 
 public class StateAverageRanking {
 
@@ -70,4 +74,19 @@ public class StateAverageRanking {
     public void setMetrics(HashMap<StateMetric, Float> metrics) {
         this.metrics = metrics;
     }
+
+
+    public HashMap<String, Float> getMetricValues() {
+
+        HashMap<String, Float> easyMap = new HashMap<>();
+
+        for (HashMap.Entry<StateMetric, Float> entry : metrics.entrySet()) {
+            StateMetric key = entry.getKey();
+            float value = entry.getValue();
+            easyMap.put(key.getName(), value);
+        }
+
+        return easyMap;
+    }
+
 }

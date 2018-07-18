@@ -51,6 +51,18 @@ public class ApiStateMetricController {
         return ResponseEntity.ok(rating);
     }
 
+    @RequestMapping(value="/ratings/calc/{abbr}", method=GET, produces= MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody ResponseEntity getCalcRatings(@PathVariable String abbr) throws Exception {
+
+        State state  = stateDao.getStates().findByAbbr(abbr);
+
+        StateAverageRanking rating = metricDao.calculatedRatingsByState(state);
+
+        return ResponseEntity.ok(rating);
+    }
+
+
+
 
     @RequestMapping(value="/crime/{abbr}", method=GET, produces= MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody ResponseEntity getCrimeData(@PathVariable String abbr) throws Exception {

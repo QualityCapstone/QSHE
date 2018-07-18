@@ -2,14 +2,12 @@ package com.codeup.qshe.services;
 
 import com.codeup.qshe.models.State;
 import com.codeup.qshe.models.state.StateAverageRanking;
+import com.codeup.qshe.models.state.StateCalculatedRating;
 import com.codeup.qshe.models.user.StateMetric;
 import com.codeup.qshe.models.user.StateUserRating;
 import com.codeup.qshe.models.user.User;
-import com.codeup.qshe.repositories.StateMetrics;
+import com.codeup.qshe.repositories.*;
 
-import com.codeup.qshe.repositories.States;
-import com.codeup.qshe.repositories.UserRatings;
-import com.codeup.qshe.repositories.Users;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
@@ -22,12 +20,13 @@ public class StateMetricService {
     private StateMetrics stateMetrics;
     private States states;
     private UserRatings ratings;
+    private StateCalculatedRatings calculated;
 
-
-   public StateMetricService(StateMetrics stateMetrics, States states, UserRatings ratings){
+   public StateMetricService(StateMetrics stateMetrics, States states, UserRatings ratings, StateCalculatedRatings calculated){
        this.stateMetrics = stateMetrics;
        this.states = states;
        this.ratings = ratings;
+       this.calculated = calculated;
 
    }
 
@@ -109,7 +108,24 @@ public class StateMetricService {
     }
 
 
+    public StateAverageRanking calculatedRatingsByState(State state) {
 
+        List<StateMetric> metrics = getStateMetrics().findAll();
+        StateAverageRanking rank = new StateAverageRanking(state);
+
+        for(StateMetric metric : metrics) {
+            Float  average = getCalculated().findByStateAndMetric(state, metric).getValue();
+            rank.addMetric(metric,average);
+        }
+
+        return rank;
+    }
+
+
+
+    public StateCalculatedRatings getCalculated() {
+        return calculated;
+    }
 
 
 //    public HashMap<State, Float> overallAverageRatingByState() {

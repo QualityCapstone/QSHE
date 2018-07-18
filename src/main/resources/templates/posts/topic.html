@@ -12,20 +12,38 @@
 <div th:replace="posts/message :: message-modal" />
 
 
-<div class="container bg-white text-center border border-dark rounded mt-5" sec:authorize="isAuthenticated()">
+<div class="container" sec:authorize="isAuthenticated()">
+    <div class="card-header">
+        <div class="state-header"><h2><span th:text="'Topic: ' +${topic.title}"></span></h2></div>
 
-    <table class="table table-hover">
+    </div>
+    <div class="card-body">
+
+    <div  class="form-group form-inline col-12"  >
+        <form id="topic-form col-12"  th:action="@{~/posts/state/} + ${topic.state.abbr}">
+            <button class="btn-primary btn mr-2" id="topic-all"> <i class="fas fa-chevron-circle-left"></i> Back to Topic List </button>
+            <input class="form-control topic-add-input " type="text" id="title" name="title">
+            <input type="hidden" id="state-abbr" name="state-abbr" >
+            <input type="submit" class="btn btn-primary text-light" id="topic-submit" />
+
+
+        </form>
+
+    </div>
+
+    <table class="table table-hover mt-2 table-striped">
         <thead>
             <tr>
-                <th></th>
-                <th class="sticky-top" >User</th>
-                <th class="sticky-top">From</th>
-                <th class="d-none d-sm-table-cell sticky-top">Post</th>
+                <th ></th>
+                <th  >User</th>
+                <th >From</th>
+                <th class="d-none d-sm-table-cell ">Post</th>
             </tr>
         </thead>
-        <tbody>
         <th:block th:each="post: ${posts}" th:height="auto" >
+        <tbody>
             <tr class="posts" th:data-id="${post.id}">
+
                 <td>
                     <a th:data-recipient-id="${post.user.id}" th:data-recipient-name="${post.user.profile.firstName}" class="btn btn-secondary message-modal-bnt" data-toggle="modal" data-target="#exampleModal">   <img th:if="${post.user.profile.uploadPath}"  th:src="@{/uploads/} + ${post.user.profile.uploadPath}"  class="message-md-avatar" /></a>
 
@@ -51,6 +69,8 @@
             </th:block>
         </tbody>
     </table>
+
+    </div>
     <div class="card-body outer">
         <form class="card" th:action="@{/topic/state/}+${id}" method="post" th:object="${post}">
             <input type="text" id="message" name="message" />
