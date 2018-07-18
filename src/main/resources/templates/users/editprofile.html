@@ -28,7 +28,7 @@
                             <input type="file" id="file" name="file" />
                         </div>
                         <div class="filediv">
-                            <button class="btn btn-primary fileupload" type="button" onclick="chooseFile(); showPreview()">Choose File</button>
+                            <button id="pick" class="btn btn-primary fileupload" type="button" onclick="chooseFile(); showPreview()">Choose File</button>
                         </div>
                         <div class="filediv">
                             <input class="btn btn-primary fileupload" type="submit" value="Update Profile Picture" onclick="stopScroll()" />
@@ -165,6 +165,7 @@
     }
     function chooseFile() {
         $("#file").click();
+        $("#pick").attr("disabled", true);
     }
     function readURL(input) {
         if (input.files && input.files[0]) {
