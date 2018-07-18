@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 240);
+/******/ 	return __webpack_require__(__webpack_require__.s = 244);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -10520,7 +10520,7 @@ function toComment(sourceMap) {
 
 /***/ }),
 
-/***/ 20:
+/***/ 19:
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -11003,7 +11003,7 @@ module.exports = function (css) {
 
 /***/ }),
 
-/***/ 240:
+/***/ 244:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11015,7 +11015,7 @@ var _map2 = _interopRequireDefault(_map);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var NewsAPI = __webpack_require__(241);
+var NewsAPI = __webpack_require__(245);
 var newsapi = new NewsAPI('b8cc911c5a604eadac02a424f0945ae8');
 
 // To query /v2/everything
@@ -11065,7 +11065,7 @@ newsapi.v2.everything({
 
 /***/ }),
 
-/***/ 241:
+/***/ 245:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11081,9 +11081,9 @@ newsapi.v2.everything({
  * claim to have created any of the facilities provided by NewsAPI.org.
  */
 
-const Promise = __webpack_require__(242),
-  fetch = __webpack_require__(243),
-  qs = __webpack_require__(244),
+const Promise = __webpack_require__(246),
+  fetch = __webpack_require__(247),
+  qs = __webpack_require__(248),
   host = 'https://newsapi.org';
 
 fetch.Promise = Promise;
@@ -11213,7 +11213,7 @@ module.exports = NewsAPI;
 
 /***/ }),
 
-/***/ 242:
+/***/ 246:
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(process, global, setImmediate) {/* @preserve
@@ -16843,7 +16843,7 @@ module.exports = ret;
 
 /***/ }),
 
-/***/ 243:
+/***/ 247:
 /***/ (function(module, exports) {
 
 module.exports = exports = window.fetch;
@@ -16858,19 +16858,19 @@ exports.Response = window.Response;
 
 /***/ }),
 
-/***/ 244:
+/***/ 248:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-exports.decode = exports.parse = __webpack_require__(245);
-exports.encode = exports.stringify = __webpack_require__(246);
+exports.decode = exports.parse = __webpack_require__(249);
+exports.encode = exports.stringify = __webpack_require__(250);
 
 
 /***/ }),
 
-/***/ 245:
+/***/ 249:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -16962,7 +16962,7 @@ var isArray = Array.isArray || function (xs) {
 
 /***/ }),
 
-/***/ 246:
+/***/ 250:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -17101,7 +17101,7 @@ var options = {"hmr":true}
 options.transform = transform
 options.insertInto = undefined;
 
-var update = __webpack_require__(20)(content, options);
+var update = __webpack_require__(19)(content, options);
 
 if(content.locals) module.exports = content.locals;
 
