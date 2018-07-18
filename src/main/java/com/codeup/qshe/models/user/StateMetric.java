@@ -1,6 +1,7 @@
 package com.codeup.qshe.models.user;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
 @Table
@@ -39,5 +40,18 @@ public class StateMetric {
     @Override
     public String toString() {
         return name;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        StateMetric that = (StateMetric) o;
+        return Objects.equals(name, that.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name);
     }
 }
