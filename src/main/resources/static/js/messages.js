@@ -1,3 +1,7 @@
+import icons from "trumbowyg/dist/ui/icons.svg"
+import "trumbowyg/dist/ui/trumbowyg.min.css"
+import "trumbowyg/dist/trumbowyg.js";
+
 const animate = require("animate.css");
 
 $.fn.extend({
@@ -56,3 +60,8 @@ $('#topic-new').click(function(e){
         $('#recipient-id').val($(this).attr("data-recipient-id"));
     })
 
+$.trumbowyg.svgPath = "http://" +window.location.host + "/img/icons.svg";
+
+$('#topic-message').trumbowyg({
+    autogrow: true
+});

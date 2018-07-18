@@ -34,7 +34,7 @@
     <table class="table table-hover mt-2 table-striped">
         <thead>
             <tr>
-                <th ></th>
+                <th></th>
                 <th  >User</th>
                 <th >From</th>
                 <th class="d-none d-sm-table-cell ">Post</th>
@@ -58,7 +58,7 @@
                     <span th:text="${post.user.profile.userState}" ></span>
                 </td>
                 <td>
-                    <span th:text="${post.message}" ></span>
+                    <span th:utext="${post.message}" ></span>
                 </td>
 
                 <td>
@@ -73,7 +73,7 @@
     </div>
     <div class="card-body outer">
         <form class="card" th:action="@{/topic/state/}+${id}" method="post" th:object="${post}">
-            <input type="text" id="message" name="message" />
+            <textarea type="text" id="topic-message" name="message"></textarea>
 
             <button class="btn btn-primary">New Post</button>
         </form>
