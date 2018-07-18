@@ -9,60 +9,147 @@
 <body>
 <div th:replace="partials/layout :: navbar" />
 <div class="container">
-        <!--<div class="card border rounded mt-5 mb-5 about-us">-->
-            <h1 class="text-center mt-2 mb-2">About us</h1>
-        <!--</div>-->
-    <div class="row d-flex flex-wrap p-3">
-        <div class="card about-us col-12 col-lg-3 col-sm-6">
-            <img class="mx-auto about-img mt-3" src="/img/Brian.jpeg" alt="Card image cap">
-            <div class="card-body">
-                <h5 class="card-title text-center">Brian</h5>
-                <p class="card-text">I am an extremely passionate developer, and love to absorb as much knowledge as I am able to. I am very easy to work with, and am capable of accomplishing tasks in a timely manner and to the expectations of my client/employer.</p>
-            </div>
-            <div class="card-footer bg-transparent">
-                <a href="https://github.com/briantorluemke" target="_blank"><img class="img-fluid" src="/img/GitHub.png" style="height:25px"></a>
-                <a href="https://www.linkedin.com/in/brian-torluemke" target="_blank"> <img class="img-fluid" src="/img/LinkedIn.png" style="height:25px"></a>
-                <img class="img-fluid" src="/img/Email.png" style="height:25px">
-            </div>
-        </div>
-        <div class="card about-us col-12 col-lg-3 col-sm-6 float-right">
-                <img class="mx-auto about-img mt-3" src="/img/DaneMiller.jpg" alt="Card image cap">
-            <div class="card-body">
-                <h5 class="card-title text-center">Dane</h5>
-                <p class="card-text">Creator of automated solutions to help reduce task complexity for those around us.. Passionately enthusiastic in looking for new ways to unravel the problems around us to make a more efficient everyday.</p>
-            </div>
-            <div class="card-footer bg-transparent">
-                <a href="https://github.com/unfaiyted" target="_blank"><img class="img-fluid" src="/img/GitHub.png" style="height:25px"></a>
-                <a href="https://www.linkedin.com/in/danelmiller" target="_blank"><img class="img-fluid" src="/img/LinkedIn.png" style="height:25px"></a>
-                <img class="img-fluid" src="/img/Email.png" style="height:25px">
-            </div>
-        </div>
-        <div class="card about-us col-12 col-lg-3 col-sm-6">
-            <img class="mx-auto about-img mt-3" src="/img/Monica.jpeg" alt="Card image cap">
-            <div class="card-body">
-                <h5 class="card-title text-center">Monica</h5>
-                <p class="card-text">I am a constant learner who transforms ideas into reality. I embrace the flow of change from fluid environments and putting my heart into everything I do is key! Add  code to that and imagine the results!</p>
-            </div>
-            <div class="card-footer bg-transparent">
-                <a href="https://github.com/Monicacholico" target="_blank"><img class="img-fluid" src="/img/GitHub.png" style="height: 25px"></a>
-                <a href="https://www.linkedin.com/in/monicacholico" target="_blank"><img class="img-fluid" src="/img/LinkedIn.png" style="height: 25px"></a>
-                <img class="img-fluid" src="/img/Email.png" style="height: 25px">
+    <h1 class="text-center mt-2 mb-2">About us</h1>
+    <div class="userProfile row d-flex flex-wrap">
+        <div class="col-12 col-md-6 col-sm-12 ">
+            <div class="card card-border m-3 about-us">
+
+                <div class="card-title text-left pt-3">
+                    <h3>Brian Tourlemke</h3>
+
+
+                    <hr>
+                </div>
+                <div class="card-body">
+                    <div>
+                        <div>
+                            <img src="/img/Brian.jpeg" alt="none" class="avatar-img" />
+                        </div>
+                    </div>
+
+                    <div class="profile-data">
+                        <div class="row">
+                            <div class="profile-value">
+                                <p class="mt-1 p-5" style="overflow: hidden;">I am an extremely passionate developer, and love to absorb as much knowledge as I am able to.
+                                    I am very easy to work with, and am capable of accomplishing tasks in a timely manner and to
+                                    the expectations of my client/employer.</p>
+                            </div>
+                            <div class="card-footer bg-transparent border-0">
+                                <a href="https://github.com/briantorluemke" target="_blank"><img class="img-fluid" src="/img/GitHub.png" style="height:25px"></a>
+                                <a href="https://www.linkedin.com/in/brian-torluemke" target="_blank"> <img class="img-fluid" src="/img/LinkedIn.png" style="height:25px"></a>
+                                <img class="img-fluid" src="/img/Email.png" style="height:25px">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
-        <div class="card about-us col-12 col-lg-3 col-sm-6 float-right">
-            <img class="mx-auto about-img mt-3" src="/img/Richard.jpeg" alt="Card image cap">
-            <div class="card-body">
-                <h5 class="card-title text-center">Richard</h5>
-                <p class="card-text">I am an extremely passionate developer, and love to absorb as much knowledge as I am able to. I am very easy to work with, and am capable of accomplishing tasks in a timely manner and to the expectations of my client/employer.</p>
+        <div class="col-12 col-md-6 col-sm-12 float-right">
+            <div class="card card-border m-3 about-us">
+
+                <div class="card-title text-left pt-3">
+                    <h3>Dane Miller</h3>
+
+                    <hr>
+                </div>
+                <div class="card-body">
+                    <div>
+                        <div>
+                            <img src="/img/DaneMiller.jpg" alt="none" class="avatar-img" />
+                        </div>
+                    </div>
+
+                    <div class="profile-data">
+                        <div class="row">
+                            <div class="profile-value">
+                                <p class="mt-1 p-5" style="overflow: hidden;">Creator of automated solutions to help reduce task complexity for those around us..
+                                    Passionately enthusiastic in looking for new ways to unravel the problems around us to make a more efficient everyday..</p>
+                            </div>
+                            <div class="card-footer bg-transparent border-0">
+                                <a href="https://github.com/unfaiyted" target="_blank"><img class="img-fluid" src="/img/GitHub.png" style="height:25px"></a>
+                                <a href="https://www.linkedin.com/in/danelmiller" target="_blank"><img class="img-fluid" src="/img/LinkedIn.png" style="height:25px"></a>
+                                <img class="img-fluid" src="/img/Email.png" style="height:25px">
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
             </div>
-            <div class="card-footer bg-transparent">
-                <a href="https://github.com/RichardCalata" target="_blank"><img class="img-fluid" src="/img/GitHub.png" style="height:25px"></a>
-                <a href="https://www.linkedin.com/in/richard-calata" target="_blank"><img class="img-fluid" src="/img/LinkedIn.png" style="height:25px"></a>
-                <img class="img-fluid" src="/img/Email.png" style="height:25px">
+        </div>
+        <div class="col-12 col-md-6 col-sm-12 float-right">
+            <div class="card card-border m-3 about-us">
+
+                <div class="card-title text-left pt-3">
+                    <h3>Monica L Cholico</h3>
+
+                    <hr>
+                </div>
+                <div class="card-body">
+                    <div>
+                        <div>
+                            <img src="/img/Monica.jpeg" alt="none" class="avatar-img" />
+                        </div>
+                    </div>
+
+                    <div class="profile-data">
+                        <div class="row">
+                            <div class="profile-value">
+                                <p class="mt-1 p-5" style="overflow: hidden;">Creator of automated solutions to help reduce task complexity for those around us..
+                                    Passionately enthusiastic in looking for new ways to unravel the problems around us to make a more efficient everyday..</p>
+                            </div>
+                            <div class="card-footer bg-transparent border-0">
+                                <a href="https://github.com/Monicacholico" target="_blank"><img class="img-fluid" src="/img/GitHub.png" style="height: 25px"></a>
+                                <a href="https://www.linkedin.com/in/monicacholico" target="_blank"><img class="img-fluid" src="/img/LinkedIn.png" style="height: 25px"></a>
+                                <img class="img-fluid" src="/img/Email.png" style="height: 25px">
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+
+            </div>
+        </div>
+        <div class="col-12 col-md-6 col-sm-12 float-right">
+            <div class="card card-border m-3 about-us">
+
+                <div class="card-title text-left pt-3">
+                    <h3>Richard Calata</h3>
+
+                    <hr>
+                </div>
+                <div class="card-body">
+                    <div>
+                        <div>
+                            <img src="/img/Richard.jpeg" alt="none" class="avatar-img" />
+                        </div>
+                    </div>
+
+                    <div class="profile-data">
+                        <div class="row">
+                            <div class="profile-value">
+                                <p class="mt-1 p-5" style="overflow: hidden;">Creator of automated solutions to help reduce task complexity for those around us..
+                                    Passionately enthusiastic in looking for new ways to unravel the problems around us to make a more efficient everyday..</p>
+                            </div>
+                            <div class="card-footer bg-transparent border-0">
+                                <a href="https://github.com/RichardCalata" target="_blank"><img class="img-fluid" src="/img/GitHub.png" style="height:25px"></a>
+                                <a href="https://www.linkedin.com/in/richard-calata" target="_blank"><img class="img-fluid" src="/img/LinkedIn.png" style="height:25px"></a>
+                                <img class="img-fluid" src="/img/Email.png" style="height:25px">
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+
             </div>
         </div>
     </div>
 </div>
+
+
 <div th:replace="partials/layout :: footer" />
 </body>
 </html>
