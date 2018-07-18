@@ -13,9 +13,11 @@ if ($('#radar-chart').length > 0) {
 
     api.getData("state/ratings/average/" + abbr).then(function(avgData) {
 
-        console.log(avgData.metrics);
         let  radarData = avgData.metrics;
 
+        api.getData("state/ratings/calc/" + abbr).then(function(calcData) {
+
+            let  radarCalcData = calcData.metrics;
 
         let chart = am4core.create("radar-chart", am4charts.RadarChart);
 
@@ -61,27 +63,27 @@ if ($('#radar-chart').length > 0) {
         chart.data = [
             {
                 "metric": "Safety",
-                "value": 9.2,
+                "value": radarCalcData['Crime'],
                 "userValue": radarData['Crime']
             },
             {
                 "metric": "Education",
-                "value": 8.4,
+                "value": radarCalcData['Education'],
                 "userValue": radarData['Education']
             },
             {
                 "metric": "Growth",
-                "value": 5.5,
+                "value": radarCalcData['Growth'],
                 "userValue": radarData['Growth']
             },
             {
                 "metric": "Employment",
-                "value": 7.2,
+                "value": radarCalcData['Employment'],
                 "userValue": radarData['Employment']
             },
             {
                 "metric": "Health",
-                "value": 7.6,
+                "value":  radarCalcData['Health'],
                 "userValue": radarData['Health']
             }
         ];
@@ -89,7 +91,7 @@ if ($('#radar-chart').length > 0) {
 
     });
 
-
+    });
 }
 
 
