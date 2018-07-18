@@ -34,10 +34,10 @@
     <table class="table table-hover mt-2 table-striped">
         <thead>
             <tr>
-                <th ></th>
+                <th></th>
                 <th  >User</th>
-                <th >From</th>
-                <th class="d-none d-sm-table-cell ">Post</th>
+
+                <th class="">Post</th>
             </tr>
         </thead>
         <th:block th:each="post: ${posts}" th:height="auto" >
@@ -45,20 +45,18 @@
             <tr class="posts" th:data-id="${post.id}">
 
                 <td>
-                    <a th:data-recipient-id="${post.user.id}" th:data-recipient-name="${post.user.profile.firstName}" class="btn btn-secondary message-modal-bnt" data-toggle="modal" data-target="#exampleModal">   <img th:if="${post.user.profile.uploadPath}"  th:src="@{/uploads/} + ${post.user.profile.uploadPath}"  class="message-md-avatar" /></a>
-
+                    <img th:if="${post.user.profile.uploadPath}"    data-toggle="modal" data-target="#exampleModal"  th:src="@{/uploads/} + ${post.user.profile.uploadPath}"  class="message-lg-avatar" />
                 </td>
                 <td>
-                    <span th:text="${post.user.profile.firstName}" ></span>
+                    <span class="font-weight-bold" th:text="${post.user.profile.firstName}" ></span><br/>
+                    <span th:text="${post.user.profile.userState}" ></span><br/>
 
-                    <a th:data-recipient-id="${post.user.id}" th:data-recipient-name="${post.user.profile.firstName}" class="btn btn-secondary message-modal-bnt" data-toggle="modal" data-target="#exampleModal"> <i class="far fa-envelope" th:data-recipient-id="${post.user.id}" th:data-recipient-name="${post.user.profile.firstName}" ></i></a>
+                     <i class="far fa-envelope"  data-toggle="modal" data-target="#exampleModal"  th:data-recipient-id="${post.user.id}" th:data-recipient-name="${post.user.profile.firstName}" ></i>
 
                 </td>
+
                 <td>
-                    <span th:text="${post.user.profile.userState}" ></span>
-                </td>
-                <td>
-                    <span th:text="${post.message}" ></span>
+                    <span th:utext="${post.message}" ></span>
                 </td>
 
                 <td>
@@ -73,7 +71,7 @@
     </div>
     <div class="card-body outer">
         <form class="card" th:action="@{/topic/state/}+${id}" method="post" th:object="${post}">
-            <input type="text" id="message" name="message" />
+            <textarea type="text" id="topic-message" name="message"></textarea>
 
             <button class="btn btn-primary">New Post</button>
         </form>

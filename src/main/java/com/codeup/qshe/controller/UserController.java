@@ -14,6 +14,7 @@ import com.codeup.qshe.services.user.UserService;
 import com.flickr4java.flickr.FlickrException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
@@ -24,6 +25,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 
 import javax.validation.Valid;
 import java.time.LocalDateTime;
@@ -108,9 +111,9 @@ public class UserController {
 
 
     @GetMapping("/users")
-    public String viewAllUsers(Model view) {
+    public String viewAllUsers(Model view, @PageableDefault(value=24) Pageable pageable) {
         List<User> users = userDao.findAll();
-        view.addAttribute("users", users);
+        view.addAttribute("users", userDao.getUsers().findAll(pageable));
         return "users/all";
     }
 
