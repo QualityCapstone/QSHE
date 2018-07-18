@@ -95,7 +95,7 @@ public class DataLoader implements ApplicationRunner {
 
 
     public void run(ApplicationArguments args) throws IOException, URISyntaxException, SQLException {
-      //  calculateMetricRatings();
+      // calculateMetricRatings();
 
         if(FRESHSTART) {
             Random r = new Random();
@@ -161,8 +161,6 @@ public class DataLoader implements ApplicationRunner {
                     generateFakeConversations(maxConvosPerUser, convoMessages);
                     generateFakeTopicsAndResponses(postTopicsPerState,postResponsesPerTopic);
 
-                    // METRICS FOR RADAR CHART
-                    calculateMetricRatings();
 
                 }
 
@@ -181,6 +179,10 @@ public class DataLoader implements ApplicationRunner {
                     womenGradsByYear();
                     getPovertyData();
                     crimeData();
+
+                    // METRICS FOR RADAR CHART
+                    calculateMetricRatings();
+
 
                 }
 
@@ -689,6 +691,8 @@ public class DataLoader implements ApplicationRunner {
         List<String> statesAbbr = stateDao.getCrimes().stateCrimeWorstToBest();
         List<StateCalculatedRating> calculatedRatings = new ArrayList<>();
 
+        System.out.println(statesAbbr.toString());
+
         // CRIME
         StateMetric metric = ratingDao.getMetrics().findByName("Crime");
         metricStatesCalculation(statesAbbr, metric);
@@ -730,6 +734,7 @@ public class DataLoader implements ApplicationRunner {
             calculatedRatings.add(rating);
         }
 
+        System.out.println("SAVE RATING");
         ratingDao.getCalculated().saveAll(calculatedRatings);
     }
 
