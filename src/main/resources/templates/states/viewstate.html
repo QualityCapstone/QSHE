@@ -153,7 +153,7 @@
                     Education
                     <div  class="row pt-4">
                         <div class="metric col-md-6">
-                            <div class="number" th:text="${userR.get('Crime')}">8.7</div>
+                            <div class="number" th:text="${#numbers.formatDecimal(userR.get('Crime'), 0, 'DEFAULT', 2, 'DEFAULT')}">8.7</div>
                             <div class="name">User Rating</div>
                         </div>
 
@@ -164,7 +164,7 @@
 
                         <div class="col-md-3"></div>
                         <div class="metric col-md-6">
-                            <div class="number text-center">20th</div>
+                            <div class="number text-center" th:text="${ranking.get('Crime')}">20th</div>
                             <div class="name text-center">RANKING VS OTHER STATES</div>
                         </div>
                         <div class="col-md-3"></div>
@@ -175,7 +175,7 @@
                     <div class="row pt-4">
 
                         <div class="description-text">
-                            <p>The state ranks <span class="bold">20th</span> overall when compared against graduates totals
+                            <p>The state ranks <span class="bold" th:text="${ranking.get('Crime')}">20th</span> overall when compared against graduates totals
                                 from all other States.
 
                     </div>
@@ -222,7 +222,7 @@
 
                 <div  class="row pt-4">
                     <div class="metric col-md-6">
-                        <div class="number"  th:text="${userR.get('Growth')}">3.7</div>
+                        <div class="number"  th:text="${#numbers.formatDecimal(userR.get('Growth'), 0, 'DEFAULT', 2, 'DEFAULT')}">3.7</div>
                         <div class="name">User Rating</div>
                     </div>
 
@@ -242,7 +242,7 @@
 
                 <div class="row pt-4">
                     <div class="description-text">
-                        <p>The state ranks <span class="bold">15th</span> overall when compared against
+                        <p>The state ranks <span class="bold" th:text="${ranking.get('Growth')}">15th</span> overall when compared against
                             all other States.
                     </div>
                 </div>
@@ -267,7 +267,7 @@
 
             <div  class="row pt-4">
             <div class="metric col-md-6">
-                <div class="number" th:text="${userR.get('Education')}">6.7</div>
+                <div class="number" th:text="${#numbers.formatDecimal(userR.get('Education'), 0, 'DEFAULT', 2, 'DEFAULT')}">6.7</div>
                 <div class="name">User Rating</div>
             </div>
 
@@ -289,8 +289,8 @@
             <div class="row pt-4">
 
                 <div class="description-text">
-                    <p>The state ranks <span class="bold">45th</span> overall when compared against graduates totals
-                        from all other States. It ranks <span class="bold">32nd</span> when compared as a increase of
+                    <p>The state ranks <span class="bold" th:text="${ranking.get('Education')}">45th</span> overall when compared against graduates totals
+                        from all other States. It ranks <span class="bold" th:text="${ranking.get('Education')}">32nd</span> when compared as a increase of
                     graduates over the past 3 years.
                 </div>
 
@@ -323,7 +323,7 @@
 
                 <div  class="row pt-4">
                     <div class="metric col-md-6">
-                        <div class="number" th:text="${userR.get('Health')}">8.2</div>
+                        <div class="number" th:text="${#numbers.formatDecimal(userR.get('Health'), 0, 'DEFAULT', 2, 'DEFAULT')}">8.2</div>
                         <div class="name">User Rating</div>
                     </div>
 
@@ -345,7 +345,7 @@
                 <div class="row pt-4">
 
                     <div class="description-text">
-                        <p>The state ranks <span class="bold">15th</span> overall when compared against other states.
+                        <p>The state ranks <span class="bold" th:text="${ranking.get('Health')}">15th</span> overall when compared against other states.
                     </div>
 
                 </div>

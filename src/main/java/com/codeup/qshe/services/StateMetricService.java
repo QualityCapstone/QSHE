@@ -127,6 +127,38 @@ public class StateMetricService {
         return calculated;
     }
 
+    public HashMap<String, String> getMetricRankings(State state) {
+
+
+      List<StateCalculatedRating> calc = getCalculated().findAllByState(state);
+
+        HashMap<String, String> easyMap = new HashMap<>();
+
+
+        for (StateCalculatedRating c : calc) {
+            StateMetric key = c.getMetric();
+            Integer value = c.getRanking();
+
+            easyMap.put(key.getName(), ordinal(value));
+        }
+
+        return easyMap;
+    }
+
+
+    public static String ordinal(int i) {
+        String[] sufixes = new String[] { "th", "st", "nd", "rd", "th", "th", "th", "th", "th", "th" };
+        switch (i % 100) {
+            case 11:
+            case 12:
+            case 13:
+                return i + "th";
+            default:
+                return i + sufixes[i % 10];
+
+        }
+    }
+
 
 //    public HashMap<State, Float> overallAverageRatingByState() {
 //
