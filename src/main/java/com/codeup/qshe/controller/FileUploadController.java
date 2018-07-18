@@ -57,6 +57,6 @@ public class FileUploadController {
             e.printStackTrace();
             model.addAttribute("message", "Oops! Something went wrong..");
         }
-        return "redirect:/users/displayprofile";
+        return "redirect:/editprofile";
     }
 }
