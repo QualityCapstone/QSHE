@@ -98,9 +98,12 @@
     padding: 20px;
 }
 
-.left-state, right-state {
+.left-state, .right-state {
  width: 50%;
-    height: calc(100vh - 50px);
+    min-height: calc(100vh - 50px);
+
+    float: left;
+    padding: 20px;
 }
 
 .left-state {

@@ -30,11 +30,9 @@
     <div  class=" d-flex flex-column justify-content-center align-items-center state-header" th:style="@{background-image: url(} + ${p.large1600Url}+ @{);}">
 
 
-
-
         <div class="state-header-icon">
             <div class="state pt-4">
-                <svg th:class="@{icon icon-state-} + ${state.abbr}">
+                <svg th:class="@{icon icon-state-} + ${state.abbr}" style="width: 400px; height: 400px;">
                     <use th:xlink:href="@{#icon-state-} + ${state.abbr}"></use>
                 </svg>
             </div>
@@ -152,15 +150,15 @@
                         </div>
 
                     </div>
-
+                    Education
                     <div  class="row pt-4">
                         <div class="metric col-md-6">
-                            <div class="number">8.7</div>
+                            <div class="number" th:text="${userR.get('Crime')}">8.7</div>
                             <div class="name">User Rating</div>
                         </div>
 
                         <div class="metric col-md-6">
-                            <div class="number">6.2</div>
+                            <div class="number" th:text="${calcR.get('Crime')}">6.2</div>
                             <div class="name">True Sense</div>
                         </div>
 
@@ -224,12 +222,12 @@
 
                 <div  class="row pt-4">
                     <div class="metric col-md-6">
-                        <div class="number">3.7</div>
+                        <div class="number"  th:text="${userR.get('Growth')}">3.7</div>
                         <div class="name">User Rating</div>
                     </div>
 
                     <div class="metric col-md-6">
-                        <div class="number">7.2</div>
+                        <div class="number"  th:text="${calcR.get('Growth')}">7.2</div>
                         <div class="name">True Sense</div>
                     </div>
 
@@ -269,12 +267,12 @@
 
             <div  class="row pt-4">
             <div class="metric col-md-6">
-                <div class="number">6.7</div>
+                <div class="number" th:text="${userR.get('Education')}">6.7</div>
                 <div class="name">User Rating</div>
             </div>
 
             <div class="metric col-md-6">
-                <div class="number">4.2</div>
+                <div class="number" th:text="${calcR.get('Education')}">4.2</div>
                 <div class="name">True Sense</div>
             </div>
 
@@ -325,12 +323,12 @@
 
                 <div  class="row pt-4">
                     <div class="metric col-md-6">
-                        <div class="number">8.2</div>
+                        <div class="number" th:text="${userR.get('Health')}">8.2</div>
                         <div class="name">User Rating</div>
                     </div>
 
                     <div class="metric col-md-6">
-                        <div class="number">9.2</div>
+                        <div class="number" th:text="${calcR.get('Health')}">9.2</div>
                         <div class="name">True Sense</div>
                     </div>
 

@@ -55,8 +55,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 
       FlickrService f = new FlickrService(apiKey, sharedSecret);
 
-
         model.addAttribute("topPosts", postDao.getPosts().findTop3ByState(state));
+
+
+        model.addAttribute("calcR",metricDao.calculatedRatingsByState(state).getMetricValues());
+        model.addAttribute("userR", metricDao.averageUserRatingsByState(state).getMetricValues());
 
         model.addAttribute("states", stateDao.getStates().findAll());
         model.addAttribute("state", state);

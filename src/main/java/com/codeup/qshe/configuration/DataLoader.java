@@ -5,6 +5,7 @@ import com.codeup.qshe.models.SiteSetting;
 import com.codeup.qshe.models.State;
 import com.codeup.qshe.models.StateCrime;
 import com.codeup.qshe.models.StatePopulation;
+import com.codeup.qshe.models.state.StateCalculatedRating;
 import com.codeup.qshe.models.user.*;
 import com.codeup.qshe.repositories.SiteSettings;
 import com.codeup.qshe.services.CrimeService;
@@ -94,6 +95,7 @@ public class DataLoader implements ApplicationRunner {
 
 
     public void run(ApplicationArguments args) throws IOException, URISyntaxException, SQLException {
+      //  calculateMetricRatings();
 
         if(FRESHSTART) {
             Random r = new Random();
@@ -159,6 +161,9 @@ public class DataLoader implements ApplicationRunner {
                     generateFakeConversations(maxConvosPerUser, convoMessages);
                     generateFakeTopicsAndResponses(postTopicsPerState,postResponsesPerTopic);
 
+                    // METRICS FOR RADAR CHART
+                    calculateMetricRatings();
+
                 }
 
                 // REFRESH API DATA
@@ -202,6 +207,7 @@ public class DataLoader implements ApplicationRunner {
         postDao.getTopics().deleteAll();
 
         ratingDao.getUserRatings().deleteAll();
+        ratingDao.getCalculated().deleteAll();
 
         userDao.getUsers().deleteAll();
 
@@ -298,7 +304,6 @@ public class DataLoader implements ApplicationRunner {
         URL jsonURL = new URL(URL);
         ObjectMapper mapper = new ObjectMapper();
         JsonNode node = mapper.readTree(jsonURL);
-
 
         List<StatePopulation> populationList = new ArrayList<>();
 
@@ -599,7 +604,6 @@ public class DataLoader implements ApplicationRunner {
         return data;
     }
 
-
     private void generateStateUserMetrics(User user, State state) {
 
         List<StateMetric> metrics = ratingDao.getMetrics().findAll();
@@ -625,7 +629,7 @@ public class DataLoader implements ApplicationRunner {
                 User recipient = users.get(rand.nextInt(users.size()));
 
                 for(int i = 0; i < convoMessages; i++) {
-                    String message = faker.friends().quote();
+                    String message = faker.harryPotter().quote();
                     if(i%2 ==  0) {
                         messages.add(new Message(sender, recipient, message));
                     } else {
@@ -677,6 +681,70 @@ public class DataLoader implements ApplicationRunner {
 
 
     }
+
+//  RATINGS CALCS
+
+    private void calculateMetricRatings() {
+
+        List<String> statesAbbr = stateDao.getCrimes().stateCrimeWorstToBest();
+        List<StateCalculatedRating> calculatedRatings = new ArrayList<>();
+
+        // CRIME
+        StateMetric metric = ratingDao.getMetrics().findByName("Crime");
+        metricStatesCalculation(statesAbbr, metric);
+
+        //EDUCATION
+        statesAbbr = stateDao.getEducations().stateEducationMostToLeast();
+        metric = ratingDao.getMetrics().findByName("Education");
+        metricStatesCalculation(statesAbbr, metric);
+
+        //POPULATION
+        statesAbbr = stateDao.getPopulations().statePopulationMostToLeast();
+        metric = ratingDao.getMetrics().findByName("Growth");
+        metricStatesCalculation(statesAbbr, metric);
+
+        // RANDOM ORDER!
+        //HEALTH
+        Collections.shuffle(statesAbbr);
+        metric = ratingDao.getMetrics().findByName("Health");
+        metricStatesCalculation(statesAbbr, metric);
+
+        //EMPLOYMENT
+        Collections.shuffle(statesAbbr);
+        metric = ratingDao.getMetrics().findByName("Employment");
+        metricStatesCalculation(statesAbbr, metric);
+
+
+    }
+
+
+
+    private void metricStatesCalculation(List<String> statesAbbr, StateMetric metric) {
+        List<StateCalculatedRating> calculatedRatings = new ArrayList<>();
+        int i = 0;
+        for(String stateAbbr : statesAbbr) {
+            State match = stateDao.getStates().findByAbbr(stateAbbr);
+            float calcValue = rating(i, 50);
+            i++;
+            StateCalculatedRating  rating = new StateCalculatedRating(match,metric,calcValue, i);
+            calculatedRatings.add(rating);
+        }
+
+        ratingDao.getCalculated().saveAll(calculatedRatings);
+    }
+
+    private float rating(Integer rank, Integer total) {
+            float max = 10.0F;
+            float rankVal = max/ (float) total;
+
+            return (float) (total - rank) * rankVal;
+
+    }
+
+
+
+
+
 
 }
 

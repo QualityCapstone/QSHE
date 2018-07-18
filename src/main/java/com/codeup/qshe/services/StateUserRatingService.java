@@ -1,16 +1,10 @@
 package com.codeup.qshe.services;
 
 
-import com.codeup.qshe.models.State;
-import com.codeup.qshe.models.user.StateMetric;
-import com.codeup.qshe.models.user.StateUserRating;
-import com.codeup.qshe.models.user.User;
+
 import com.codeup.qshe.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 
 @Service
@@ -18,12 +12,14 @@ public class StateUserRatingService {
     private UserRatings userRatings;
     private States states;
     private StateMetrics metrics;
+    private StateCalculatedRatings calculated;
 
     @Autowired
-    public StateUserRatingService(UserRatings userRatings, States states, StateMetrics metrics) {
+    public StateUserRatingService(UserRatings userRatings, States states, StateMetrics metrics, StateCalculatedRatings calculated) {
         this.userRatings = userRatings;
         this.states = states;
         this.metrics = metrics;
+        this.calculated = calculated;
     }
 
     public UserRatings getUserRatings() {
@@ -38,7 +34,7 @@ public class StateUserRatingService {
         return metrics;
     }
 
-    
+    public StateCalculatedRatings getCalculated() { return calculated; }
 
 }
 
