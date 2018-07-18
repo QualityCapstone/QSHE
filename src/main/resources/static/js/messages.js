@@ -60,7 +60,7 @@ $('#topic-new').click(function(e){
         $('#recipient-id').val($(this).attr("data-recipient-id"));
     })
 
-$.trumbowyg.svgPath = "http://" +window.location.host + "/img/icons.svg";
+$.trumbowyg.svgPath =   window.location.protocol + "//" +window.location.host + "/img/icons.svg";
 
 $('#topic-message').trumbowyg({
     autogrow: true
