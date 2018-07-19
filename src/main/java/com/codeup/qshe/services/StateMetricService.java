@@ -167,9 +167,9 @@ public class StateMetricService {
         // overall_crime_increase
         easyMap.put("overall_crime_increase", faker.random().nextInt(2,8).toString());
         // percent_population_increase
-        easyMap.put("percent_population_increase", faker.random().nextInt(2,8).toString());
+        easyMap.put("percent_population_increase", getStateMetrics().percentPopulationIncreaseByState(state).toString());
         // year_over_year_population_growth
-        easyMap.put("year_over_year_population_growth", faker.random().nextInt(2,8).toString());
+        easyMap.put("year_over_year_population_growth", getStateMetrics().percentPopulationIncreaseByState(state).toString());
         // graduates_increase
         easyMap.put("graduates_increase", getEducations().percentIncreaseByState(state).toString());
         // graduates_total

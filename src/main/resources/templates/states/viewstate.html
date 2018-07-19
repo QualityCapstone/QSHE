@@ -215,7 +215,7 @@
                 <div class="row pt-4">
                     <div class="description-text">
                         <p>This chart displays population growth in <span th:text="${state.name}"></span>
-                            from 2010 to 2016. The state population has increased by <span class="bold">4%</span> in the last 6 years.</p>
+                            from 2010 to 2016. The state population has increased by <span class="bold" th:text="${#numbers.formatDecimal(special.get('percent_population_increase'), 0, 'DEFAULT', 2, 'DEFAULT')}">4%</span>% in the last 6 years.</p>
                     </div>
 
                 </div>
@@ -233,7 +233,7 @@
 
                     <div class="col-md-3"></div>
                     <div class="metric col-md-6">
-                        <div class="number text-center">4%</div>
+                        <div class="number text-center"  th:text="${#numbers.formatDecimal(special.get('percent_population_increase'), 0, 'DEFAULT', 2, 'DEFAULT')} + '%'">4%</div>
                         <div class="name text-center">YEAR OVER YEAR POPULATION GROWTH</div>
                     </div>
                     <div class="col-md-3"></div>

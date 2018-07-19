@@ -20,4 +20,9 @@ public interface StatePopulations extends CrudRepository<StatePopulation, Long> 
             "order by sum(population) desc;", nativeQuery = true)
     List<String> statePopulationMostToLeast();
 
+
+
+
+
+
 }

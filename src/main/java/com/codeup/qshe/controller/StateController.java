@@ -97,7 +97,17 @@ import org.springframework.web.bind.annotation.PathVariable;
             model.addAttribute("photoA", f.getPhotos(stateA.getName(),1));
             model.addAttribute("photoB", f.getPhotos(stateB.getName(),1));
 
-      return "states/compare";
+            model.addAttribute("calcA",metricDao.calculatedRatingsByState(stateA).getMetricValues());
+            model.addAttribute("userA", metricDao.averageUserRatingsByState(stateA).getMetricValues());
+            model.addAttribute("rankingA", metricDao.getMetricRankings(stateA));
+            model.addAttribute("specialA", metricDao.generateUniqueMetrics(stateA));
+
+            model.addAttribute("calcB",metricDao.calculatedRatingsByState(stateB).getMetricValues());
+            model.addAttribute("userB", metricDao.averageUserRatingsByState(stateB).getMetricValues());
+            model.addAttribute("rankingB", metricDao.getMetricRankings(stateB));
+            model.addAttribute("specialB", metricDao.generateUniqueMetrics(stateB));
+
+            return "states/compare";
 
 
     }
