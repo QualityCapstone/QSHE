@@ -62,6 +62,8 @@ import org.springframework.web.bind.annotation.PathVariable;
         model.addAttribute("userR", metricDao.averageUserRatingsByState(state).getMetricValues());
         model.addAttribute("ranking", metricDao.getMetricRankings(state));
 
+        model.addAttribute("special", metricDao.generateUniqueMetrics(state));
+
         model.addAttribute("states", stateDao.getStates().findAll());
         model.addAttribute("state", state);
         model.addAttribute("photos", f.getPhotos(state.getName(),1));

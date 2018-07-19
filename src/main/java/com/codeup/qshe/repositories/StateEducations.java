@@ -20,4 +20,15 @@ public interface StateEducations extends CrudRepository<StateEducation, Long> {
             "ORDER BY sum(graduate_count) DESC", nativeQuery = true)
     List<String> stateEducationMostToLeast();
 
+
+    @Query("Select sum(g.graduateCount) from StateEducation g  where g.state = ?1 group by g.state ")
+    Integer getTotalGraduatesByState(State state);
+
+
+    @Query("select  " +
+            "((1 - (min(graduate_count) / max(graduate_count))) * 100) " +
+            "from StateEducation e where e.state  = ?1")
+    Float percentIncreaseByState(State state);
+
+
 }
