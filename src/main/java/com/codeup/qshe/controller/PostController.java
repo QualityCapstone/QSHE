@@ -12,10 +12,7 @@ import com.codeup.qshe.services.StateService;
 import com.codeup.qshe.services.user.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 
 @Controller
@@ -56,6 +53,28 @@ public class PostController {
         postDao.getPosts().save(post);
 
         return "redirect:/topic/state/" + id;
+    }
+
+    @DeleteMapping("/post/{id}/delete")
+    public String deletePost(@PathVariable long id){
+        User user = userDao.getLoggedInUser();
+        Post post = postDao.findOne(id);
+        if(post.getUser().getId() != user.getId()){
+            return "redirect:/login";
+        }else
+
+            postDao.delete(id);
+        return "redirect:/topic/state";
+    }
+
+    @PostMapping("post/{id}/delete")
+    public String delete(@PathVariable long id, Model model){
+        Post post = postDao.findOne(id);
+        post.getTopic();
+        PostTopic topic =post.getTopic();
+        model.addAttribute("topic",topic);
+        postDao.delete(id);
+        return "redirect:/topic/state/" +topic.getId();
     }
 
 

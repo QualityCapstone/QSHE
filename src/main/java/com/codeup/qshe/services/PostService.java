@@ -44,4 +44,8 @@ public class PostService {
     }
     public PostTopics getTopicsReverse() {return topics;}
 
+    public void delete(long id){
+        posts.deleteById(id);
+    }
+
 }

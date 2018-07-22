@@ -56,11 +56,15 @@
                 </td>
 
                 <td>
-                    <span th:utext="${post.message}" ></span>
+                    <span th:text="${post.message}" ></span>
                 </td>
 
                 <td>
-
+                    <div class="">
+                        <form class="form-group" th:action="@{/post/{id}/delete(id=${post.id})}" method="post">
+                            <button type="submit" class="btn btn-danger btn-block " id="delete" name="delete">Delete</button>
+                        </form>
+                    </div>
                 </td>
             </tr>
 
