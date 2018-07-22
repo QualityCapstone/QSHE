@@ -69,10 +69,16 @@ public class PostController {
 
     @PostMapping("post/{id}/delete")
     public String delete(@PathVariable long id, Model model){
+
+        //deletes without discretion. need to a creator authorization
+        User user = userDao.getLoggedInUser();
         Post post = postDao.findOne(id);
         post.getTopic();
         PostTopic topic =post.getTopic();
         model.addAttribute("topic",topic);
+//        if(post.getUser().getId() != user.getId()){
+//            return "redirect:/login";
+//        }else
         postDao.delete(id);
         return "redirect:/topic/state/" +topic.getId();
     }
