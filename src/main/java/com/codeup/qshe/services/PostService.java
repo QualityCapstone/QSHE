@@ -21,9 +21,10 @@ public class PostService {
     public PostService(UserService userDao, Posts posts, PostTopics topics){
         this.posts = posts;
         this.topics = topics;
-        this.userDao =userDao;
+        this.userDao = userDao;
 
     }
+
 
     public Post findOne(long id){
         Post post = posts.findById(id);
